@@ -1,0 +1,23 @@
+{
+	"Testify Suite": {
+		"prefix": "suite",
+		"body": [
+			"import (",
+			"\"github.com/stretchr/testify/suite\"",
+			"\"testing\"",
+			")",
+			"",
+			"type ${1:Subject}Suite struct {",
+			"suite.Suite",
+			"}",
+			"",
+			"func Test${1:Subject}Suite(t *testing.T) {",
+			"suite.Run(t, new(${1:Subject}Suite))",
+			"}",
+			"",
+			"func (s *${1:Subject}Suite) SetupTest() {",
+			"}"
+		],
+		"description": "Boilerplate"
+	}
+}

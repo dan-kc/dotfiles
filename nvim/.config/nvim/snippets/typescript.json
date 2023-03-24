@@ -1,0 +1,26 @@
+{
+	"Console log": {
+		"prefix": "clg",
+		"body": [
+			"console.log($1)"
+		],
+		"description": "Log output to console"
+	},
+	"typescriptReactFunctionalExportComponent": {
+		"prefix": "rfc",
+		"body": [
+			"interface Props {",
+			"   children: React.ReactNode",
+			"}",
+			"",
+			"const $1:React.FC<Props> = ({children}) => {",
+			"   return (",
+			"      $2",
+			"   )",
+			"}",
+			"",
+			"export default $1"
+		],
+		"description": "Creates a React Functional Component"
+	}
+}
