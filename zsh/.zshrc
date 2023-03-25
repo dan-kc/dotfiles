@@ -10,15 +10,16 @@ stty stop undef
 export EDITOR=nvim      
 
 # Aliases.
+alias c=clear
 alias src='source ~/.zshrc'
-dot() {du -a ~/.dotfiles | awk '{print $2}' | fzf | xargs -r $EDITOR ; }
+alias l='exa -lah'
+alias ls=exa
+alias rm=trash
+dot() {cd ~/.dotfiles ; du -a ~/.dotfiles | awk '{print $2}' | fzf | xargs -r $EDITOR }
 proj() {ls -d projects/*/ | fzf | xargs -r $EDITOR ; }
-copydir() {pwd | tr -d "\r\n" | pbcopy ;}
-function copyfile {
-  [[ "$#" != 1 ]] && return 1
-  local file_to_copy=$1
-  cat $file_to_copy | pbcopy
-}
+copydir() {pwd | tr -d "\r\n" | pbcopy ; }
+copyfile() {[[ "$#" != 1 ]] && return 1 ; local file_to_copy=$1 ; cat $file_to_copy | pbcopy ; }
+take() {mkdir -p $1 ; cd $1 ; }
 
 # Allow inline comments.
 setopt interactive_comments
