@@ -70,9 +70,6 @@ require('packer').startup(function(use)
     after = 'nvim-treesitter',
   }
 
-  -- Emmet
-  use 'mattn/emmet-vim'
-
   -- Autopairs
   use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter
 
