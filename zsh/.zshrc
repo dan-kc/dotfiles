@@ -17,6 +17,5 @@ proj() {ls -d projects/*/ | fzf | xargs -r $EDITOR ; }
 setopt interactive_comments
 
 # Promt config.
-# PROMPT='%T %F{magenta}%B%~%b%f $ '
 
 eval "$(starship init zsh)"
