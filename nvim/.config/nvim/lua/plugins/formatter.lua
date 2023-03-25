@@ -1,34 +1,19 @@
 local vim = vim
 local formatter = require("formatter")
+
 local prettierConfig = function()
   return {
     exe = "prettier",
-    args = {"--stdin-filepath", vim.fn.shellescape(vim.api.nvim_buf_get_name(0)), "--single-quote"},
+    args = {
+      "--stdin-filepath",
+      vim.fn.shellescape(vim.api.nvim_buf_get_name(0)),
+      "--single-quote",
+      "--print-width" == 30
+    },
     stdin = true
   }
 end
 
-local formatterConfig = {
-  vue = {
-    function()
-      return {
-        exe = "prettier",
-        args = {
-          "--stdin-filepath",
-          vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)),
-          "--single-quote",
-          "--parser",
-          "vue"
-        },
-        stdin = true
-      }
-    end
-  },
-  ['*'] = {
-      -- require("formatter.filetypes.any").lsp_format,
-    -- require('formatter.filetypes.any').remove_trailing_whitespace
-  }
-}
 local commonFT = {
   "css",
   "scss",
@@ -46,14 +31,20 @@ local commonFT = {
   "svg",
   "svelte"
 }
+
+local formatterConfig = {
+  ['*'] = {
+    require('formatter.filetypes.any').remove_trailing_whitespace
+  }
+}
+
 for _, ft in ipairs(commonFT) do
-  formatterConfig[ft] = {prettierConfig}
+  formatterConfig[ft] = { prettierConfig }
 end
 -- Setup functions
 formatter.setup(
   {
-    logging = true,
+    logging = false,
     filetype = formatterConfig,
-    log_level = 2,
   }
 )

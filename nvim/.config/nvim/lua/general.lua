@@ -22,7 +22,6 @@ vim.o.smartindent = 4
 -- Remove wordwrap
 vim.o.wrap = false
 
-
 -- Enable mouse mode
 vim.o.mouse = 'a'
 
