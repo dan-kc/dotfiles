@@ -8,7 +8,6 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
 end
 
 require('packer').startup(function(use)
-
   -- Package manager
   use 'wbthomason/packer.nvim'
 
@@ -39,7 +38,8 @@ require('packer').startup(function(use)
   use 'rstacruz/vim-closer'
 
   -- Formatter
-  use 'mhartington/formatter.nvim'
+  -- use 'mhartington/formatter.nvim'
+  use "lukas-reineke/lsp-format.nvim"
 
   -- Comment
   use "terrortylor/nvim-comment"
@@ -49,7 +49,7 @@ require('packer').startup(function(use)
     requires = {
       'nvim-tree/nvim-web-devicons', -- optional, for file icons
     },
-    tag = 'nightly' -- optional, updated every week.
+    tag = 'nightly'                  -- optional, updated every week.
   }
 
   -- Improve startup time
@@ -77,10 +77,10 @@ require('packer').startup(function(use)
   use 'tpope/vim-fugitive'
   use 'tpope/vim-rhubarb'
   use 'lewis6991/gitsigns.nvim'
-  use 'navarasu/onedark.nvim' -- Theme inspired by Atom
-  use 'nvim-lualine/lualine.nvim' -- Fancier statusline
+  use 'navarasu/onedark.nvim'               -- Theme inspired by Atom
+  use 'nvim-lualine/lualine.nvim'           -- Fancier statusline
   use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
-  use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
+  use 'tpope/vim-sleuth'                    -- Detect tabstop and shiftwidth automatically
 
   -- Terminal
   use { "akinsho/toggleterm.nvim", tag = '*', config = function()
