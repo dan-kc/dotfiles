@@ -1,16 +1,19 @@
 keybinds clear-defaults=true {
     shared_except "locked" {
         bind "Ctrl q" { Quit; }
-        bind "Esc" { SwitchToMode "Locked"; }
+        bind "Ctrl l" { SwitchToMode "Locked"; }
+    }
+    shared_except "normal" {
+        bind "Esc" { SwitchToMode "Normal"; }
     }
     locked {
         bind "Ctrl l" { SwitchToMode "Normal"; }
     }
     normal {
-        bind "p" { SwitchToMode "Pane"; }
-        bind "m" { SwitchToMode "Move"; }
-        bind "t" { SwitchToMode "Tab"; }
-        bind "s" { SwitchToMode "Session"; }
+        bind "Ctrl p" { SwitchToMode "Pane"; }
+        bind "Ctrl m" { SwitchToMode "Move"; }
+        bind "Ctrl t" { SwitchToMode "Tab"; }
+        bind "Ctrl s" { SwitchToMode "Session"; }
     }
     pane {
         bind "h" "Left" { MoveFocus "Left"; }
@@ -22,7 +25,7 @@ keybinds clear-defaults=true {
         bind "f" { ToggleFocusFullscreen; }
         bind "w" { ToggleFloatingPanes; }
         bind "e" { TogglePaneEmbedOrFloating; }
-        bind "z" { TogglePaneFrames; SwitchToMode "Normal"; }
+        bind "z" { TogglePaneFrames; }
         bind "=" { Resize "Increase"; }
         bind "-" { Resize "Decrease"; }
         bind "r" { SwitchToMode "RenamePane"; PaneNameInput 0; }
@@ -119,7 +122,7 @@ default_layout "compact"
 // Choose the mode that zellij uses when starting up.
 // Default: normal
 //
-default_mode "locked"
+default_mode "normal"
 
 // The folder in which Zellij will look for layouts
 //
