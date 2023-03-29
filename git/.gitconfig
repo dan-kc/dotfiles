@@ -1,5 +1,10 @@
 [user]
-	name = dan-kc
+	name = Daniel Cox
 	email = 63171098+dan-kc@users.noreply.github.com
 [pull]
 	rebase = true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
