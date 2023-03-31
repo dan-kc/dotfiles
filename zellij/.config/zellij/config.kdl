@@ -11,11 +11,13 @@ keybinds clear-defaults=true {
     }
     normal {
         bind "Ctrl p" { SwitchToMode "Pane"; }
+        bind "Alt p" { ToggleFloatingPanes; }
         bind "Ctrl m" { SwitchToMode "Move"; }
         bind "Ctrl t" { SwitchToMode "Tab"; }
         bind "Ctrl s" { SwitchToMode "Session"; }
     }
     pane {
+        bind "Ctrl p" { SwitchToMode "Normal"; }
         bind "h" "Left" { MoveFocus "Left"; }
         bind "l" "Right" { MoveFocus "Right"; }
         bind "j" "Down" { MoveFocus "Down"; }
