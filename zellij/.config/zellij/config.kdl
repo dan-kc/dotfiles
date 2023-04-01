@@ -11,13 +11,12 @@ keybinds clear-defaults=true {
     }
     normal {
         bind "Ctrl p" { SwitchToMode "Pane"; }
-        bind "Alt p" { ToggleFloatingPanes; }
         bind "Ctrl m" { SwitchToMode "Move"; }
         bind "Ctrl t" { SwitchToMode "Tab"; }
         bind "Ctrl s" { SwitchToMode "Session"; }
     }
     pane {
-        bind "Ctrl p" { SwitchToMode "Normal"; }
+        bind "p" { ToggleFloatingPanes; }
         bind "h" "Left" { MoveFocus "Left"; }
         bind "l" "Right" { MoveFocus "Right"; }
         bind "j" "Down" { MoveFocus "Down"; }
@@ -40,6 +39,7 @@ keybinds clear-defaults=true {
         bind "l" "Right" { MovePane "Right"; }
     }
     tab {
+        bind "t" { ToggleTab; }
         bind "r" { SwitchToMode "RenameTab"; TabNameInput 0; }
         bind "h" "Left" { GoToPreviousTab; }
         bind "j" "Right" { GoToNextTab; }
@@ -54,7 +54,6 @@ keybinds clear-defaults=true {
         bind "7" { GoToTab 7; }
         bind "8" { GoToTab 8; }
         bind "9" { GoToTab 9; }
-        bind "Tab" { ToggleTab; }
     }
     session {
         bind "d" { Detach; }
