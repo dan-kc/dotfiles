@@ -107,13 +107,26 @@ themes {
         cyan 42 195 222
         white 192 202 245
         orange 255 158 100
+    };
+    catppuccin-mocha {
+    bg 88 91 112
+    fg 205 214 244
+    red 243 139 168
+    green 166 227 161
+    blue 137 180 250
+    yellow 249 226 175
+    magenta 245 194 231
+    orange 250 179 135
+    cyan 137 220 235
+    black 24 24 37
+    white 205 214 244
     }
 }
 
 // Choose the theme that is specified in the themes section.
 // Default: default
 
-theme "tokyo-night-dark"
+theme "catppuccin-mocha"
 
 // The name of the default layout to load on startup
 // Default: "default"
