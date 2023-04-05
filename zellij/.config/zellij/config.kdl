@@ -1,6 +1,5 @@
 keybinds clear-defaults=true {
     shared_except "locked" {
-        bind "Ctrl q" { Quit; }
         bind "Ctrl l" { SwitchToMode "Locked"; }
     }
     shared_except "normal" {
