@@ -13,12 +13,13 @@ require("lazy").setup({
     -- import/override with your plugins
     { import = "plugins" },
   },
+  opts = { colorscheme = "catppuccin-mocha" },
   defaults = {
     lazy = false,
     version = false, -- always use the latest git commit
   },
-  install = { colorscheme = { "tokyonight", "habamax", "gruvbox", "oxocarbon" } },
-  checker = { enabled = true }, -- automatically check for plugin updates
+  install = { colorscheme = { "catppuccin-mocha", "tokyonight", "habamax", "gruvbox", "oxocarbon" } },
+  checker = { enabled = true, notify = false }, -- automatically check for plugin updates
   performance = {
     rtp = {
       -- disable some rtp plugins
