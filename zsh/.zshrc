@@ -18,7 +18,7 @@ alias l='exa -lah'
 alias ls=exa
 alias rm=trash
 alias z='zellij'
-alias zkeys='nvim ~/.dotfiles/zellij/.config/zellij/config.kdl'
+alias za='zellij attach'
 dot() {cd ~/.dotfiles ; du -a ~/.dotfiles | awk '{print $2}' | fzf | xargs -r $EDITOR ; }
 proj() {ls -d ~/projects/*/ | fzf | xargs -r $EDITOR ; }
 copydir() {pwd | tr -d "\r\n" | pbcopy ; }
