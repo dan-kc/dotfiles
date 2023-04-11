@@ -38,7 +38,7 @@ keybinds clear-defaults=true {
         bind "l" "Right" { MovePane "Right"; }
     }
     tab {
-        bind "t" { ToggleTab; }
+        bind "t" { GoToNextTab; }
         bind "r" { SwitchToMode "RenameTab"; TabNameInput 0; }
         bind "h" "Left" { GoToPreviousTab; }
         bind "j" "Right" { GoToNextTab; }
@@ -108,24 +108,24 @@ themes {
         orange 255 158 100
     };
     catppuccin-mocha {
-    bg 88 91 112
-    fg 205 214 244
-    red 243 139 168
-    green 166 227 161
-    blue 137 180 250
-    yellow 249 226 175
-    magenta 245 194 231
-    orange 250 179 135
-    cyan 137 220 235
-    black 24 24 37
-    white 205 214 244
+        bg 88 91 112
+        fg 205 214 244
+        red 243 139 168
+        green 166 227 161
+        blue 137 180 250
+        yellow 249 226 175
+        magenta 245 194 231
+        orange 250 179 135
+        cyan 137 220 235
+        black 24 24 37
+        white 205 214 244
     }
 }
 
 // Choose the theme that is specified in the themes section.
 // Default: default
 
-theme "catppuccin-mocha"
+theme "tokyo-night-dark"
 
 // The name of the default layout to load on startup
 // Default: "default"
