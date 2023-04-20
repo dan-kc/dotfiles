@@ -13,6 +13,8 @@ export PATH=$PATH:$GOPATH/bin
 
 # Aliases.
 alias c=clear
+alias g=gitui
+alias x=xplr
 alias src='source ~/.zshrc'
 alias l='exa -lah'
 alias ls=exa

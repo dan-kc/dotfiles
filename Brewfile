@@ -3,29 +3,37 @@ tap "homebrew/cask"
 tap "homebrew/cask-fonts"
 tap "homebrew/core"
 tap "homebrew/services"
-# GitHub command-line tool
+tap "hyde46/hoard"
+tap "koekeishiya/formulae"
+tap "supabase/tap"
+brew "exa"
+brew "fzf"
 brew "gh"
-# Distributed revision control system
 brew "git"
-# Open source programming language to build simple/reliable/efficient software
+brew "gitui"
+brew "gnu-sed"
 brew "go"
-# Ambitious Vim-fork focused on extensibility and agility
+brew "lazygit"
+brew "lf"
 brew "neovim"
-# Platform built on V8 to build network applications
 brew "node"
-# Object-relational database system
 brew "postgresql@14", restart_service: true
-# Search tool like grep and The Silver Searcher
 brew "ripgrep"
-# Organize software neatly under a single directory tree (e.g. /usr/local)
+brew "starship"
 brew "stow"
-# Watch files and take action when they change
+brew "telnet"
+brew "tmux"
+brew "trash"
 brew "watchman"
-# Internet file retriever
 brew "wget"
-# Collaborative team software
+brew "xplr"
+brew "zellij"
+brew "zsh-syntax-highlighting"
+brew "hyde46/hoard/hoard"
+brew "supabase/tap/supabase"
+cask "alacritty"
 cask "figma"
-# Developer targeted fonts with a high number of glyphs
+cask "font-fira-code-nerd-font"
 cask "font-hack-nerd-font"
-# App to write, plan, collaborate, and get organized
 cask "notion"
+cask "rectangle"
