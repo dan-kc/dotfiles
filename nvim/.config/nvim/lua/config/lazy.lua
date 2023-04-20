@@ -18,7 +18,7 @@ require("lazy").setup({
     lazy = false,
     version = false, -- always use the latest git commit
   },
-  install = { colorscheme = { "catppuccin-mocha", "tokyonight", "habamax", "gruvbox", "oxocarbon" } },
+  install = { colorscheme = { "catppuccin-mocha" } },
   checker = { enabled = true, notify = false }, -- automatically check for plugin updates
   performance = {
     rtp = {
