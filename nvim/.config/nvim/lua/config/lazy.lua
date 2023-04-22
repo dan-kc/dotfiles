@@ -13,12 +13,10 @@ require("lazy").setup({
     -- import/override with your plugins
     { import = "plugins" },
   },
-  opts = { colorscheme = "catppuccin-mocha" },
   defaults = {
     lazy = false,
     version = false, -- always use the latest git commit
   },
-  install = { colorscheme = { "catppuccin-mocha" } },
   checker = { enabled = true, notify = false }, -- automatically check for plugin updates
   performance = {
     rtp = {

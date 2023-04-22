@@ -1,3 +1,5 @@
+-- Add time delay
+
 local Util = require("lazyvim.util")
 return {
   "folke/which-key.nvim",

@@ -1,3 +1,5 @@
+-- Remove the Tab functionality from the default config
+
 return {
   "L3MON4D3/LuaSnip",
   build = (not jit.os:find("Windows"))
