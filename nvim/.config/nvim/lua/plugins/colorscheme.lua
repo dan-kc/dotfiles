@@ -2,7 +2,8 @@ return {
   -- Install colorschemes
   { "ellisonleao/gruvbox.nvim" },
   { "catppuccin/nvim" },
-  { "nyoom-engineering/oxocarbon.nvim" },
+  { "shaunsingh/oxocarbon.nvim" },
+  { "rose-pine/neovim", name = "rose-pine" },
 
   -- Set default colorscheme
   {
