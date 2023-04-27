@@ -3,13 +3,13 @@ return {
   { "ellisonleao/gruvbox.nvim" },
   { "catppuccin/nvim" },
   { "shaunsingh/oxocarbon.nvim" },
-  { "rose-pine/neovim", name = "rose-pine" },
+  { "rose-pine/neovim" },
 
   -- Set default colorscheme
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "catppuccin-frappe",
+      colorscheme = "rose-pine-moon",
     },
   },
 }
