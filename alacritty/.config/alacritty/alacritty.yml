@@ -22,11 +22,11 @@ window:
   # Blank space added around the window in pixels. This padding is scaled
   # by DPI and the specified value is always added at both opposing sides.
   padding:
-   x: 0
-   y: 0
+   x: 14
+   y: 10
 
   # Spread additional padding evenly around the terminal content.
-  #dynamic_padding: false
+  dynamic_padding: false
 
   # Window decorations
   #
@@ -37,13 +37,13 @@ window:
   # Values for `decorations` (macOS only):
   #     - transparent: Title bar, transparent background and title bar buttons
   #     - buttonless: Title bar, transparent background and no title bar buttons
-  #decorations: full
+  decorations: buttonless
 
   # Background opacity
   #
   # Window opacity as a floating point number from `0.0` to `1.0`.
   # The value `0.0` is completely transparent and `1.0` is opaque.
-  # opacity: 0.9
+  opacity: 0.85
 
 
   # Startup Mode (changes require restart)
@@ -109,6 +109,8 @@ font:
     #   - (Linux/BSD) monospace
     #   - (Windows) Console
     family: FiraCode Nerd Font
+    size: 22.0
+    use_thin_strokes: true
 
     # The `style` can be specified to pick a specific face.
     #style: Regular
@@ -175,9 +177,7 @@ font:
 
 
 schemes:
-  # Tokyo Night theme, based on both:
-  #   https://github.com/ghifarit53/tokyonight-vim
-  #   https://github.com/enkia/tokyo-night-vscode-theme
+
   tokyo-night: &tokyo-night
     # Default colors
     primary:
@@ -234,8 +234,36 @@ schemes:
       cyan:    '#0db9d7'
       white:   '#acb0d0'
 
+  NeoSolarized-dark: &NeoSolarized-dark
+    # Default colors
+    primary:
+      background: '0x001217'
+      foreground: '0x708183'
+
+    # Normal colors
+    normal:
+      black:   '0x002b36'
+      red:     '0xdc322f'
+      green:   '0x859900'
+      yellow:  '0xb58900'
+      blue:    '0x268bd2'
+      magenta: '0xd33682'
+      cyan:    '0x2aa198'
+      white:   '0xeee8d5'
+
+    # Bright colors
+    bright:
+      black:   '0x002b36'
+      red:     '0xcb4b16'
+      green:   '0x586e75'
+      yellow:  '0x657b83'
+      blue:    '0x839496'
+      magenta: '0x6c71c4'
+      cyan:    '0x93a1a1'
+      white:   '0xfdf6e3'
+
 # Colors (Tokyo Night)
-colors: *tokyo-night-storm
+colors: *NeoSolarized-dark
 
   # Keyboard hints
   #hints:
@@ -431,7 +459,10 @@ colors: *tokyo-night-storm
   #thickness: 0.15
 
 # Live config reload (changes require restart)
-#live_config_reload: true
+live_config_reload: true
+
+env:
+  TERM: xterm-256color
 
 # Shell
 #
