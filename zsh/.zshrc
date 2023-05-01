@@ -16,7 +16,8 @@ eval "$(zoxide init zsh)"
 
 # Aliases.
 alias c=clear
-alias g=gitui
+tn() {tmux new -s $(pwd | sed 's/.*\///g')}
+alias g=lazygit
 alias x=xplr
 alias src='source ~/.zshrc'
 alias l='exa -lah'
