@@ -12,3 +12,8 @@ vim.api.nvim_create_autocmd("BufWritePost", {
   pattern = { ".skhdrc" },
   command = "!brew services restart skhd",
 })
+
+vim.api.nvim_create_autocmd("BufWritePost", {
+  pattern = { "*tmux.conf" },
+  command = "execute 'silent !tmux source <afile> --silent'",
+})
