@@ -11,6 +11,9 @@ export EDITOR=nvim
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 
+# Zoxide setup.
+eval "$(zoxide init zsh)"
+
 # Aliases.
 alias c=clear
 alias g=gitui
@@ -19,7 +22,7 @@ alias src='source ~/.zshrc'
 alias l='exa -lah'
 alias ls=exa
 alias rm=trash
-alias z='zellij'
+# alias z='zellij'
 alias za='zellij attach'
 dot() {cd ~/.dotfiles ; du -a ~/.dotfiles | awk '{print $2}' | fzf | xargs -r $EDITOR ; }
 proj() {ls -d ~/projects/*/ | fzf | xargs -r $EDITOR ; }
