@@ -16,14 +16,14 @@ eval "$(zoxide init zsh)"
 
 # Aliases.
 alias c=clear
-tn() {tmux new -s $(pwd | sed 's/.*\///g')}
-alias ta='tmux a'
 alias g=lazygit
 alias x=xplr
-alias src='source ~/.zshrc'
-alias l='exa -lah'
-alias ls=exa
 alias rm=trash
+alias l=exa
+alias ls='exa -lah'
+alias src='source ~/.zshrc'
+alias ta='tmux a'
+tn() {tmux new -s $(pwd | sed 's/.*\///g')}
 ff() { du -a | awk '{print $2}' | $(fzf --height 40% --border)| xargs -r $EDITOR ; }
 copydir() {pwd | tr -d "\r\n" | pbcopy ; }
 copyfile() {[[ "$#" != 1 ]] && return 1 ; local file_to_copy=$1 ; cat $file_to_copy | pbcopy ; }
