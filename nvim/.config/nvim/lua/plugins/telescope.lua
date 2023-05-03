@@ -13,5 +13,7 @@ return {
     { "<leader><space>", false },
     { "<leader>fF", Util.telescope("files"), desc = "Find Files (root dir)" },
     { "<leader>ff", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
+    { "<leader>sR", false },
+    { "<leader>sr", "<cmd>Telescope resume<cr>", desc = "Resume" },
   },
 }
