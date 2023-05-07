@@ -53,7 +53,7 @@ return {
     vim.keymap.set("n", "=p", "<Plug>(YankyPutAfterFilter)")
     vim.keymap.set("n", "=P", "<Plug>(YankyPutBeforeFilter)")
 
-    vim.keymap.set("n", "<leader>P", function()
+    vim.keymap.set("n", "<leader>p", function()
       require("telescope").extensions.yank_history.yank_history({})
     end, { desc = "Paste from Yanky" })
   end,
