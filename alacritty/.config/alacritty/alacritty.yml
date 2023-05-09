@@ -15,7 +15,7 @@ window:
     y: 30
   decorations: buttonless
   dynamic_padding: false
-  opacity: 0.95
+  opacity: 0.9
   option_as_alt: Both
 
 key_bindings:
