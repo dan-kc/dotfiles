@@ -1,8 +1,11 @@
 return {
   -- Install colorschemes
-  { "ellisonleao/gruvbox.nvim" }, -- Bug: Git highlight opaque background
   { "catppuccin/nvim" }, -- <3
   { "Tsuzat/NeoSolarized.nvim" },
+  { "rafamadriz/neon" },
+  { "shaunsingh/nord.nvim" },
+
+  { "ellisonleao/gruvbox.nvim" }, -- Bug: Git highlight opaque background
   { "shaunsingh/oxocarbon.nvim" }, --Bug: Git highlight opaque background | Telescope looks kinda dead
   { "rose-pine/neovim" }, --Bug: Git highlight opaque background
   { "folke/tokyonight.nvim" }, -- Bug: doesn't wanna install??
@@ -15,7 +18,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "catppuccin",
+      colorscheme = "neon",
     },
   },
 }
