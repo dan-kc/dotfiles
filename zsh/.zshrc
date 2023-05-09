@@ -38,3 +38,5 @@ eval "$(starship init zsh)"
 
 # Load syntax highlighting; should be last.
 source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+eval "$(atuin init zsh)"
