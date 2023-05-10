@@ -1,4 +1,5 @@
 local M = {}
+local icons = require("config.icons")
 
 M.theme = function()
   local colors = {
@@ -62,21 +63,26 @@ return {
         disabled_filetypes = { statusline = { "dashboard", "alpha" } },
       },
       sections = {
-        lualine_a = {
-          { "mode", separator = { left = "", right = "" }, right_padding = 2 },
-        },
+        lualine_a = {},
         lualine_b = {},
         lualine_c = {
           {
             "diagnostics",
+            sections = { "error", "warn", "info", "hint" },
             symbols = {
               error = icons.diagnostics.Error,
-              warn = icons.diagnostics.Warn,
-              info = icons.diagnostics.Info,
               hint = icons.diagnostics.Hint,
+              info = icons.diagnostics.Info,
+              warn = icons.diagnostics.Warn,
             },
+            colored = true,
+            update_in_insert = false,
+            always_visible = false,
           },
-          { "filename", symbols = { modified = "  ", readonly = "", unnamed = "" } },
+          {
+            -- "filename",
+            -- symbols = { modified = "  ", readonly = "", unnamed = "" },
+          },
         },
         lualine_x = {
           -- stylua: ignore
@@ -86,16 +92,20 @@ return {
             color = Util.fg("Debug"),
           },
           { "branch" },
+          {},
+        },
+        lualine_y = {
           {
             "diff",
             symbols = {
               added = icons.git.added,
-              modified = icons.git.modified,
-              removed = icons.git.removed,
+              untracked = icons.git.added,
+              removed = icons.git.deleted,
             },
+            colored = true,
+            always_visible = false,
           },
         },
-        lualine_y = {},
         lualine_z = {},
       },
       extensions = { "neo-tree", "lazy" },

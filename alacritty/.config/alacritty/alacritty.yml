@@ -15,7 +15,7 @@ window:
     y: 30
   decorations: buttonless
   dynamic_padding: false
-  opacity: 0.9
+  opacity: 0.96
   option_as_alt: Both
 
 key_bindings:
@@ -37,4 +37,4 @@ key_bindings:
   - { key: Semicolon, mods: Command, chars: "\x00:" } # enter the tmux command prompt
 
 import:
-  -  ~/.config/alacritty/themes/catppuccin-mocha.yml
+  -  ~/.config/alacritty/themes/kanagawa.yml

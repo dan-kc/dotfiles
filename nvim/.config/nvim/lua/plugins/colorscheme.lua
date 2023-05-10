@@ -1,15 +1,16 @@
 return {
-  -- Install colorschemes
-  { "catppuccin/nvim" }, -- <3
-  { "Tsuzat/NeoSolarized.nvim" },
-  { "rafamadriz/neon" }, --Bug: Code actions has background or border
-  { "shaunsingh/nord.nvim" },
 
-  { "ellisonleao/gruvbox.nvim" }, -- Bug: Git highlight opaque background
-  { "shaunsingh/oxocarbon.nvim" }, --Bug: Git highlight opaque background | Telescope looks kinda dead
-  { "rose-pine/neovim" }, --Bug: Git highlight opaque background
+  -- Transparency works perfectly
+  { "catppuccin/nvim" },
+  { "Tsuzat/NeoSolarized.nvim" },
+  { "shaunsingh/nord.nvim" },
+  { "ellisonleao/gruvbox.nvim" },
+  { "rose-pine/neovim" }, -- TINY TINY Telescope Pop in
+
+  { "shaunsingh/oxocarbon.nvim" }, -- Telescope Popin
+  { "rafamadriz/neon" }, --Bug: Code actions has background or border
   { "folke/tokyonight.nvim" }, -- Bug: doesn't wanna install??
-  { "JoosepAlviste/palenightfall.nvim" }, -- Telescope opaque background
+  { "JoosepAlviste/palenightfall.nvim" }, -- Lazyvim has bg and Telescope Popin
   { "rebelot/kanagawa.nvim" }, -- Bug: Telescope border chunky
   { "Yagua/nebulous.nvim" }, -- Bug: Telescope highlight missing
   { "marko-cerovac/material.nvim" }, -- Bug: Telescope highlight missing
@@ -18,7 +19,12 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "neon",
+      colorscheme = "kanagawa",
     },
   },
 }
+
+--TODO: Find the following highlight groups and add them to transparent plugin
+
+-- Telescope backgrounds
+-- Code actions border

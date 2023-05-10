@@ -4,6 +4,9 @@
 return {
   "xiyaowong/transparent.nvim",
   enable = true,
+  dependencies = {
+    "nvim-telescope/telescope.nvim",
+  },
   opts = {
     groups = { -- table: default groups
       "Normal",
@@ -31,21 +34,44 @@ return {
       "StatusLine",
     },
     extra_groups = {
-      "NormalFloat", -- plugins which have float panel such as Lazy, Mason, LspInfo
-      "NvimTreeNormal", -- NvimTree
-      "NeoTreeExpander",
-      "NeoTreeFileName",
-      -- "lualine_c_normal",
-      -- "lualine_transitional_lualine_b_normal_to_lualine_c_normal",
-      -- "lualine_transitional_lualine_b_insert_to_lualine_c_normal",
-      -- "lualine_transitional_lualine_b_visual_to_lualine_c_normal",
-      -- "lualine_transitional_lualine_b_command_to_lualine_c_normal",
-      "",
 
-      -- "NeoTreeGitStaged",
-      -- "NeoTreeModified",
-      -- "NeoTreeGitUnstaged",
-      -- "NeoTreeGitConflict",
+      -- Plugins which have float panel such as Lazy, Mason, LspInfo
+      "NormalFloat",
+      "FloatBorder",
+
+      -- Telescope
+      "TelescopeNormal",
+      "TelescopeMatching",
+      "TelescopeSelection",
+      "TelescopePromptNormal",
+      "TelescopePromptBorder",
+      "TelescopePromptTitle",
+      "TelescopePromptPrefix",
+      "TelescopeResultsBorder",
+      "TelescopeResultsNormal",
+      "TelescopeResultsTitle",
+      "TelescopePreviewBorder",
+      "TelescopePreviewNormal",
+      "TelescopePreviewTitle",
+      "TelescopeResultsDiffChange",
+      "TelescopeResultsDiffAdd",
+      "TelescopeResultsDiffDelete",
+      "TelescopeSelectionCaret",
+
+      -- GitSigns
+      "GitSignsChange",
+      "GitSignsAdd",
+      "GitSignsDelete",
+
+      -- Which key
+      "WhichKeyFloat",
+      "WhichKeyBorder",
+
+      -- Diagnostics
+      "DiagnosticSignError",
+      "DiagnosticSignWarn",
+      "DiagnosticSignHint",
+      "DiagnosticSignInfo",
     },
   },
 }
