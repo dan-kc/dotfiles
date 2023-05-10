@@ -31,10 +31,10 @@ To get started with using my dotfiles, follow the steps below:
    stow <folder-name>
    ```
 
-   Replace `<folder-name>` with the name of the folder containing the configuration files you want to use. For example, if you want to symlink the configuration files for Vim, run:
+   Replace `<folder-name>` with the name of the folder containing the configuration files you want to use. For example, if you want to symlink the configuration files for nvim, run:
 
    ```bash
-   stow vim
+   stow nvim
    ```
 
    Repeat this step for each folder you want to symlink.
@@ -56,6 +56,13 @@ brew bundle
 Make sure you have Homebrew installed on your macOS system before running this command.
 
 Feel free to customize the `Brewfile` to include or exclude packages based on your requirements.
+
+### Yabai Installation
+
+One of the packages listed in the Brewfile is yabai, a tiling window manager. However, yabai requires additional installation steps. To install yabai from the HEAD, please follow the instructions in the [this guide](https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(from-HEAD)).
+
+Make sure to complete the installation steps mentioned in the guide to set up yabai correctly.
+
 
 ## Contributing
 
