@@ -2,7 +2,7 @@ return {
   -- Install colorschemes
   { "catppuccin/nvim" }, -- <3
   { "Tsuzat/NeoSolarized.nvim" },
-  { "rafamadriz/neon" },
+  { "rafamadriz/neon" }, --Bug: Code actions has background or border
   { "shaunsingh/nord.nvim" },
 
   { "ellisonleao/gruvbox.nvim" }, -- Bug: Git highlight opaque background
