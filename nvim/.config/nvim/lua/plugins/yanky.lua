@@ -1,5 +1,3 @@
---TODO: Change keymapping for <c-p> as it clashes with zellij pane mode (or change zellij keymapping hmmmmm)
-
 return {
   "gbprod/yanky.nvim",
   enabled = true,
