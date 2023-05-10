@@ -886,8 +886,8 @@ xplr.config.layouts.builtin.default = {
 	Horizontal = {
 		config = {
 			constraints = {
-				{ Percentage = 70 },
-				{ Percentage = 30 },
+				{ Percentage = 80 },
+				{ Percentage = 20 },
 			},
 		},
 		splits = {
@@ -911,8 +911,8 @@ xplr.config.layouts.builtin.default = {
 				Vertical = {
 					config = {
 						constraints = {
-							{ Percentage = 30 },
-							{ Percentage = 70 },
+							{ Percentage = 20 },
+							{ Percentage = 80 },
 						},
 					},
 					splits = {
@@ -3018,6 +3018,21 @@ xplr.fn.custom = {}
 --   }
 -- }
 -- ```
+
+-- Plugins
+local home = os.getenv("HOME")
+package.path = home .. "/.config/xplr/plugins/?/init.lua;" .. home .. "/.config/xplr/plugins/?.lua;" .. package.path
+
+require("zentable").setup()
+require("zoxide").setup()
+require("icons").setup()
+require("tri-pane").setup({
+	layout_key = "T", -- In switch_layout mode
+	as_default_layout = true,
+	left_pane_width = { Percentage = 30 },
+	middle_pane_width = { Percentage = 40 },
+	right_pane_width = { Percentage = 30 },
+})
 
 return {
 	on_load = {},
