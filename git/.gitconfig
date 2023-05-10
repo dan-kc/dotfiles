@@ -1,10 +1,13 @@
 [user]
 	name = Daniel Cox
 	email = 63171098+dan-kc@users.noreply.github.com
-[pull]
-	rebase = true
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+
+[init]
+	defaultBranch = main
+
+[color]
+	ui = auto
+
+[alias]
+	l = log --color --graph --pretty=format:'%Cgreen%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C("#849598")<%an>%Creset' --abbrev-commit
+	ql = log --color --pretty=format:'%Cgreen%h%Creset%C(yellow)%d%Creset %s%Creset' --abbrev-commit -n5
