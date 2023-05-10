@@ -2,8 +2,8 @@ return {
   "is0n/fm-nvim",
 
   keys = {
-    { "<leader>e", "<cmd>Xplr %:p<cr>", desc = "Resume" },
-    { "<leader>E", "<cmd>Xplr<cr>", desc = "Resume" },
+    { "<leader>e", "<cmd>Xplr %:p<cr>", desc = "Xplr (cwd)" },
+    { "<leader>E", "<cmd>Xplr<cr>", desc = "Xplr (root dir)" },
   },
 
   config = function(_, opts)
