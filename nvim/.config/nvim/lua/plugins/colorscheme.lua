@@ -5,15 +5,16 @@ return {
   { "Tsuzat/NeoSolarized.nvim" },
   { "shaunsingh/nord.nvim" },
   { "ellisonleao/gruvbox.nvim" },
-  { "rose-pine/neovim" }, -- TINY TINY Telescope Pop in
+  { "rose-pine/neovim" },
+  { "shaunsingh/oxocarbon.nvim" },
+  { "rebelot/kanagawa.nvim" },
+  { "marko-cerovac/material.nvim" },
+  { "JoosepAlviste/palenightfall.nvim" },
+  { "folke/tokyonight.nvim" },
 
-  { "shaunsingh/oxocarbon.nvim" }, -- Telescope Popin
-  { "rafamadriz/neon" }, --Bug: Code actions has background or border
-  { "folke/tokyonight.nvim" }, -- Bug: doesn't wanna install??
-  { "JoosepAlviste/palenightfall.nvim" }, -- Lazyvim has bg and Telescope Popin
-  { "rebelot/kanagawa.nvim" }, -- Bug: Telescope border chunky
-  { "Yagua/nebulous.nvim" }, -- Bug: Telescope highlight missing
-  { "marko-cerovac/material.nvim" }, -- Bug: Telescope highlight missing
+  -- Some transparency glitches
+  { "rafamadriz/neon" }, --Bug: Code actions has background or border | Telescope symbols have background
+  { "Yagua/nebulous.nvim" }, -- Bug: Gitsigns transparent popin
 
   -- Set default colorscheme
   {

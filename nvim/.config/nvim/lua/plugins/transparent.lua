@@ -6,6 +6,7 @@ return {
   enable = true,
   dependencies = {
     "nvim-telescope/telescope.nvim",
+    "lewis6991/gitsigns.nvim",
   },
   opts = {
     groups = { -- table: default groups
@@ -32,6 +33,7 @@ return {
       "CursorLineNr",
       "EndOfBuffer",
       "StatusLine",
+      "MsgSeparator",
     },
     extra_groups = {
 
