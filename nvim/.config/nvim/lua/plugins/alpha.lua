@@ -20,7 +20,7 @@ return {
     dashboard.section.header.val = vim.split(logo, "\n", {})
     dashboard.section.buttons.val = {
       -- { "<leader>ff", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
-      dashboard.button("f", " " .. " Find git file", ":Telescope git_files <CR>"),
+      dashboard.button("f", " " .. " Find file", ":Telescope git_files <CR>"),
       dashboard.button("e", " " .. " Explore", ":Xplr <CR>"),
       dashboard.button("r", " " .. " Recent files", ":Telescope oldfiles <CR>"),
       dashboard.button("g", " " .. " Find text", ":Telescope live_grep <CR>"),
