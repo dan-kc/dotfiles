@@ -1,5 +1,7 @@
 -- Configure tab completion
+-- Configure toggle
 
+vim.g.cmp_toggle = false -- initial state
 
 return {
   "hrsh7th/nvim-cmp",
@@ -20,6 +22,9 @@ return {
     local cmp = require("cmp")
     local luasnip = require("luasnip")
     return {
+      enabled = function()
+        return vim.g.cmp_toggle
+      end,
       completion = {
         completeopt = "menu,menuone,noinsert",
       },
@@ -27,6 +32,9 @@ return {
         expand = function(args)
           require("luasnip").lsp_expand(args.body)
         end,
+      },
+      window = {
+        documentation = false,
       },
       mapping = cmp.mapping.preset.insert({
         ["<Tab>"] = cmp.mapping(function(fallback)
@@ -51,13 +59,13 @@ return {
             fallback()
           end
         end, { "i", "s" }),
-        ["<C-Space>"] = cmp.mapping.complete(),
-        ["<C-e>"] = cmp.mapping.abort(),
+        -- ["<C-Space>"] = cmp.mapping.complete(),
+        -- ["<C-e>"] = cmp.mapping.abort(),
         ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-        ["<S-CR>"] = cmp.mapping.confirm({
-          behavior = cmp.ConfirmBehavior.Replace,
-          select = true,
-        }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        -- ["<S-CR>"] = cmp.mapping.confirm({
+        --   behavior = cmp.ConfirmBehavior.Replace,
+        --   select = true,
+        -- }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
       }),
       sources = cmp.config.sources({
         { name = "nvim_lsp" },
@@ -78,6 +86,9 @@ return {
         ghost_text = {
           hl_group = "LspCodeLens",
         },
+      },
+      view = {
+        entries = { name = "custom", selection_order = "near_cursor", separator = "|" },
       },
     }
   end,

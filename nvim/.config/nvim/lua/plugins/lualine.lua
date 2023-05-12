@@ -92,9 +92,6 @@ return {
             color = Util.fg("Debug"),
           },
           { "branch" },
-          {},
-        },
-        lualine_y = {
           {
             "diff",
             symbols = {
@@ -106,6 +103,7 @@ return {
             always_visible = false,
           },
         },
+        lualine_y = {},
         lualine_z = {},
       },
       extensions = { "neo-tree", "lazy" },
