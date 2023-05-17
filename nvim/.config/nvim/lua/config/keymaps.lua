@@ -15,6 +15,7 @@ vim.keymap.set("n", "<leader>qo", ":copen<CR>", { desc = "Open" })
 vim.keymap.set("n", "<leader>qn", ":cnext<CR>", { desc = "Next" })
 vim.keymap.set("n", "<leader>qp", ":cprev<CR>", { desc = "Prev" })
 
+-- stylua: ignore
 vim.keymap.set(
   "i",
   "<c-c>b",

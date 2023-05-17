@@ -15,8 +15,7 @@ window:
     y: 30
   decorations: buttonless
   dynamic_padding: false
-  opacity: 0.97
-  option_as_alt: Both
+  opacity: 0.98
 
 key_bindings:
   # - { key: E, mods: Command, chars: "\x00\"" } # split tmux window vertically

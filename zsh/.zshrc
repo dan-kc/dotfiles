@@ -15,11 +15,13 @@ export PATH=$PATH:$GOPATH/bin
 eval "$(zoxide init zsh)"
 
 # Aliases.
+alias v=nvim
 alias c=clear
 alias g=lazygit
-alias x=xplr
+# alias x=xplr
 alias rm=trash
-alias l=exa
+alias x='cd "$(xplr --print-pwd-as-result)"'
+alias l="erd --human --icons --hidden --level=1 -C"
 alias ls='exa -lah'
 alias src='source ~/.zshrc'
 alias ta='tmux a'
