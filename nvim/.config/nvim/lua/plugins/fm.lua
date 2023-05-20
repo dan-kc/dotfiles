@@ -2,8 +2,8 @@ return {
   "is0n/fm-nvim",
 
   keys = {
-    { "<leader>e", "<cmd>Xplr %:p<cr>", desc = "Xplr (cwd)" },
-    { "<leader>E", "<cmd>Xplr<cr>", desc = "Xplr (root dir)" },
+    { "<leader>a", "<cmd>Xplr %:p<cr>", desc = "Xplr (cwd)" },
+    { "<leader>A", "<cmd>Xplr<cr>", desc = "Xplr (root dir)" },
   },
 
   config = function(_, opts)
@@ -15,7 +15,7 @@ return {
 
         float = {
           -- Floating window border (see ':h nvim_open_win')
-          border = "none",
+          border = "rounded",
 
           -- Highlight group for floating window/border (see ':h winhl')
           float_hl = "Normal",
@@ -25,8 +25,8 @@ return {
           blend = 0,
 
           -- Num from 0 - 1 for measurements
-          height = 0.9,
-          width = 0.9,
+          height = 0.7,
+          width = 0.7,
 
           -- X and Y Axis of Window
           x = 0.5,
