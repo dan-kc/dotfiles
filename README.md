@@ -78,7 +78,4 @@ I've drawn inspiration and learned from various sources while creating my dotfil
 
 ## Todo
 
-- Add padding to tmux header
-- Implement xplr to open nvim on enter
-- Implement xplr binding to cd into directory
-- Implement changing the xplr position when exiting vim
+- Add undo file
