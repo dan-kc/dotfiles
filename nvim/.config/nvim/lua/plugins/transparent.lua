@@ -74,6 +74,9 @@ return {
       "DiagnosticSignWarn",
       "DiagnosticSignHint",
       "DiagnosticSignInfo",
+
+      -- Barbecue
+      "barbecue_normal",
     },
   },
 }
