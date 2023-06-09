@@ -1,4 +1,4 @@
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+# source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Automatically cd into typed directory.
 setopt autocd
@@ -18,14 +18,13 @@ eval "$(zoxide init zsh)"
 alias v=nvim
 alias c=clear
 alias g=lazygit
-# alias x=xplr
 alias rm=trash
 alias x='cd "$(xplr --print-pwd-as-result)"'
-alias l="erd --human --icons --hidden --level=1 -C"
+alias l="erd --human --icons --hidden --level=1"
 alias ls='exa -lah'
 alias src='source ~/.zshrc'
 alias ta='tmux a'
-alias tq='tmux kill-server'
+alias tk='tmux kill-server'
 alias tldrf='tldr --list | fzf --preview "tldr {1} --color=always" --preview-window=right,70% | xargs tldr'
 tn() {tmux new -s $(pwd | sed 's/.*\///g')}
 ff() { du -a | awk '{print $2}' | $(fzf --height 40% --border)| xargs -r $EDITOR ; }
@@ -43,3 +42,7 @@ eval "$(starship init zsh)"
 source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 eval "$(atuin init zsh)"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
