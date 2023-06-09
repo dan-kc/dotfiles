@@ -25,7 +25,7 @@ alias ls='exa -lah'
 alias src='source ~/.zshrc'
 alias ta='tmux a'
 alias tk='tmux kill-server'
-alias tldrf='tldr --list | fzf --preview "tldr {1} --color=always" --preview-window=right,70% | xargs tldr'
+alias help='tldr --list | fzf --preview "tldr {1} --color=always" --preview-window=right,70% | xargs tldr'
 tn() {tmux new -s $(pwd | sed 's/.*\///g')}
 ff() { du -a | awk '{print $2}' | $(fzf --height 40% --border)| xargs -r $EDITOR ; }
 copydir() {pwd | tr -d "\r\n" | pbcopy ; }
