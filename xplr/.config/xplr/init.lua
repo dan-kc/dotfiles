@@ -3026,13 +3026,13 @@ package.path = home .. "/.config/xplr/plugins/?/init.lua;" .. home .. "/.config/
 require("zentable").setup()
 require("zoxide").setup()
 require("icons").setup()
-require("tri-pane").setup({
-	layout_key = "T", -- In switch_layout mode
-	as_default_layout = true,
-	left_pane_width = { Percentage = 30 },
-	middle_pane_width = { Percentage = 40 },
-	right_pane_width = { Percentage = 30 },
-})
+-- require("tri-pane").setup({
+-- 	layout_key = "T", -- In switch_layout mode
+-- 	as_default_layout = true,
+-- 	left_pane_width = { Percentage = 30 },
+-- 	middle_pane_width = { Percentage = 40 },
+-- 	right_pane_width = { Percentage = 30 },
+-- })
 
 return {
 	on_load = {},
