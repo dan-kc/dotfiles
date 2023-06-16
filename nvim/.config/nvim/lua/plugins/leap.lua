@@ -15,5 +15,6 @@ return {
       end,
       desc = "Leap anywhere",
     },
+    { "gs", false },
   },
 }
