@@ -1,5 +1,5 @@
 return {
-  enabled = false,
+  enabled = true,
   "goolord/alpha-nvim",
   dependencies = {
     "is0n/fm-nvim",
@@ -19,19 +19,7 @@ return {
     ]]
 
     dashboard.section.header.val = vim.split(logo, "\n", {})
-    dashboard.section.buttons.val = {
-      -- { "<leader>ff", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
-      dashboard.button("f", " " .. " Find file", ":Telescope git_files <CR>"),
-      dashboard.button("e", " " .. " Explore", ":Xplr <CR>"),
-      dashboard.button("r", " " .. " Recent files", ":Telescope oldfiles <CR>"),
-      dashboard.button("g", " " .. " Find text", ":Telescope live_grep <CR>"),
-      dashboard.button("l", "󰒲 " .. " Lazy", ":Lazy<CR>"),
-      dashboard.button("q", " " .. " Quit", ":qa<CR>"),
-    }
-    for _, button in ipairs(dashboard.section.buttons.val) do
-      button.opts.hl = "AlphaButtons"
-      button.opts.hl_shortcut = "AlphaShortcut"
-    end
+    dashboard.section.buttons.val = {}
     dashboard.section.footer.opts.hl = "Type"
     dashboard.section.header.opts.hl = "AlphaHeader"
     dashboard.section.buttons.opts.hl = "AlphaButtons"
