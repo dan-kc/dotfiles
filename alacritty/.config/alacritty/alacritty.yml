@@ -31,8 +31,8 @@ key_bindings:
   - { key: W, mods: Command, chars: "\x00x" } # kill the current pane
   - { key: Z, mods: Command, chars: "\x00z" } # toggle zoom state of the current tmux pane
   - { key: Tab, mods: Control, chars: "\x00n" } # switch to next tmux window
-  - { key: LBracket, mods: Command|Shift, chars: "\x00p" } # switch to next tmux window
-  - { key: RBracket, mods: Command|Shift, chars: "\x00n" } # switch to previous tmux window
+  - { key: Left, mods: Command|Alt, chars: "\x00p" } # switch to next tmux window
+  - { key: Right, mods: Command|Alt, chars: "\x00n" } # switch to previous tmux window
   - { key: Semicolon, mods: Command, chars: "\x00:" } # enter the tmux command prompt
 
 import:
