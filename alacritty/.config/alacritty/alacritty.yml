@@ -6,7 +6,7 @@ font:
   normal:
     Default:
     family: FiraCode Nerd Font
-    size: 32.0
+    size: 72
     use_thin_strokes: true
 
 window:
@@ -15,7 +15,7 @@ window:
     y: 30
   decorations: buttonless
   dynamic_padding: false
-  opacity: 0.93
+  opacity: 0.98
 
 key_bindings:
   # - { key: E, mods: Command, chars: "\x00\"" } # split tmux window vertically
@@ -26,7 +26,6 @@ key_bindings:
   - { key: J, mods: Command, chars: "\x00\x54" } # open t - tmux smart session manager
   - { key: K, mods: Command, chars: "\x00s" } # open interactive tmux session client
   - { key: L, mods: Command, chars: "\x00L" } # switch to the last tmux session
-  - { key: O, mods: Command, chars: "\x00u" } # open URLs 'joshmedeski/tmux-fzf-url'
   - { key: T, mods: Command, chars: "\x00c" } # create a new tmux window
   - { key: W, mods: Command, chars: "\x00x" } # kill the current pane
   - { key: Z, mods: Command, chars: "\x00z" } # toggle zoom state of the current tmux pane

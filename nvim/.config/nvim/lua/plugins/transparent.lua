@@ -19,10 +19,14 @@ return {
       "Statement",
       "PreProc",
       "Type",
+      "Title",
       "Underlined",
       "Todo",
       "String",
       "Function",
+      "FloatTitle",
+      "FloatShadow",
+      "FloatShadowThrough",
       "Conditional",
       "Repeat",
       "Operator",
@@ -64,6 +68,7 @@ return {
       "GitSignsChange",
       "GitSignsAdd",
       "GitSignsDelete",
+      "GitSignsAddLine",
 
       -- Which key
       "WhichKeyFloat",
@@ -77,6 +82,18 @@ return {
 
       -- Barbecue
       "barbecue_normal",
+
+      -- Bqf
+
+      "BqfPreviewFloat", -- Doesn't work?
+      -- "BqfPreviewBorder",
+      -- "BqfPreviewTitle",
+      -- "BqfPreviewThumb",
+      -- "BqfPreviewSbar",
+      -- "BqfPreviewCursor",
+      -- "BqfPreviewCursorLine",
+      -- "BqfPreviewRange",
+      -- "BqfPreviewBufLabel",
     },
   },
 }

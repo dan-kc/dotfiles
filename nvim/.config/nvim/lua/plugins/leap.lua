@@ -1,5 +1,3 @@
--- Replace default config to enable multi-directional search
-
 return {
   "ggandor/leap.nvim",
   keys = {
