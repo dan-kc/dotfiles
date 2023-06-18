@@ -1,4 +1,3 @@
-
 # Dotfiles
 
 Welcome to my dotfiles repository! This repository contains the configuration files (dotfiles) for various applications and tools that I use on my system. These dotfiles are managed using [GNU Stow](https://www.gnu.org/software/stow/), a symlink farm manager.
@@ -59,10 +58,9 @@ Feel free to customize the `Brewfile` to include or exclude packages based on yo
 
 ### Yabai Installation
 
-One of the packages listed in the Brewfile is yabai, a tiling window manager. However, yabai requires additional installation steps. To install yabai from the HEAD, please follow the instructions in the [this guide](https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(from-HEAD)).
+One of the packages listed in the Brewfile is yabai, a tiling window manager. However, yabai requires additional installation steps. To install yabai from the HEAD, please follow the instructions in the [this guide](<https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(from-HEAD)>).
 
 Make sure to complete the installation steps mentioned in the guide to set up yabai correctly.
-
 
 ## Contributing
 
@@ -78,4 +76,4 @@ I've drawn inspiration and learned from various sources while creating my dotfil
 
 ## Todo
 
-- Add undo file
+- Xplr tmux
