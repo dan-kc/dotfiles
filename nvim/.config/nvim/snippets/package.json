@@ -1,0 +1,21 @@
+{
+  "name": "snippet-collection",
+  "contributes": {
+    "snippets": [
+      {
+        "language": [
+          "typescript",
+          "typescriptreact"
+        ],
+        "path": "./typescript-react.json"
+      },
+      {
+        "language": [
+          "typescript",
+          "typescriptreact"
+        ],
+        "path": "./typescript.json"
+      }
+    ]
+  }
+}

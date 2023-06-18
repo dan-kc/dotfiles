@@ -1,0 +1,135 @@
+{
+  "ReactComponent": {
+    "prefix": "rc",
+    "body": [
+      "interface $1Props {",
+      "  $2",
+      "}",
+      "",
+      "const $1:React.FC<$1Props> = ($3) => {",
+      "   return (",
+      "      $4",
+      "   )",
+      "}"
+    ]
+  },
+  "ReactComponentExport": {
+    "prefix": "rce",
+    "body": [
+      "interface $1Props {",
+      "  $2",
+      "}",
+      "",
+      "const $1:React.FC<$1Props> = ($3) => {",
+      "   return (",
+      "      $4",
+      "   )",
+      "}",
+      "",
+      "export default $1"
+    ]
+  },
+  "ReactComponentChildren": {
+    "prefix": "rcc",
+    "body": [
+      "interface $1Props {",
+      "   children: React.ReactNode",
+      "   $2",
+      "}",
+      "",
+      "const $1:React.FC<$1Props> = ({children$3}) => {",
+      "   return (",
+      "      $4",
+      "   )",
+      "}"
+    ]
+  },
+  "ReactComponentChildrenExport": {
+    "prefix": "rcce",
+    "body": [
+      "interface $1Props {",
+      "   children: React.ReactNode",
+      "   $2",
+      "}",
+      "",
+      "const $1:React.FC<$1Props> = ({children$3}) => {",
+      "   return (",
+      "      $4",
+      "   )",
+      "}",
+      "",
+      "export default $1"
+    ]
+  },
+  "useCallback": {
+    "prefix": "useCallbackSnippet",
+    "body": [
+      "useCallback(",
+      "  () => {",
+      "    ${1:first}",
+      "  },",
+      "  [${2:second}],",
+      ")",
+      ""
+    ]
+  },
+  "useContext": {
+    "prefix": "useContextSnippet",
+    "body": ["const ${1:first} = useContext(${2:second})"]
+  },
+  "useEffect": {
+    "prefix": "useEffectSnippet",
+    "body": [
+      "useEffect(() => {",
+      "  ${1:first}",
+      "",
+      "  return () => {",
+      "    ${2:second}",
+      "  }",
+      "}, [${3:third}])",
+      ""
+    ]
+  },
+  "useImperativeHandle": {
+    "prefix": "useImperativeHandleSnippet",
+    "body": [
+      "useImperativeHandle(",
+      "  ${1:first},",
+      "  () => {",
+      "    ${2:second}",
+      "  },",
+      "  [${3:third}],",
+      ")"
+    ]
+  },
+  "useLayoutEffect": {
+    "prefix": "useLayoutEffectSnippet",
+    "body": [
+      "useLayoutEffect(() => {",
+      "  ${1:first}",
+      "",
+      "  return () => {",
+      "    ${2:second}",
+      "  };",
+      "}, [${3:third}])"
+    ]
+  },
+  "useMemo": {
+    "prefix": "useMemoSnippet",
+    "body": ["useMemo(() => ${1:first}, [${2:second}])"]
+  },
+  "useReducer": {
+    "prefix": "useReducerSnippet",
+    "body": [
+      "const [state, dispatch] = useReducer(${1:first}, ${2:second}, ${3:third})"
+    ]
+  },
+  "useRef": {
+    "prefix": "useRefSnippet",
+    "body": ["const ${1:first} = useRef(${2:second})"]
+  },
+  "useState": {
+    "prefix": "useStateSnippet",
+    "body": ["const [$1, set${1/(.*)/${1:/capitalize}/}] = useState<$2>($3)"]
+  }
+}

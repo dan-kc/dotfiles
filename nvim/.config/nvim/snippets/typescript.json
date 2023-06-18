@@ -1,0 +1,36 @@
+{
+  "Switch Statement": {
+    "prefix": "switch",
+    "body": [
+      "switch (${1:key}) {",
+      "\tcase ${2:value}:",
+      "\t\t$0",
+      "\t\tbreak;",
+      "",
+      "\tdefault:",
+      "\t\tbreak;",
+      "}"
+    ],
+    "description": "Switch Statement"
+  },
+  "While Statement": {
+    "prefix": "while",
+    "body": ["while (${1:condition}) {", "\t$0", "}"],
+    "description": "While Statement"
+  },
+  "Do-While Statement": {
+    "prefix": "dowhile",
+    "body": ["do {", "\t$0", "} while (${1:condition});"],
+    "description": "Do-While Statement"
+  },
+  "Try-Catch Statement": {
+    "prefix": "trycatch",
+    "body": ["try {", "\t$0", "} catch (${1:error}) {", "\t", "}"],
+    "description": "Try-Catch Statement"
+  },
+  "Set Timeout Function": {
+    "prefix": "settimeout",
+    "body": ["setTimeout(() => {", "\t$0", "}, ${1:timeout});"],
+    "description": "Set Timeout Function"
+  }
+}
