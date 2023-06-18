@@ -23,5 +23,7 @@ return {
     { "<leader>ff", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
     { "<leader>sR", false },
     { "<leader>sr", "<cmd>Telescope resume<cr>", desc = "Resume" },
+    { "<leader>sr", "<cmd>Telescope resume<cr>", desc = "Resume" },
+    { '<leader>"', "<cmd>Telescope buffers show_all_buffers=true<cr>", desc = "Switch Buffer" },
   },
 }
