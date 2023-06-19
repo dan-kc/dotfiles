@@ -1,4 +1,6 @@
 local Util = require("lazyvim.util")
+local actions = require("telescope.actions")
+
 return {
   "nvim-telescope/telescope.nvim",
   dependencies = {
@@ -14,6 +16,11 @@ return {
       layout_config = { prompt_position = "top" },
       sorting_strategy = "ascending",
       winblend = 0,
+      mappings = {
+        n = {
+          ["zn"] = actions.send_selected_to_qflist + actions.open_qflist,
+        },
+      },
     },
   },
   keys = {
