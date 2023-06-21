@@ -14,7 +14,6 @@ return {
       ["gs"] = { name = "+surround" },
       ["]"] = { name = "+next" },
       ["["] = { name = "+prev" },
-      ["<leader><tab>"] = { name = "+tabs" },
       ["<leader>q"] = { name = "+qickfix" },
       ["<leader>b"] = { name = "+buffer" },
       ["<leader>c"] = { name = "+code" },

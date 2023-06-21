@@ -1,5 +1,6 @@
 return {
   "cbochs/portal.nvim",
+  enabled = false,
   -- Optional dependencies
   opts = {
     labels = { "n", "e", "i", "o", "l", "u", "y", "'" },
@@ -17,15 +18,5 @@ return {
   keys = {
     { "<leader>o", "<cmd>Portal jumplist backward<cr>" },
     { "<leader>i", "<cmd>Portal jumplist forward<cr>" },
-    {
-      "<leader>O",
-      function()
-        require("portal").tunnel({
-          require("portal.builtin").grapple.query({ max_results = 1 }),
-          require("portal.builtin").jumplist.query({ max_results = 3 }),
-        })
-      end,
-      desc = "Portal somewhere",
-    },
   },
 }
