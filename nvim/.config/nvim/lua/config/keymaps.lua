@@ -45,10 +45,11 @@ vim.keymap.set("n", "<leader>uL", ":set cursorline!<CR>", { desc = "Toggle curso
 vim.keymap.set("n", "<leader>qo", ":copen<CR>", { desc = "Open" })
 vim.keymap.set("n", "<leader>qn", ":cnext<CR>", { desc = "Next" })
 vim.keymap.set("n", "<leader>qp", ":cprev<CR>", { desc = "Prev" })
+
 vim.keymap.set("n", "<S-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
 vim.keymap.set("n", "<S-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
 vim.keymap.set("n", "<S-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
 vim.keymap.set("n", "<S-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
 vim.keymap.set("n", "<leader>'", ":cnext<cr>", { desc = "Next quickfix item" })
 vim.keymap.set("n", "<leader>y", ":cprev<cr>", { desc = "Prev quickfix item" })
-vim.keymap.set("n", "<tab>", "<C-W>p", { desc = "Other window", remap = true })
+vim.keymap.set("n", "<leader><tab>", "<C-W>p", { desc = "Other window", remap = true })
