@@ -1,6 +1,6 @@
 # Dotfiles
 
-Welcome to my dotfiles repository! This repository contains the configuration files (dotfiles) for various applications and tools that I use on my system. These dotfiles are managed using [GNU Stow](https://www.gnu.org/software/stow/), a symlink farm manager.
+This repository contains the configuration files (dotfiles) for various applications and tools that I use on my system. These dotfiles are managed using [GNU Stow](https://www.gnu.org/software/stow/), a symlink farm manager.
 
 ## Getting Started
 
@@ -62,10 +62,6 @@ One of the packages listed in the Brewfile is yabai, a tiling window manager. Ho
 
 Make sure to complete the installation steps mentioned in the guide to set up yabai correctly.
 
-## Contributing
-
-If you find any issues or have suggestions for improving my dotfiles, feel free to open an issue or submit a pull request. I'm always open to new ideas and improvements!
-
 ## Acknowledgements
 
 I've drawn inspiration and learned from various sources while creating my dotfiles, in particular from:
@@ -77,3 +73,4 @@ I've drawn inspiration and learned from various sources while creating my dotfil
 ## Todo
 
 - Xplr tmux
+- Get a better prompt
