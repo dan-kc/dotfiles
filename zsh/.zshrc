@@ -11,6 +11,13 @@ export EDITOR=nvim
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 
+# Load environment variables from .env file
+if [[ -f "$HOME/.config/.env" ]]; then
+    set -a
+    source "$HOME/.config/.env"
+    set +a
+fi
+
 # Zoxide setup.
 eval "$(zoxide init zsh)"
 

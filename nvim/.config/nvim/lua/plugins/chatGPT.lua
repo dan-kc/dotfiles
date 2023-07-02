@@ -1,3 +1,4 @@
+local key = vim.fn.expand("$OPENAI_KEY")
 return {
   "jackMort/ChatGPT.nvim",
   enabled = true,
@@ -7,9 +8,11 @@ return {
     "nvim-lua/plenary.nvim",
     "nvim-telescope/telescope.nvim",
   },
+  keys = {
+    { "<leader>cg", "<cmd>ChatGPTCompleteCode<cr>", desc = "Complete code" },
+  },
   opts = {
-    api_key_cmd = "pass show openai/api-key",
-    yank_register = "+",
+    api_key_cmd = "echo " .. key, -- leave me alone
     edit_with_instructions = {
       diff = false,
       keymaps = {
