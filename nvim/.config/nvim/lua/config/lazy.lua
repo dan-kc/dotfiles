@@ -17,12 +17,13 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.formatting.prettier" },
     { import = "lazyvim.plugins.extras.lang.typescript" },
     { import = "lazyvim.plugins.extras.lang.json" },
+    { import = "lazyvim.plugins.extras.coding.yanky" },
   },
   defaults = {
     lazy = false,
     version = false, -- always use the latest git commit
   },
-  checker = { enabled = true, notify = false }, -- automatically check for plugin updates
+  checker = { enabled = false, notify = false }, -- automatically check for plugin updates
   performance = {
     rtp = {
       -- disable some rtp plugins

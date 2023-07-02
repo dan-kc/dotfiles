@@ -83,8 +83,10 @@ return {
       -- Barbecue
       "barbecue_normal",
 
-      -- Bqf
+      -- Neotree
+      "NeoTreeNormal",
 
+      -- Bqf
       "BqfPreviewFloat", -- Doesn't work?
       -- "BqfPreviewBorder",
       -- "BqfPreviewTitle",
@@ -94,6 +96,12 @@ return {
       -- "BqfPreviewCursorLine",
       -- "BqfPreviewRange",
       -- "BqfPreviewBufLabel",
+
+      -- Noice
+      "NoicePopupmenu",
+      "NoiceScrollbar",
+      "NoiceFormatConfirm",
+      "NoiceScrollbarThumb",
     },
   },
 }

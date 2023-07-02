@@ -73,4 +73,4 @@ I've drawn inspiration and learned from various sources while creating my dotfil
 ## Todo
 
 - Xplr tmux
-- Get a better prompt
+- Complete TSX snippets
