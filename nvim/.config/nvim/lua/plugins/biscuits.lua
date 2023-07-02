@@ -1,5 +1,6 @@
 return {
   "code-biscuits/nvim-biscuits",
+  enabled = false,
   dependencies = {
     { "nvim-treesitter/nvim-treesitter" },
   },
