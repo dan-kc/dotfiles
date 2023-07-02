@@ -10,27 +10,26 @@
       "\tdefault:",
       "\t\tbreak;",
       "}"
-    ],
-    "description": "Switch Statement"
+    ]
   },
   "While Statement": {
     "prefix": "while",
-    "body": ["while (${1:condition}) {", "\t$0", "}"],
-    "description": "While Statement"
+    "body": ["while (${1:condition}) {", "\t$0", "}"]
   },
   "Do-While Statement": {
     "prefix": "dowhile",
-    "body": ["do {", "\t$0", "} while (${1:condition});"],
-    "description": "Do-While Statement"
+    "body": ["do {", "\t$0", "} while (${1:condition});"]
   },
   "Try-Catch Statement": {
     "prefix": "trycatch",
-    "body": ["try {", "\t$0", "} catch (${1:error}) {", "\t", "}"],
-    "description": "Try-Catch Statement"
+    "body": ["try {", "\t$0", "} catch (${1:error}) {", "\t", "}"]
   },
   "Set Timeout Function": {
     "prefix": "settimeout",
-    "body": ["setTimeout(() => {", "\t$0", "}, ${1:timeout});"],
-    "description": "Set Timeout Function"
+    "body": ["setTimeout(() => {", "\t$0", "}, ${1:timeout});"]
+  },
+  "Console Log": {
+    "prefix": "clg",
+    "body": ["console.log($0);"]
   }
 }

@@ -2,13 +2,9 @@
   "ReactComponent": {
     "prefix": "rc",
     "body": [
-      "interface $1Props {",
-      "  $2",
-      "}",
-      "",
-      "const $1:React.FC<$1Props> = ($3) => {",
+      "const $1:React.FC = () => {",
       "   return (",
-      "      $4",
+      "      $2",
       "   )",
       "}"
     ]
@@ -16,6 +12,44 @@
   "ReactComponentExport": {
     "prefix": "rce",
     "body": [
+      "const $1:React.FC = () => {",
+      "   return (",
+      "      $2",
+      "   )",
+      "}",
+      "",
+      "export $1"
+    ]
+  },
+  "ReactComponentExportDefault": {
+    "prefix": "rced",
+    "body": [
+      "const $1:React.FC = () => {",
+      "   return (",
+      "      $2",
+      "   )",
+      "}",
+      "",
+      "export default $1"
+    ]
+  },
+  "ReactComponentProps": {
+    "prefix": "rcp",
+    "body": [
+      "interface $1Props {",
+      "  $2",
+      "}",
+      "",
+      "const $1:React.FC<$1Props> = ($3) => {",
+      "   return (",
+      "      $4",
+      "   )",
+      "}"
+    ]
+  },
+  "ReactComponentPropsExport": {
+    "prefix": "rcpe",
+    "body": [
       "interface $1Props {",
       "  $2",
       "}",
@@ -26,33 +60,17 @@
       "   )",
       "}",
       "",
-      "export default $1"
+      "export $1"
     ]
   },
-  "ReactComponentChildren": {
-    "prefix": "rcc",
+  "ReactComponentPropsExportDefault": {
+    "prefix": "rcped",
     "body": [
       "interface $1Props {",
-      "   children: React.ReactNode",
-      "   $2",
+      "  $2",
       "}",
       "",
-      "const $1:React.FC<$1Props> = ({children$3}) => {",
-      "   return (",
-      "      $4",
-      "   )",
-      "}"
-    ]
-  },
-  "ReactComponentChildrenExport": {
-    "prefix": "rcce",
-    "body": [
-      "interface $1Props {",
-      "   children: React.ReactNode",
-      "   $2",
-      "}",
-      "",
-      "const $1:React.FC<$1Props> = ({children$3}) => {",
+      "const $1:React.FC<$1Props> = ($3) => {",
       "   return (",
       "      $4",
       "   )",

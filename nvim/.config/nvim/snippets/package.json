@@ -15,6 +15,13 @@
           "typescriptreact"
         ],
         "path": "./typescript.json"
+      },
+      {
+        "language": [
+          "typescript",
+          "typescriptreact"
+        ],
+        "path": "./emmet.json"
       }
     ]
   }
