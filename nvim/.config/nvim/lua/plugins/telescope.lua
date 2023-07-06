@@ -36,6 +36,6 @@ return {
     { "<leader>/", Util.telescope("oldfiles", { cwd = vim.loop.cwd() }), desc = "Recent (cwd)" },
     { "<leader>fF", Util.telescope("files"), desc = "Find Files (root dir)" },
     { "<leader>ff", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
-    { "<leader>sr", "<cmd>Telescope resume<cr>", desc = "Resume" },
+    { "<leader>'", "<cmd>Telescope resume<cr>", desc = "Resume" },
   },
 }

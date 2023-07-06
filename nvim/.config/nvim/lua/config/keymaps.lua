@@ -33,12 +33,13 @@ vim.keymap.del("n", "<C-j>")
 vim.keymap.del("n", "<C-k>")
 vim.keymap.del("n", "<C-l>")
 
--- Resize window
-vim.keymap.del("n", "<C-Up>")
-vim.keymap.del("n", "<C-Down>")
-vim.keymap.del("n", "<C-Left>")
-vim.keymap.del("n", "<C-Right>")
-
+--
+-- -- Resize window
+-- vim.keymap.del("n", "<C-Up>")
+-- vim.keymap.del("n", "<C-Down>")
+-- vim.keymap.del("n", "<C-Left>")
+-- vim.keymap.del("n", "<C-Right>")
+--
 -- Center screen on jump
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
@@ -49,10 +50,10 @@ vim.keymap.set("n", "<leader>qo", ":copen<CR>", { desc = "Open list" })
 vim.keymap.set("n", "<leader>qn", ":cnext<CR>", { desc = "Next item" })
 vim.keymap.set("n", "<leader>qp", ":cprev<CR>", { desc = "Prev item" })
 
--- Resize window
-vim.keymap.set("n", "<S-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
-vim.keymap.set("n", "<S-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
-vim.keymap.set("n", "<S-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
-vim.keymap.set("n", "<S-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
+-- -- Resize window
+-- vim.keymap.set("n", "<S-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
+-- vim.keymap.set("n", "<S-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
+-- vim.keymap.set("n", "<S-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
+-- vim.keymap.set("n", "<S-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
 
 vim.keymap.set("n", "<leader><tab>", "<C-W>p", { desc = "Other window", remap = true })
