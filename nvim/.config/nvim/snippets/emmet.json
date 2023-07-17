@@ -3,8 +3,8 @@
     "prefix": "ce",
     "body": ["<$1$3>", "$2", "</$1>"]
   },
-  "SelfClosingCustomElement": {
-    "prefix": "scce",
+  "CustomElementSelfClosing": {
+    "prefix": "cesc",
     "body": ["<$1/>"]
   },
   "div": {
@@ -15,8 +15,8 @@
     "prefix": "divc",
     "body": ["<div className='$1'>", "$2", "</div>"]
   },
-  "SelfClosingDivWithClassname": {
-    "prefix": "scdivc",
+  "DivWithClassnameSelfClosing": {
+    "prefix": "divcsc",
     "body": ["<div className='$1'/>"]
   },
   "section": {

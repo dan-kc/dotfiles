@@ -1,33 +1,19 @@
 {
   "ReactComponent": {
     "prefix": "rc",
-    "body": [
-      "const $1:React.FC = () => {",
-      "   return (",
-      "      $2",
-      "   )",
-      "}"
-    ]
+    "body": ["function $1() {", "return (", "$2", ")", "}"]
   },
   "ReactComponentExport": {
     "prefix": "rce",
-    "body": [
-      "const $1:React.FC = () => {",
-      "   return (",
-      "      $2",
-      "   )",
-      "}",
-      "",
-      "export $1"
-    ]
+    "body": ["function $1() {", "return (", "$2", ")", "}", "", "export $1"]
   },
   "ReactComponentExportDefault": {
     "prefix": "rced",
     "body": [
-      "const $1:React.FC = () => {",
-      "   return (",
-      "      $2",
-      "   )",
+      "function $1() {",
+      "return (",
+      "$2",
+      ")",
       "}",
       "",
       "export default $1"
@@ -37,10 +23,10 @@
     "prefix": "rcp",
     "body": [
       "interface $1Props {",
-      "  $2",
+      "$2",
       "}",
       "",
-      "const $1:React.FC<$1Props> = ($3) => {",
+      "function $1({$3}:$1Props) {",
       "   return (",
       "      $4",
       "   )",
@@ -51,10 +37,10 @@
     "prefix": "rcpe",
     "body": [
       "interface $1Props {",
-      "  $2",
+      "$2",
       "}",
       "",
-      "const $1:React.FC<$1Props> = ($3) => {",
+      "function $1({$3}:$1Props) {",
       "   return (",
       "      $4",
       "   )",
@@ -67,10 +53,10 @@
     "prefix": "rcped",
     "body": [
       "interface $1Props {",
-      "  $2",
+      "$2",
       "}",
       "",
-      "const $1:React.FC<$1Props> = ($3) => {",
+      "function $1({$3}:$1Props) {",
       "   return (",
       "      $4",
       "   )",

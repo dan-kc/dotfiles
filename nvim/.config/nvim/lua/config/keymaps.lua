@@ -41,8 +41,8 @@ vim.keymap.del("n", "<C-l>")
 -- vim.keymap.del("n", "<C-Right>")
 --
 -- Center screen on jump
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
+-- vim.keymap.set("n", "<C-d>", "<C-d>zz")
+-- vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
 vim.keymap.set("n", "<leader>o", ":only<CR>", { desc = "Close all other panes" })
 vim.keymap.set("n", "<leader>uL", ":set cursorline!<CR>", { desc = "Toggle cursor line" })

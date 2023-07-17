@@ -25,8 +25,8 @@ return {
           blend = 0,
 
           -- Num from 0 - 1 for measurements
-          height = 0.7,
-          width = 0.7,
+          height = 0.9,
+          width = 0.9,
 
           -- X and Y Axis of Window
           x = 0.5,
