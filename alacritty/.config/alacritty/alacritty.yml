@@ -5,7 +5,7 @@ env:
 font:
   normal:
     Default:
-    family: FiraCode Nerd Font
+    family: Hack Nerd Font
     size: 72
     use_thin_strokes: true
 
@@ -15,7 +15,7 @@ window:
     y: 30
   decorations: buttonless
   dynamic_padding: false
-  opacity: 0.98
+  opacity: 0.94
 
 key_bindings:
   # - { key: E, mods: Command, chars: "\x00\"" } # split tmux window vertically
@@ -35,4 +35,4 @@ key_bindings:
   - { key: Semicolon, mods: Command, chars: "\x00:" } # enter the tmux command prompt
 
 import:
-  - ~/.config/alacritty/themes/kanagawa.yml
+  - ~/.config/alacritty/themes/tokyo-night.yaml
