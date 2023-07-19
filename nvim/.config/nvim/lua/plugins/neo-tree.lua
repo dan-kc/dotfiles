@@ -17,7 +17,7 @@ return {
         event = "file_opened",
         handler = function(file_path)
           --auto close
-          require("neo-tree").close_all()
+          vim.cmd("Neotree close")
         end,
       },
     },
