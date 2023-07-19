@@ -36,26 +36,6 @@ To get started with using my dotfiles, follow the steps below:
    stow nvim
    ```
 
-   Repeat this step for each folder you want to symlink.
-
-### Customization
-
-Feel free to explore and modify any of the configuration files to suit your preferences. Each folder in this repository corresponds to a specific application or tool, and contains the respective configuration files. You can symlink the entire folder or specific files depending on your needs.
-
-## Brewfile
-
-In addition to the dotfiles, this repository also includes a `Brewfile`. The `Brewfile` is a text file used by [Homebrew](https://brew.sh/) to install and manage packages on macOS. It lists all the packages and applications that I commonly use.
-
-To install the packages listed in the `Brewfile`, navigate to the root of this repository and run the following command:
-
-```bash
-brew bundle
-```
-
-Make sure you have Homebrew installed on your macOS system before running this command.
-
-Feel free to customize the `Brewfile` to include or exclude packages based on your requirements.
-
 ### Yabai Installation
 
 One of the packages listed in the Brewfile is yabai, a tiling window manager. However, yabai requires additional installation steps. To install yabai from the HEAD, please follow the instructions in the [this guide](<https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(from-HEAD)>).
