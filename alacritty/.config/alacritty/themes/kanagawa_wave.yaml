@@ -1,11 +1,10 @@
-# Colors (Kanagawa)
+# Colors (Kanagawa Wave)
+# Source: https://github.com/rebelot/kanagawa.nvim
 colors:
-  # Default colors
   primary:
     background: '0x1f1f28'
     foreground: '0xdcd7ba'
 
-  # Normal colors
   normal:
     black:   '0x090618'
     red:     '0xc34043'
@@ -16,7 +15,6 @@ colors:
     cyan:    '0x6a9589'
     white:   '0xc8c093'
 
-  # Bright colors
   bright:
     black:   '0x727169'
     red:     '0xe82424'
@@ -26,6 +24,7 @@ colors:
     magenta: '0x938aa9'
     cyan:    '0x7aa89f'
     white:   '0xdcd7ba'
+
   selection:
     background: '0x2d4f67'
     foreground: '0xc8c093'

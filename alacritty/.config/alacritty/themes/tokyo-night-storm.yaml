@@ -1,9 +1,9 @@
-# Colors (Tokyo Night)
+# Colors (Tokyo Night: Storm variant)
 # Source: https://github.com/zatchheems/tokyo-night-alacritty-theme
 colors:
   # Default colors
   primary:
-    background: '0x1a1b26'
+    background: '0x24283b'
     foreground: '0xa9b1d6'
 
   # Normal colors
@@ -15,7 +15,7 @@ colors:
     blue:    '0x7aa2f7'
     magenta: '0xad8ee6'
     cyan:    '0x449dab'
-    white:   '0x787c99'
+    white:   '0x9699a8'
 
   # Bright colors
   bright:

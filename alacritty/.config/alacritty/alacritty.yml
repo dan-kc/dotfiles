@@ -34,4 +34,4 @@ key_bindings:
   - { key: Semicolon, mods: Command, chars: "\x00:" } # enter the tmux command prompt
 
 import:
-  - ~/.config/alacritty/themes/tokyo-night.yaml
+  - ~/.config/alacritty/themes/gruvbox_dark.yaml
