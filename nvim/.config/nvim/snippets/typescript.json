@@ -30,6 +30,6 @@
   },
   "Console Log": {
     "prefix": "clg",
-    "body": ["console.log($0);"]
+    "body": ["console.log('$0',$0);"]
   }
 }
