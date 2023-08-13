@@ -1,7 +1,7 @@
 local opt = vim.opt
 
--- opt.number = false -- Print line number
--- opt.relativenumber = false
+opt.number = false -- Print line number
+opt.relativenumber = false
 opt.cursorline = false
 opt.undofile = true
 
