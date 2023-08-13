@@ -15,7 +15,7 @@ window:
     y: 30
   decorations: buttonless
   dynamic_padding: false
-  opacity: 0.94
+  opacity: 1
 
 key_bindings:
   # - { key: E, mods: Command, chars: "\x00\"" } # split tmux window vertically
@@ -28,7 +28,6 @@ key_bindings:
   - { key: L, mods: Command, chars: "\x00L" } # switch to the last tmux session
   - { key: T, mods: Command, chars: "\x00c" } # create a new tmux window
   - { key: W, mods: Command, chars: "\x00x" } # kill the current pane
-  - { key: Z, mods: Command, chars: "\x00z" } # toggle zoom state of the current tmux pane
   - { key: Tab, mods: Control, chars: "\x00n" } # switch to next tmux window
   - { key: Left, mods: Command|Alt, chars: "\x00p" } # switch to next tmux window
   - { key: Right, mods: Command|Alt, chars: "\x00n" } # switch to previous tmux window
