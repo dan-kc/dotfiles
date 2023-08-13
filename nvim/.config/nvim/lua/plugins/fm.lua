@@ -1,6 +1,6 @@
 return {
   "is0n/fm-nvim",
-
+  enabled = false,
   keys = {
     { "<leader>a", "<cmd>Xplr %:p<cr>", desc = "Xplr (cwd)" },
     { "<leader>A", "<cmd>Xplr<cr>", desc = "Xplr (root dir)" },
