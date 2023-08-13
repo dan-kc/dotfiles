@@ -7,9 +7,12 @@ return {
   opts = {
     context_commentstring = { enable = true, enable_autocmd = false },
     ensure_installed = {
+      "css",
       "go",
       "bash",
       "html",
+      "proto",
+      "cpp",
       "javascript",
       "json",
       "lua",
