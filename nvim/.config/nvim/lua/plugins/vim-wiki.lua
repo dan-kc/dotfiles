@@ -11,6 +11,6 @@ return {
     }
   end,
   keys = {
-    { "<leader>n", "<cmd>VimwikiIndex<cr>", desc = "Notes index" },
+    -- { "<leader>n", "<cmd>VimwikiIndex<cr>", desc = "Notes index" },
   },
 }
