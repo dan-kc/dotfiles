@@ -32,19 +32,31 @@ vim.keymap.del("n", "<C-h>")
 vim.keymap.del("n", "<C-j>")
 vim.keymap.del("n", "<C-k>")
 vim.keymap.del("n", "<C-l>")
+vim.keymap.del("n", "<leader>ww")
 
---
--- -- Resize window
--- vim.keymap.del("n", "<C-Up>")
--- vim.keymap.del("n", "<C-Down>")
--- vim.keymap.del("n", "<C-Left>")
--- vim.keymap.del("n", "<C-Right>")
---
+-- Resize window
+vim.keymap.del("n", "<C-Up>")
+vim.keymap.del("n", "<C-Down>")
+vim.keymap.del("n", "<C-Left>")
+vim.keymap.del("n", "<C-Right>")
+
+-- Split window
+-- vim.keymap.del("n", "<leader>w|")
+-- vim.keymap.del("n", "<leader>w-")
+
+-- Delete window
+-- vim.keymap.del("n", "<leader>wd")
+
 -- Center screen on jump
 -- vim.keymap.set("n", "<C-d>", "<C-d>zz")
 -- vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
-vim.keymap.set("n", "<leader>o", ":only<CR>", { desc = "Close all other panes" })
+-- Buffer
+-- vim.keymap.set("n", "<leader>wo", ":only<CR>", { desc = "Close all other windows" })
+-- vim.keymap.del("n", "<leader>bb")
+
+vim.keymap.set("n", "<leader>wo", ":only<CR>", { desc = "Close all other windows" })
+vim.keymap.set("n", "<leader>wx", "<C-w>x", { desc = "Swap window with next" })
 vim.keymap.set("n", "<leader>uL", ":set cursorline!<CR>", { desc = "Toggle cursor line" })
 vim.keymap.set("n", "<leader>qo", ":copen<CR>", { desc = "Open list" })
 vim.keymap.set("n", "<leader>qn", ":cnext<CR>", { desc = "Next item" })
@@ -56,4 +68,4 @@ vim.keymap.set("n", "<leader>qp", ":cprev<CR>", { desc = "Prev item" })
 -- vim.keymap.set("n", "<S-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
 -- vim.keymap.set("n", "<S-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
 
-vim.keymap.set("n", "<leader><tab>", "<C-W>p", { desc = "Other window", remap = true })
+-- vim.keymap.set("n", "<leader><tab>", "<C-W>p", { desc = "Other window", remap = true })

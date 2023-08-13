@@ -3,7 +3,7 @@ return {
   "ThePrimeagen/harpoon",
   config = function(_, opts)
     vim.keymap.set("n", "<leader>hm", require("harpoon.mark").add_file, { desc = "Mark file" })
-    vim.keymap.set("n", "<leader>hl", require("harpoon.ui").toggle_quick_menu, { desc = "List marks" })
+    vim.keymap.set("n", "<leader>hh", require("harpoon.ui").toggle_quick_menu, { desc = "List marks" })
     vim.keymap.set("n", "<leader>hn", function() require("harpoon.ui").nav_prev() end, { desc = "Next mark" })
     vim.keymap.set("n", "<leader>ho", function() require("harpoon.ui").nav_next() end, { desc = "Prev mark" })
     vim.keymap.set("n", "<leader>h1", function() require("harpoon.ui").nav_file(1) end, { desc = "Go to mark 1" })
