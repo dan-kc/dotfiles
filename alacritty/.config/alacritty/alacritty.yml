@@ -15,7 +15,7 @@ window:
     y: 30
   decorations: buttonless
   dynamic_padding: false
-  opacity: 1
+  opacity: 0.97
 
 key_bindings:
   # - { key: E, mods: Command, chars: "\x00\"" } # split tmux window vertically
@@ -23,6 +23,8 @@ key_bindings:
   - { key: F, mods: Command, chars: "x\n" } # open file manager 'gokcehan/lf'
   - { key: F, mods: Command|Shift, chars: "\x00\x5b\x2f" } # start tmux search mode
   - { key: G, mods: Command, chars: "\x00g" } # open git manager 'jesseduffield/lazygit'
+  - { key: G, mods: Command|Shift, chars: "\x00G" } # open github dash 'dlvhdr/gh-dash'
+  - { key: Semicolon, mods: Command, chars: "\x00:" } # enter the tmux command prompt
   - { key: J, mods: Command, chars: "\x00\x54" } # open t - tmux smart session manager
   - { key: K, mods: Command, chars: "\x00s" } # open interactive tmux session client
   - { key: L, mods: Command, chars: "\x00L" } # switch to the last tmux session
@@ -31,7 +33,6 @@ key_bindings:
   - { key: Tab, mods: Control, chars: "\x00n" } # switch to next tmux window
   - { key: Left, mods: Command|Alt, chars: "\x00p" } # switch to next tmux window
   - { key: Right, mods: Command|Alt, chars: "\x00n" } # switch to previous tmux window
-  - { key: Semicolon, mods: Command, chars: "\x00:" } # enter the tmux command prompt
 
 import:
   - ~/.config/alacritty/themes/gruvbox_dark.yaml
