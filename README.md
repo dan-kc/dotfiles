@@ -17,4 +17,3 @@ I've drawn inspiration and learned from various sources while creating my dotfil
 ## Todo
 
 - Complete TSX snippets
-- Better prompt
