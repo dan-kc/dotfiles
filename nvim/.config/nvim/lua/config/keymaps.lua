@@ -55,16 +55,6 @@ vim.keymap.del("n", "<C-Right>")
 -- vim.keymap.set("n", "<leader>wo", ":only<CR>", { desc = "Close all other windows" })
 -- vim.keymap.del("n", "<leader>bb")
 
-local function ToggleLineNumbers()
-  if vim.o.relativenumber then
-    vim.o.relativenumber = false
-    vim.o.number = true
-  else
-    vim.o.number = false
-    vim.o.relativenumber = true
-  end
-end
-
 vim.keymap.set("n", "<leader>wo", ":only<CR>", { desc = "Close all other windows" })
 vim.keymap.set("n", "<leader>wx", "<C-w>x", { desc = "Swap window with next" })
 vim.keymap.set("n", "<leader>uL", ":set cursorline!<CR>", { desc = "Toggle cursor line" })
