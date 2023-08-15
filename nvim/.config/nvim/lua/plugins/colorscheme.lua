@@ -11,7 +11,7 @@ return {
   { "marko-cerovac/material.nvim" },
   { "JoosepAlviste/palenightfall.nvim" },
   { "folke/tokyonight.nvim" },
-
+  { "projekt0n/github-nvim-theme" },
   -- Some transparency glitches
   { "rafamadriz/neon" }, --Bug: Code actions has background or border | Telescope symbols have background
   { "Yagua/nebulous.nvim" }, -- Bug: Gitsigns transparent popin
@@ -20,7 +20,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "gruvbox",
+      colorscheme = "palenightfall",
     },
   },
 }

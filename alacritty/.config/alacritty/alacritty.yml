@@ -35,4 +35,4 @@ key_bindings:
   - { key: Right, mods: Command|Alt, chars: "\x00n" } # switch to previous tmux window
 
 import:
-  - ~/.config/alacritty/themes/gruvbox_dark.yaml
+  - ~/.config/alacritty/themes/palenight.yaml
