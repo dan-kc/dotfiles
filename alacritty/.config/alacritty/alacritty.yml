@@ -2,6 +2,9 @@ live_config_reload: true
 env:
   TERM: xterm-256color
 
+# shell:
+#   program: /opt/homebrew/bin/nu
+
 font:
   normal:
     Default:
@@ -26,6 +29,7 @@ key_bindings:
   - { key: G, mods: Command|Shift, chars: "\x00G" } # open github dash 'dlvhdr/gh-dash'
   - { key: Semicolon, mods: Command, chars: "\x00:" } # enter the tmux command prompt
   - { key: J, mods: Command, chars: "\x00\x54" } # open t - tmux smart session manager
+  - { key: X, mods: Command, chars: "\x00J" } # open xplr
   - { key: K, mods: Command, chars: "\x00s" } # open interactive tmux session client
   - { key: L, mods: Command, chars: "\x00L" } # switch to the last tmux session
   - { key: T, mods: Command, chars: "\x00c" } # create a new tmux window
@@ -35,4 +39,4 @@ key_bindings:
   - { key: Right, mods: Command|Alt, chars: "\x00n" } # switch to previous tmux window
 
 import:
-  - ~/.config/alacritty/themes/palenight.yaml
+  - ~/.config/alacritty/themes/nord.yaml
