@@ -11,13 +11,6 @@ return {
         require("telescope").load_extension("fzf")
       end,
     },
-    -- {
-    --   "nvim-telescope/telescope-frecency.nvim",
-    --   config = function()
-    --     require("telescope").load_extension("frecency")
-    --   end,
-    --   dependencies = { "kkharji/sqlite.lua" },
-    -- },
   },
   opts = {
     defaults = {
@@ -41,8 +34,6 @@ return {
     { "<leader>,", false },
     { "<leader>sw", false },
     { "<leader>sW", false },
-
-    -- { "<leader>/", "<cmd>Telescope frecency<cr>", desc = "Recent (cwd)" },
     { "<leader>/", Util.telescope("oldfiles", { cwd = vim.loop.cwd() }), desc = "Recent (cwd)" },
     { "<leader>fF", Util.telescope("files"), desc = "Find Files (root dir)" },
     { "<leader>ff", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
