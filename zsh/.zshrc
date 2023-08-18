@@ -11,6 +11,9 @@ export EDITOR=nvim
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+
 # Load environment variables from .env file
 if [[ -f "$HOME/.config/.env" ]]; then
     set -a
@@ -50,6 +53,4 @@ source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 
 eval "$(atuin init zsh)"
 
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

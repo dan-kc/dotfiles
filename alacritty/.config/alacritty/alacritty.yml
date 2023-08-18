@@ -2,9 +2,6 @@ live_config_reload: true
 env:
   TERM: xterm-256color
 
-# shell:
-#   program: /opt/homebrew/bin/nu
-
 font:
   normal:
     Default:
@@ -12,31 +9,28 @@ font:
     size: 72
     use_thin_strokes: true
 
+confirm-close: true
 window:
   padding:
     x: 30
     y: 30
   decorations: buttonless
-  dynamic_padding: false
-  opacity: 0.97
+  dynamic_padding: true
+  opacity: 0.99
 
 key_bindings:
-  # - { key: E, mods: Command, chars: "\x00\"" } # split tmux window vertically
-  - { key: E, mods: Command, chars: "\x00%" } # split tmux window horizontally
-  - { key: F, mods: Command, chars: "x\n" } # open file manager 'gokcehan/lf'
-  - { key: F, mods: Command|Shift, chars: "\x00\x5b\x2f" } # start tmux search mode
-  - { key: G, mods: Command, chars: "\x00g" } # open git manager 'jesseduffield/lazygit'
-  - { key: G, mods: Command|Shift, chars: "\x00G" } # open github dash 'dlvhdr/gh-dash'
-  - { key: Semicolon, mods: Command, chars: "\x00:" } # enter the tmux command prompt
-  - { key: J, mods: Command, chars: "\x00\x54" } # open t - tmux smart session manager
-  - { key: X, mods: Command, chars: "\x00J" } # open xplr
-  - { key: K, mods: Command, chars: "\x00s" } # open interactive tmux session client
-  - { key: L, mods: Command, chars: "\x00L" } # switch to the last tmux session
-  - { key: T, mods: Command, chars: "\x00c" } # create a new tmux window
-  - { key: W, mods: Command, chars: "\x00x" } # kill the current pane
-  - { key: Tab, mods: Control, chars: "\x00n" } # switch to next tmux window
-  - { key: Left, mods: Command|Alt, chars: "\x00p" } # switch to next tmux window
-  - { key: Right, mods: Command|Alt, chars: "\x00n" } # switch to previous tmux window
+  - { key: G, mods: Command, chars: "\x00g" } # lazygit
+  - { key: G, mods: Command|Shift, chars: "\x00G" } # github dash
+  - { key: X, mods: Command, chars: "\x00J" } # xplr
+  - { key: J, mods: Command, chars: "\x00\x54" } # search sessions/zoxide/directories
+  - { key: K, mods: Command, chars: "\x00s" } # session manager
+  - { key: Semicolon, mods: Command, chars: "\x00:" } # prompt
+  # - { key: F, mods: Command|Shift, chars: "\x00\x5b\x2f" } # start tmux search mode
+  - { key: L, mods: Command, chars: "\x00L" } # jump to last session
+  - { key: T, mods: Command, chars: "\x00c" } # new tmux window
+  - { key: W, mods: Command, chars: "\x00x" } # kill current pane
+  - { key: Left, mods: Command|Alt, chars: "\x00p" } # switch to next window
+  - { key: Right, mods: Command|Alt, chars: "\x00n" } # switch to previous window
 
 import:
   - ~/.config/alacritty/themes/nord.yaml
