@@ -27,7 +27,7 @@ key_bindings:
   - { key: Semicolon, mods: Command, chars: "\x00:" } # prompt
   # - { key: F, mods: Command|Shift, chars: "\x00\x5b\x2f" } # start tmux search mode
   - { key: L, mods: Command, chars: "\x00L" } # jump to last session
-  - { key: T, mods: Command, chars: "\x00c" } # new tmux window
+  - { key: T, mods: Command, chars: "\x00C" } # new tmux window
   - { key: W, mods: Command, chars: "\x00x" } # kill current pane
   - { key: Left, mods: Command|Alt, chars: "\x00p" } # switch to next window
   - { key: Right, mods: Command|Alt, chars: "\x00n" } # switch to previous window
