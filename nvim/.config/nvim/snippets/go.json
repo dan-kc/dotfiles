@@ -1,0 +1,10 @@
+{
+  "Error check": {
+    "prefix": "inlineerrorcheck",
+    "body": ["if err != nil {", "$1", "}"]
+  },
+  "Inline error check": {
+    "prefix": "errorcheck",
+    "body": ["if err := $1; err != nil {", "$2", "}"]
+  }
+}

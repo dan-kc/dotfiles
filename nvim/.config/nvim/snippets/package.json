@@ -22,6 +22,12 @@
           "typescriptreact"
         ],
         "path": "./emmet.json"
+      },
+      {
+        "language": [
+          "go"
+        ],
+        "path": "./go.json"
       }
     ]
   }
