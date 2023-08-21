@@ -1,5 +1,6 @@
 return {
   "karb94/neoscroll.nvim",
+  enabled = false,
   opts = {
     hide_cursor = false, -- Hide cursor while scrolling
     stop_eof = true, -- Stop at <EOF> when scrolling downwards
