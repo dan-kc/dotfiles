@@ -12,18 +12,14 @@ font:
 confirm-close: true
 window:
   padding:
-    x: 30
-    y: 30
+    x: 20
+    y: 20
   decorations: buttonless
   dynamic_padding: true
-  opacity: 0.99
+  opacity: 0.98
 
 selection:
-  # This string contains all characters that are used as separators for
-  # "semantic words" in Alacritty.
-  semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
-  # When set to `true`, selected text will be copied to the primary clipboard.
-  save_to_clipboard: true
+  save_to_clipboard: true # selected text will be copied to the primary clipboard.
 
 key_bindings:
   - { key: G, mods: Command, chars: "\x00g" } # lazygit
@@ -40,4 +36,4 @@ key_bindings:
   - { key: Right, mods: Command|Alt, chars: "\x00n" } # switch to previous window
 
 import:
-  - ~/.config/alacritty/themes/nord.yaml
+  - ~/.config/alacritty/themes/catppuccin.yaml
