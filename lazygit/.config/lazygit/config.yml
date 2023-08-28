@@ -1,0 +1,6 @@
+gui:
+  authorColors:
+    "*": magenta
+  showBottomLine: false
+  showCommandLog: false
+  showListFooter: false
