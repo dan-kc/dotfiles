@@ -19,3 +19,9 @@ I've drawn inspiration and learned from various sources while creating my dotfil
 - Complete TSX snippets
 - Rust snippets (testing)
 - Better telescope
+- Investigate chatGPT
+- Neorg
+
+- Clipboard manager
+- Password manager
+- Investigate hammerSpoon
