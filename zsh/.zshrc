@@ -26,11 +26,14 @@ eval "$(zoxide init zsh)"
 
 # Aliases.
 alias v=nvim
+alias b="cd .."
+alias bb="cd ../.."
+alias bbb="cd ../../.."
 alias c=clear
 alias g=lazygit
 alias rm=trash
 alias x='cd "$(xplr --print-pwd-as-result)"'
-alias l="erd --human --icons --hidden --level=1"
+alias l="erd --human --icons --hidden --level=2"
 alias ls='exa -lah'
 alias src='source ~/.zshrc'
 alias ta='tmux a'
