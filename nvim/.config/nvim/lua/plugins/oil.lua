@@ -1,5 +1,6 @@
 return {
   "stevearc/oil.nvim",
+  enabled = false,
   keys = {
     { "<backspace>", "<cmd>Oil<cr>", desc = "Oil" },
   },
@@ -18,7 +19,7 @@ return {
     columns = {
       "icon",
       -- "permissions",
-      -- "size",
+      "size",
       -- "mtime",
     },
     -- Buffer-local options to use for oil buffers
