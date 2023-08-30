@@ -4,6 +4,8 @@ opt.number = false -- Print line number
 opt.relativenumber = false
 opt.cursorline = false
 opt.undofile = true
+opt.linebreak = true -- Break word wrap at word
+opt.colorcolumn = "90"
 
 -- Reduce command buffer size
 opt.cmdwinheight = 1
@@ -16,7 +18,7 @@ opt.foldenable = true
 -- opt.timeoutlen = 9000
 opt.swapfile = false
 -- Jumplist (portal.nvim)
--- opt.jumpoptions = "stack"
+opt.jumpoptions = "stack"
 
 -- Disable comment continuation (doesn't work)
 opt.formatoptions:remove("o") -- Don't continue after 'o' or 'O'
