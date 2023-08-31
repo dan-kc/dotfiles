@@ -15,7 +15,7 @@ opt.foldcolumn = "0"
 opt.foldlevel = 99
 opt.foldlevelstart = 99
 opt.foldenable = true
--- opt.timeoutlen = 9000
+opt.timeoutlen = 3000
 opt.swapfile = false
 -- Jumplist (portal.nvim)
 opt.jumpoptions = "stack"
