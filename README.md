@@ -18,10 +18,9 @@ I've drawn inspiration and learned from various sources while creating my dotfil
 
 - Complete TSX snippets
 - Rust snippets (testing)
-- Better telescope
-- Investigate chatGPT
-- Neorg
-
+- Investigate chatGPT for terminal and neovim
+- Better lualine colors
 - Clipboard manager
 - Password manager
 - Investigate hammerSpoon
+- Investigate lefthook
