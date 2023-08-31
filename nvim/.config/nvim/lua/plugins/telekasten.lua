@@ -12,7 +12,7 @@ return {
     { "<leader>nr", "<cmd>Telekasten rename_note<cr>", desc = "Rename note" },
     { "<leader>nt", "<cmd>Telekasten toggle_todo<cr>", desc = "Toggle todo" },
     { "<leader>ni", "<cmd>Telekasten insert_link<cr>", desc = "Insert link" },
-    { "<leader>nf", "<cmd>Telekasten follow_link<cr><cr>", desc = "Follow link" },
+    { "<leader>nf", "<cmd>Telekasten follow_link<cr>", desc = "Follow link" },
   },
   opts = {
     home = vim.fn.expand("~/zettelkasten"),
