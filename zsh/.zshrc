@@ -24,9 +24,6 @@ eval "$(zoxide init zsh)"
 
 # Aliases.
 alias v=nvim
-alias b="cd .."
-alias bb="cd ../.."
-alias bbb="cd ../../.."
 alias c=clear
 alias g=lazygit
 alias rm=trash
