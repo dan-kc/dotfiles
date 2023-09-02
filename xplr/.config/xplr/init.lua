@@ -3033,6 +3033,7 @@ require("icons").setup()
 -- 	middle_pane_width = { Percentage = 40 },
 -- 	right_pane_width = { Percentage = 30 },
 -- })
+require("tree-view").setup()
 
 return {
 	on_load = {},
