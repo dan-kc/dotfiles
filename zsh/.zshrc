@@ -6,11 +6,9 @@ setopt autocd
 # Disable ctrl-s to freeze terminal.
 stty stop undef
 
-# Set default editor.
 export EDITOR=nvim      
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
 
@@ -44,9 +42,6 @@ ff() { du -a | awk '{print $2}' | $(fzf --height 40% --border)| xargs -r $EDITOR
 copydir() {pwd | tr -d "\r\n" | pbcopy ; }
 copyfile() {[[ "$#" != 1 ]] && return 1 ; local file_to_copy=$1 ; cat $file_to_copy | pbcopy ; }
 take() {mkdir -p $1 ; cd $1 ; }
-
-# Allow inline comments.
-setopt interactive_comments
 
 # Promt config.
 eval "$(starship init zsh)"

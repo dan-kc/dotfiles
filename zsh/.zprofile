@@ -5,4 +5,4 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 export PATH=$HOME/.config/tmux/plugins/t-smart-tmux-session-manager/bin:$PATH
 
 # ~/.config/lazygit/config.yml
-export XDG_CONFIG_HOME="$HOME/.config"
+# export XDG_CONFIG_HOME="$HOME/.config"
