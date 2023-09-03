@@ -37,26 +37,26 @@ return {
       "CursorLineNr",
       "EndOfBuffer",
       "StatusLine",
-      "MsgSeparator",
+      -- "MsgSeparator",
     },
     extra_groups = {
 
       -- Plugins which have float panel such as Lazy, Mason, LspInfo
       "NormalFloat",
-      "FloatBorder",
+      -- "FloatBorder",
 
       -- Telescope
       "TelescopeNormal",
       "TelescopeMatching",
       "TelescopeSelection",
       "TelescopePromptNormal",
-      "TelescopePromptBorder",
+      -- "TelescopePromptBorder",
       "TelescopePromptTitle",
       "TelescopePromptPrefix",
-      "TelescopeResultsBorder",
+      -- "TelescopeResultsBorder",
       "TelescopeResultsNormal",
       "TelescopeResultsTitle",
-      "TelescopePreviewBorder",
+      -- "TelescopePreviewBorder",
       "TelescopePreviewNormal",
       "TelescopePreviewTitle",
       "TelescopeResultsDiffChange",
@@ -72,7 +72,7 @@ return {
 
       -- Which key
       "WhichKeyFloat",
-      "WhichKeyBorder",
+      -- "WhichKeyBorder",
 
       -- Diagnostics
       "DiagnosticSignError",

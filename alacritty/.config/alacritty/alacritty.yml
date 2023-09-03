@@ -16,7 +16,8 @@ window:
     y: 20
   decorations: buttonless
   dynamic_padding: true
-  opacity: 0.98
+  opacity: 0.92
+
 
 selection:
   save_to_clipboard: true # selected text will be copied to the primary clipboard.

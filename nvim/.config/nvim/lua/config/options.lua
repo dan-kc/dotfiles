@@ -5,10 +5,15 @@ opt.relativenumber = false
 opt.cursorline = false
 opt.undofile = true
 opt.linebreak = true -- Break word wrap at word
-opt.colorcolumn = "90"
+-- opt.colorcolumn = "90"
 
 -- Reduce command buffer size
 opt.cmdwinheight = 1
+
+-- white space settings
+vim.opt.list = false
+-- vim.opt.listchars:append("eol:↴")
+-- vim.opt.listchars:append("space:⋅")
 
 -- Folding (nvim-ufo)
 opt.foldcolumn = "0"
