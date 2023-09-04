@@ -1,3 +1,6 @@
+-- Save
+vim.keymap.del("n", "<c-s>")
+
 -- Tabs
 vim.keymap.del("n", "<leader><tab>l")
 vim.keymap.del("n", "<leader><tab>f")

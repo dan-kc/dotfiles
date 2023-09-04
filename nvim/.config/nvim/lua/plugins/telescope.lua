@@ -101,6 +101,7 @@ return {
     -- { "<leader><sc>", false },
     { "<leader>gc", false },
     { "<leader>sR", false },
+    { "<leader>fR", false },
     { "<leader>gs", false },
     { "<leader>fr", false },
     { "<leader>,", false },
