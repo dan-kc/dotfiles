@@ -7,9 +7,9 @@ setopt autocd
 stty stop undef
 
 eval "$(fnm env --use-on-cd)"
-
-# Zoxide setup.
 eval "$(zoxide init zsh)"
+eval "$(starship init zsh)"
+eval "$(atuin init zsh)"
 
 # Aliases.
 alias v=nvim
@@ -29,12 +29,5 @@ copydir() {pwd | tr -d "\r\n" | pbcopy ; }
 copyfile() {[[ "$#" != 1 ]] && return 1 ; local file_to_copy=$1 ; cat $file_to_copy | pbcopy ; }
 take() {mkdir -p $1 ; cd $1 ; }
 
-# Promt config.
-eval "$(starship init zsh)"
-
 # Load syntax highlighting; should be last.
 source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-eval "$(atuin init zsh)"
-
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
