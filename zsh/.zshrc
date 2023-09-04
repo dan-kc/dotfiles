@@ -6,18 +6,7 @@ setopt autocd
 # Disable ctrl-s to freeze terminal.
 stty stop undef
 
-export EDITOR=nvim      
-export GOPATH=$HOME/go
-export PATH=$PATH:$GOPATH/bin
-export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-
-# Load environment variables from .env file
-if [[ -f "$HOME/.config/.env" ]]; then
-    set -a
-    source "$HOME/.config/.env"
-    set +a
-fi
+eval "$(fnm env --use-on-cd)"
 
 # Zoxide setup.
 eval "$(zoxide init zsh)"
