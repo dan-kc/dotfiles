@@ -107,8 +107,8 @@ return {
     { "<leader>,", false },
     { "<leader>sw", false },
     { "<leader>sW", false },
-    { "<leader>E", "<cmd>Telescope file_browser<CR>", desc = "File browser" },
-    { "<leader>e", "<cmd>Telescope file_browser path=%:p:h select_buffer=true<CR>", desc = "File browser" },
+    -- { "<leader>E", "<cmd>Telescope file_browser<CR>", desc = "File browser" },
+    -- { "<leader>e", "<cmd>Telescope file_browser path=%:p:h select_buffer=true<CR>", desc = "File browser" },
     { "<leader>/", Util.telescope("oldfiles", { cwd = vim.loop.cwd() }), desc = "Recent (cwd)" },
     { "<leader>fF", Util.telescope("files"), desc = "Find Files (root dir)" },
     { "<leader>ff", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
@@ -116,7 +116,7 @@ return {
   },
   config = function(_, opts)
     require("telescope").setup(opts)
-    require("telescope").load_extension("file_browser")
+    -- require("telescope").load_extension("file_browser")
     require("telescope").load_extension("fzf")
   end,
 }

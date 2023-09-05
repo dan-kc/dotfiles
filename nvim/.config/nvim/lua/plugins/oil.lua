@@ -1,8 +1,9 @@
 return {
   "stevearc/oil.nvim",
-  enabled = false,
+  enabled = true,
   keys = {
-    { "<backspace>", "<cmd>Oil<cr>", desc = "Oil" },
+    { "-", "<cmd>Oil<cr>", desc = "Open parent directory" },
+    { "_", "<cmd>Oil pwd<cr>", desc = "Open root directory" }, --TODO: Fix need to press twice
   },
   opts = {
     view_options = {
