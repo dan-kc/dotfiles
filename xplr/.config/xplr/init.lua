@@ -68,7 +68,7 @@ xplr.config.general.disable_debug_error_mode = false
 -- Set it to `true` if you want to enable mouse scrolling.
 --
 -- Type: boolean
-xplr.config.general.enable_mouse = false
+xplr.config.general.enable_mouse = true
 
 -- Set it to `true` to show hidden files by default.
 --
@@ -99,7 +99,7 @@ xplr.config.general.hide_remaps_in_help_menu = false
 -- The default behavior is to rotate from the last/first path.
 --
 -- Type: boolean
-xplr.config.general.enforce_bounded_index_navigation = false
+xplr.config.general.enforce_bounded_index_navigation = true
 
 -- This is the shape of the prompt for the input buffer.
 --
@@ -516,12 +516,12 @@ xplr.config.general.panel_ui.default.borders = {
 -- Type of the borders by default.
 --
 -- Type: nullable [Border Type](https://xplr.dev/en/borders#border-type)
-xplr.config.general.panel_ui.default.border_type = "Rounded"
+xplr.config.general.panel_ui.default.border_type = "Thick"
 
 -- Style of the panel borders by default.
 --
 -- Type: [Style](https://xplr.dev/en/style)
-xplr.config.general.panel_ui.default.border_style = { fg = "DarkGray" }
+xplr.config.general.panel_ui.default.border_style = { fg = "Blue" }
 
 -- The content for the table panel title.
 --
@@ -911,8 +911,8 @@ xplr.config.layouts.builtin.default = {
 				Vertical = {
 					config = {
 						constraints = {
-							{ Percentage = 20 },
-							{ Percentage = 80 },
+							{ Percentage = 30 },
+							{ Percentage = 70 },
 						},
 					},
 					splits = {
@@ -3019,6 +3019,8 @@ xplr.fn.custom = {}
 -- }
 -- ```
 
+--TODO: map esc to quit but only on main pane
+
 -- Plugins
 local home = os.getenv("HOME")
 package.path = home .. "/.config/xplr/plugins/?/init.lua;" .. home .. "/.config/xplr/plugins/?.lua;" .. package.path
@@ -3026,14 +3028,14 @@ package.path = home .. "/.config/xplr/plugins/?/init.lua;" .. home .. "/.config/
 require("zentable").setup()
 require("zoxide").setup()
 require("icons").setup()
--- require("tri-pane").setup({
--- 	layout_key = "T", -- In switch_layout mode
--- 	as_default_layout = true,
--- 	left_pane_width = { Percentage = 30 },
--- 	middle_pane_width = { Percentage = 40 },
--- 	right_pane_width = { Percentage = 30 },
--- })
-require("tree-view").setup()
+require("tri-pane").setup({
+	layout_key = "T", -- In switch_layout mode
+	as_default_layout = true,
+	left_pane_width = { Percentage = 30 },
+	middle_pane_width = { Percentage = 40 },
+	right_pane_width = { Percentage = 30 },
+})
+-- require("tree-view").setup()
 
 return {
 	on_load = {},
