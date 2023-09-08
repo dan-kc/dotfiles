@@ -1,5 +1,5 @@
 return {
-  enabled = false,
+  enabled = true,
   "goolord/alpha-nvim",
   dependencies = {
     "is0n/fm-nvim",

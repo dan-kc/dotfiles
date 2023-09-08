@@ -21,4 +21,3 @@ alias tk = tmux kill-server
 # copydir() {pwd | tr -d "\r\n" | pbcopy ; }
 # copyfile() {[[ "$#" != 1 ]] && return 1 ; local file_to_copy=$1 ; cat $file_to_copy | pbcopy ; }
 # take() {mkdir -p $1 ; cd $1 ; }
-

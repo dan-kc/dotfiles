@@ -1,9 +1,8 @@
-local key = vim.fn.expand("$OPENAI_KEY")
+local key = vim.fn.expand("$OPENAI_API_KEY")
 return {
   "jackMort/ChatGPT.nvim",
   enabled = true,
   event = "VeryLazy",
-  commit = "24bcca7",
   dependencies = {
     "MunifTanjim/nui.nvim",
     "nvim-lua/plenary.nvim",
@@ -13,7 +12,7 @@ return {
     { "<leader>cg", "<cmd>ChatGPTCompleteCode<cr>", desc = "Complete code" },
   },
   opts = {
-    api_key_cmd = "echo " .. key, -- leave me alone
+    api_key_cmd = "echo " .. key,
     edit_with_instructions = {
       diff = false,
       keymaps = {

@@ -3,66 +3,69 @@
 
 return {
   "xiyaowong/transparent.nvim",
-  enable = true,
+  enabled = true,
   dependencies = {
     "nvim-telescope/telescope.nvim",
     "lewis6991/gitsigns.nvim",
   },
   opts = {
-    groups = { -- table: default groups
+    groups = {
+      -- "Must haves"
       "Normal",
       "NormalNC",
-      "Comment",
-      "Constant",
-      "Special",
-      "Identifier",
-      "Statement",
-      "PreProc",
-      "Type",
-      "Title",
-      "Underlined",
-      "Todo",
-      "String",
-      "Function",
-      "FloatTitle",
-      "FloatShadow",
-      "FloatShadowThrough",
-      "Conditional",
-      "Repeat",
-      "Operator",
-      "Structure",
-      "LineNr",
-      "NonText",
       "SignColumn",
-      "CursorLineNr",
-      "EndOfBuffer",
-      "StatusLine",
+
+      -- "VertSplit",
+      -- "StatusLine",
+      -- "Comment",
+      -- "Constant",
+      -- "Special",
+      -- "Identifier",
+      -- "Statement",
+      -- "PreProc",
+      -- "Type",
+      -- "Title",
+      -- "Underlined",
+      -- "Todo",
+      -- "String",
+      -- "Function",
+      -- "FloatTitle",
+      -- "FloatShadow",
+      -- "FloatShadowThrough",
+      -- "Conditional",
+      -- "Repeat",
+      -- "Operator",
+      -- "Structure",
+      -- "LineNr",
+      -- "NonText",
+      -- "CursorLineNr",
+      -- "EndOfBuffer",
       -- "MsgSeparator",
     },
     extra_groups = {
 
       -- Plugins which have float panel such as Lazy, Mason, LspInfo
-      "NormalFloat",
+      -- "NormalFloat",
       -- "FloatBorder",
 
       -- Telescope
-      "TelescopeNormal",
-      "TelescopeMatching",
-      "TelescopeSelection",
-      "TelescopePromptNormal",
-      -- "TelescopePromptBorder",
-      "TelescopePromptTitle",
-      "TelescopePromptPrefix",
-      -- "TelescopeResultsBorder",
-      "TelescopeResultsNormal",
-      "TelescopeResultsTitle",
-      -- "TelescopePreviewBorder",
-      "TelescopePreviewNormal",
-      "TelescopePreviewTitle",
-      "TelescopeResultsDiffChange",
-      "TelescopeResultsDiffAdd",
-      "TelescopeResultsDiffDelete",
-      "TelescopeSelectionCaret",
+      -- "TelescopeNormal",
+      -- "TelescopeMatching",
+      -- "TelescopeSelection",
+      -- "TelescopePromptNormal",
+      -- -- "TelescopePromptBorder",
+      -- "TelescopePromptTitle",
+      -- "TelescopePromptPrefix",
+      -- -- "TelescopeResultsBorder",
+      -- "TelescopeResultsNormal",
+      -- "TelescopeResultsTitle",
+      -- -- "TelescopePreviewBorder",
+      -- "TelescopePreviewNormal",
+      -- "TelescopePreviewTitle",
+      -- "TelescopeResultsDiffChange",
+      -- "TelescopeResultsDiffAdd",
+      -- "TelescopeResultsDiffDelete",
+      -- "TelescopeSelectionCaret",
 
       -- GitSigns
       "GitSignsChange",
@@ -71,7 +74,7 @@ return {
       "GitSignsAddLine",
 
       -- Which key
-      "WhichKeyFloat",
+      -- "WhichKeyFloat",
       -- "WhichKeyBorder",
 
       -- Diagnostics
@@ -84,10 +87,10 @@ return {
       "barbecue_normal",
 
       -- Neotree
-      "NeoTreeNormal",
+      -- "NeoTreeNormal",
 
       -- Bqf
-      "BqfPreviewFloat", -- Doesn't work?
+      -- "BqfPreviewFloat", -- Doesn't work?
       -- "BqfPreviewBorder",
       -- "BqfPreviewTitle",
       -- "BqfPreviewThumb",
@@ -98,10 +101,10 @@ return {
       -- "BqfPreviewBufLabel",
 
       -- Noice
-      "NoicePopupmenu",
-      "NoiceScrollbar",
-      "NoiceFormatConfirm",
-      "NoiceScrollbarThumb",
+      -- "NoicePopupmenu",
+      -- "NoiceScrollbar",
+      -- "NoiceFormatConfirm",
+      -- "NoiceScrollbarThumb",
     },
   },
 }

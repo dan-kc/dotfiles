@@ -6,6 +6,9 @@ opt.cursorline = false
 opt.undofile = true
 opt.linebreak = true -- Break word wrap at word
 -- opt.colorcolumn = "90"
+vim.api.nvim_set_hl(0, "Normal", { fg = "#ffffff", bg = "#111111" })
+-- hi Normal guifg=#ffffff guibg=magenta
+opt.termguicolors = true
 
 -- Reduce command buffer size
 opt.cmdwinheight = 1

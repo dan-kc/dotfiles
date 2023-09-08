@@ -5,7 +5,7 @@ env:
 font:
   normal:
     Default:
-    family: Hack Nerd Font
+    family: FiraCode Nerd Font
     size: 72
     use_thin_strokes: true
 
@@ -16,8 +16,7 @@ window:
     y: 20
   decorations: buttonless
   dynamic_padding: true
-  opacity: 0.92
-
+  opacity: 0.985
 
 selection:
   save_to_clipboard: true # selected text will be copied to the primary clipboard.
@@ -37,4 +36,4 @@ key_bindings:
   - { key: Right, mods: Command|Alt, chars: "\x00n" } # switch to previous window
 
 import:
-  - ~/.config/alacritty/themes/catppuccin.yaml
+  - ~/.config/alacritty/themes/gruvbox_dark.yaml
