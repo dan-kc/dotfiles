@@ -7,6 +7,7 @@ return {
     "nvim-tree/nvim-web-devicons", -- optional dependency
   },
   opts = {
+    show_navic = false,
     theme = {
       normal = { fg = "#c0caf5" },
     },
