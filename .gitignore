@@ -1,4 +1,8 @@
 .git
+.DS_Store
 nvim/.config/nvim/lazy-lock.json
 tmux/.config/tmux/plugins
-.DS_Store
+.dotter/local.toml
+.dotter/cache.toml
+.dotter/cache
+nushell/history.txt

@@ -1,0 +1,35 @@
+[zsh.files]
+"zsh" = "~"
+
+[starship.files]
+"starship.toml" = "~/.config/starship.toml"
+
+[yabai.files]
+"yabairc" = "~/.config/yabai/yabairc"
+
+[skhd.files]
+"skhdrc" = "~/.config/skhd/skhdrc"
+
+[git.files]
+".gitconfig" = "~/.gitconfig"
+
+[lazygit.files]
+"lazygit.yml" = "~/Library/Application Support/lazygit/config.yml"
+
+[nushell.files]
+"nushell" = "~/Library/Application Support/nushell"
+
+[neovim.files]
+"nvim" = "~/.config/nvim"
+
+[alacritty.files]
+"alacritty.yml" = "~/.config/alacritty/alacritty.yml"
+
+[xplr.files]
+"xplr.lua" = "~/.config/xplr/init.lua"
+
+[atuin.files]
+"atuin.toml" = "~/.config/atuin/config.toml"
+
+[tmux.files]
+"tmux" = "~/.config/tmux"

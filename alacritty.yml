@@ -36,4 +36,4 @@ key_bindings:
   - { key: Right, mods: Command|Alt, chars: "\x00n" } # switch to previous window
 
 import:
-  - ~/.config/alacritty/themes/gruvbox_dark.yaml
+  - ~/.config/alacritty/themes/themes/github_dark_colorblind.yaml
