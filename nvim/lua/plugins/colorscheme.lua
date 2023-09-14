@@ -3,7 +3,7 @@ return {
   -- Transparency works perfectly
   { "catppuccin/nvim" },
   { "Tsuzat/NeoSolarized.nvim" },
-  { "rrethy/nvim-base16" },
+  -- { "rrethy/nvim-base16" },
   { "dotsilas/darcubox-nvim" },
   { "shaunsingh/nord.nvim" },
   { "ellisonleao/gruvbox.nvim" },
@@ -22,7 +22,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "gruvbox",
+      colorscheme = "github_dark_high_contrast",
     },
   },
 }
