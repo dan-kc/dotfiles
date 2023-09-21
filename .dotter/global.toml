@@ -33,3 +33,9 @@
 
 [tmux.files]
 "tmux" = "~/.config/tmux"
+
+[kitty.files]
+"kitty.conf" = { target = "~/.config/kitty/kitty.conf", type = "symbolic" }
+
+[wezterm.files]
+"wezterm.lua" = { target = "~/.config/wezterm/wezterm.lua", type = "symbolic" }

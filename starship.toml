@@ -8,6 +8,11 @@ add_newline = true
 # [package]
 # disabled = true
 
+# [shell]
+# disabled = false
+# zsh_indicator = "zsh"
+# nu_indicator = "nu"
+
 # Nerd fonts
 [aws]
 symbol = "  "
