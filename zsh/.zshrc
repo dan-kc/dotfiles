@@ -3,6 +3,10 @@
 # Automatically cd into typed directory.
 setopt autocd
 
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey '^xe' edit-command-line
+
 # Disable ctrl-s to freeze terminal.
 stty stop undef
 
@@ -31,3 +35,5 @@ take() {mkdir -p $1 ; cd $1 ; }
 
 # Load syntax highlighting; should be last.
 source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+source /Users/keone/.config/broot/launcher/bash/br
