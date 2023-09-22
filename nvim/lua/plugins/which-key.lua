@@ -5,6 +5,7 @@ return {
       ["gs"] = { name = "+Surround" },
       ["<leader>h"] = { name = "+harpoon" },
       ["<leader>n"] = { name = "+notes" },
+      ["ga"] = { name = "+Annotate" },
     },
   },
 }
