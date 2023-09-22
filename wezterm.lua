@@ -1,7 +1,7 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
 
-local theme = "Batman"
+local theme = "Rosé Pine (base16)"
 
 local merge_tables = function(first_table, second_table)
 	for k, v in pairs(second_table) do
@@ -15,10 +15,10 @@ local extract_tab_bar_colors_from_theme = function(theme_name)
 	return {
 		window_frame_colors = {
 			active_titlebar_bg = wez_theme.background,
-			inactive_titlebar_bg = wezterm.color.parse(wez_theme.background):darken(0.8),
+			inactive_titlebar_bg = wezterm.color.parse(wez_theme.background),
 		},
 		tab_bar_colors = {
-			inactive_tab_edge = wezterm.color.parse(wez_theme.background):darken(0.8),
+			inactive_tab_edge = wezterm.color.parse(wez_theme.background),
 			active_tab = {
 				bg_color = wez_theme.brights[3],
 				fg_color = wez_theme.background,
@@ -28,8 +28,8 @@ local extract_tab_bar_colors_from_theme = function(theme_name)
 				fg_color = wez_theme.foreground,
 			},
 			inactive_tab_hover = {
-				bg_color = wezterm.color.parse(wez_theme.background):lighten(0.1),
-				fg_color = wezterm.color.parse(wez_theme.foreground):lighten(0.2),
+				bg_color = wezterm.color.parse(wez_theme.background),
+				fg_color = wezterm.color.parse(wez_theme.foreground),
 			},
 			new_tab = {
 				bg_color = wez_theme.background,
@@ -50,7 +50,7 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
-config.font = wezterm.font("JetBrains Mono")
+config.font = wezterm.font("Hack Nerd Font")
 
 config.color_scheme = theme
 
@@ -86,23 +86,18 @@ config.keys = {
 	{ key = "v", mods = "CMD", action = act.PasteFrom("Clipboard") },
 	{ key = "c", mods = "CMD", action = act.CopyTo("Clipboard") },
 
-	{ key = "w", mods = "CMD", action = wezterm.action.CloseCurrentTab({ confirm = true }) },
+	{ key = "w", mods = "CMD", action = wezterm.action.CloseCurrentTab({ confirm = false }) },
 	{ key = "m", mods = "CMD", action = wezterm.action.Hide },
 	{ key = "n", mods = "CMD", action = wezterm.action.SpawnWindow },
 	{ key = "t", mods = "CMD", action = wezterm.action.SpawnTab("CurrentPaneDomain") },
 
-	-- investigate
 	{ key = "X", mods = "CMD|SHIFT", action = wezterm.action.ActivateCopyMode },
 	{ key = "V", mods = "CMD|SHIFT", action = wezterm.action.QuickSelect },
 }
-config.quick_select_patterns = {}
 
--- Spawn a fish shell in login mode
--- config.default_prog = { "/opt/homebrew/bin/nu" }
+config.default_prog = { "/opt/homebrew/bin/nu", "-l" }
 
-config.window_frame = merge_tables({
-	font = wezterm.font("Liga SFMono Nerd Font", { weight = "Medium" }),
-}, tab_bar_theme.window_frame_colors)
+config.window_frame = tab_bar_theme.window_frame_colors
 config.colors = {
 	tab_bar = tab_bar_theme.tab_bar_colors,
 }

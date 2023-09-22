@@ -9,10 +9,8 @@ if [[ -f "$HOME/.config/.env" ]]; then
 fi
 
 export EDITOR=nvim      
-# Go
-export GOPATH=$HOME/go
-export PATH=$PATH:$GOPATH/bin
-# Dotter
-export PATH=$HOME/.local/bin:$PATH
-# ~/.config/tmux/plugins
+GOPATH=$HOME/go
+PATH="$PATH:/Applications/WezTerm.app/Contents/MacOS"
+PATH=$PATH:$GOPATH/bin
+PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/.config/tmux/plugins/t-smart-tmux-session-manager/bin:$PATH

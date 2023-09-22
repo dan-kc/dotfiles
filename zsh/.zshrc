@@ -34,6 +34,6 @@ copyfile() {[[ "$#" != 1 ]] && return 1 ; local file_to_copy=$1 ; cat $file_to_c
 take() {mkdir -p $1 ; cd $1 ; }
 
 # Load syntax highlighting; should be last.
-source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 source /Users/keone/.config/broot/launcher/bash/br

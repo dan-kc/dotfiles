@@ -1,5 +1,8 @@
 # Starship
 $env.STARSHIP_SHELL = "nu"
+$env.PATH = "/usr/bin:/bin:/usr/sbin:/sbin:/Users/keone/.cargo/bin:/Users/keone/go/bin:/opt/homebrew/bin:/Applications/WezTerm.app/Contents/MacOS"
+
+$env.buffer_editor = "nvim"
 def create_left_prompt [] {
     starship prompt --cmd-duration $env.CMD_DURATION_MS $'--status=($env.LAST_EXIT_CODE)'
 }
