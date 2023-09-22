@@ -15,10 +15,10 @@ local extract_tab_bar_colors_from_theme = function(theme_name)
 	return {
 		window_frame_colors = {
 			active_titlebar_bg = wez_theme.background,
-			inactive_titlebar_bg = wezterm.color.parse(wez_theme.background),
+			inactive_titlebar_bg = wez_theme.background,
 		},
 		tab_bar_colors = {
-			inactive_tab_edge = wezterm.color.parse(wez_theme.background),
+			inactive_tab_edge = wez_theme.background,
 			active_tab = {
 				bg_color = wez_theme.brights[3],
 				fg_color = wez_theme.background,
@@ -28,8 +28,8 @@ local extract_tab_bar_colors_from_theme = function(theme_name)
 				fg_color = wez_theme.foreground,
 			},
 			inactive_tab_hover = {
-				bg_color = wezterm.color.parse(wez_theme.background),
-				fg_color = wezterm.color.parse(wez_theme.foreground),
+				bg_color = wez_theme.background,
+				fg_color = wez_theme.foreground,
 			},
 			new_tab = {
 				bg_color = wez_theme.background,
@@ -51,23 +51,16 @@ if wezterm.config_builder then
 end
 
 config.font = wezterm.font("Hack Nerd Font")
-
 config.color_scheme = theme
-
 config.font_size = 28
-
-config.use_fancy_tab_bar = false
+config.use_fancy_tab_bar = true
 
 config.window_background_opacity = 0.9
 
 config.adjust_window_size_when_changing_font_size = false
-
 config.macos_window_background_blur = 20
-
 config.native_macos_fullscreen_mode = true
-
 config.window_decorations = "RESIZE"
-
 config.hide_tab_bar_if_only_one_tab = true
 config.disable_default_key_bindings = true
 
