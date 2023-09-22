@@ -3,13 +3,6 @@ local act = wezterm.action
 
 local theme = "Rosé Pine (base16)"
 
-local merge_tables = function(first_table, second_table)
-	for k, v in pairs(second_table) do
-		first_table[k] = v
-	end
-	return first_table
-end
-
 local extract_tab_bar_colors_from_theme = function(theme_name)
 	local wez_theme = wezterm.color.get_builtin_schemes()[theme_name]
 	return {
