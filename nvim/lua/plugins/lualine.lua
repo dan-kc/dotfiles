@@ -4,14 +4,14 @@ local icons = require("config.icons")
 M.theme = function()
   local colors = {
     transparent = nil,
-    black = "#45475A",
-    red = "#F38BA8",
-    green = "#A6E3A1",
-    yellow = "#F9E2AF",
-    blue = "#89B4FA",
-    magenta = "#F5C2E7",
-    cyan = "#94E2D5",
-    white = "#BAC2DE",
+    black = "black",
+    red = "red",
+    green = "green",
+    yellow = "yellow",
+    blue = "blue",
+    magenta = "magenta",
+    cyan = "cyan",
+    white = "white",
   }
   return {
     normal = {
@@ -106,7 +106,6 @@ return {
         lualine_y = {},
         lualine_z = {},
       },
-      -- extensions = { "neo-tree", "lazy" },
     }
   end,
 }
