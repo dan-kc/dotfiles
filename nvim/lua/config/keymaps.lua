@@ -20,7 +20,13 @@ vim.keymap.del("n", "<leader>gg")
 vim.keymap.del("n", "<leader>gG")
 
 vim.keymap.del("n", "<leader>qq") -- Quit all
-vim.keymap.del("n", "<leader>fn") -- New file
+-- vim.keymap.del("n", "<leader>fn") -- New file
+vim.keymap.set(
+  "n",
+  "<leader>fn",
+  require("lazyvim.util").telescope("files", { cwd = "~/notes/" }),
+  { desc = "Find notes" }
+)
 
 -- Move lines
 vim.keymap.del("n", "<A-j>")
@@ -73,3 +79,4 @@ vim.keymap.set("n", "<leader>qp", ":cprev<CR>", { desc = "Prev item" })
 -- vim.keymap.set("n", "<S-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
 
 -- vim.keymap.set("n", "<leader><tab>", "<C-W>p", { desc = "Other window", remap = true })
+-- vim.keymap.set("n", "<leader>nn", ":w ~/notes/", { desc = "Prev item" })

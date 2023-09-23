@@ -11,7 +11,7 @@ return {
   },
   opts = {
     defaults = {
-      layout_strategy = "vertical",
+      layout_strategy = "horizontal",
       layout_config = { prompt_position = "top" },
       sorting_strategy = "ascending",
       winblend = 0,
@@ -35,6 +35,7 @@ return {
     { "<leader>sW", false },
     { "<leader>/", Util.telescope("oldfiles", { cwd = vim.loop.cwd() }), desc = "Recent (cwd)" },
     { "<leader>fF", Util.telescope("files"), desc = "Find Files (root dir)" },
+    -- { "<leader>fn", Util.telescope("files", { cwd = "~/notes/" }), desc = "Find note" },
     { "<leader>ff", Util.telescope("files", { cwd = false }), desc = "Find Files (cwd)" },
     { "<leader>'", "<cmd>Telescope resume<cr>", desc = "Resume" },
   },

@@ -1,7 +1,7 @@
 return {
   "renerocksai/telekasten.nvim",
   dependencies = { "nvim-telescope/telescope.nvim" },
-  -- enabled = false,
+  enabled = false,
   keys = {
     { "<leader>fN", ":lua require('telekasten').find_notes()<CR>", desc = "Find notes" },
     { "<leader>sn", "<cmd>Telekasten search_notes<cr>", desc = "Search notes" },
