@@ -9,6 +9,7 @@ return {
       "bash",
       "proto",
       "cpp",
+      "tsx",
     },
     incremental_selection = {
       enable = true,
