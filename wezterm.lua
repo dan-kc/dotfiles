@@ -48,7 +48,7 @@ config.color_scheme = theme
 config.font_size = 28
 config.use_fancy_tab_bar = true
 
-config.window_background_opacity = 0.9
+config.window_background_opacity = 0.95
 
 config.adjust_window_size_when_changing_font_size = false
 config.macos_window_background_blur = 20

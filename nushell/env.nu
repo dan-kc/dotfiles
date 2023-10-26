@@ -1,6 +1,6 @@
 # Starship
 $env.STARSHIP_SHELL = "nu"
-$env.PATH = "/usr/bin:/bin:/usr/sbin:/sbin:/Users/keone/.cargo/bin:/Users/keone/go/bin:/opt/homebrew/bin:/Applications/WezTerm.app/Contents/MacOS"
+$env.PATH = "/opt/homebrew/bin:/opt/homebrew/sbin:/usr/bin:/bin:/usr/sbin:/usr/local/bin:/sbin:/Users/keone/.cargo/bin:/Users/keone/go/bin:/Applications/WezTerm.app/Contents/MacOS"
 
 $env.buffer_editor = "nvim"
 def create_left_prompt [] {
