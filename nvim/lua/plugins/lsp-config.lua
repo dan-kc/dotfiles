@@ -7,7 +7,7 @@ return {
         opts.capabilities.offsetEncoding = { "utf-16" }
       end,
       eslint = function()
-        require("lazyvim.util").on_attach(function(client)
+        require("lazyvim.util").lsp.on_attach(function(client)
           if client.name == "eslint" then
             client.server_capabilities.documentFormattingProvider = true
           elseif client.name == "tsserver" then

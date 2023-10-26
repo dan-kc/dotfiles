@@ -1,7 +1,7 @@
 local key = vim.fn.expand("$OPENAI_API_KEY")
 return {
   "jackMort/ChatGPT.nvim",
-  enabled = true,
+  enabled = false,
   event = "VeryLazy",
   dependencies = {
     "MunifTanjim/nui.nvim",

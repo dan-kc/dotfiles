@@ -52,7 +52,7 @@ return {
   lazy = false,
   opts = function()
     local icons = require("lazyvim.config").icons
-    local Util = require("lazyvim.util")
+    local Util = require("lazyvim.util").ui
 
     return {
       options = {

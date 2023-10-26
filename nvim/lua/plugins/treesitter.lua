@@ -1,29 +1,14 @@
 return {
   "nvim-treesitter/nvim-treesitter",
-  keys = {
-    { "<c-h>", desc = "Increment selection" },
-  },
-  ---@type TSConfig
   opts = {
-    context_commentstring = { enable = true, enable_autocmd = false },
+    highlight = { enable = false },
+    indent = { enable = false },
     ensure_installed = {
       "css",
       "go",
       "bash",
-      "html",
       "proto",
       "cpp",
-      "javascript",
-      "json",
-      "lua",
-      "markdown",
-      "markdown_inline",
-      "query",
-      "regex",
-      "tsx",
-      "typescript",
-      "vim",
-      "yaml",
     },
     incremental_selection = {
       enable = true,
