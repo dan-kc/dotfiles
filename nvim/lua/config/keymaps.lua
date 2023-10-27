@@ -1,32 +1,47 @@
--- Save
-vim.keymap.del("n", "<c-s>")
+local set = vim.keymap.set
 
--- Tabs
-vim.keymap.del("n", "<leader><tab>l")
-vim.keymap.del("n", "<leader><tab>f")
-vim.keymap.del("n", "<leader><tab><tab>")
-vim.keymap.del("n", "<leader><tab>]")
-vim.keymap.del("n", "<leader><tab>d")
-vim.keymap.del("n", "<leader><tab>[")
+-- Center screen on jump
+set("n", "<C-d>", "<C-d>zz")
+set("n", "<C-u>", "<C-u>zz")
 
--- Terminal
-vim.keymap.del("n", "<leader>ft")
-vim.keymap.del("n", "<leader>fT")
-vim.keymap.del("n", "<c-/>")
-vim.keymap.del("n", "<c-_>")
+-- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
+set("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next search result" })
+set("x", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
+set("o", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
+set("n", "N", "'nN'[v:searchforward].'zv'", { expr = true, desc = "Prev search result" })
+set("x", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
+set("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
 
--- Lazygit
-vim.keymap.del("n", "<leader>gg")
-vim.keymap.del("n", "<leader>gG")
+-- buffers
+set("n", "[b", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
+set("n", "]b", "<cmd>bnext<cr>", { desc = "Next buffer" })
 
-vim.keymap.del("n", "<leader>qq") -- Quit all
--- vim.keymap.del("n", "<leader>fn") -- New file
-vim.keymap.set(
-  "n",
-  "<leader>fn",
-  require("lazyvim.util").telescope("files", { cwd = "~/notes/" }),
-  { desc = "Find notes" }
-)
+-- Clear search with <esc>
+set({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
+
+-- better up/down
+set({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+set({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+set("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
+
+-- Resize window using <shift> arrow keys
+set("n", "<S-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
+set("n", "<S-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
+set("n", "<S-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
+set("n", "<S-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
+
+set("n", "<leader>wx", "<C-w>x", { desc = "Swap window with next" })
+set("n", "<leader>ux", ":set cursorline!<CR>", { desc = "Toggle cursor line" })
+set("n", "<leader>qo", ":copen<CR>", { desc = "Open list" })
+set("n", "<leader>qn", ":cnext<CR>", { desc = "Next item" })
+set("n", "<leader>qp", ":cprev<CR>", { desc = "Prev item" })
+
+--set(
+--  "n",
+--  "<leader>fn",
+--  require("lazyvim.util").telescope("files", { cwd = "~/notes/" }),
+--  { desc = "Find notes" }
+--)
 
 -- TODO: actually finish this
 -- function new_note()
@@ -49,54 +64,35 @@ vim.keymap.set(
 --
 -- vim.keymap.set("n", "<leader>nn", ":lua new_note()<cr>", { desc = "New note" })
 
--- Move lines
-vim.keymap.del("n", "<A-j>")
-vim.keymap.del("n", "<A-k>")
-vim.keymap.del("i", "<A-j>")
-vim.keymap.del("i", "<A-k>")
-vim.keymap.del("v", "<A-j>")
-vim.keymap.del("v", "<A-k>")
+--keywordprg
+set("n", "<leader>K", "<cmd>norm! K<cr>", { desc = "Keywordprg" })
 
--- Move to window
--- vim.keymap.del("n", "<C-h>")
--- vim.keymap.del("n", "<C-j>")
--- vim.keymap.del("n", "<C-k>")
--- vim.keymap.del("n", "<C-l>")
-vim.keymap.del("n", "<leader>ww")
+-- better indenting
+set("v", "<", "<gv")
+set("v", ">", ">gv")
 
--- Resize window
-vim.keymap.del("n", "<C-Up>")
-vim.keymap.del("n", "<C-Down>")
-vim.keymap.del("n", "<C-Left>")
-vim.keymap.del("n", "<C-Right>")
+-- lazy
+set("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Lazy" })
 
--- Split window
--- vim.keymap.del("n", "<leader>w|")
--- vim.keymap.del("n", "<leader>w-")
+set("n", "<leader>xl", "<cmd>lopen<cr>", { desc = "Location List" })
+set("n", "<leader>xq", "<cmd>copen<cr>", { desc = "Quickfix List" })
 
--- Delete window
--- vim.keymap.del("n", "<leader>wd")
+set("n", "[q", vim.cmd.cprev, { desc = "Previous quickfix" })
+set("n", "]q", vim.cmd.cnext, { desc = "Next quickfix" })
 
--- Center screen on jump
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
+-- diagnostic
+local diagnostic_goto = function(next, severity)
+  local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+  severity = severity and vim.diagnostic.severity[severity] or nil
+  return function()
+    go({ severity = severity })
+  end
+end
 
--- Buffer
--- vim.keymap.set("n", "<leader>wo", ":only<CR>", { desc = "Close all other windows" })
--- vim.keymap.del("n", "<leader>bb")
-
-vim.keymap.set("n", "<leader>wo", ":only<CR>", { desc = "Close all other windows" })
-vim.keymap.set("n", "<leader>wx", "<C-w>x", { desc = "Swap window with next" })
-vim.keymap.set("n", "<leader>ux", ":set cursorline!<CR>", { desc = "Toggle cursor line" })
-vim.keymap.set("n", "<leader>qo", ":copen<CR>", { desc = "Open list" })
-vim.keymap.set("n", "<leader>qn", ":cnext<CR>", { desc = "Next item" })
-vim.keymap.set("n", "<leader>qp", ":cprev<CR>", { desc = "Prev item" })
-
--- -- Resize window
--- vim.keymap.set("n", "<S-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
--- vim.keymap.set("n", "<S-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
--- vim.keymap.set("n", "<S-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
--- vim.keymap.set("n", "<S-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
-
--- vim.keymap.set("n", "<leader><tab>", "<C-W>p", { desc = "Other window", remap = true })
--- vim.keymap.set("n", "<leader>nn", ":w ~/notes/", { desc = "Prev item" })
+set("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
+set("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
+set("n", "[d", diagnostic_goto(false), { desc = "Prev Diagnostic" })
+set("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Next Error" })
+set("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
+set("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
+set("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })

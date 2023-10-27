@@ -1,38 +1,38 @@
 [zsh.files]
-"zsh" = "~"
+"zsh" = { target = "~", type = "symbolic" }
 
 [starship.files]
-"starship.toml" = "~/.config/starship.toml"
+"starship.toml" = { target = "~/.config/starship.toml", type = "symbolic" }
 
 [yabai.files]
-"yabairc" = "~/.config/yabai/yabairc"
+"yabairc" = { target = "~/.config/yabai/yabairc", type = "symbolic" }
 
 [skhd.files]
-"skhdrc" = "~/.config/skhd/skhdrc"
+"skhdrc" = { target = "~/.config/skhd/skhdrc", type = "symbolic" }
 
 [git.files]
-".gitconfig" = "~/.gitconfig"
+".gitconfig" = { target = "~/.gitconfig", type = "symbolic" }
 
 [lazygit.files]
-"lazygit.yml" = "~/Library/Application Support/lazygit/config.yml"
+"lazygit.yml" = { target = "~/Library/Application Support/lazygit/config.yml", type = "symbolic" }
 
 [nushell.files]
-"nushell" = "~/Library/Application Support/nushell"
+"nushell" = { target = "~/Library/Application Support/nushell", type = "symbolic" }
 
 [neovim.files]
-"nvim" = "~/.config/nvim"
+"nvim" = { target = "~/.config/nvim", type = "symbolic" }
 
 [alacritty.files]
-"alacritty.yml" = "~/.config/alacritty/alacritty.yml"
+"alacritty.yml" = { target = "~/.config/alacritty/alacritty.yml", type = "symbolic" }
 
 [xplr.files]
-"xplr.lua" = "~/.config/xplr/init.lua"
+"xplr.lua" = { target = "~/.config/xplr/init.lua", type = "symbolic" }
 
 [atuin.files]
-"atuin.toml" = "~/.config/atuin/config.toml"
+"atuin.toml" = { target = "~/.config/atuin/config.toml", type = "symbolic" }
 
 [tmux.files]
-"tmux" = "~/.config/tmux"
+"tmux" = { target = "~/.config/tmux", type = "symbolic" }
 
 [kitty.files]
 "kitty.conf" = { target = "~/.config/kitty/kitty.conf", type = "symbolic" }
