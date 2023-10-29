@@ -19,38 +19,57 @@ return {
       }
     end,
   },
+
   {
     "echasnovski/mini.surround",
     event = "VeryLazy",
     opts = {
       mappings = {
-        add = "gsa", -- Add surrounding in Normal and Visual modes
-        delete = "gsd", -- Delete surrounding
-        find = "gsf", -- Find surrounding (to the right)
-        find_left = "gsF", -- Find surrounding (to the left)
-        highlight = "gsh", -- Highlight surrounding
-        replace = "gsr", -- Replace surrounding
-        update_n_lines = "gsn", -- Update `n_lines`
+        add = "gsa",
+        delete = "gsd",
+        find = "gsf",
+        find_left = "gsF",
+        highlight = "gsh",
+        replace = "gsr",
+        update_n_lines = "gsn",
       },
     },
   },
+
+  {
+    "echasnovski/mini.comment",
+    event = "VeryLazy",
+    dependecies = {
+      { "nvim-treesitter/nvim-treesitter" },
+    },
+    opts = {
+      options = {
+        -- Doesn't work without this field. ts_context... enables tsx comments
+        custom_commentstring = function()
+          return require("ts_context_commentstring.internal").calculate_commentstring() or vim.bo.commentstring
+        end,
+      },
+    },
+  },
+
+  {
+    "echasnovski/mini.pairs",
+    event = "VeryLazy",
+  },
+
   {
     "L3MON4D3/LuaSnip",
     event = "VeryLazy",
+    -- stylua: ignore
     config = function()
       require("luasnip.loaders.from_vscode").lazy_load({ paths = "~/.config/nvim/snippets" })
       local ls = require("luasnip")
-      vim.keymap.set({ "i" }, "<C-z>", function()
-        ls.expand()
-      end, { silent = true })
-      vim.keymap.set({ "i", "s" }, "<C-.>", function()
-        ls.jump(1)
-      end, { silent = true })
-      vim.keymap.set({ "i", "s" }, "<C-,>", function()
-        ls.jump(-1)
-      end, { silent = true })
+      vim.keymap.set({ "i" }, "<C-z>", function() ls.expand() end, { silent = true })
+      vim.keymap.set({ "i", "s" }, "<C-.>", function() ls.jump(1) end, { silent = true })
+      vim.keymap.set({ "i", "s" }, "<C-,>", function() ls.jump(-1) end, { silent = true })
     end,
   },
+
   {
     "Wansmer/treesj",
     keys = {
@@ -61,21 +80,7 @@ return {
       max_join_length = 400,
     },
   },
-  {
-    "echasnovski/mini.comment",
-    event = "VeryLazy",
-    dependecies = {
-      { "nvim-treesitter/nvim-treesitter" },
-    },
-    opts = {
-      options = {
-        -- Doesn't work without this
-        custom_commentstring = function()
-          return require("ts_context_commentstring.internal").calculate_commentstring() or vim.bo.commentstring
-        end,
-      },
-    },
-  },
+
   {
     "gbprod/yanky.nvim",
     dependencies = { { "kkharji/sqlite.lua", enabled = not jit.os:find("Windows") } },

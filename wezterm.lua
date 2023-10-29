@@ -1,7 +1,7 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
 
-local theme = "Gruvbox dark, medium (base16)"
+local theme = "Ashes (base16)"
 
 local extract_tab_bar_colors_from_theme = function(theme_name)
 	local wez_theme = wezterm.color.get_builtin_schemes()[theme_name]
@@ -43,7 +43,7 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
-config.font = wezterm.font("Hack Nerd Font")
+config.font = wezterm.font("Hurmit Nerd Font")
 config.color_scheme = theme
 config.font_size = 28
 config.use_fancy_tab_bar = true
