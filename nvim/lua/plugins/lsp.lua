@@ -5,12 +5,7 @@ return {
       "hrsh7th/nvim-cmp",
     },
     event = "VeryLazy",
-    opts = {
-      diagnostics = {
-        virtual_text = true,
-      },
-    },
-    config = function(_, opts)
+    config = function(_, _)
       local lspconfig = require("lspconfig")
       -- brew install lua_ls
       lspconfig.lua_ls.setup({
@@ -115,13 +110,15 @@ return {
           })
         end,
       })
-      -- lspconfig.setup(opts)
+      return {
+        diagnostics = {
+          virtual_text = true,
+        },
+      }
     end,
   },
   {
-    -- TODO: Fix nvim-lsp not loading initially
     "hrsh7th/nvim-cmp",
-    event = "VeryLazy",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
@@ -141,14 +138,19 @@ return {
     opts = function()
       local cmp = require("cmp")
       vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
-      -- vim.keymap.set("i", "<C-x>", function()
-      --   cmp.complete()
-      -- end)
       local defaults = require("cmp.config.default")()
       return {
         completion = {
-          completeopt = "menu,menuone,noinsert",
+          completeopt = "menu,menuone,preview,noinsert",
           autocomplete = false,
+        },
+        window = {
+          documentation = cmp.config.window.bordered(),
+        },
+        snippet = {
+          expand = function(args)
+            require("luasnip").lsp_expand(args.body)
+          end,
         },
         mapping = cmp.mapping.preset.insert({
           ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),

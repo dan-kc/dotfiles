@@ -76,6 +76,7 @@ set("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Lazy" })
 
 set("n", "<leader>xl", "<cmd>lopen<cr>", { desc = "Location List" })
 set("n", "<leader>xq", "<cmd>copen<cr>", { desc = "Quickfix List" })
+set("n", "<leader>o", "<cmd>only<cr>", { desc = "Only" })
 
 set("n", "[q", vim.cmd.cprev, { desc = "Previous quickfix" })
 set("n", "]q", vim.cmd.cnext, { desc = "Next quickfix" })
