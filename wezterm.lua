@@ -1,7 +1,7 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
 
-local theme = "Rosé Pine (base16)"
+local theme = "Gruvbox dark, medium (base16)"
 
 local extract_tab_bar_colors_from_theme = function(theme_name)
 	local wez_theme = wezterm.color.get_builtin_schemes()[theme_name]
@@ -48,7 +48,7 @@ config.color_scheme = theme
 config.font_size = 28
 config.use_fancy_tab_bar = true
 
-config.window_background_opacity = 0.98
+config.window_background_opacity = 0.95
 
 config.adjust_window_size_when_changing_font_size = false
 config.macos_window_background_blur = 20

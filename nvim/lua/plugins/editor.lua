@@ -2,7 +2,6 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     dependencies = {
-      { "nvim-telescope/telescope-fzf-native.nvim" },
       { "nvim-lua/plenary.nvim" },
       {
         "nvim-telescope/telescope-fzf-native.nvim",
@@ -33,7 +32,16 @@ return {
       }
     end,
   },
-
+  {
+    "stevearc/dressing.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("dressing").setup({
+        input = { enabled = true, win_options = { winblend = 0, sidescrolloff = 7 } },
+        select = { enabled = true },
+      })
+    end,
+  },
   {
     "folke/flash.nvim",
     event = "VeryLazy",

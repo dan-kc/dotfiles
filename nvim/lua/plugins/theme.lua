@@ -1,5 +1,4 @@
 return {
-
   {
     "folke/tokyonight.nvim",
     opts = { style = "moon" },
@@ -13,15 +12,17 @@ return {
   {
     "Tsuzat/NeoSolarized.nvim",
   },
-  { "rrethy/nvim-base16" },
+  {
+    "rrethy/nvim-base16",
+    lazy = false,
+    config = function()
+      vim.cmd("colorscheme base16-gruvbox-material-dark-medium")
+    end,
+  },
   { "dotsilas/darcubox-nvim" },
   { "shaunsingh/nord.nvim" },
   {
     "ellisonleao/gruvbox.nvim",
-    lazy = false,
-    config = function()
-      vim.cmd("colorscheme gruvbox")
-    end,
   },
   { "rose-pine/neovim" },
   { "shaunsingh/oxocarbon.nvim" },
@@ -50,33 +51,34 @@ return {
         "NormalNC",
         "SignColumn",
 
-        -- "VertSplit",
-        -- "StatusLine",
-        -- "Comment",
-        -- "Constant",
-        -- "Special",
-        -- "Identifier",
-        -- "Statement",
-        -- "PreProc",
-        -- "Type",
-        -- "Title",
-        -- "Underlined",
-        -- "Todo",
-        -- "String",
-        -- "Function",
-        -- "FloatTitle",
-        -- "FloatShadow",
-        -- "FloatShadowThrough",
-        -- "Conditional",
-        -- "Repeat",
-        -- "Operator",
-        -- "Structure",
-        -- "LineNr",
-        -- "NonText",
-        -- "CursorLineNr",
-        -- "EndOfBuffer",
-        -- "MsgSeparator",
+        "VertSplit",
+        "StatusLine",
+        "Comment",
+        "Constant",
+        "Special",
+        "Identifier",
+        "Statement",
+        "PreProc",
+        "Type",
+        "Title",
+        "Underlined",
+        "Todo",
+        "String",
+        "Function",
+        "FloatTitle",
+        "FloatShadow",
+        "FloatShadowThrough",
+        "Conditional",
+        "Repeat",
+        "Operator",
+        "Structure",
+        "LineNr",
+        "NonText",
+        "CursorLineNr",
+        "EndOfBuffer",
+        "MsgSeparator",
       },
+
       extra_groups = {
 
         -- Plugins which have float panel such as Lazy, Mason, LspInfo
