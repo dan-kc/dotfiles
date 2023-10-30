@@ -122,39 +122,23 @@ return {
 
   {
     "stevearc/conform.nvim",
+    -- enabled = false,
     event = "VeryLazy",
     opts = function()
-      -- Makes slow formatters async
-      local slow_format_filetypes = {}
       return {
-        format_on_save = function(bufnr)
-          if slow_format_filetypes[vim.bo[bufnr].filetype] then
-            return
-          end
-          local function on_format(err)
-            if err and err:match("timeout$") then
-              slow_format_filetypes[vim.bo[bufnr].filetype] = true
-            end
-          end
-
-          return { timeout_ms = 200, lsp_fallback = true }, on_format
-        end,
-        format_after_save = function(bufnr)
-          if not slow_format_filetypes[vim.bo[bufnr].filetype] then
-            return
-          end
-          return { lsp_fallback = true }
-        end,
-
-        -- Rest of config
         notify_on_error = false,
+        format_on_save = {
+          timeout_ms = 300,
+          lsp_fallback = false,
+        },
+        -- format_on_save = function(bufnr)
+        --   if vim.bo[bufnr].filetype == "javascript" or "javascriptreact" or "typescriptreact" or "typescript" then
+        --     return
+        --   end
+        --   return { timeout_ms = 300 }
+        -- end,
         formatters_by_ft = {
           lua = { "stylua" },
-          -- Use a sub-list to run only the first available formatter
-          javascript = { { "prettierd", "prettier" } },
-          javascriptreact = { "prettier" },
-          typescript = { "prettier" },
-          typescriptreact = { "prettier" },
           vue = { "prettier" },
           css = { "prettier" },
           scss = { "prettier" },
