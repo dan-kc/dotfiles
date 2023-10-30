@@ -32,6 +32,7 @@ return {
       }
     end,
   },
+
   {
     "stevearc/dressing.nvim",
     event = "VeryLazy",
@@ -42,6 +43,7 @@ return {
       })
     end,
   },
+
   {
     "folke/flash.nvim",
     event = "VeryLazy",
@@ -129,14 +131,8 @@ return {
         notify_on_error = false,
         format_on_save = {
           timeout_ms = 300,
-          lsp_fallback = false,
+          lsp_fallback = false, -- stops formatting when no formatters are listed in formatters_by_ft
         },
-        -- format_on_save = function(bufnr)
-        --   if vim.bo[bufnr].filetype == "javascript" or "javascriptreact" or "typescriptreact" or "typescript" then
-        --     return
-        --   end
-        --   return { timeout_ms = 300 }
-        -- end,
         formatters_by_ft = {
           lua = { "stylua" },
           vue = { "prettier" },
@@ -150,6 +146,7 @@ return {
           markdown = { "prettier" },
           graphql = { "prettier" },
           handlebars = { "prettier" },
+          go = { "goimports" },
         },
       }
     end,
@@ -172,6 +169,9 @@ return {
         "cpp",
         "diff",
         "go",
+        "gomod",
+        "gowork",
+        "gosum",
         "html",
         "javascript",
         "jsdoc",
@@ -219,6 +219,7 @@ return {
       require("nvim-treesitter.configs").setup(opts)
     end,
   },
+
   {
     "kevinhwang91/nvim-bqf",
     event = "VeryLazy",

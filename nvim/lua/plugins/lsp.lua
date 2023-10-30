@@ -3,6 +3,7 @@ return {
     "neovim/nvim-lspconfig",
     dependencies = {
       "hrsh7th/nvim-cmp",
+      "b0o/schemastore.nvim",
     },
     event = "VeryLazy",
     config = function(_, _)
@@ -38,6 +39,7 @@ return {
           },
         },
       })
+
       -- npm install -g typescript-language-server
       lspconfig.tsserver.setup({
         keys = {
@@ -88,22 +90,58 @@ return {
           },
         },
       })
+
       -- brew install rust_analyzer
       lspconfig.rust_analyzer.setup({})
+
       -- go install gopls
       lspconfig.gopls.setup({
-        -- settings don't work
         settings = {
           gopls = {
-            analyses = {
-              unusedparams = false,
-              unusedvariable = true,
+            codelenses = {
+              gc_details = false,
+              generate = true,
+              regenerate_cgo = true,
+              run_govulncheck = true,
+              test = true,
+              tidy = true,
+              upgrade_dependency = true,
+              vendor = true,
             },
+            hints = {
+              assignVariableTypes = true,
+              compositeLiteralFields = true,
+              compositeLiteralTypes = true,
+              constantValues = true,
+              functionTypeParameters = true,
+              parameterNames = true,
+              rangeVariableTypes = true,
+            },
+            analyses = {
+              fieldalignment = true,
+              nilness = true,
+              unusedparams = true,
+              unusedwrite = true,
+              useany = true,
+            },
+            usePlaceholders = true,
+            completeUnimported = true,
             staticcheck = true,
-            gofumpt = true,
+            directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
+            semanticTokens = true,
           },
         },
       })
+
+      require("lspconfig").jsonls.setup({
+        settings = {
+          json = {
+            schemas = require("schemastore").json.schemas(),
+            validate = { enable = true },
+          },
+        },
+      })
+
       -- npm install -g @tailwindcss/language-server
       lspconfig.tailwindcss.setup({
         settings = {
@@ -112,16 +150,24 @@ return {
           },
         },
       })
+
       -- brew install yamlls
       lspconfig.yamlls.setup({
         settings = {
           yaml = {
             keyOrdering = false,
           },
+          schemaStore = {
+            enable = false,
+            url = "",
+          },
+          schemas = require("schemastore").yaml.schemas(),
         },
       })
+
       -- brew install marksman
       lspconfig.marksman.setup({})
+
       -- npm i -g vscode-langservers-extracted
       lspconfig.eslint.setup({
         on_attach = function(_, bufnr)
@@ -138,6 +184,7 @@ return {
       }
     end,
   },
+
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
@@ -146,15 +193,9 @@ return {
       "hrsh7th/cmp-path",
       "saadparwaiz1/cmp_luasnip",
     },
+    -- stylua: ignore
     keys = {
-      {
-        "<C-x>",
-        mode = { "i" },
-        function()
-          require("cmp").complete()
-        end,
-        desc = "Autocomplete",
-      },
+      { "<C-x>", mode = { "i" }, function() require("cmp").complete() end, desc = "Autocomplete" },
     },
     opts = function()
       local cmp = require("cmp")
@@ -173,22 +214,19 @@ return {
             require("luasnip").lsp_expand(args.body)
           end,
         },
+        -- stylua: ignore
         mapping = cmp.mapping.preset.insert({
           ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
           ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
           ["<C-b>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
           ["<C-e>"] = cmp.mapping.abort(),
-          ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+          ["<CR>"] = cmp.mapping.confirm({ select = true }),
           ["<S-CR>"] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Replace,
             select = true,
-          }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-          ["<C-CR>"] = function(fallback)
-            cmp.abort()
-            fallback()
-          end,
-        }),
+          }),
+          ["<C-CR>"] = function(fallback) cmp.abort() fallback() end }),
         sources = cmp.config.sources({
           { name = "luasnip" },
           { name = "nvim_lsp" },

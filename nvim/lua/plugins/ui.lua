@@ -12,20 +12,12 @@ return {
       exclude = {
         filetypes = {
           "help",
-          "alpha",
-          "dashboard",
-          "neo-tree",
-          "Trouble",
-          "trouble",
           "lazy",
-          "mason",
-          "notify",
-          "toggleterm",
-          "lazyterm",
         },
       },
     },
   },
+
   {
     "echasnovski/mini.indentscope",
     event = "VeryLazy",
@@ -34,7 +26,9 @@ return {
       options = { try_as_border = true },
     },
   },
+
   { "nvim-tree/nvim-web-devicons", lazy = true },
+
   {
     "utilyre/barbecue.nvim",
     name = "barbecue",
@@ -47,6 +41,7 @@ return {
       show_navic = false,
     },
   },
+
   {
     "code-biscuits/nvim-biscuits",
     enabled = false,
