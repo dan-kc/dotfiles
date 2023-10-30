@@ -22,9 +22,9 @@ return {
           sections = { "error", "warn", "info", "hint" },
           sources = { "nvim_diagnostic" },
           symbols = {
-            error = icons.diagnostics.Error,
-            warn = icons.diagnostics.Warning,
-            info = icons.diagnostics.Information,
+            error = string.format("%s%s", icons.diagnostics.Error, " "),
+            warn = string.format("%s%s", icons.diagnostics.Warning, " "),
+            info = string.format("%s%s", icons.diagnostics.Information, " "),
           },
         },
       },
