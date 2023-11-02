@@ -21,6 +21,11 @@ return {
   },
 
   {
+    "echasnovski/mini.bracketed",
+    event = "VeryLazy",
+  },
+
+  {
     "echasnovski/mini.surround",
     event = "VeryLazy",
     opts = {
