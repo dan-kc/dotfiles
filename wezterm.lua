@@ -43,12 +43,13 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
-config.font = wezterm.font("Hurmit Nerd Font")
+-- config.font = wezterm.font("Hurmit Nerd Font")
+config.font = wezterm.font("Mononoki Nerd Font")
 config.color_scheme = theme
 config.font_size = 28
 config.use_fancy_tab_bar = true
 
-config.window_background_opacity = 0.95
+config.window_background_opacity = 0.98
 
 config.adjust_window_size_when_changing_font_size = false
 config.macos_window_background_blur = 20
@@ -79,6 +80,17 @@ config.keys = {
 
 	{ key = "X", mods = "CMD|SHIFT", action = wezterm.action.ActivateCopyMode },
 	{ key = "V", mods = "CMD|SHIFT", action = wezterm.action.QuickSelect },
+
+	{
+		key = "2",
+		mods = "OPT",
+		action = wezterm.action.SendString("€"),
+	},
+	{
+		key = "3",
+		mods = "OPT",
+		action = wezterm.action.SendString("#"),
+	},
 }
 
 config.default_prog = { "/opt/homebrew/bin/nu", "-l" }
