@@ -1,4 +1,7 @@
 return {
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │                      nvim-lspconfig                      │
+  --  ╰──────────────────────────────────────────────────────────╯
   {
     "neovim/nvim-lspconfig",
     dependencies = {
@@ -133,6 +136,7 @@ return {
         },
       })
 
+      -- no install
       require("lspconfig").jsonls.setup({
         settings = {
           json = {
@@ -142,6 +146,7 @@ return {
         },
       })
 
+      -- brew install llvm
       require("lspconfig").clangd.setup({})
 
       -- npm install -g @tailwindcss/language-server
@@ -191,6 +196,9 @@ return {
     end,
   },
 
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │                         nvim-cmp                         │
+  --  ╰──────────────────────────────────────────────────────────╯
   {
     "hrsh7th/nvim-cmp",
     dependencies = {

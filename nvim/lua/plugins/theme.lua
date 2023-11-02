@@ -1,11 +1,17 @@
 return {
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │                       nvim-base16                        │
+  --  ╰──────────────────────────────────────────────────────────╯
   {
     "rrethy/nvim-base16",
     lazy = false,
     config = function()
-      vim.cmd("colorscheme base16-ashes")
+      vim.cmd("colorscheme base16-woodland")
     end,
   },
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │                       transparent                        │
+  --  ╰──────────────────────────────────────────────────────────╯
   {
     "xiyaowong/transparent.nvim",
     lazy = false,
@@ -48,7 +54,6 @@ return {
       },
 
       extra_groups = {
-
         -- Plugins which have float panel such as Lazy, Mason, LspInfo
         -- "NormalFloat",
         -- "FloatBorder",

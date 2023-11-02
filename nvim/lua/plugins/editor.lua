@@ -1,5 +1,8 @@
 local icons = require("config.icons")
 return {
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │                        telescope                         │
+  --  ╰──────────────────────────────────────────────────────────╯
   {
     "nvim-telescope/telescope.nvim",
     dependencies = {
@@ -35,50 +38,9 @@ return {
     end,
   },
 
-  {
-    "stevearc/dressing.nvim",
-    event = "VeryLazy",
-    config = function()
-      require("dressing").setup({
-        input = { enabled = true, win_options = { winblend = 0, sidescrolloff = 7 } },
-        select = { enabled = true },
-      })
-    end,
-  },
-
-  {
-    "folke/flash.nvim",
-    event = "VeryLazy",
-    vscode = true,
-    opts = {},
-    -- stylua: ignore
-    keys = {
-      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-      { "'", mode = { "n", "x", "o" }, function() require("flash").jump({continue = true}) end,desc = "Resume last search" },
-    },
-  },
-
-  {
-    "lewis6991/gitsigns.nvim",
-    event = "VeryLazy",
-    opts = {
-      signs = {
-        add = { text = "▎" },
-        change = { text = "▎" },
-        delete = { text = "" },
-        topdelete = { text = "" },
-        changedelete = { text = "▎" },
-        untracked = { text = "▎" },
-      },
-    },
-  },
-
-  {
-    "folke/todo-comments.nvim",
-    event = "VeryLazy",
-  },
-
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │                         neo-tree                         │
+  --  ╰──────────────────────────────────────────────────────────╯
   {
     "nvim-neo-tree/neo-tree.nvim",
     event = "VeryLazy",
@@ -249,100 +211,32 @@ return {
         },
         group_empty_dirs = true,
         show_unloaded = true,
-        window = {
-          mappings = {
-            ["bd"] = "buffer_delete",
-            ["<bs>"] = "navigate_up",
-            ["."] = "set_root",
-            ["o"] = { "show_help", nowait = false, config = { title = "Order by", prefix_key = "o" } },
-            ["oc"] = { "order_by_created", nowait = false },
-            ["od"] = { "order_by_diagnostics", nowait = false },
-            ["om"] = { "order_by_modified", nowait = false },
-            ["on"] = { "order_by_name", nowait = false },
-            ["os"] = { "order_by_size", nowait = false },
-            ["ot"] = { "order_by_type", nowait = false },
-          },
-        },
       },
     },
   },
 
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │                         diffview                         │
+  --  ╰──────────────────────────────────────────────────────────╯
   {
-    "stevearc/oil.nvim",
-    enabled = false,
-    keys = {
-      { "<backspace>", "<cmd>Oil<cr>", desc = "Open parent directory" },
-    },
-    opts = {
-      view_options = {
-        show_hidden = true,
-        -- This function defines what is considered a "hidden" file
-        is_hidden_file = function(name)
-          return vim.startswith(name, ".")
-        end,
-        -- This function defines what will never be shown, even when `show_hidden` is set
-        is_always_hidden = function(name)
-          return vim.startswith(name, ".DS_Store")
-        end,
-      },
-      columns = {
-        "icon",
-        "size",
-      },
-      delete_to_trash = true,
-      trash_command = "trash",
-      prompt_save_on_select_new_entry = true,
-      keymaps = {
-        ["g?"] = "actions.show_help",
-        ["<CR>"] = "actions.select",
-        ["<C-s>"] = "actions.select_vsplit",
-        ["<C-h>"] = "actions.select_split",
-        ["<C-t>"] = "actions.select_tab",
-        ["<C-p>"] = "actions.preview",
-        ["<C-c>"] = "actions.close",
-        ["<C-l>"] = "actions.refresh",
-        ["-"] = "actions.parent",
-        ["_"] = "actions.open_cwd",
-        ["`"] = "actions.cd",
-        ["~"] = "actions.tcd",
-        ["g."] = "actions.toggle_hidden",
-      },
-    },
-    -- Optional dependencies
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-  },
-
-  {
-    "stevearc/conform.nvim",
-    -- enabled = false,
+    "sindrets/diffview.nvim",
     event = "VeryLazy",
-    opts = function()
-      return {
-        notify_on_error = false,
-        format_on_save = {
-          timeout_ms = 300,
-          lsp_fallback = false, -- stops formatting when no formatters are listed in formatters_by_ft
-        },
-        formatters_by_ft = {
-          lua = { "stylua" },
-          vue = { "prettier" },
-          css = { "prettier" },
-          scss = { "prettier" },
-          less = { "prettier" },
-          html = { "prettier" },
-          json = { "prettier" },
-          jsonc = { "prettier" },
-          yaml = { "prettier" },
-          markdown = { "prettier" },
-          graphql = { "prettier" },
-          handlebars = { "prettier" },
-          go = { "goimports" },
-          c = { "clang_format" },
-        },
-      }
-    end,
+    -- stylua: ignore start
+    cmd = {
+      "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles",
+      "DiffviewFileHistory", "DiffviewRefresh"
+    },
+    -- stylua: ignore end
+    config = true,
+    keys = {
+      { "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "DiffView" },
+      { "<leader>gD", "<cmd>DiffviewFileHistory %<cr>", desc = "DiffviewFileHistory Current File" },
+    },
   },
 
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │                        treesitter                        │
+  --  ╰──────────────────────────────────────────────────────────╯
   {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
@@ -411,6 +305,9 @@ return {
     end,
   },
 
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │                         nvim-bqf                         │
+  --  ╰──────────────────────────────────────────────────────────╯
   {
     "kevinhwang91/nvim-bqf",
     event = "VeryLazy",

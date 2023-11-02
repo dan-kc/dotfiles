@@ -1,4 +1,8 @@
+local icons = require("config.icons")
 return {
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │                     indent-blankline                     │
+  --  ╰──────────────────────────────────────────────────────────╯
   {
     "lukas-reineke/indent-blankline.nvim",
     event = "VeryLazy",
@@ -18,6 +22,9 @@ return {
     },
   },
 
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │                     mini.indentscope                     │
+  --  ╰──────────────────────────────────────────────────────────╯
   {
     "echasnovski/mini.indentscope",
     event = "VeryLazy",
@@ -27,8 +34,14 @@ return {
     },
   },
 
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │                    nvim-web-devicons                     │
+  --  ╰──────────────────────────────────────────────────────────╯
   { "nvim-tree/nvim-web-devicons", lazy = true },
 
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │                         barbecue                         │
+  --  ╰──────────────────────────────────────────────────────────╯
   {
     "utilyre/barbecue.nvim",
     name = "barbecue",
@@ -42,17 +55,74 @@ return {
     },
   },
 
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │                         dressing                         │
+  --  ╰──────────────────────────────────────────────────────────╯
   {
-    "code-biscuits/nvim-biscuits",
-    enabled = false,
+    "stevearc/dressing.nvim",
     event = "VeryLazy",
-    dependencies = {
-      { "nvim-treesitter/nvim-treesitter" },
-    },
+    config = function()
+      require("dressing").setup({
+        input = { enabled = true, win_options = { winblend = 0, sidescrolloff = 7 } },
+        select = { enabled = true },
+      })
+    end,
+  },
+
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │                         gitsigns                         │
+  --  ╰──────────────────────────────────────────────────────────╯
+  {
+    "lewis6991/gitsigns.nvim",
+    event = "VeryLazy",
     opts = {
-      cursor_line_only = true,
-      default_config = {
-        min_distance = 1,
+      signs = {
+        -- add = { text = "▎" },
+        -- change = { text = "▎" },
+        -- delete = { text = "" },
+        -- topdelete = { text = "" },
+        -- changedelete = { text = "▎" },
+        -- untracked = { text = "▎" },
+        add = { text = icons.git.LineAdded },
+        change = { text = icons.git.LineModified },
+        delete = { text = icons.git.FileDeleted },
+        topdelete = { text = icons.git.FileDeleted },
+        changedelete = { text = icons.git.FileDeleted },
+        untracked = { text = icons.git.FileUntracked },
+      },
+    },
+  },
+
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │                         lualine                          │
+  --  ╰──────────────────────────────────────────────────────────╯
+  {
+    "nvim-lualine/lualine.nvim",
+    lazy = false,
+    opts = {
+      options = {
+        theme = "auto",
+        component_separators = "",
+        section_separators = "",
+      },
+      sections = {
+        lualine_a = { { "mode" } },
+        lualine_b = { { "location", "progress" } },
+        lualine_c = {
+          {
+            "diagnostics",
+            sections = { "error", "warn", "info", "hint" },
+            sources = { "nvim_diagnostic" },
+            symbols = {
+              error = string.format("%s%s", icons.diagnostics.Error, " "),
+              warn = string.format("%s%s", icons.diagnostics.Warning, " "),
+              info = string.format("%s%s", icons.diagnostics.Information, " "),
+            },
+          },
+        },
+        lualine_x = {},
+        lualine_y = { { "encoding" } },
+        lualine_z = { { "branch", icon = icons.git.Branch } },
       },
     },
   },

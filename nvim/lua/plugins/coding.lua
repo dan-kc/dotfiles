@@ -1,8 +1,26 @@
 return {
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │                          flash                           │
+  --  ╰──────────────────────────────────────────────────────────╯
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    vscode = true,
+    opts = {},
+    -- stylua: ignore
+    keys = {
+      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+      { "'", mode = { "n", "x", "o" }, function() require("flash").jump({continue = true}) end,desc = "Resume last search" },
+    },
+  },
+
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │                         mini.ai                          │
+  --  ╰──────────────────────────────────────────────────────────╯
   {
     "echasnovski/mini.ai",
     event = "VeryLazy",
-    -- enables jumping to the next textobject eg "vi'" will jump to the next ' surround
     opts = function()
       local ai = require("mini.ai")
       return {
@@ -20,11 +38,39 @@ return {
     end,
   },
 
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │                       refactoring                        │
+  --  ╰──────────────────────────────────────────────────────────╯
+  {
+    "ThePrimeagen/refactoring.nvim",
+    event = "VeryLazy",
+    keys = {
+      {
+        "<leader>n",
+        function()
+          require("refactoring").select_refactor()
+        end,
+        mode = "v",
+        noremap = true,
+        silent = true,
+        expr = false,
+        desc = "Refactor",
+      },
+    },
+    opts = {},
+  },
+
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │                      mini.bracketed                      │
+  --  ╰──────────────────────────────────────────────────────────╯
   {
     "echasnovski/mini.bracketed",
     event = "VeryLazy",
   },
 
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │                      mini.surround                       │
+  --  ╰──────────────────────────────────────────────────────────╯
   {
     "echasnovski/mini.surround",
     event = "VeryLazy",
@@ -41,22 +87,9 @@ return {
     },
   },
 
-  {
-    "echasnovski/mini.comment",
-    event = "VeryLazy",
-    dependecies = {
-      { "nvim-treesitter/nvim-treesitter" },
-    },
-    opts = {
-      options = {
-        -- Doesn't work without this field. ts_context... enables tsx comments
-        custom_commentstring = function()
-          return require("ts_context_commentstring.internal").calculate_commentstring() or vim.bo.commentstring
-        end,
-      },
-    },
-  },
-
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │                        mini.pairs                        │
+  --  ╰──────────────────────────────────────────────────────────╯
   {
     "echasnovski/mini.pairs",
     event = "VeryLazy",
@@ -67,11 +100,9 @@ return {
           ["("] = { action = "open", pair = "()", neigh_pattern = "[^\\]." },
           ["["] = { action = "open", pair = "[]", neigh_pattern = "[^\\]." },
           ["{"] = { action = "open", pair = "{}", neigh_pattern = "[^\\]." },
-
           [")"] = { action = "close", pair = "()", neigh_pattern = "[^\\]." },
           ["]"] = { action = "close", pair = "[]", neigh_pattern = "[^\\]." },
           ["}"] = { action = "close", pair = "{}", neigh_pattern = "[^\\]." },
-
           ['"'] = { action = "closeopen", pair = '""', neigh_pattern = "[^\\].", register = { cr = false } },
           ["'"] = { action = "closeopen", pair = "''", neigh_pattern = "[^%a\\].", register = { cr = false } },
           ["`"] = { action = "closeopen", pair = "``", neigh_pattern = "[^\\].", register = { cr = false } },
@@ -80,6 +111,9 @@ return {
     },
   },
 
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │                         LuaSnip                          │
+  --  ╰──────────────────────────────────────────────────────────╯
   {
     "L3MON4D3/LuaSnip",
     event = "VeryLazy",
@@ -94,6 +128,43 @@ return {
     end,
   },
 
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │                         conform                          │
+  --  ╰──────────────────────────────────────────────────────────╯
+  {
+    "stevearc/conform.nvim",
+    -- enabled = false,
+    event = "VeryLazy",
+    opts = function()
+      return {
+        notify_on_error = false,
+        format_on_save = {
+          timeout_ms = 300,
+          lsp_fallback = false, -- stops formatting when no formatters are listed in formatters_by_ft
+        },
+        formatters_by_ft = {
+          lua = { "stylua" },
+          vue = { "prettier" },
+          css = { "prettier" },
+          scss = { "prettier" },
+          less = { "prettier" },
+          html = { "prettier" },
+          json = { "prettier" },
+          jsonc = { "prettier" },
+          yaml = { "prettier" },
+          markdown = { "prettier" },
+          graphql = { "prettier" },
+          handlebars = { "prettier" },
+          go = { "goimports" },
+          c = { "clang_format" },
+        },
+      }
+    end,
+  },
+
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │                          treesj                          │
+  --  ╰──────────────────────────────────────────────────────────╯
   {
     "Wansmer/treesj",
     keys = {
@@ -105,6 +176,9 @@ return {
     },
   },
 
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │                          yanky                           │
+  --  ╰──────────────────────────────────────────────────────────╯
   {
     "gbprod/yanky.nvim",
     dependencies = { { "kkharji/sqlite.lua", enabled = not jit.os:find("Windows") } },
