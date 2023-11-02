@@ -64,8 +64,8 @@ config.keys = {
 	{ key = "LeftArrow", mods = "ALT|CMD", action = act.ActivateTabRelative(-1) },
 	{ key = "RightArrow", mods = "ALT|CMD", action = act.ActivateTabRelative(1) },
 
-	{ key = "LeftArrow", mods = "SHIFT|ALT|CMD", action = act.MoveTabRelative(-1) },
-	{ key = "RightArrow", mods = "SHIFT|ALT|CMD", action = act.MoveTabRelative(1) },
+	{ key = "PageUp", mods = "CTRL|SHIFT", action = act.MoveTabRelative(1) },
+	{ key = "PageDown", mods = "CTRL|SHIFT", action = act.MoveTabRelative(-1) },
 
 	{ key = "+", mods = "CMD", action = wezterm.action.IncreaseFontSize },
 	{ key = "-", mods = "CMD", action = wezterm.action.DecreaseFontSize },
