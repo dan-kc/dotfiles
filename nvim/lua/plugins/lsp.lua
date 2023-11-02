@@ -142,6 +142,8 @@ return {
         },
       })
 
+      require("lspconfig").clangd.setup({})
+
       -- npm install -g @tailwindcss/language-server
       lspconfig.tailwindcss.setup({
         settings = {
@@ -177,6 +179,10 @@ return {
           })
         end,
       })
+
+      -- go install github.com/bufbuild/buf-language-server/cmd/bufls@latest
+      lspconfig.bufls.setup({})
+
       return {
         diagnostics = {
           virtual_text = true,
