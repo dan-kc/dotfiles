@@ -1,7 +1,14 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
+local config = {}
 
-local theme = "Ashes (base16)"
+-- local theme = "Ashes (base16)"
+local theme = "Framer (base16)"
+-- local theme = "Google Dark (base16)"
+-- local theme = "Woodland (base16)"
+
+config.font = wezterm.font("Hurmit Nerd Font")
+-- config.font = wezterm.font("Mononoki Nerd Font")
 
 local extract_tab_bar_colors_from_theme = function(theme_name)
 	local wez_theme = wezterm.color.get_builtin_schemes()[theme_name]
@@ -37,14 +44,11 @@ local extract_tab_bar_colors_from_theme = function(theme_name)
 end
 
 local tab_bar_theme = extract_tab_bar_colors_from_theme(theme)
-local config = {}
 
 if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
--- config.font = wezterm.font("Hurmit Nerd Font")
-config.font = wezterm.font("Mononoki Nerd Font")
 config.color_scheme = theme
 config.font_size = 28
 config.use_fancy_tab_bar = true

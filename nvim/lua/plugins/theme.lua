@@ -6,7 +6,8 @@ return {
     "rrethy/nvim-base16",
     lazy = false,
     config = function()
-      vim.cmd("colorscheme base16-woodland")
+      vim.cmd("colorscheme base16-framer")
+      -- vim.cmd("colorscheme base16-woodland")
     end,
   },
   --  ╭──────────────────────────────────────────────────────────╮
