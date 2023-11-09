@@ -2,10 +2,32 @@ local wezterm = require("wezterm")
 local act = wezterm.action
 local config = {}
 
+-- local theme = "Rosé Pine (base16)"
+-- local theme = "Rosé Pine Moon (base16)"
+-- local theme = "Snazzy (base16)"
+local theme = "Chalk (base16)"
+-- local theme = "Circus (base16)"
+-- local theme = "Solar Flare (base16)"
+-- local theme = "Qualia (base16)"
+-- local theme = "Materia (base16)"
+-- local theme = "Material Darker (base16)"
+-- local theme = "Gigavolt (base16)"
+-- local theme = "darkmoss (base16)"
+-- local theme = "OceanicNext (base16)"
 -- local theme = "Ashes (base16)"
-local theme = "Framer (base16)"
--- local theme = "Google Dark (base16)"
--- local theme = "Woodland (base16)"
+-- local theme = "Framer (base16)"
+-- local theme = "Monokai (base16)"
+-- local theme = "Porple (base16)"
+-- local theme = "Rebecca (base16)"
+-- local theme = "Twilight (base16)"
+-- local theme = "Black Metal (base16)"
+-- local theme = "Brewer (base16)"
+-- local theme = "Harmonic16 Dark (base16)"
+-- local theme = "Classic Dark (base16)"
+-- local theme = "DanQing (base16)"
+-- local theme = "Eighties (base16)"
+-- local theme = "Gruvbox dark, pale (base16)"
+-- local theme = "Kimber (base16)"
 
 config.font = wezterm.font("Hurmit Nerd Font")
 -- config.font = wezterm.font("Mononoki Nerd Font")
@@ -53,7 +75,7 @@ config.color_scheme = theme
 config.font_size = 28
 config.use_fancy_tab_bar = true
 
-config.window_background_opacity = 0.98
+config.window_background_opacity = 0.99
 
 config.adjust_window_size_when_changing_font_size = false
 config.macos_window_background_blur = 20
