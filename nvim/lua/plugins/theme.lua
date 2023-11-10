@@ -49,6 +49,9 @@ return {
         "Normal",
         "NormalNC",
         "SignColumn",
+        "LspPreviewBorder",
+        "NormalFloat",
+        "FloatBorder",
 
         "VertSplit",
         "StatusLine",
@@ -79,10 +82,6 @@ return {
       },
 
       extra_groups = {
-        -- Plugins which have float panel such as Lazy, Mason, LspInfo
-        -- "NormalFloat",
-        -- "FloatBorder",
-
         -- Telescope
         -- "TelescopeNormal",
         -- "TelescopeMatching",
@@ -108,10 +107,6 @@ return {
         "GitSignsDelete",
         "GitSignsAddLine",
 
-        -- Which key
-        -- "WhichKeyFloat",
-        -- "WhichKeyBorder",
-
         -- Diagnostics
         "DiagnosticSignError",
         "DiagnosticSignWarn",
@@ -121,6 +116,7 @@ return {
         -- Barbecue
         "barbecue_normal",
 
+        -- NeoTree
         "NeoTreeBufferNumber",
         "NeoTreeCursorLine",
         "NeoTreeDimText",
@@ -181,12 +177,6 @@ return {
         -- "BqfPreviewCursorLine",
         -- "BqfPreviewRange",
         -- "BqfPreviewBufLabel",
-
-        -- Noice
-        -- "NoicePopupmenu",
-        -- "NoiceScrollbar",
-        -- "NoiceFormatConfirm",
-        -- "NoiceScrollbarThumb",
 
         -- Lualine
         "lualine_b_insert",

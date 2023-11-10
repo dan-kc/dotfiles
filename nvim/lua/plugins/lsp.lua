@@ -1,3 +1,4 @@
+local icons = require("config.icons")
 return {
   --  ╭──────────────────────────────────────────────────────────╮
   --  │                      nvim-lspconfig                      │
@@ -11,19 +12,15 @@ return {
     event = "VeryLazy",
     config = function(_, _)
       local lspconfig = require("lspconfig")
-
-      -- Add a border to lsp stuff
-      vim.cmd([[autocmd! ColorScheme * highlight NormalFloat guibg=#1f2335]])
-      vim.cmd([[autocmd! ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]])
       local border = {
-        { "🭽", "FloatBorder" },
-        { "▔", "FloatBorder" },
-        { "🭾", "FloatBorder" },
-        { "▕", "FloatBorder" },
-        { "🭿", "FloatBorder" },
-        { "▁", "FloatBorder" },
-        { "🭼", "FloatBorder" },
-        { "▏", "FloatBorder" },
+        { icons.border.rounded[1], "LspPreviewBorder" },
+        { icons.border.rounded[2], "LspPreviewBorder" },
+        { icons.border.rounded[3], "LspPreviewBorder" },
+        { icons.border.rounded[4], "LspPreviewBorder" },
+        { icons.border.rounded[5], "LspPreviewBorder" },
+        { icons.border.rounded[6], "LspPreviewBorder" },
+        { icons.border.rounded[7], "LspPreviewBorder" },
+        { icons.border.rounded[8], "LspPreviewBorder" },
       }
       local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
       function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
