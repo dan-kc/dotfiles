@@ -218,6 +218,23 @@ return {
           autocomplete = false,
         },
         window = {
+          completion = {
+            border = {
+              { icons.border.rounded[1] },
+              { icons.border.rounded[2] },
+              { icons.border.rounded[3] },
+              { icons.border.rounded[4] },
+              { icons.border.rounded[5] },
+              { icons.border.rounded[6] },
+              { icons.border.rounded[7] },
+              { icons.border.rounded[8] },
+            },
+            winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
+            scrolloff = 1,
+            col_offset = 0,
+            side_padding = 0,
+            scrollbar = false,
+          },
           documentation = cmp.config.window.bordered(),
         },
         snippet = {
@@ -247,9 +264,7 @@ return {
           },
         }),
         experimental = {
-          ghost_text = {
-            hl_group = "CmpGhostText",
-          },
+          ghost_text = false,
         },
         sorting = defaults.sorting,
       }

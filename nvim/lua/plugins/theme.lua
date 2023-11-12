@@ -9,8 +9,8 @@ return {
       -- vim.cmd("colorscheme base16-rose-pine")
       -- vim.cmd("colorscheme base16-rose-pine-moon")
       -- vim.cmd("colorscheme base16-snazzy")
-      vim.cmd("colorscheme base16-chalk")
-      -- vim.cmd("colorscheme base16-circus")
+      -- vim.cmd("colorscheme base16-chalk")
+      vim.cmd("colorscheme base16-circus")
       -- vim.cmd("colorscheme base16-solarflare")
       -- vim.cmd("colorscheme base16-qualia")
       -- vim.cmd("colorscheme base16-materia")
@@ -46,6 +46,7 @@ return {
     opts = {
       groups = {
         -- "Must haves"
+        "Pmenu",
         "Normal",
         "NormalNC",
         "SignColumn",
@@ -221,6 +222,73 @@ return {
         "lualine_c_diagnostics_hint_terminal",
         "lualine_c_diagnostics_hint_inactive",
         "lualine_c_diagnostics_hint_visual",
+
+        -- Cmp
+        "CmpItemAbbr",
+        "CmpItemKind",
+        "CmpItemMenu",
+        "CmpGhostText",
+        "CmpItemKindEnum",
+        "CmpItemKindFile",
+        "CmpItemKindText",
+        "CmpItemKindUnit",
+        "CmpDocumentation",
+        "CmpItemAbbrMatch",
+        "CmpItemKindClass",
+        "CmpItemKindColor",
+        "CmpItemKindEvent",
+        "CmpItemKindField",
+        "CmpItemKindValue",
+        "CmpItemKindFolder",
+        "CmpItemKindMethod",
+        "CmpItemKindModule",
+        "CmpItemKindStruct",
+        "CmpItemAbbrDefault",
+        "CmpItemKindDefault",
+        "CmpItemKindKeyword",
+        "CmpItemKindSnippet",
+        "CmpItemMenuDefault",
+        "CmpItemKindConstant",
+        "CmpItemKindFunction",
+        "CmpItemKindOperator",
+        "CmpItemKindProperty",
+        "CmpItemKindVariable",
+        "CmpItemKindInterface",
+        "CmpItemKindReference",
+        "CmpItemAbbrDeprecated",
+        "CmpItemAbbrMatchFuzzy",
+        "CmpItemKindEnumMember",
+        "CmpDocumentationBorder",
+        "CmpItemKindConstructor",
+        "CmpItemKindEnumDefault",
+        "CmpItemKindFileDefault",
+        "CmpItemKindTextDefault",
+        "CmpItemKindUnitDefault",
+        "CmpItemAbbrMatchDefault",
+        "CmpItemKindClassDefault",
+        "CmpItemKindColorDefault",
+        "CmpItemKindEventDefault",
+        "CmpItemKindFieldDefault",
+        "CmpItemKindValueDefault",
+        "CmpItemKindFolderDefault",
+        "CmpItemKindMethodDefault",
+        "CmpItemKindModuleDefault",
+        "CmpItemKindStructDefault",
+        "CmpItemKindTypeParameter",
+        "CmpItemKindKeywordDefault",
+        "CmpItemKindSnippetDefault",
+        "CmpItemKindConstantDefault",
+        "CmpItemKindFunctionDefault",
+        "CmpItemKindOperatorDefault",
+        "CmpItemKindPropertyDefault",
+        "CmpItemKindVariableDefault",
+        "CmpItemKindInterfaceDefault",
+        "CmpItemKindReferenceDefault",
+        "CmpItemAbbrDeprecatedDefault",
+        "CmpItemAbbrMatchFuzzyDefault",
+        "CmpItemKindEnumMemberDefault",
+        "CmpItemKindConstructorDefault",
+        "CmpItemKindTypeParameterDefault",
       },
     },
   },
