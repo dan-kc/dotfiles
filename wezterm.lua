@@ -2,10 +2,10 @@ local wezterm = require("wezterm")
 local act = wezterm.action
 local config = {}
 
--- local theme = "Rosé Pine (base16)"
+local theme = "Rosé Pine (base16)"
 -- local theme = "Rosé Pine Moon (base16)"
 -- local theme = "Snazzy (base16)"
-local theme = "Chalk (base16)"
+-- local theme = "Chalk (base16)"
 -- local theme = "Circus (base16)"
 -- local theme = "Solar Flare (base16)"
 -- local theme = "Qualia (base16)"
@@ -75,7 +75,7 @@ config.color_scheme = theme
 config.font_size = 28
 config.use_fancy_tab_bar = true
 
-config.window_background_opacity = 0.99
+config.window_background_opacity = 1
 
 config.adjust_window_size_when_changing_font_size = false
 config.macos_window_background_blur = 20
