@@ -7,11 +7,37 @@ return {
     event = "VeryLazy",
     vscode = true,
     opts = {},
-    -- stylua: ignore
     keys = {
-      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-      -- { "'", mode = { "n", "x", "o" }, function() require("flash").jump({continue = true}) end,desc = "Resume last search" },
+      {
+        "s",
+        mode = { "n", "x", "o" },
+        function()
+          require("flash").jump()
+          vim.cmd("norm zz")
+        end,
+        desc = "Flash",
+      },
+      {
+        "r",
+        mode = "o",
+        function()
+          require("flash").remote()
+        end,
+        desc = "Remote Flash",
+      },
+      {
+        "S",
+        mode = { "n", "x", "o" },
+        function()
+          require("flash").jump({
+            search = { mode = "search", max_length = 0 },
+            label = { after = { 0, 0 } },
+            pattern = "^",
+          })
+          vim.cmd("norm zz")
+        end,
+        desc = "Flash line",
+      },
     },
   },
 
@@ -107,7 +133,7 @@ return {
       break_undo = true, -- switch for basic rule break undo sequence
       check_ts = true,
       map_cr = true,
-      map_bs = false, -- map the <BS> key
+      map_bs = true, -- map the <BS> key
       map_c_h = false, -- Map the <C-h> key to delete a pair
       map_c_w = false, -- map <c-w> to delete a pair if possible
     },
