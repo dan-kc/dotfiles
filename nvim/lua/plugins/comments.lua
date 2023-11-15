@@ -26,7 +26,7 @@ return {
     event = "VeryLazy",
     keys = {
       {
-        "gcb",
+        "<leader>cb",
         function()
           require("comment-box").cbox()
         end,
