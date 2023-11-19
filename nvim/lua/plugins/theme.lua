@@ -6,7 +6,7 @@ return {
     "rrethy/nvim-base16",
     lazy = false,
     config = function()
-      vim.cmd("colorscheme base16-rose-pine")
+      -- vim.cmd("colorscheme base16-rose-pine")
       -- vim.cmd("colorscheme base16-rose-pine-moon")
       -- vim.cmd("colorscheme base16-snazzy")
       -- vim.cmd("colorscheme base16-chalk")
@@ -32,6 +32,7 @@ return {
       -- vim.cmd("colorscheme base16-eighties")
       -- vim.cmd("colorscheme base16-gruvbox-dark-pale")
       -- vim.cmd("colorscheme base16-kimber")
+      -- vim.cmd("set notermguicolors t_Co=16")
     end,
   },
   --  ╭──────────────────────────────────────────────────────────╮
@@ -40,6 +41,7 @@ return {
   {
     "xiyaowong/transparent.nvim",
     lazy = false,
+    -- enabled = false,
     dependencies = {
       "lewis6991/gitsigns.nvim",
     },
@@ -84,23 +86,23 @@ return {
 
       extra_groups = {
         -- Telescope
-        -- "TelescopeNormal",
+        "TelescopeNormal",
         -- "TelescopeMatching",
         -- "TelescopeSelection",
-        -- "TelescopePromptNormal",
-        -- -- "TelescopePromptBorder",
-        -- "TelescopePromptTitle",
-        -- "TelescopePromptPrefix",
-        -- -- "TelescopeResultsBorder",
-        -- "TelescopeResultsNormal",
-        -- "TelescopeResultsTitle",
-        -- -- "TelescopePreviewBorder",
-        -- "TelescopePreviewNormal",
-        -- "TelescopePreviewTitle",
+        -- "TelescopeSelectionCaret",
+        "TelescopePromptNormal",
+        "TelescopePromptBorder",
+        "TelescopePromptTitle",
+        "TelescopePromptPrefix",
+        "TelescopeResultsBorder",
+        "TelescopeResultsNormal",
+        "TelescopeResultsTitle",
+        "TelescopePreviewBorder",
+        "TelescopePreviewNormal",
+        "TelescopePreviewTitle",
         -- "TelescopeResultsDiffChange",
         -- "TelescopeResultsDiffAdd",
         -- "TelescopeResultsDiffDelete",
-        -- "TelescopeSelectionCaret",
 
         -- GitSigns
         "GitSignsChange",
@@ -290,6 +292,13 @@ return {
         "CmpItemKindConstructorDefault",
         "CmpItemKindTypeParameterDefault",
       },
+    },
+  },
+  {
+    dir = "~/projects/term-colors",
+    event = "VeryLazy",
+    opts = {
+      dir = "/.config/theme/dark-moss.lua",
     },
   },
 }
