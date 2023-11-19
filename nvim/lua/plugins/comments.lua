@@ -1,20 +1,27 @@
 return {
-  --  ╭──────────────────────────────────────────────────────────╮
-  --  │                       mini.comment                       │
-  --  ╰──────────────────────────────────────────────────────────╯
   {
-    "echasnovski/mini.comment",
-    event = "VeryLazy",
-    dependecies = {
-      { "nvim-treesitter/nvim-treesitter" },
-    },
+    "numToStr/Comment.nvim",
+    lazy = false,
     opts = {
-      options = {
-        -- Doesn't work without this field. ts_context... enables tsx comments
-        custom_commentstring = function()
-          return require("ts_context_commentstring.internal").calculate_commentstring() or vim.bo.commentstring
-        end,
+      toggler = { ---LHS of toggle mappings in NORMAL mode
+        line = "gcc", ---Line-comment toggle keymap
+        block = "gbc", ---Block-comment toggle keymap
       },
+      opleader = { ---LHS of operator-pending mappings in NORMAL and VISUAL mode
+        line = "gc", ---Line-comment keymap
+        block = "gb", ---Block-comment keymap
+      },
+      extra = { ---LHS of extra mappings
+        above = "gcO", ---Add comment on the line above
+        below = "gco", ---Add comment on the line below
+        eol = "gcA", ---Add comment at the end of line
+      },
+      mappings = {
+        basic = true, ---Operator-pending mapping; `gcc` `gbc` `gc[count]{motion}` `gb[count]{motion}`
+        extra = true, ---Extra mapping; `gco`, `gcO`, `gcA`
+      },
+      pre_hook = nil, ---Function to call before (un)comment
+      post_hook = nil, ---Function to call after (un)comment
     },
   },
 
@@ -42,7 +49,7 @@ return {
   --  ╭──────────────────────────────────────────────────────────╮
   --  │                      todo-comments                       │
   --  ╰──────────────────────────────────────────────────────────╯
-  -- Doesn't work atm, it fades after a second on load
+  -- TODO: fix?
   {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
