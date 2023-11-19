@@ -1,3 +1,4 @@
+vim.opt.termguicolors = false -- uses cterm colors
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 vim.g.autoformat = true
@@ -24,9 +25,8 @@ opt.inccommand = "nosplit" -- preview incremental substitute
 opt.laststatus = 3 -- global statusline
 opt.list = true -- Show some invisible characters (tabs...
 opt.mouse = "a" -- Enable mouse mode
-opt.number = true -- Print line number
+opt.number = false -- Print line number
 opt.timeoutlen = 5000
--- opt.pumblend = 10 -- Popup blend
 opt.pumheight = 10 -- Maximum number of entries in a popup
 opt.relativenumber = false -- Relative line numbers
 opt.scrolloff = 4 -- Lines of context
@@ -44,7 +44,6 @@ opt.splitbelow = true -- Put new windows below current
 opt.splitkeep = "screen"
 opt.splitright = true -- Put new windows right of current
 opt.tabstop = 2 -- Number of spaces tabs count for
-opt.termguicolors = true -- True color support
 opt.timeoutlen = 5000
 opt.undofile = true
 opt.undolevels = 10000
@@ -64,3 +63,7 @@ opt.fillchars = {
   diff = "╱",
   eob = " ",
 }
+
+vim.diagnostic.config({
+  signs = false,
+})
