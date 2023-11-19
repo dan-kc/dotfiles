@@ -1,0 +1,35 @@
+-- Define config
+local config = {}
+
+local wezterm = require("wezterm")
+local theme = require("theme")
+local color_scheme = theme.color_scheme
+local opacity = theme.opacity
+local font = require("font")
+local keymaps = require("keymaps")
+
+-- Provides better error messages
+if wezterm.config_builder then
+	config = wezterm.config_builder()
+end
+
+config.color_scheme = color_scheme
+config.font_size = 20
+config.use_fancy_tab_bar = false
+config.window_background_opacity = opacity
+config.adjust_window_size_when_changing_font_size = false
+config.macos_window_background_blur = theme.blur
+config.native_macos_fullscreen_mode = true
+config.window_decorations = "RESIZE"
+config.hide_tab_bar_if_only_one_tab = true
+config.disable_default_key_bindings = true
+config.leader = keymaps.leader
+config.keys = keymaps.general
+config.font = font
+config.default_prog = { "/opt/homebrew/bin/nu", "-l" }
+config.tab_max_width = 40
+config.colors = {
+	tab_bar = theme.tab_bar_color_scheme,
+}
+
+return config

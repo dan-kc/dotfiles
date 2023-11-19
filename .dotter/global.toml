@@ -38,4 +38,7 @@
 "kitty.conf" = { target = "~/.config/kitty/kitty.conf", type = "symbolic" }
 
 [wezterm.files]
-"wezterm.lua" = { target = "~/.config/wezterm/wezterm.lua", type = "symbolic" }
+"wezterm" = { target = "~/.config/wezterm", type = "symbolic" }
+
+[theme.files]
+"theme" = { target = "~/.config/theme", type = "symbolic" }
