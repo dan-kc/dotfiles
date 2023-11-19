@@ -7,6 +7,7 @@ return {
     "neovim/nvim-lspconfig",
     dependencies = {
       "hrsh7th/nvim-cmp",
+      -- "folke/neodev.nvim",
       "b0o/schemastore.nvim",
     },
     event = "VeryLazy",
@@ -42,51 +43,62 @@ return {
 
       -- npm install -g typescript-language-server
       lspconfig.tsserver.setup({
-        keys = {
-          {
-            "<leader>co",
-            function()
-              vim.lsp.buf.code_action({
-                apply = true,
-                context = {
-                  only = { "source.organizeImports.ts" },
-                  diagnostics = {},
-                },
-              })
-            end,
-            desc = "Organize Imports",
-          },
-          {
-            "<leader>cR",
-            function()
-              vim.lsp.buf.code_action({
-                apply = true,
-                context = {
-                  only = { "source.removeUnused.ts" },
-                  diagnostics = {},
-                },
-              })
-            end,
-            desc = "Remove Unused Imports",
-          },
-        },
         settings = {
-          typescript = {
-            format = {
-              indentSize = vim.o.shiftwidth,
-              convertTabsToSpaces = vim.o.expandtab,
-              tabSize = vim.o.tabstop,
-            },
-          },
           javascript = {
-            format = {
-              indentSize = vim.o.shiftwidth,
-              convertTabsToSpaces = vim.o.expandtab,
-              tabSize = vim.o.tabstop,
+            format = { enable = false },
+            inlayHints = {
+              includeInlayEnumMemberValueHints = true,
+              includeInlayFunctionLikeReturnTypeHints = true,
+              includeInlayFunctionParameterTypeHints = true,
+              includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
+              includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+              includeInlayPropertyDeclarationTypeHints = true,
+              includeInlayVariableTypeHints = true,
             },
           },
-          completions = {
-            completeFunctionCalls = true,
+          typescript = {
+            format = { enable = false },
+            inlayHints = {
+              includeInlayEnumMemberValueHints = true,
+              includeInlayFunctionLikeReturnTypeHints = true,
+              includeInlayFunctionParameterTypeHints = true,
+              includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
+              includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+              includeInlayPropertyDeclarationTypeHints = true,
+              includeInlayVariableTypeHints = true,
+            },
+          },
+          tsserver_file_preferences = {
+            quotePreference = "auto",
+            importModuleSpecifierEnding = "js",
+            jsxAttributeCompletionStyle = "auto",
+            allowTextChangesInNewFiles = true,
+            providePrefixAndSuffixTextForRename = true,
+            allowRenameOfImportPath = true,
+            includeAutomaticOptionalChainCompletions = true,
+            provideRefactorNotApplicableReason = true,
+            generateReturnInDocTemplate = true,
+            includeCompletionsForImportStatements = true,
+            includeCompletionsWithSnippetText = true,
+            includeCompletionsWithClassMemberSnippets = true,
+            includeCompletionsWithObjectLiteralMethodSnippets = true,
+            useLabelDetailsInCompletionEntries = true,
+            allowIncompleteCompletions = true,
+            displayPartsForJSDoc = true,
+            disableLineTextInReferences = true,
+            includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+            includeInlayParameterNameHints = "all",
+            includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+            includeInlayFunctionParameterTypeHints = true,
+            includeInlayVariableTypeHints = true,
+            includeInlayPropertyDeclarationTypeHints = true,
+            includeInlayFunctionLikeReturnTypeHints = true,
+            includeInlayEnumMemberValueHints = true,
+          },
+          commands = {
+            blah = {
+              bloo = "",
+            },
           },
         },
       })
@@ -187,7 +199,27 @@ return {
 
       return {
         diagnostics = {
-          virtual_text = true,
+          underline = false,
+          update_in_insert = false,
+          virtual_text = {
+            spacing = 4,
+            source = "if_many",
+            prefix = "●",
+            -- this will set set the prefix to a function that returns the diagnostics icon based on the severity
+            -- this only works on a recent 0.10.0 build. Will be set to "●" when not supported
+            -- prefix = "icons",
+          },
+          severity_sort = true,
+        },
+        -- Enable this to enable the builtin LSP inlay hints on Neovim >= 0.10.0
+        -- Be aware that you also will need to properly configure your LSP server to
+        -- provide the inlay hints.
+        inlay_hints = {
+          enabled = true,
+        },
+        format = {
+          formatting_options = nil,
+          timeout_ms = nil,
         },
       }
     end,
@@ -201,21 +233,71 @@ return {
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-nvim-lua",
       "hrsh7th/cmp-path",
       "saadparwaiz1/cmp_luasnip",
+      "onsails/lspkind.nvim",
     },
-    -- stylua: ignore
-    keys = {
-      { "<C-x>", mode = { "i" }, function() require("cmp").complete() end, desc = "Autocomplete" },
-    },
+    -- keys = {
+    --   { "<C-a>", mode = { "i" }, function() require("cmp").complete() end, desc = "Autocomplete" },
+    -- },
     opts = function()
       local cmp = require("cmp")
       vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
       local defaults = require("cmp.config.default")()
+      local lspkind = require("lspkind")
       return {
-        completion = {
-          completeopt = "menu,menuone,preview,noinsert",
-          autocomplete = false,
+        -- completion = {
+        --   completeopt = "menu,menuone,preview,noinsert",
+        --   autocomplete = true,
+        -- },
+        formatting = {
+          format = lspkind.cmp_format({
+            mode = "text_symbol", -- 'text', 'text_symbol', 'symbol_text', 'symbol'
+            maxwidth = 80,
+            ellipsis_char = "...",
+            menu = {
+              nvim_lsp = "[LSP]",
+              path = "[PATH]",
+              nvim_lua = "[LUA]",
+              buffer = "[BUF]",
+              luasnip = "[SNIP]",
+            },
+            symbol_map = {
+              Text = "󰉿",
+              Method = "󰆧",
+              Function = "󰊕",
+              Constructor = "",
+              Field = "󰜢",
+              Variable = "󰀫",
+              Class = "󰠱",
+              Interface = "",
+              Module = "",
+              Property = "󰜢",
+              Unit = "󰑭",
+              Value = "󰎠",
+              Enum = "",
+              Keyword = "󰌋",
+              Snippet = "",
+              Color = "󰏘",
+              File = "󰈙",
+              Reference = "󰈇",
+              Folder = "󰉋",
+              EnumMember = "",
+              Constant = "󰏿",
+              Struct = "󰙅",
+              Event = "",
+              Operator = "󰆕",
+              TypeParameter = "",
+            },
+          }),
+        },
+        matching = {
+          disallow_fuzzy_matching = false,
+          disallow_fullfuzzy_matching = false,
+          disallow_partial_fuzzy_matching = false,
+          disallow_partial_matching = false,
+          disallow_prefix_unmatching = false,
         },
         window = {
           completion = {
@@ -242,26 +324,18 @@ return {
             require("luasnip").lsp_expand(args.body)
           end,
         },
-        -- stylua: ignore
         mapping = cmp.mapping.preset.insert({
-          ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-          ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-          ["<C-f>"] = cmp.mapping.scroll_docs(4),
-          ["<C-e>"] = cmp.mapping.abort(),
-          ["<CR>"] = cmp.mapping.confirm({ select = true }),
-          ["<S-CR>"] = cmp.mapping.confirm({
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = true,
-          }),
-          ["<C-CR>"] = function(fallback) cmp.abort() fallback() end }),
+          ["<CR>"] = cmp.mapping.confirm(),
+          ["<C-CR>"] = function()
+            cmp.abort()
+          end,
+        }),
         sources = cmp.config.sources({
-          { name = "luasnip" },
-          { name = "nvim_lsp" },
-          { name = "path" },
-          {
-            { name = "buffer" }, -- Fallback to buffer if nothing from others
-          },
+          { name = "nvim_lsp", keyword_length = 3 },
+          { name = "path", keyword_length = 1 },
+          { name = "nvim_lua", keyword_length = 3 },
+          { name = "buffer", keyword_length = 3 },
+          { name = "luasnip", keyword_length = 3 },
         }),
         experimental = {
           ghost_text = false,
