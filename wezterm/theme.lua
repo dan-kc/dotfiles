@@ -1,11 +1,11 @@
 local wezterm = require("wezterm")
-local opacity = 0.8
-local blur = 22
-local color_scheme = "Rosé Pine (base16)"
+local opacity = 0.95
+local blur = 15
+-- local color_scheme = "Rosé Pine (base16)"
 -- local color_scheme = "Rosé Pine Moon (base16)"
 -- local color_scheme = "Snazzy (base16)"
 -- local color_scheme = "Chalk (base16)"
--- local color_scheme = "Circus (base16)"
+local color_scheme = "Circus (base16)"
 -- local color_scheme = "Solar Flare (base16)"
 -- local color_scheme = "Qualia (base16)"
 -- local color_scheme = "Materia (base16)"
