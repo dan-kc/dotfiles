@@ -65,28 +65,6 @@ return {
   },
 
   --  ╭──────────────────────────────────────────────────────────╮
-  --  │                       refactoring                        │
-  --  ╰──────────────────────────────────────────────────────────╯
-  {
-    "ThePrimeagen/refactoring.nvim",
-    event = "VeryLazy",
-    keys = {
-      {
-        "<leader>n",
-        function()
-          require("refactoring").select_refactor()
-        end,
-        mode = "v",
-        noremap = true,
-        silent = true,
-        expr = false,
-        desc = "Refactor",
-      },
-    },
-    opts = {},
-  },
-
-  --  ╭──────────────────────────────────────────────────────────╮
   --  │                      mini.bracketed                      │
   --  ╰──────────────────────────────────────────────────────────╯
   {
@@ -145,14 +123,23 @@ return {
   {
     "L3MON4D3/LuaSnip",
     event = "VeryLazy",
-    -- stylua: ignore
     config = function()
       require("luasnip.loaders.from_vscode").lazy_load({ paths = "~/.config/nvim/snippets" })
       local ls = require("luasnip")
-    -- TODO: Fix error in ts files when using <c-z> twice
-      vim.keymap.set({ "i" }, "<C-z>", function() ls.expand() end, { silent = true })
-      vim.keymap.set({ "i", "s" }, "<C-.>", function() ls.jump(1) end, { silent = true })
-      vim.keymap.set({ "i", "s" }, "<C-,>", function() ls.jump(-1) end, { silent = true })
+      vim.keymap.set({ "i" }, "<C-z>", function()
+        ls.expand_or_jump()
+      end, { silent = true })
+      vim.keymap.set({ "i", "s" }, "<C-c>", function()
+        ls.jump(1)
+      end, { silent = true })
+      vim.keymap.set({ "i", "s" }, "<C-x>", function()
+        ls.jump(-1)
+      end, { silent = true })
+      return {
+        history = true,
+        update_events = "TextChanged,TextChangedI",
+        delete_check_events = "TextChanged",
+      }
     end,
   },
 
