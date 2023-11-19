@@ -1,6 +1,7 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
 local config = {}
+local opacity = 0.9
 
 local theme = "Rosé Pine (base16)"
 -- local theme = "Rosé Pine Moon (base16)"
@@ -29,37 +30,47 @@ local theme = "Rosé Pine (base16)"
 -- local theme = "Gruvbox dark, pale (base16)"
 -- local theme = "Kimber (base16)"
 
-config.font = wezterm.font("Hurmit Nerd Font")
--- config.font = wezterm.font("Mononoki Nerd Font")
+-- config.font = wezterm.font("Fira Code")
+-- config.font = wezterm.font("Hurmit Nerd Font")
+-- config.font = wezterm.font("FiraCode Nerd Font")
+config.font = wezterm.font("Mononoki Nerd Font")
+-- config.font = wezterm.font("JetBrains Mo")
+
+local new_opacity = function(c, o)
+	local color = wezterm.color
+	local h, s, l = color.parse(c):hsla()
+	local str = "hsla(" .. h .. "," .. s * 100 .. "%," .. l * 100 .. "%," .. o * 100 .. "%)"
+	return str
+end
 
 local extract_tab_bar_colors_from_theme = function(theme_name)
-	local wez_theme = wezterm.color.get_builtin_schemes()[theme_name]
+	-- Get current theme
+	local color = wezterm.color
+	local wez_theme = color.get_builtin_schemes()[theme_name]
+
 	return {
-		window_frame_colors = {
-			active_titlebar_bg = wez_theme.background,
-			inactive_titlebar_bg = wez_theme.background,
-		},
 		tab_bar_colors = {
-			inactive_tab_edge = wez_theme.background,
+			-- inactive_tab_edge = new_opacity(wez_theme.background, opacity),
+			background = new_opacity(wez_theme.background, opacity),
 			active_tab = {
-				bg_color = wez_theme.brights[3],
-				fg_color = wez_theme.background,
+				bg_color = new_opacity(wez_theme.brights[5], opacity),
+				fg_color = new_opacity(wez_theme.background, opacity),
 			},
 			inactive_tab = {
-				bg_color = wez_theme.background,
-				fg_color = wez_theme.foreground,
+				fg_color = new_opacity(wez_theme.foreground, opacity),
+				bg_color = new_opacity(wez_theme.background, opacity),
 			},
 			inactive_tab_hover = {
-				bg_color = wez_theme.background,
-				fg_color = wez_theme.foreground,
+				bg_color = new_opacity(wez_theme.background, opacity),
+				fg_color = new_opacity(wez_theme.foreground, opacity),
 			},
 			new_tab = {
-				bg_color = wez_theme.background,
-				fg_color = wez_theme.foreground,
+				bg_color = new_opacity(wez_theme.background, opacity),
+				fg_color = new_opacity(wez_theme.foreground, opacity),
 			},
 			new_tab_hover = {
-				bg_color = wez_theme.brights[3],
-				fg_color = wez_theme.background,
+				bg_color = new_opacity(wez_theme.brights[5], opacity),
+				fg_color = new_opacity(wez_theme.background, opacity),
 			},
 		},
 	}
@@ -72,13 +83,13 @@ if wezterm.config_builder then
 end
 
 config.color_scheme = theme
-config.font_size = 28
-config.use_fancy_tab_bar = true
+config.font_size = 20
+config.use_fancy_tab_bar = false
 
-config.window_background_opacity = 1
+config.window_background_opacity = opacity
 
 config.adjust_window_size_when_changing_font_size = false
-config.macos_window_background_blur = 20
+config.macos_window_background_blur = 35
 config.native_macos_fullscreen_mode = true
 config.window_decorations = "RESIZE"
 config.hide_tab_bar_if_only_one_tab = true
@@ -121,6 +132,7 @@ config.keys = {
 
 config.default_prog = { "/opt/homebrew/bin/nu", "-l" }
 
+config.tab_max_width = 40
 config.window_frame = tab_bar_theme.window_frame_colors
 config.colors = {
 	tab_bar = tab_bar_theme.tab_bar_colors,
