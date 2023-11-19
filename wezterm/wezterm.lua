@@ -3,7 +3,7 @@ local config = {}
 
 local wezterm = require("wezterm")
 local theme = require("theme")
-local color_scheme = theme.color_scheme
+-- local color_scheme = theme.color_scheme
 local opacity = theme.opacity
 local font = require("font")
 local keymaps = require("keymaps")
@@ -13,7 +13,7 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
-config.color_scheme = color_scheme
+-- config.color_scheme = "darkmoss (base16)"
 config.font_size = 20
 config.use_fancy_tab_bar = false
 config.window_background_opacity = opacity
@@ -28,8 +28,6 @@ config.keys = keymaps.general
 config.font = font
 config.default_prog = { "/opt/homebrew/bin/nu", "-l" }
 config.tab_max_width = 40
-config.colors = {
-	tab_bar = theme.tab_bar_color_scheme,
-}
+config.colors = theme.colors
 
 return config
