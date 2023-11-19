@@ -13,7 +13,7 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
--- config.color_scheme = "darkmoss (base16)"
+config.color_scheme = theme.color_scheme
 config.font_size = 20
 config.use_fancy_tab_bar = false
 config.window_background_opacity = opacity
