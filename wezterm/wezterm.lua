@@ -3,7 +3,6 @@ local config = {}
 
 local wezterm = require("wezterm")
 local theme = require("theme")
--- local color_scheme = theme.color_scheme
 local opacity = theme.opacity
 local font = require("font")
 local keymaps = require("keymaps")
@@ -23,7 +22,7 @@ config.native_macos_fullscreen_mode = true
 config.window_decorations = "RESIZE"
 config.hide_tab_bar_if_only_one_tab = true
 config.disable_default_key_bindings = true
-config.leader = keymaps.leader
+-- config.leader = keymaps.leader
 config.keys = keymaps.general
 config.font = font
 config.default_prog = { "/opt/homebrew/bin/nu", "-l" }
