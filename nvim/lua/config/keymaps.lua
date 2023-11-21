@@ -32,6 +32,7 @@ set("n", "<S-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window w
 
 set("n", "<leader>wx", "<C-w>x", { desc = "Swap window with next" })
 set("n", "<leader>ux", ":set cursorline!<CR>", { desc = "Toggle cursor line" })
+set("n", "<leader>ul", ":set number!<CR>", { desc = "Toggle cursor line" })
 set("n", "<leader>qo", ":copen<CR>", { desc = "Open list" })
 set("n", "<leader>qn", ":cnext<CR>", { desc = "Next item" })
 set("n", "<leader>qp", ":cprev<CR>", { desc = "Prev item" })
