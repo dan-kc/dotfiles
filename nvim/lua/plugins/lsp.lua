@@ -331,14 +331,14 @@ return {
           end,
         }),
         sources = cmp.config.sources({
-          { name = "nvim_lsp", keyword_length = 3 },
+          { name = "nvim_lsp", keyword_length = 1 },
           { name = "path", keyword_length = 1 },
-          { name = "nvim_lua", keyword_length = 3 },
-          { name = "buffer", keyword_length = 3 },
-          { name = "luasnip", keyword_length = 3 },
+          { name = "nvim_lua", keyword_length = 1 },
+          { name = "buffer", keyword_length = 1 },
+          { name = "luasnip", keyword_length = 1 },
         }),
         experimental = {
-          ghost_text = false,
+          ghost_text = true,
         },
         sorting = defaults.sorting,
       }
