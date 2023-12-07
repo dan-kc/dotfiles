@@ -5,8 +5,17 @@ return {
   {
     "folke/flash.nvim",
     event = "VeryLazy",
-    vscode = true,
-    opts = {},
+    opts = {
+      highlight = {
+        backdrop = false,
+      },
+      label = {
+        -- allow uppercase labels
+        uppercase = false,
+        -- add any labels with the correct case here, that you want to exclude
+        -- exclude = "qwfpbjluymgzxcdh",
+      },
+    },
     keys = {
       {
         "s",
@@ -97,22 +106,24 @@ return {
   {
     "windwp/nvim-autopairs",
     event = "VeryLazy",
+    enabled = false,
     opts = {
       disable_filetype = { "TelescopePrompt" },
       disable_in_macro = true, -- disable when recording or executing a macro,
       disable_in_visualblock = false, -- disable when insert after visual block mode
       disable_in_replace_mode = true,
-      ignored_next_char = [=[[%w%%%'%[%"%.%`%$]]=],
+      -- ignored_next_char = [=[[%w%%%'%[%"%.%`%$]]=],
       enable_moveright = true,
       enable_afterquote = true, -- add bracket pairs after quote
-      enable_check_bracket_line = true, --- check bracket in same line
-      enable_bracket_in_quote = true, --
+      -- enable_check_bracket_line = true, --- check bracket in same line
+      enable_check_bracket_line = false, --- check bracket in same line
+      enable_bracket_in_quote = false, --
       enable_abbr = false, -- trigger abbreviation
       break_undo = true, -- switch for basic rule break undo sequence
       check_ts = true,
       map_cr = true,
       map_bs = true, -- map the <BS> key
-      map_c_h = false, -- Map the <C-h> key to delete a pair
+      map_c_h = true, -- Map the <C-h> key to delete a pair
       map_c_w = false, -- map <c-w> to delete a pair if possible
     },
   },
@@ -124,10 +135,37 @@ return {
     "L3MON4D3/LuaSnip",
     event = "VeryLazy",
     config = function()
-      require("luasnip.loaders.from_vscode").lazy_load({ paths = "~/.config/nvim/snippets" })
       local ls = require("luasnip")
+      local extras = require("luasnip.extras")
+      local s = ls.snippet
+      local t = ls.text_node
+      local i = ls.insert_node
+      local r = extras.rep
+      -- local c = ls.choice_node
+      ls.add_snippets("typescript", {
+        s("clg", {
+          t('console.log("'),
+          i(1),
+          t('", '),
+          r(1),
+          t(")"),
+        }),
+        s("clge", {
+          t('console.log("'),
+          i(1),
+          t('");'),
+        }),
+      })
+
+      vim.keymap.set({ "i", "s" }, "<C-a>", function()
+        if ls.choice_active() then
+          ls.change_choice(1)
+        end
+      end)
       vim.keymap.set({ "i" }, "<C-z>", function()
-        ls.expand_or_jump()
+        if ls.expand_or_jumpable() then
+          ls.expand_or_jump()
+        end
       end, { silent = true })
       vim.keymap.set({ "i", "s" }, "<C-c>", function()
         ls.jump(1)
@@ -158,6 +196,9 @@ return {
           lsp_fallback = false, -- stops formatting when no formatters are listed in formatters_by_ft
         },
         formatters_by_ft = {
+          -- typescript = { "prettier" },
+          -- tsx = { "prettier" },
+          -- javascript = { "prettier" },
           lua = { "stylua" },
           vue = { "prettier" },
           css = { "prettier" },
@@ -172,6 +213,7 @@ return {
           handlebars = { "prettier" },
           go = { "goimports" },
           c = { "clang_format" },
+          proto = { "buf" },
         },
       }
     end,
@@ -223,4 +265,66 @@ return {
       { "=P", "<Plug>(YankyPutBeforeFilter)", desc = "Put before applying a filter" },
     },
   },
+
+  --  ╭──────────────────────────────────────────────────────────╮
+  --  │                       portal.nvim                        │
+  --  ╰──────────────────────────────────────────────────────────╯
+  {
+    "cbochs/portal.nvim",
+    opts = function()
+      return {
+        labels = { "n", "e", "i" },
+        window_options = {
+          relative = "cursor",
+          width = 80,
+          height = 5,
+          col = 2,
+          focusable = false,
+          border = "single",
+          noautocmd = true,
+        },
+      }
+    end,
+    keys = {
+      -- { "<C-,>", "<cmd>Portal jumplist backward<cr>", desc = "Portal back" },
+      {
+        "<C-/>",
+        function()
+          require("portal.builtin").jumplist.tunnel_backward({
+            slots = {
+              function(value)
+                return value.buffer == vim.fn.bufnr()
+              end,
+            },
+          })
+        end,
+        desc = "Portal back",
+      },
+      { "<C-.>", "<cmd>Portal jumplist forward<cr>", desc = "Portal forward" },
+    },
+  },
+
+  -- {
+  --   "cbochs/grapple.nvim",
+  --   enabled = true,
+  --   event = "VeryLazy",
+  --   keys = {
+  --     { "<leader>m", "<cmd>GrappleToggle<cr>", desc = "Grapple toggle tag" },
+  --     { "<leader>k", "<cmd>GrapplePopup tags<cr>", desc = "Grapple popup tags" },
+  --     { "<leader>", "<cmd>GrappleCycle forward<cr>", desc = "Grapple cycle forward" },
+  --     { "<leader>J", "<cmd>GrappleCycle backward<cr>", desc = "Grapple cycle backward" },
+  --   },
+  -- },
+
+  -- {
+  --   "gbprod/substitute.nvim",
+  --   enabled = false,
+  --   keys = {
+  --     { "r", "<cmd>lua require('substitute').operator()<cr>" },
+  --     { "rr", "<cmd>lua require('substitute').line()<cr>" },
+  --     { "R", "<cmd>lua require('substitute').eol()<cr>" },
+  --     { "r", "<cmd>lua require('substitute').visual()<cr>", mode = "x" },
+  --   },
+  --   config = true,
+  -- },
 }

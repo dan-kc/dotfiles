@@ -1,35 +1,30 @@
 {
-  "Switch Statement": {
-    "prefix": "switch",
-    "body": [
-      "switch (${1:key}) {",
-      "\tcase ${2:value}:",
-      "\t\t$0",
-      "\t\tbreak;",
-      "",
-      "\tdefault:",
-      "\t\tbreak;",
-      "}"
-    ]
-  },
   "While Statement": {
     "prefix": "while",
     "body": ["while (${1:condition}) {", "\t$0", "}"]
   },
   "Do-While Statement": {
-    "prefix": "dowhile",
+    "prefix": "dow",
     "body": ["do {", "\t$0", "} while (${1:condition});"]
   },
   "Try-Catch Statement": {
-    "prefix": "trycatch",
-    "body": ["try {", "\t$0", "} catch (${1:error}) {", "\t", "}"]
+    "prefix": "tryc",
+    "body": ["try {", "$1", "} catch ($2) {", "$3", "}"]
   },
-  "Set Timeout Function": {
-    "prefix": "settimeout",
-    "body": ["setTimeout(() => {", "\t$0", "}, ${1:timeout});"]
+  "Set Timeout": {
+    "prefix": "sett",
+    "body": ["setTimeout(() => {", "$1", "}, $2);"]
+  },
+  "Set Timeout Empty": {
+    "prefix": "sette",
+    "body": ["setTimeout(() => {}, $1)"]
   },
   "Console Log": {
     "prefix": "clg",
-    "body": ["console.log(\"$0\", $0);"]
+    "body": ["console.log(\"$1\", $1);"]
+  },
+  "Console Log Empty": {
+    "prefix": "clge",
+    "body": ["console.log(\"$1\");"]
   }
 }

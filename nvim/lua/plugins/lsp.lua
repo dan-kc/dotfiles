@@ -238,9 +238,16 @@ return {
       "saadparwaiz1/cmp_luasnip",
       "onsails/lspkind.nvim",
     },
-    -- keys = {
-    --   { "<C-a>", mode = { "i" }, function() require("cmp").complete() end, desc = "Autocomplete" },
-    -- },
+    keys = {
+      -- {
+      --   "<C-a>",
+      --   mode = { "i" },
+      --   function()
+      --     require("cmp").complete()
+      --   end,
+      --   desc = "Autocomplete",
+      -- },
+    },
     opts = function()
       local cmp = require("cmp")
       vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
@@ -325,10 +332,7 @@ return {
           end,
         },
         mapping = cmp.mapping.preset.insert({
-          ["<CR>"] = cmp.mapping.confirm(),
-          ["<C-CR>"] = function()
-            cmp.abort()
-          end,
+          ["<C-CR>"] = cmp.mapping.confirm(),
         }),
         sources = cmp.config.sources({
           { name = "nvim_lsp", keyword_length = 1 },

@@ -27,11 +27,10 @@ return {
       -- vim.cmd("colorscheme base16-black-metal")
       -- vim.cmd("colorscheme base16-brewer")
       -- vim.cmd("colorscheme base16-harmonic16-dark")
-      -- vim.cmd("colorscheme base16-classic-dark")
       -- vim.cmd("colorscheme base16-danqing")
       -- vim.cmd("colorscheme base16-eighties")
       -- vim.cmd("colorscheme base16-gruvbox-dark-pale")
-      -- vim.cmd("colorscheme base16-kimber")
+      vim.cmd("colorscheme base16-kimber")
       -- vim.cmd("set notermguicolors t_Co=16")
     end,
   },
@@ -80,8 +79,11 @@ return {
         "LineNr",
         "NonText",
         "CursorLineNr",
+        "CursorLineFold",
+        "FoldColumn",
         "EndOfBuffer",
         "MsgSeparator",
+        "cErrInBracket",
       },
 
       extra_groups = {
@@ -291,11 +293,17 @@ return {
         "CmpItemKindEnumMemberDefault",
         "CmpItemKindConstructorDefault",
         "CmpItemKindTypeParameterDefault",
+
+        -- Lazy.nvim
+        "LazyButton",
+        "LazyButtonActive",
+        "LazyDimmed",
       },
     },
   },
   {
     dir = "~/projects/term-colors",
+    enabled = false,
     event = "VeryLazy",
     opts = {
       dir = "/.config/theme/dark-moss.lua",

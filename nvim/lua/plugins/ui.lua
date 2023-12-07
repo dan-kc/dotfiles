@@ -44,6 +44,7 @@ return {
   --  ╰──────────────────────────────────────────────────────────╯
   {
     "utilyre/barbecue.nvim",
+    enabled = false,
     name = "barbecue",
     event = "VeryLazy",
     dependencies = {

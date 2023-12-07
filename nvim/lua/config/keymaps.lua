@@ -52,8 +52,7 @@ set("n", "<leader>qp", ":cprev<CR>", { desc = "Prev item" })
 --   }, function(input)
 --     if input then
 --       -- check if input.md exists in /notes
---       -- if it does, return early
---       -- else create the file
+--       -- if it does, return early -- else create the file
 --       -- go to it
 --         vim.api.nvim_create_buf(listed, scratch)
 --       print("You entered " .. input)
@@ -71,6 +70,9 @@ set("n", "<leader>K", "<cmd>norm! K<cr>", { desc = "Keywordprg" })
 -- better indenting
 set("v", "<", "<gv")
 set("v", ">", ">gv")
+
+-- highlight last pasted line
+set("n", "gV", "'[V']")
 
 -- lazy
 set("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Lazy" })
@@ -100,3 +102,22 @@ set("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Next Error" })
 set("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
 set("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
 set("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
+
+vim.keymap.set("n", "g?", ":lua ShowHighlightInfo()<CR>")
+
+function JumpBack()
+  local jump_list = vim.fn.getjumplist()
+  local lastUsedJumpIndex = jump_list[2]
+  local currentJumpInfo = jump_list[1][lastUsedJumpIndex]
+  vim.print(currentJumpInfo)
+  vim.cmd("goto " .. currentJumpIndex - 1)
+end
+
+-- function JumpBack()
+--   local currentJump = Get_current_jump()
+--   local bufnr = currentJump["bufnr"]
+--   local col = currentJump["col"]
+--   local coladd = currentJump["coladd"]
+--   local lnum = currentJump["lnum"]
+--   vim.cmd("b" .. bufnr .. " | " .. "c" .. col)
+-- end

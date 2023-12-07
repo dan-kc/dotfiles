@@ -6,5 +6,10 @@
   "Inline error check": {
     "prefix": "errorcheck",
     "body": ["if err := $1; err != nil {", "$2", "}"]
+  },
+  "function declaration": {
+    "prefix": "func",
+    "body": "func $1($2) $3 {\n\t$0\n}",
+    "description": "Snippet for function declaration"
   }
 }
