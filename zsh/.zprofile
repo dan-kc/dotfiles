@@ -8,7 +8,7 @@ if [[ -f "$HOME/.config/.env" ]]; then
     set +a
 fi
 
-export EDITOR=nvim      
+export EDITOR=nvim
 GOPATH=$HOME/go
 PATH="$PATH:/Applications/WezTerm.app/Contents/MacOS"
 PATH=$PATH:$GOPATH/bin
