@@ -1,11 +1,11 @@
 local wezterm = require("wezterm")
-local opacity = 0.95
-local blur = 15
+local opacity = 0.98
+local blur = 35
 -- local color_scheme = "Rosé Pine (base16)"
 -- local color_scheme = "Rosé Pine Moon (base16)"
 -- local color_scheme = "Snazzy (base16)"
 -- local color_scheme = "Chalk (base16)"
-local color_scheme = "Circus (base16)"
+-- local color_scheme = "Circus (base16)"
 -- local color_scheme = "Solar Flare (base16)"
 -- local color_scheme = "Qualia (base16)"
 -- local color_scheme = "Materia (base16)"
@@ -22,11 +22,10 @@ local color_scheme = "Circus (base16)"
 -- local color_scheme = "Black Metal (base16)"
 -- local color_scheme = "Brewer (base16)"
 -- local color_scheme = "Harmonic16 Dark (base16)"
--- local color_scheme = "Classic Dark (base16)"
 -- local color_scheme = "DanQing (base16)"
 -- local color_scheme = "Eighties (base16)"
 -- local color_scheme = "Gruvbox dark, pale (base16)"
--- local color_scheme = "Kimber (base16)"
+local color_scheme = "Kimber (base16)"
 
 local new_opacity = function(c, o)
 	local color = wezterm.color
