@@ -345,8 +345,6 @@ return {
       -- Get the value of the 'KEY' environment variable from the file
       local key_value = read_env_variable("OPEN_AI_KEY")
 
-      -- Print the result
-      print("Value of KEY:", key_value)
       return {
         api_key_cmd = "echo " .. key_value,
       }
