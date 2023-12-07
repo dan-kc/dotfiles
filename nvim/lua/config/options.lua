@@ -9,7 +9,7 @@ vim.opt.listchars:append("eol:↴")
 vim.opt.listchars:append("space:⋅")
 
 local opt = vim.opt
-
+-- vim.o.foldcolumn = "1"
 opt.autowrite = true -- Enable auto write
 opt.clipboard = "unnamedplus" -- Sync with system clipboard
 opt.completeopt = "menu,menuone,noselect"
@@ -25,10 +25,10 @@ opt.inccommand = "nosplit" -- preview incremental substitute
 opt.laststatus = 3 -- global statusline
 opt.list = true -- Show some invisible characters (tabs...
 opt.mouse = "a" -- Enable mouse mode
-opt.number = false -- Print line number
+opt.number = true -- Print line number
+opt.relativenumber = false -- Relative line numbers
 opt.timeoutlen = 5000
 opt.pumheight = 10 -- Maximum number of entries in a popup
-opt.relativenumber = false -- Relative line numbers
 opt.scrolloff = 4 -- Lines of context
 opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp" }
 opt.shiftround = true -- Round indent
@@ -42,8 +42,8 @@ opt.spelllang = { "en" }
 opt.splitbelow = true -- Put new windows below current
 opt.splitkeep = "screen"
 opt.splitright = true -- Put new windows right of current
-opt.tabstop = 4 -- Number of spaces tabs count for
-opt.shiftwidth = 4 -- Size of an indent
+opt.tabstop = 2 -- Number of spaces tabs count for
+opt.shiftwidth = 2 -- Size of an indent
 opt.timeoutlen = 5000
 opt.undofile = true
 opt.undolevels = 10000
@@ -66,4 +66,5 @@ opt.fillchars = {
 
 vim.diagnostic.config({
   signs = false,
+  virtual_text = false,
 })
