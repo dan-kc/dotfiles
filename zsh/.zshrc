@@ -3,6 +3,7 @@
 source ~/.zgeneral
 source ~/.zaliases
 source ~/.zle
+source ~/.zplugins/zsh-vi-mode.zsh
 
 # Atuin config
 export ATUIN_NOBIND="true"
