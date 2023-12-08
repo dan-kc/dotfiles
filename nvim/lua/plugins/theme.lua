@@ -6,7 +6,7 @@ return {
     "rrethy/nvim-base16",
     lazy = false,
     config = function()
-      -- vim.cmd("colorscheme base16-rose-pine")
+      vim.cmd("colorscheme base16-rose-pine")
       -- vim.cmd("colorscheme base16-rose-pine-moon")
       -- vim.cmd("colorscheme base16-snazzy")
       -- vim.cmd("colorscheme base16-chalk")
@@ -30,7 +30,7 @@ return {
       -- vim.cmd("colorscheme base16-danqing")
       -- vim.cmd("colorscheme base16-eighties")
       -- vim.cmd("colorscheme base16-gruvbox-dark-pale")
-      vim.cmd("colorscheme base16-kimber")
+      -- vim.cmd("colorscheme base16-kimber")
       -- vim.cmd("set notermguicolors t_Co=16")
     end,
   },
