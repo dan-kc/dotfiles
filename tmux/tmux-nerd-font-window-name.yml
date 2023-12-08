@@ -1,8 +1,0 @@
-config:
-  fallback-icon: "?" # icon to use if no definition is found
-  show-name: false # show the window name with the icon
-
-icons:
-  nu: ""
-  nvim: ""
-  xplr: ""

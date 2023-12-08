@@ -16,14 +16,8 @@
 [lazygit.files]
 "lazygit.yml" = { target = "~/Library/Application Support/lazygit/config.yml", type = "symbolic" }
 
-[nushell.files]
-"nushell" = { target = "~/Library/Application Support/nushell", type = "symbolic" }
-
 [neovim.files]
 "nvim" = { target = "~/.config/nvim", type = "symbolic" }
-
-[alacritty.files]
-"alacritty.yml" = { target = "~/.config/alacritty/alacritty.yml", type = "symbolic" }
 
 [xplr.files]
 "xplr.lua" = { target = "~/.config/xplr/init.lua", type = "symbolic" }
@@ -31,14 +25,8 @@
 [atuin.files]
 "atuin.toml" = { target = "~/.config/atuin/config.toml", type = "symbolic" }
 
-[tmux.files]
-"tmux" = { target = "~/.config/tmux", type = "symbolic" }
-
 [kitty.files]
 "kitty.conf" = { target = "~/.config/kitty/kitty.conf", type = "symbolic" }
 
 [wezterm.files]
 "wezterm" = { target = "~/.config/wezterm", type = "symbolic" }
-
-[theme.files]
-"theme" = { target = "~/.config/theme", type = "symbolic" }
