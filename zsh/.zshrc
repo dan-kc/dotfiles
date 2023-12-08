@@ -1,6 +1,5 @@
 # source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-source ~/.zvi
 source ~/.zgeneral
 source ~/.zaliases
 source ~/.zle
