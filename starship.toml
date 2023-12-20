@@ -4,13 +4,18 @@
 # Inserts a blank line between shell prompts
 add_newline = true
 
+[package]
+disabled = true
+
+[cmd_duration]
+disabled = true
+
 # Nerd fonts
 [aws]
 symbol = "  "
 
 [buf]
 symbol = " "
-
 [c]
 symbol = " "
 
@@ -121,8 +126,8 @@ Ubuntu = " "
 Unknown = " "
 Windows = "󰍲 "
 
-[package]
-symbol = "󰏗 "
+# [package]
+# symbol = "󰏗 "
 
 [pijul_channel]
 symbol = " "
