@@ -276,18 +276,6 @@ return {
       require("nvim-treesitter.configs").setup(opts)
     end,
   },
-
-  --  ╭──────────────────────────────────────────────────────────╮
-  --  │                         nvim-bqf                         │
-  --  ╰──────────────────────────────────────────────────────────╯
-  {
-    "kevinhwang91/nvim-bqf",
-    event = "VeryLazy",
-    dependencies = {
-      "junegunn/fzf",
-    },
-  },
-
   {
     "jackMort/ChatGPT.nvim",
     event = "VeryLazy",
