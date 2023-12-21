@@ -6,16 +6,16 @@ return {
     "rrethy/nvim-base16",
     lazy = false,
     config = function()
-      vim.cmd("colorscheme base16-rose-pine")
+      -- vim.cmd("colorscheme base16-rose-pine")
       -- vim.cmd("colorscheme base16-rose-pine-moon")
       -- vim.cmd("colorscheme base16-snazzy")
-      -- vim.cmd("colorscheme base16-chalk")
-      -- vim.cmd("colorscheme base16-circus")
+      -- vim.cmd("colorscheme base16-chalk") -- boring
+      -- vim.cmd("colorscheme base16-circus") -- boring
       -- vim.cmd("colorscheme base16-solarflare")
       -- vim.cmd("colorscheme base16-qualia")
       -- vim.cmd("colorscheme base16-materia")
       -- vim.cmd("colorscheme base16-material-darker")
-      -- vim.cmd("colorscheme base16-gigavolt")
+      vim.cmd("colorscheme base16-gigavolt")
       -- vim.cmd("colorscheme base16-darkmoss")
       -- vim.cmd("colorscheme base16-oceanicnext")
       -- vim.cmd("colorscheme base16-ashes")
