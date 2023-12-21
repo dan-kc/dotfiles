@@ -5,6 +5,7 @@ return {
   --  ╰──────────────────────────────────────────────────────────╯
   {
     "neovim/nvim-lspconfig",
+    -- enabled = false,
     dependencies = {
       "hrsh7th/nvim-cmp",
       -- "folke/neodev.nvim",
@@ -156,7 +157,8 @@ return {
       })
 
       -- brew install llvm
-      require("lspconfig").clangd.setup({})
+      -- doesn't work nice with .proto
+      -- require("lspconfig").clangd.setup({})
 
       -- npm install -g @tailwindcss/language-server
       lspconfig.tailwindcss.setup({
