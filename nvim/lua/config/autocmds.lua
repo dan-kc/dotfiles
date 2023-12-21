@@ -5,7 +5,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
--- wrap and check for spell in text filetypes
+-- wrap in text filetypes
 vim.api.nvim_create_autocmd("FileType", {
   group = vim.api.nvim_create_augroup("Word wrap", {}),
   pattern = { "gitcommit", "markdown" },
@@ -71,5 +71,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "<space>r", vim.lsp.buf.rename, opts)
     vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, opts)
     vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+
+    -- remove syntax highlight from lsp
+    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+    client.server_capabilities.semanticTokensProvider = nil
   end,
 })
