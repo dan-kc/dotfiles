@@ -12,7 +12,7 @@ return {
         },
       },
       highlight = {
-        backdrop = false,
+        -- backdrop = false,
       },
       label = {
         -- allow uppercase labels
