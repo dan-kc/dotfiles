@@ -10,6 +10,9 @@
 [skhd.files]
 "skhdrc" = { target = "~/.config/skhd/skhdrc", type = "symbolic" }
 
+[broot.files]
+"broot.toml" = { target = "~/.config/broot/conf.toml", type = "symbolic" }
+
 [git.files]
 ".gitconfig" = { target = "~/.gitconfig", type = "symbolic" }
 
