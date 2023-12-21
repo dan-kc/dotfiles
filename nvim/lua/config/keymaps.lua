@@ -1,8 +1,21 @@
 local set = vim.keymap.set
 
--- Center screen on jump
+set({ "n", "v" }, "f", "")
+set({ "n", "v" }, "t", "")
+set({ "n", "v" }, "F", "")
+set({ "n", "v" }, "T", "")
+-- del({ "n", "v" }, "t")
+-- del({ "n", "v" }, "F")
+-- del({ "n", "v" }, "T")
+
+-- Keep cursor left
 set("n", "<C-d>", "<C-d>zz")
 set("n", "<C-u>", "<C-u>zz")
+set("n", "G", "Gzz")
+-- set("n", "<Down>", "<Down>zz")
+-- set("n", "<Up>", "<Up>zz")
+-- set("n", "G", "Gzz")
+-- set("n", "gg", "ggzz")
 
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 set("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next search result" })
