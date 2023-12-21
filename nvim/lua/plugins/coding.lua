@@ -27,7 +27,6 @@ return {
         mode = { "n", "x", "o" },
         function()
           require("flash").jump()
-          vim.cmd("norm zz")
         end,
         desc = "Flash",
       },
@@ -38,19 +37,6 @@ return {
           require("flash").remote()
         end,
         desc = "Remote Flash",
-      },
-      {
-        "S",
-        mode = { "n", "x", "o" },
-        function()
-          require("flash").jump({
-            search = { mode = "search", max_length = 0 },
-            label = { after = { 0, 0 } },
-            pattern = "^",
-          })
-          vim.cmd("norm zz")
-        end,
-        desc = "Flash line",
       },
     },
   },
