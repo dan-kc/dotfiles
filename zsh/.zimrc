@@ -1,0 +1,12 @@
+#!/usr/bin/env zsh
+
+# zmodule environment
+# zmodule termtitle
+# zmodule magic-enter
+# zmodule fzf
+# zmodule archive
+zmodule zsh-users/zsh-completions
+zmodule completion
+# zmodule Aloxaf/fzf-tab
+zmodule zsh-users/zsh-autosuggestions
+zmodule zsh-users/zsh-syntax-highlighting

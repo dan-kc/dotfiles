@@ -4,17 +4,14 @@ source ~/.zgeneral
 source ~/.zaliases
 source ~/.zle
 source ~/.zplugins/zsh-vi-mode.zsh
+source ~/.zimfw
 
 # Atuin config
 export ATUIN_NOBIND="true"
-bindkey '^r' _atuin_search_widget
 
 eval "$(fnm env --use-on-cd)"
 eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
-eval "$(atuin init zsh)"
-
-# Load syntax highlighting; should be last.
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+eval "$(atuin init zsh --disable-up-arrow)"
 
 source /Users/keone/.config/broot/launcher/bash/br
