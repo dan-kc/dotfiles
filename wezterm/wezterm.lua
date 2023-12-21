@@ -13,7 +13,7 @@ if wezterm.config_builder then
 end
 
 config.color_scheme = theme.color_scheme
-config.font_size = 20
+config.font_size = 30
 config.use_fancy_tab_bar = false
 config.window_background_opacity = opacity
 config.adjust_window_size_when_changing_font_size = false
