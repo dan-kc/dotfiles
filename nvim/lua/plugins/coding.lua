@@ -213,6 +213,7 @@ return {
           go = { "goimports" },
           c = { "clang_format" },
           proto = { "buf" },
+          sql = { "sql-formatter" },
         },
       }
     end,
