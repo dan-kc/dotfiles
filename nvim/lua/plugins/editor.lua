@@ -276,42 +276,4 @@ return {
       require("nvim-treesitter.configs").setup(opts)
     end,
   },
-  {
-    "jackMort/ChatGPT.nvim",
-    event = "VeryLazy",
-    opts = function()
-      -- Define the path to the environment file
-      local env_file_path = vim.fn.stdpath("config") .. "/.env"
-
-      -- Function to read a specific environment variable from a file
-      local function read_env_variable(variable_name)
-        local file = io.open(env_file_path, "r")
-
-        if file then
-          for line in file:lines() do
-            local name, value = line:match("^%s*([%w_]+)%s*=%s*(.+)%s*$")
-            if name == variable_name then
-              file:close()
-              return value
-            end
-          end
-          file:close()
-        end
-        return nil
-      end
-
-      -- Get the value of the 'KEY' environment variable from the file
-      local key_value = read_env_variable("OPEN_AI_KEY")
-
-      return {
-        api_key_cmd = "echo " .. key_value,
-      }
-    end,
-
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim",
-    },
-  },
 }
