@@ -1,0 +1,14 @@
+# includes = ["./osx.toml"]
+packages = [
+  "zsh",
+  "starship",
+  "yabai",
+  "lazygit",
+  "xplr",
+  "skhd",
+  "atuin",
+  "neovim",
+  "git",
+  "wezterm",
+  "broot"
+]
