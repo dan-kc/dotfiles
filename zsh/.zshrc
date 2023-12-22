@@ -14,4 +14,4 @@ eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
 eval "$(atuin init zsh --disable-up-arrow)"
 
-source /Users/keone/.config/broot/launcher/bash/br
+source /Users/danielcox/.config/broot/launcher/bash/br
