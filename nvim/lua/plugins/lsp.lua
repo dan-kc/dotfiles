@@ -31,7 +31,7 @@ return {
         return orig_util_open_floating_preview(contents, syntax, opts, ...)
       end
 
-      -- brew install lua_ls
+      -- brew install lua-language-server
       lspconfig.lua_ls.setup({
         settings = {
           Lua = {
@@ -104,10 +104,10 @@ return {
         },
       })
 
-      -- brew install rust_analyzer
+      -- brew install rust-analyzer
       lspconfig.rust_analyzer.setup({})
 
-      -- go install gopls
+      -- go install golang.org/x/tools/gopls@latest
       lspconfig.gopls.setup({
         settings = {
           gopls = {
