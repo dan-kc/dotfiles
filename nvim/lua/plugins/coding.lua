@@ -181,7 +181,7 @@ return {
     event = "VeryLazy",
     keys = {
       {
-        "<leader>a",
+        "f",
         function()
           require("conform").format({ async = true, lsp_fallback = false })
         end,
