@@ -6,6 +6,7 @@ return {
   {
     "lukas-reineke/indent-blankline.nvim",
     event = "VeryLazy",
+    -- enabled = false,
     main = "ibl",
     opts = {
       indent = {
@@ -22,6 +23,11 @@ return {
     },
   },
 
+  {
+    url = "https://gitlab.com/HiPhish/rainbow-delimiters.nvim",
+    event = "VeryLazy"
+  },
+
   --  ╭──────────────────────────────────────────────────────────╮
   --  │                     mini.indentscope                     │
   --  ╰──────────────────────────────────────────────────────────╯
@@ -31,6 +37,9 @@ return {
     opts = {
       symbol = "│",
       options = { try_as_border = true },
+      draw = {
+        delay = 0
+      },
     },
   },
 
