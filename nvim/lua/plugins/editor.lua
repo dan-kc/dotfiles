@@ -45,7 +45,9 @@ return {
   --  ╰──────────────────────────────────────────────────────────╯
   {
     "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
     event = "VeryLazy",
+    -- enabled = false,
     keys = {
       {
         "<leader>e",
@@ -275,5 +277,54 @@ return {
       end
       require("nvim-treesitter.configs").setup(opts)
     end,
+  },
+
+  {
+    "epwalsh/obsidian.nvim",
+    version = "*",
+    ft = "markdown",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter",
+    },
+    opts = {
+      workspaces = {
+        {
+          name = "notes",
+          path = "/Users/danielcox/Library/Mobile Documents/iCloud~md~obsidian/Documents/notes/",
+        },
+      },
+      completion = {
+        nvim_cmp = true,
+        min_chars = 2,
+        new_notes_location = "notes_subdir",
+        prepend_note_path = false,
+        use_path_only = false,
+      },
+      note_frontmatter_func = function(note)
+        local out = { id = note.id, tags = note.tags }
+        if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
+          for k, v in pairs(note.metadata) do
+            out[k] = v
+          end
+        end
+        return out
+      end,
+      mappings = {
+        ["gf"] = {
+          action = function()
+            return require("obsidian").util.gf_passthrough()
+          end,
+          opts = { noremap = false, expr = true, buffer = true },
+        },
+        -- Toggle check-boxes.
+        ["<leader>ch"] = {
+          action = function()
+            return require("obsidian").util.toggle_checkbox()
+          end,
+          opts = { buffer = true },
+        },
+      },
+    },
   },
 }
