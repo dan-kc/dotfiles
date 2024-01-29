@@ -1,21 +1,8 @@
 local set = vim.keymap.set
 
-set({ "n", "v" }, "f", "")
-set({ "n", "v" }, "t", "")
-set({ "n", "v" }, "F", "")
-set({ "n", "v" }, "T", "")
--- del({ "n", "v" }, "t")
--- del({ "n", "v" }, "F")
--- del({ "n", "v" }, "T")
-
--- Keep cursor left
-set("n", "<C-d>", "<C-d>zz")
-set("n", "<C-u>", "<C-u>zz")
-set("n", "G", "Gzz")
--- set("n", "<Down>", "<Down>zz")
--- set("n", "<Up>", "<Up>zz")
--- set("n", "G", "Gzz")
--- set("n", "gg", "ggzz")
+-- better save commands
+set("n", "<leader>z", "ZZ")
+set("v", "<leader>z", "<esc>ZZ")
 
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 set("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next search result" })
@@ -50,33 +37,6 @@ set("n", "<leader>qo", ":copen<CR>", { desc = "Open list" })
 set("n", "<leader>qn", ":cnext<CR>", { desc = "Next item" })
 set("n", "<leader>qp", ":cprev<CR>", { desc = "Prev item" })
 
---set(
---  "n",
---  "<leader>fn",
---  require("lazyvim.util").telescope("files", { cwd = "~/notes/" }),
---  { desc = "Find notes" }
---)
-
--- TODO: actually finish this
--- function new_note()
---   vim.ui.input({
---     prompt = "Filename: ",
---     completion = "file",
---   }, function(input)
---     if input then
---       -- check if input.md exists in /notes
---       -- if it does, return early -- else create the file
---       -- go to it
---         vim.api.nvim_create_buf(listed, scratch)
---       print("You entered " .. input)
---     else
---       print("You cancelled")
---     end
---   end)
--- end
---
--- vim.keymap.set("n", "<leader>nn", ":lua new_note()<cr>", { desc = "New note" })
-
 --keywordprg
 set("n", "<leader>K", "<cmd>norm! K<cr>", { desc = "Keywordprg" })
 
@@ -108,29 +68,9 @@ local diagnostic_goto = function(next, severity)
   end
 end
 
-set("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 set("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
 set("n", "[d", diagnostic_goto(false), { desc = "Prev Diagnostic" })
 set("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Next Error" })
 set("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
 set("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
 set("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
-
-vim.keymap.set("n", "g?", ":lua ShowHighlightInfo()<CR>")
-
-function JumpBack()
-  local jump_list = vim.fn.getjumplist()
-  local lastUsedJumpIndex = jump_list[2]
-  local currentJumpInfo = jump_list[1][lastUsedJumpIndex]
-  vim.print(currentJumpInfo)
-  vim.cmd("goto " .. currentJumpIndex - 1)
-end
-
--- function JumpBack()
---   local currentJump = Get_current_jump()
---   local bufnr = currentJump["bufnr"]
---   local col = currentJump["col"]
---   local coladd = currentJump["coladd"]
---   local lnum = currentJump["lnum"]
---   vim.cmd("b" .. bufnr .. " | " .. "c" .. col)
--- end
