@@ -183,8 +183,8 @@ return {
         },
       })
 
-      -- brew install marksman
-      lspconfig.marksman.setup({})
+      -- -- brew install marksman
+      -- lspconfig.marksman.setup({})
 
       -- npm i -g vscode-langservers-extracted
       lspconfig.eslint.setup({
