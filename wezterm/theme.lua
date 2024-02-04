@@ -21,8 +21,8 @@ local blur = 0
 -- local color_scheme = "Twilight (base16)"
 -- local color_scheme = "Harmonic16 Dark (base16)"
 -- local color_scheme = "DanQing (base16)"
-local color_scheme = "Eighties (base16)"
--- local color_scheme = "Gruvbox dark, pale (base16)"
+-- local color_scheme = "Eighties (base16)"
+local color_scheme = "Gruvbox dark, pale (base16)"
 -- local color_scheme = "Kimber (base16)"
 
 local new_opacity = function(c, o)

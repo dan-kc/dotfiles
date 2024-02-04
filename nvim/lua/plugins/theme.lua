@@ -27,8 +27,8 @@ return {
       -- vim.cmd("colorscheme base16-brewer")
       -- vim.cmd("colorscheme base16-harmonic16-dark") 
       -- vim.cmd("colorscheme base16-danqing")
-      vim.cmd("colorscheme base16-eighties")
-      -- vim.cmd("colorscheme base16-gruvbox-dark-pale")
+      -- vim.cmd("colorscheme base16-eighties")
+      vim.cmd("colorscheme base16-gruvbox-dark-pale")
       -- vim.cmd("colorscheme base16-kimber")
       -- vim.cmd("set notermguicolors t_Co=16")
     end,
