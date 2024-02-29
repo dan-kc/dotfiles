@@ -8,7 +8,7 @@ return {
     config = function()
       -- vim.cmd("colorscheme base16-rose-pine")
       -- vim.cmd("colorscheme base16-rose-pine-moon")
-      -- vim.cmd("colorscheme base16-snazzy")
+      vim.cmd("colorscheme base16-snazzy")
       -- vim.cmd("colorscheme base16-chalk") -- boring
       -- vim.cmd("colorscheme base16-circus") -- boring
       -- vim.cmd("colorscheme base16-solarflare")
@@ -28,7 +28,7 @@ return {
       -- vim.cmd("colorscheme base16-harmonic16-dark") 
       -- vim.cmd("colorscheme base16-danqing")
       -- vim.cmd("colorscheme base16-eighties")
-      vim.cmd("colorscheme base16-gruvbox-dark-pale")
+      -- vim.cmd("colorscheme base16-gruvbox-dark-pale")
       -- vim.cmd("colorscheme base16-kimber")
       -- vim.cmd("set notermguicolors t_Co=16")
     end,
