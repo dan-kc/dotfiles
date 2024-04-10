@@ -8,8 +8,8 @@ return {
     config = function()
       -- vim.cmd("colorscheme base16-rose-pine")
       -- vim.cmd("colorscheme base16-rose-pine-moon")
-      vim.cmd("colorscheme base16-snazzy")
-      -- vim.cmd("colorscheme base16-chalk") -- boring
+      -- vim.cmd("colorscheme base16-snazzy")
+      -- vim.cmd("colorscheme base16-chalk")
       -- vim.cmd("colorscheme base16-circus") -- boring
       -- vim.cmd("colorscheme base16-solarflare")
       -- vim.cmd("colorscheme base16-qualia")
@@ -19,13 +19,13 @@ return {
       -- vim.cmd("colorscheme base16-darkmoss")
       -- vim.cmd("colorscheme base16-oceanicnext")
       -- vim.cmd("colorscheme base16-ashes")
-      -- vim.cmd("colorscheme base16-framer")
+      vim.cmd("colorscheme base16-framer")
       -- vim.cmd("colorscheme base16-monokai")
       -- vim.cmd("colorscheme base16-porple")
       -- vim.cmd("colorscheme base16-rebecca")
       -- vim.cmd("colorscheme base16-twilight")
       -- vim.cmd("colorscheme base16-brewer")
-      -- vim.cmd("colorscheme base16-harmonic16-dark") 
+      -- vim.cmd("colorscheme base16-harmonic16-dark")
       -- vim.cmd("colorscheme base16-danqing")
       -- vim.cmd("colorscheme base16-eighties")
       -- vim.cmd("colorscheme base16-gruvbox-dark-pale")
@@ -298,14 +298,6 @@ return {
         "LazyButtonActive",
         "LazyDimmed",
       },
-    },
-  },
-  {
-    dir = "~/projects/term-colors",
-    enabled = false,
-    event = "VeryLazy",
-    opts = {
-      dir = "/.config/theme/dark-moss.lua",
     },
   },
 }

@@ -5,7 +5,6 @@ return {
   --  ╰──────────────────────────────────────────────────────────╯
   {
     "neovim/nvim-lspconfig",
-    -- enabled = false,
     dependencies = {
       "hrsh7th/nvim-cmp",
       -- "folke/neodev.nvim",
@@ -105,31 +104,31 @@ return {
       })
 
       -- brew install rust-analyzer
-      lspconfig.rust_analyzer.setup({
-        settings = {
-          ["rust-analyzer"] = {
-            cargo = {
-              allFeatures = true,
-              loadOutDirsFromCheck = true,
-              runBuildScripts = true,
-            },
-            -- Add clippy lints for Rust.
-            checkOnSave = {
-              allFeatures = true,
-              command = "clippy",
-              extraArgs = { "--no-deps" },
-            },
-            procMacro = {
-              enable = true,
-              ignored = {
-                ["async-trait"] = { "async_trait" },
-                ["napi-derive"] = { "napi" },
-                ["async-recursion"] = { "async_recursion" },
-              },
-            },
-          },
-        },
-      })
+      -- lspconfig.rust_analyzer.setup({
+      --   settings = {
+      --     ["rust-analyzer"] = {
+      --       cargo = {
+      --         allFeatures = true,
+      --         loadOutDirsFromCheck = true,
+      --         runBuildScripts = true,
+      --       },
+      --       -- Add clippy lints for Rust.
+      --       checkOnSave = {
+      --         allFeatures = true,
+      --         command = "clippy",
+      --         extraArgs = { "--no-deps" },
+      --       },
+      --       procMacro = {
+      --         enable = true,
+      --         ignored = {
+      --           ["async-trait"] = { "async_trait" },
+      --           ["napi-derive"] = { "napi" },
+      --           ["async-recursion"] = { "async_recursion" },
+      --         },
+      --       },
+      --     },
+      --   },
+      -- })
 
       -- go install golang.org/x/tools/gopls@latest
       lspconfig.gopls.setup({
@@ -256,6 +255,8 @@ return {
   --  ╰──────────────────────────────────────────────────────────╯
   {
     "hrsh7th/nvim-cmp",
+    -- enabled = false,
+    lazy = false,
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
@@ -265,25 +266,33 @@ return {
       "onsails/lspkind.nvim",
     },
     keys = {
-      -- {
-      --   "<C-a>",
-      --   mode = { "i" },
-      --   function()
-      --     require("cmp").complete()
-      --   end,
-      --   desc = "Autocomplete",
-      -- },
+      {
+        "<C-a>",
+        mode = { "i" },
+        function()
+          require("cmp").complete()
+        end,
+        desc = "Autocomplete",
+      },
+      {
+        "<C-z>",
+        mode = { "i" },
+        function()
+          require("cmp").close()
+        end,
+        desc = "Close completion window",
+      },
     },
     opts = function()
       local cmp = require("cmp")
-      vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
-      local defaults = require("cmp.config.default")()
+      -- vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
+      -- local sorting = require("cmp.config.default.sorting")()
       local lspkind = require("lspkind")
       return {
-        -- completion = {
-        --   completeopt = "menu,menuone,preview,noinsert",
-        --   autocomplete = true,
-        -- },
+        completion = {
+          completeopt = "menu,menuone,preview,noinsert",
+          autocomplete = false,
+        },
         formatting = {
           format = lspkind.cmp_format({
             mode = "text_symbol", -- 'text', 'text_symbol', 'symbol_text', 'symbol'
@@ -359,6 +368,20 @@ return {
         },
         mapping = cmp.mapping.preset.insert({
           ["<C-CR>"] = cmp.mapping.confirm(),
+          -- ["<C-,>"] = function(fallback)
+          --   if cmp.visible() then
+          --     cmp.select_prev_item()
+          --   else
+          --     fallback()
+          --   end
+          -- end,
+          -- ["<C-.>"] = function(fallback)
+          --   if cmp.visible() then
+          --     cmp.select_next_item()
+          --   else
+          --     fallback()
+          --   end
+          -- end,
         }),
         sources = cmp.config.sources({
           { name = "nvim_lsp", keyword_length = 1 },
@@ -368,9 +391,8 @@ return {
           { name = "luasnip", keyword_length = 1 },
         }),
         experimental = {
-          ghost_text = true,
+          -- ghost_text = true,
         },
-        sorting = defaults.sorting,
       }
     end,
   },

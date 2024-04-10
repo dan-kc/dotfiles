@@ -5,6 +5,7 @@ vim.g.maplocalleader = "\\"
 vim.g.markdown_recommended_style = 0 -- Fix markdown indentation settings
 vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
 opt.autowrite = true -- Enable auto write
+-- vim.opt.guicursor = "n-v-i-c:block-Cursor"
 opt.clipboard = "unnamedplus" -- Sync with system clipboard
 opt.cmdwinheight = 1 -- Reduce command buffer size
 opt.completeopt = "menu,menuone,noselect"

@@ -246,6 +246,7 @@ return {
     dependencies = {
       "JoosepAlviste/nvim-ts-context-commentstring",
     },
+    -- enabled=false,
     event = "VeryLazy",
     cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
     opts = {

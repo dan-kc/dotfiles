@@ -25,7 +25,8 @@ return {
 
   {
     url = "https://gitlab.com/HiPhish/rainbow-delimiters.nvim",
-    event = "VeryLazy"
+    event = "VeryLazy",
+    enabled = false,
   },
 
   --  ╭──────────────────────────────────────────────────────────╮
@@ -38,7 +39,7 @@ return {
       symbol = "│",
       options = { try_as_border = true },
       draw = {
-        delay = 0
+        delay = 0,
       },
     },
   },

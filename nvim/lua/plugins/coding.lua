@@ -47,6 +47,7 @@ return {
   {
     "echasnovski/mini.ai",
     event = "VeryLazy",
+    -- enabled = false,
     opts = function()
       local ai = require("mini.ai")
       return {
@@ -103,7 +104,7 @@ return {
       disable_in_macro = true, -- disable when recording or executing a macro,
       disable_in_visualblock = false, -- disable when insert after visual block mode
       disable_in_replace_mode = true,
-    -- ignored_next_char = [=[[%w%%%'%[%"%.%`%$]]=],
+      -- ignored_next_char = [=[[%w%%%'%[%"%.%`%$]]=],
       enable_moveright = true,
       enable_afterquote = true, -- add bracket pairs after quote
       enable_check_bracket_line = false, --- check bracket in same line
@@ -147,16 +148,16 @@ return {
         }),
       })
 
-      vim.keymap.set({ "i", "s" }, "<C-a>", function()
-        if ls.choice_active() then
-          ls.change_choice(1)
-        end
-      end)
-      vim.keymap.set({ "i" }, "<C-z>", function()
-        if ls.expand_or_jumpable() then
-          ls.expand_or_jump()
-        end
-      end, { silent = true })
+      -- vim.keymap.set({ "i", "s" }, "<C-r>", function()
+      --   if ls.choice_active() then
+      --     ls.change_choice(1)
+      --   end
+      -- end)
+      -- vim.keymap.set({ "i" }, "<C-z>", function()
+      --   if ls.expand_or_jumpable() then
+      --     ls.expand_or_jump()
+      --   end
+      -- end, { silent = true })
       vim.keymap.set({ "i", "s" }, "<C-c>", function()
         ls.jump(1)
       end, { silent = true })
@@ -208,6 +209,7 @@ return {
           yaml = { "prettier" },
           markdown = { "prettier" },
           graphql = { "prettier" },
+          rust = { "rustfmt" },
           handlebars = { "prettier" },
           go = { "goimports" },
           c = { "clang_format" },
@@ -270,6 +272,7 @@ return {
   --  ╰──────────────────────────────────────────────────────────╯
   {
     "cbochs/portal.nvim",
+    enabled = false,
     opts = function()
       return {
         labels = { "n", "e", "i" },
