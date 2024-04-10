@@ -33,3 +33,6 @@
 
 [wezterm.files]
 "wezterm" = { target = "~/.config/wezterm", type = "symbolic" }
+
+[yazi.files]
+"yazi" = { target = "~/.config/yazi", type = "symbolic" }

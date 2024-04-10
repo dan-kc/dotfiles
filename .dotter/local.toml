@@ -10,5 +10,6 @@ packages = [
   "neovim",
   "git",
   "wezterm",
-  "broot"
+  "broot",
+  "yazi"
 ]
