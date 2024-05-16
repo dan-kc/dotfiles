@@ -22,7 +22,6 @@ set({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsea
 -- better up/down
 set({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 set({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-set("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
 
 -- Resize window using <shift> arrow keys
 set("n", "<S-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })

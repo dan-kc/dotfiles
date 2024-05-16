@@ -31,11 +31,11 @@ return {
         { "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
         { "<leader>'", "<cmd>Telescope resume<cr>", desc = "Resume" },
         { "<leader>uc", function() builtin.colorscheme() end, desc = "Colorschemes" },
-        { "<leader>ss", function() builtin.lsp_document_symbols() end, desc = "Symbols" },
+        { "<leader>sy", function() builtin.lsp_document_symbols() end, desc = "Symbols" },
         { "<leader>sg", function() builtin.live_grep({ cwd = false }) end, desc = "Grep" },
         { "<leader>/", function() builtin.oldfiles({ cwd = vim.loop.cwd() }) end, desc = "Recent" },
        -- { "<leader>fn", function() end, desc = "Find note", }, 
-        { "<leader>ff", function() builtin.find_files({ cwd = false }) end, desc = "Find files", },
+        { "<leader>f", function() builtin.find_files({ cwd = false }) end, desc = "Find files", },
       }
     end,
   },
