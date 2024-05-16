@@ -21,7 +21,7 @@ return {
         { "<leader>sC", "<cmd>Telescope commands<cr>", desc = "Commands" },
         { "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Document diagnostics" },
         { "<leader>sD", "<cmd>Telescope diagnostics<cr>", desc = "Workspace diagnostics" },
-        { '<leader>s"', "<cmd>Telescope registers<cr>", desc = "Registers" },
+        { '<leader>sr"', "<cmd>Telescope registers<cr>", desc = "Registers" },
         { "<leader>sa", "<cmd>Telescope autocommands<cr>", desc = "Auto Commands" },
         { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
         { "<leader>sH", "<cmd>Telescope highlights<cr>", desc = "Search Highlight Groups" },
