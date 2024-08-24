@@ -1,0 +1,25 @@
+#!/usr/bin/env zsh
+# vim:ft=zsh
+
+alias ka="killall"
+alias v=nvim
+alias c=clear
+alias y=yazi
+alias g=lazygit
+alias rm=trash
+alias ls=exa
+# alias src='source ~/.zshrc'
+ff() { du -a | awk '{print $2}' | $(fzf --height 40% --border)| xargs -r $EDITOR ; }
+copydir() {pwd | tr -d "\r\n" | pbcopy ; }
+copyfile() {[[ "$#" != 1 ]] && return 1 ; local file_to_copy=$1 ; cat $file_to_copy | pbcopy ; }
+
+take() {mkdir -p $1 ; cd $1 ; }
+
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}

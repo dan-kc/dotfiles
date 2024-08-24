@@ -6,3 +6,4 @@ tmux/.config/tmux/plugins
 .dotter/cache
 nushell/history.txt
 .env
+example-neovim-flakes
