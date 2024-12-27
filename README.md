@@ -1,4 +1,8 @@
-# Shit to do:
+Dotfiles but also what are you doing here.
 
-- Transparent / theming
-- 
+# Todo:
+
+- theming / wallpapers
+- tmux
+- better moving of windows
+- sops

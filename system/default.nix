@@ -13,7 +13,7 @@
 
   users.users.daniel = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’.
+    extraGroups = [ "wheel" "docker" ]; # Enable ‘sudo’.
     shell = pkgs.zsh;
   };
 
