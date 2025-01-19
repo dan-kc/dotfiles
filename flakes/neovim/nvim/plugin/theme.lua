@@ -4,7 +4,31 @@ end
 vim.g.did_load_theme_plugin = true
 
 require('base16-colorscheme')
-vim.cmd('colorscheme base16-framer')
+-- vim.cmd("colorscheme base16-rose-pine")
+-- vim.cmd("colorscheme base16-rose-pine-moon")
+-- vim.cmd("colorscheme base16-snazzy")
+-- vim.cmd("colorscheme base16-chalk")
+-- vim.cmd("colorscheme base16-circus") -- boring
+-- vim.cmd("colorscheme base16-solarflare")
+-- vim.cmd("colorscheme base16-qualia")
+-- vim.cmd("colorscheme base16-materia")
+-- vim.cmd("colorscheme base16-material-darker")
+-- vim.cmd("colorscheme base16-gigavolt")
+-- vim.cmd("colorscheme base16-darkmoss")
+-- vim.cmd("colorscheme base16-oceanicnext")
+-- vim.cmd("colorscheme base16-ashes")
+-- vim.cmd('colorscheme base16-framer')
+-- vim.cmd("colorscheme base16-monokai")
+-- vim.cmd("colorscheme base16-porple")
+-- vim.cmd("colorscheme base16-rebecca")
+-- vim.cmd("colorscheme base16-twilight")
+-- vim.cmd("colorscheme base16-brewer")
+-- vim.cmd("colorscheme base16-harmonic16-dark")
+-- vim.cmd("colorscheme base16-danqing")
+-- vim.cmd("colorscheme base16-eighties")
+-- vim.cmd("colorscheme base16-gruvbox-dark-pale")
+-- vim.cmd("colorscheme base16-kimber")
+vim.cmd("set notermguicolors t_Co=16")
 
 require('transparent').setup {
   groups = {
