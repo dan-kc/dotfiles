@@ -61,6 +61,7 @@
     gnumake
     go
     tmux
+    awscli2
   ];
 
   home.sessionVariables = {
