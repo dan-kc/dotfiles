@@ -7,7 +7,7 @@ return {
 		{ key = "PageDown", mods = "CTRL", action = act.ActivateTabRelative(-1) },
 		{ key = "PageUp", mods = "CTRL|SHIFT", action = act.MoveTabRelative(1) },
 		{ key = "PageDown", mods = "CTRL|SHIFT", action = act.MoveTabRelative(-1) },
-		{ key = "+", mods = "CTRL", action = act.IncreaseFontSize },
+		{ key = "+", mods = "CTRL", action = act.IncreaseFontSize }, -- Doesn't work
 		{ key = "-", mods = "CTRL", action = act.DecreaseFontSize },
 		{ key = "v", mods = "CTRL", action = act.PasteFrom("Clipboard") },
 		{ key = "c", mods = "CTRL|SHIFT", action = act.CopyTo("Clipboard") },
