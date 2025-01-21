@@ -15,16 +15,16 @@ return {
 		{ key = "t", mods = "CTRL", action = act.SpawnTab("CurrentPaneDomain") },
 		{ key = "X", mods = "CTRL|SHIFT", action = act.ActivateCopyMode },
 		{ key = "V", mods = "CTRL|SHIFT", action = act.QuickSelect },
-		{
-			key = "2",
-			mods = "OPT",
-			action = act.SendString("€"),
-		},
-		{
-			key = "3",
-			mods = "OPT",
-			action = act.SendString("#"),
-		},
+		-- {
+		-- 	key = "2",
+		-- 	mods = "OPT",
+		-- 	action = act.SendString("€"),
+		-- },
+		-- {
+		-- 	key = "3",
+		-- 	mods = "OPT",
+		-- 	action = act.SendString("#"),
+		-- },
 		{
 			mods = "CMD",
 			key = ".",
