@@ -32,10 +32,20 @@
     bandwhich
     dua
     jq
-    git
     just
     miniserve
     rsync
     src-cli
   ];
+
+  programs.git = {
+    enable = true;
+    userName  = "Daniel Cox";
+    userEmail = "daniel@keone.dev";
+     extraConfig = {
+       init = {
+         defaultBranch = "main";
+       };
+     };
+  };
 }
