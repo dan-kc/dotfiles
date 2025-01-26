@@ -10,6 +10,9 @@ require('conform').setup {
     nix = { 'nixfmt' },
     rust = { 'rustfmt' },
     go = { 'gofumpt' },
+    terraform = { 'tfmt' },
+    tf = { 'tfmt' },
+    hcl = { 'tfmt' },
 
     typescript = { 'prettier' },
     tsx = { 'prettier' },
@@ -32,6 +35,13 @@ require('conform').setup {
     -- Go toml, docker,
     -- c = { 'clang_format' },
     -- proto = { 'buf' },
+  },
+  formatters = {
+    tfmt = {
+      command = 'tofu',
+      args = { 'fmt', '-' },
+      stdin = true,
+    },
   },
 }
 

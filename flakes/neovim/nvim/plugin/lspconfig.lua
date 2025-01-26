@@ -98,6 +98,8 @@ lspconfig.rust_analyzer.setup({})
 
 lspconfig.gopls.setup({})
 
+lspconfig.terraformls.setup({})
+
 -- require("lspconfig").jsonls.setup({
 --   settings = {
 --     json = {

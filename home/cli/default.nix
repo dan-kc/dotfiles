@@ -36,6 +36,8 @@
     miniserve
     rsync
     src-cli
+    opentofu
+    packer
   ];
 
   programs.git = {

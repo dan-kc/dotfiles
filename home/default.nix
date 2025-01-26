@@ -29,6 +29,7 @@
       "vivaldi"
       "slack"
       "postman"
+      "packer"
     ];
 
   nixpkgs.overlays = [
