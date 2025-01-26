@@ -11,6 +11,11 @@
       checkReversePath = true;
     };
 
+    extraHosts = ''
+      178.79.159.14 portal
+      139.162.206.231 terra
+    '';
+
     interfaces = {
       eth0.useDHCP = true;
     };
