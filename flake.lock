@@ -232,12 +232,12 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-o9xaIyaBnrAfW+HEFbhK/XPFouO6oMoYqR1G49lZy/I=",
-        "path": "/nix/store/rzhlyykmmk0xyc2pym1dm4spibjsb7ja-source/flakes/neovim",
+        "narHash": "sha256-8B9nXj9HvWJA5iu1JWeKaz2LNSdqwDlcB4OKOMMRZvg=",
+        "path": "/nix/store/mal1nry81ylcwgvb05rq91b5jyn8algg-source/flakes/neovim",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/rzhlyykmmk0xyc2pym1dm4spibjsb7ja-source/flakes/neovim",
+        "path": "/nix/store/mal1nry81ylcwgvb05rq91b5jyn8algg-source/flakes/neovim",
         "type": "path"
       }
     },
