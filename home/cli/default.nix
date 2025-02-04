@@ -17,6 +17,7 @@
     tree
     fzf
     lazygit
+    lazydocker
     eza
     fd
     ripgrep
@@ -38,6 +39,8 @@
     src-cli
     opentofu
     packer
+    pyright
+    black
   ];
 
   programs.git = {

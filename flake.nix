@@ -7,6 +7,9 @@
     home-manager.url = "github:nix-community/home-manager";
     neovim.url = "./flakes/neovim";
     wezterm.url = "github:wez/wezterm?dir=nix";
+    ghostty = {
+      url = "github:ghostty-org/ghostty";
+    };
   };
 
   outputs =
@@ -27,7 +30,9 @@
       nixosConfigurations = {
         nixos = nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit inputs; };
+          specialArgs = {
+            inherit inputs;
+          };
           modules = [ ./system ];
         };
       };

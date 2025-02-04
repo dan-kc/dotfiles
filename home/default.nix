@@ -30,6 +30,7 @@
       "slack"
       "postman"
       "packer"
+      "discord"
     ];
 
   nixpkgs.overlays = [
@@ -38,6 +39,9 @@
     })
     (final: prev: {
       wezterm = inputs.wezterm.packages."${pkgs.system}".default;
+    })
+    (final: prev: {
+      ghostty = inputs.ghostty.packages."${pkgs.system}".default;
     })
   ];
 
@@ -52,6 +56,7 @@
     hyprpaper
     alacritty
     wezterm
+    ghostty
     anki
     vlc
     thunderbird
@@ -63,6 +68,7 @@
     go
     tmux
     awscli2
+    discord
   ];
 
   home.sessionVariables = {
