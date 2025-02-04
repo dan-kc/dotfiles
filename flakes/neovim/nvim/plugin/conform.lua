@@ -13,6 +13,7 @@ require('conform').setup {
     terraform = { 'tfmt' },
     tf = { 'tfmt' },
     hcl = { 'tfmt' },
+    python = { 'black' },
 
     typescript = { 'prettier' },
     tsx = { 'prettier' },

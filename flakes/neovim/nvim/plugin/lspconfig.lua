@@ -100,6 +100,8 @@ lspconfig.gopls.setup({})
 
 lspconfig.terraformls.setup({})
 
+lspconfig.pyright.setup({})
+
 -- require("lspconfig").jsonls.setup({
 --   settings = {
 --     json = {
