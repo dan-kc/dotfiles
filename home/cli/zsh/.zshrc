@@ -8,7 +8,7 @@ source ~/zsh_modules/.zsh-vi-mode.zsh
 eval "$(fnm env --use-on-cd)"
 eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
-eval "$(atuin init zsh --disable-up-arrow)"
+eval "$(atuin init zsh)"
 function atuin_search() {
     atuin search -i
 }
