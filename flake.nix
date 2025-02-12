@@ -7,9 +7,6 @@
     home-manager.url = "github:nix-community/home-manager";
     neovim.url = "./flakes/neovim";
     wezterm.url = "github:wez/wezterm?dir=nix";
-    ghostty = {
-      url = "github:ghostty-org/ghostty";
-    };
   };
 
   outputs =
