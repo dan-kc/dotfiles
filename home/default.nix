@@ -40,9 +40,6 @@
     (final: prev: {
       wezterm = inputs.wezterm.packages."${pkgs.system}".default;
     })
-    (final: prev: {
-      ghostty = inputs.ghostty.packages."${pkgs.system}".default;
-    })
   ];
 
   home.packages = with pkgs; [
@@ -56,7 +53,6 @@
     hyprpaper
     alacritty
     wezterm
-    ghostty
     anki
     vlc
     thunderbird
