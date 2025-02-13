@@ -2,6 +2,7 @@ Dotfiles but also what are you doing here.
 
 # Todo:
 
+- Paste / CTRL-V in vim
 - theming / wallpapers (mutagen)
 - notes
 - tmux (do i really want tmux)
