@@ -14,5 +14,3 @@ function atuin_search() {
     atuin search -i
 }
 bindkey '^r' atuin_search
-
-export MANPAGER="nvim -c 'set ft=man' -"
