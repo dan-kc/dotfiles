@@ -8,8 +8,11 @@ source ~/zsh_modules/.zsh-vi-mode.zsh
 eval "$(fnm env --use-on-cd)"
 eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
+
 eval "$(atuin init zsh)"
 function atuin_search() {
     atuin search -i
 }
 bindkey '^r' atuin_search
+
+export MANPAGER="nvim -c 'set ft=man' -"
