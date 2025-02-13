@@ -71,7 +71,6 @@ let
     mini-indentscope
     barbecue-nvim
     dressing-nvim
-
   ];
 
   extraPackages = with pkgs; [
@@ -91,6 +90,12 @@ let
     gofumpt
 
     taplo
+
+    terraform-ls
+    opentofu # For formatter
+
+    black
+    pyright
   ];
 in
 {

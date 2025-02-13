@@ -39,8 +39,11 @@
     src-cli
     opentofu
     packer
-    pyright
-    black
+    unzip
+    git-open
+    ripdrag
+    # ragenix
+    difftastic
   ];
 
   programs.git = {
