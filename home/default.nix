@@ -21,8 +21,8 @@
     ".config/alacritty.toml".source = ./alacritty.toml;
     ".config/hypr/hyprland.conf".source = ./hyprland.conf;
     ".config/wezterm".source = ./wezterm;
+    ".local/bin/app_launcher.sh".source = ./app_launcher.sh;
   };
-
   nixpkgs.config.allowUnfreePredicate =
     pkg:
     builtins.elem (lib.getName pkg) [
