@@ -44,6 +44,7 @@
     ripdrag
     # ragenix
     difftastic
+    pass
   ];
 
   programs.git = {
