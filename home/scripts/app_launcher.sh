@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # List of applications as a string with newline separation
-apps="vivaldi\nslack\nwezterm\nanki\ndiscord\npostman\nthunderbird\nvlc"
+apps="vivaldi\nslack\nwezterm\nanki\ndiscord\npostman\nthunderbird\nvlc\nzen"
 
 # Use printf for better compatibility
 selected_app=$(printf "$apps" | bemenu -i -p "Launch Application:")

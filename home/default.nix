@@ -21,7 +21,7 @@
     ".config/alacritty.toml".source = ./alacritty.toml;
     ".config/hypr/hyprland.conf".source = ./hyprland.conf;
     ".config/wezterm".source = ./wezterm;
-    ".local/bin/app_launcher.sh".source = ./app_launcher.sh;
+    ".local/bin".source = ./scripts;
   };
   nixpkgs.config.allowUnfreePredicate =
     pkg:
@@ -39,6 +39,9 @@
     })
     (final: prev: {
       wezterm = inputs.wezterm.packages."${pkgs.system}".default;
+    })
+    (final: prev: {
+      zen = inputs.zen-browser.packages."${pkgs.system}".default;
     })
   ];
 
@@ -65,6 +68,7 @@
     tmux
     awscli2
     discord
+    zen
   ];
 
   home.sessionVariables = {

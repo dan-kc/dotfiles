@@ -233,11 +233,11 @@
       "locked": {
         "lastModified": 1,
         "narHash": "sha256-ybnlWpg3GdcaQK2nTO9k/kYV7VV2cpRr+Iu4wRtYNaw=",
-        "path": "/nix/store/abssx37ikn565llr5a98vm9gjkq3hhgv-source/flakes/neovim",
+        "path": "/nix/store/amwa05vwvvls5xf222h9nny53zwpp1j2-source/flakes/neovim",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/abssx37ikn565llr5a98vm9gjkq3hhgv-source/flakes/neovim",
+        "path": "/nix/store/amwa05vwvvls5xf222h9nny53zwpp1j2-source/flakes/neovim",
         "type": "path"
       }
     },
@@ -349,12 +349,29 @@
         "type": "github"
       }
     },
+    "nixpkgs_6": {
+      "locked": {
+        "lastModified": 1735471104,
+        "narHash": "sha256-0q9NGQySwDQc7RhAV2ukfnu7Gxa5/ybJ2ANT8DQrQrs=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "88195a94f390381c6afcdaa933c2f6ff93959cb4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
         "neovim": "neovim",
         "nixpkgs": "nixpkgs_4",
-        "wezterm": "wezterm"
+        "wezterm": "wezterm",
+        "zen-browser": "zen-browser"
       }
     },
     "rust-overlay": {
@@ -431,6 +448,24 @@
         "dir": "nix",
         "owner": "wez",
         "repo": "wezterm",
+        "type": "github"
+      }
+    },
+    "zen-browser": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_6"
+      },
+      "locked": {
+        "lastModified": 1739582274,
+        "narHash": "sha256-qDVcTrCMixPzxb9rzgTXkHaF9jxz6ptmGbuzO6RhAhc=",
+        "owner": "0xc000022070",
+        "repo": "zen-browser-flake",
+        "rev": "66976a3e4a8ee9bf29f89c81b48b4f4126c619e3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "0xc000022070",
+        "repo": "zen-browser-flake",
         "type": "github"
       }
     },
