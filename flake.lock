@@ -233,11 +233,11 @@
       "locked": {
         "lastModified": 1,
         "narHash": "sha256-ybnlWpg3GdcaQK2nTO9k/kYV7VV2cpRr+Iu4wRtYNaw=",
-        "path": "/nix/store/amwa05vwvvls5xf222h9nny53zwpp1j2-source/flakes/neovim",
+        "path": "/nix/store/mg1i7nw1i9m0qysz9rqsrfc7vh781yjp-source/flakes/neovim",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/amwa05vwvvls5xf222h9nny53zwpp1j2-source/flakes/neovim",
+        "path": "/nix/store/mg1i7nw1i9m0qysz9rqsrfc7vh781yjp-source/flakes/neovim",
         "type": "path"
       }
     },

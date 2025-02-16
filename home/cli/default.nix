@@ -45,6 +45,7 @@
     # ragenix
     difftastic
     pass
+    gnupg # Currently only use for pass, which i only use for gpg
   ];
 
   programs.git = {
