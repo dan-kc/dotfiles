@@ -46,16 +46,17 @@
     difftastic
     pass
     gnupg # Currently only use for pass, which i only use for gpg
+    hyprshot
   ];
 
   programs.git = {
     enable = true;
-    userName  = "Daniel Cox";
+    userName = "Daniel Cox";
     userEmail = "daniel@keone.dev";
-     extraConfig = {
-       init = {
-         defaultBranch = "main";
-       };
-     };
+    extraConfig = {
+      init = {
+        defaultBranch = "main";
+      };
+    };
   };
 }
