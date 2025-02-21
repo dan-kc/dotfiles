@@ -15,13 +15,13 @@ local function map(mode, lhs, rhs, desc)
 end
 
 -- Mapping for "flash jump"
-map('n', 'h', function()
+map('n', '<leader><space>', function()
   require('flash').jump()
 end, 'Flash')
-map('x', 'h', function()
+map('x', '<leader><space>', function()
   require('flash').jump()
 end, 'Flash')
-map('o', 'h', function()
+map('o', '<leader><space>', function()
   require('flash').jump()
 end, 'Flash')
 
