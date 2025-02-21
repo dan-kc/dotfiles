@@ -22,6 +22,7 @@
     ".config/hypr/hyprland.conf".source = ./hyprland.conf;
     ".config/wezterm".source = ./wezterm;
     ".local/bin".source = ./scripts;
+    ".config/waybar".source = ./waybar;
   };
   nixpkgs.config.allowUnfreePredicate =
     pkg:
@@ -69,6 +70,7 @@
     awscli2
     discord
     zen
+    waybar
   ];
 
   home.sessionVariables = {
