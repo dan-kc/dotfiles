@@ -69,8 +69,8 @@ let
     transparent-nvim
     indent-blankline-nvim
     mini-indentscope
-    barbecue-nvim
     dressing-nvim
+    dropbar-nvim
   ];
 
   extraPackages = with pkgs; [
