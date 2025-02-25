@@ -4,10 +4,8 @@ let
     fonts = [
       "GeistMono"
       "Hack"
-###      "BlexMono"
-  #    "Hasklug"
       "Monofur"
-  #    "Hurmit"
+      # "Hurmit" # Doesn't work
       "FiraCode"
       "Agave"
       "JetBrainsMono"
