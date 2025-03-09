@@ -16,6 +16,7 @@
     extraGroups = [
       "wheel"
       "docker"
+      "video"
     ]; # Enable ‘sudo’.
     shell = pkgs.zsh;
   };
@@ -64,12 +65,22 @@
     enable = true;
     xwayland.enable = true;
   };
+
   services.ollama.enable = true;
+  services.udev.extraRules = ''
+    SUBSYSTEM=="backlight", ACTION=="add", \
+      RUN+="${pkgs.coreutils}/bin/chgrp video /sys/class/backlight/%k/brightness", \
+      RUN+="${pkgs.coreutils}/bin/chmod g+w /sys/class/backlight/%k/brightness"
+    SUBSYSTEM=="leds", ACTION=="add", \
+      RUN+="${pkgs.coreutils}/bin/chgrp video /sys/class/leds/%k/brightness", \
+      RUN+="${pkgs.coreutils}/bin/chmod g+w /sys/class/leds/%k/brightness"
+  '';
+
   security.sudo = {
     enable = true;
     extraConfig = ''
       # User privilege specification
-      Defaults timestamp_timeout=20
+      Defaults timestamp_timeout=30
     '';
   };
 
@@ -81,7 +92,6 @@
   systemd.tmpfiles.rules = [
     "Z /etc/nixos 0770 root daniel - -"
   ];
-
   # NEVER change.
   system.stateVersion = "24.05";
 }

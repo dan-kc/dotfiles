@@ -4,7 +4,7 @@
   networking = {
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 22 ];
+      allowedTCPPorts = [ ];
       allowedUDPPorts = [ ];
       allowPing = false;
       trustedInterfaces = [ ];
@@ -18,6 +18,7 @@
 
     interfaces = {
       eth0.useDHCP = true;
+      wlan0.useDHCP = true;
     };
 
     wg-quick.interfaces = {
@@ -32,6 +33,16 @@
             endpoint = "146.70.179.50:51820";
           }
         ];
+      };
+    };
+
+    wireless = {
+      enable = true;
+      interfaces = [ "wlp3s0" ];
+      networks = {
+        "M-D-HOME" = {
+          psk = "secret";
+        };
       };
     };
   };

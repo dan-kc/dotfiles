@@ -23,6 +23,7 @@
     ".config/wezterm".source = ./wezterm;
     ".local/bin".source = ./scripts;
     ".config/eww".source = ./eww;
+    "wluma/config.toml".source = ./wluma.toml;
   };
   nixpkgs.config.allowUnfreePredicate =
     pkg:
@@ -32,6 +33,8 @@
       "postman"
       "packer"
       "discord"
+      "rustdesk"
+      "libsciter"
     ];
 
   nixpkgs.overlays = [
@@ -71,6 +74,8 @@
     discord
     zen
     eww
+    wluma
+    rustdesk
   ];
 
   home.sessionVariables = {

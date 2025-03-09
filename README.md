@@ -12,3 +12,7 @@ Dotfiles but also what are you doing here.
 - airpods
 - faster zoom in/out
 - How should I handle terminal tabs / windows? Just use wezterm then move later?
+
+I want an ability to press a keybinding in linux hyprland and run a wezterm instance that runs a program on luanch but other instances of wezterm should not run this program when launched through a different way.
+
+DO NOT COMMIT WIFI PASSWORD DUMMY

@@ -38,7 +38,7 @@
       "dmask=0022"
     ];
   };
-
+  hardware.opentabletdriver.enable = true;
   swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking

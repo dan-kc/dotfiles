@@ -45,8 +45,10 @@
     # ragenix
     difftastic
     pass
-    gnupg # Currently only use for pass, which i only use for gpg
+    gnupg # Currently only use for pass, which i only use for gpg, which I only use for vault.
     hyprshot
+    taskwarrior
+    taskwarrior-tui
   ];
 
   programs.git = {
