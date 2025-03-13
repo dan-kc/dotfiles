@@ -233,11 +233,11 @@
       "locked": {
         "lastModified": 1,
         "narHash": "sha256-ppOAAXUJ2a77nYkpGGzLVfSUMUGKhwFbqKxjw7cFFJk=",
-        "path": "/nix/store/jgy5ccs7kgbiwdsiyjr0vm82mk06d0vl-source/flakes/neovim",
+        "path": "/nix/store/k4cgg3mq5s86n6pms4bxnj7x89gnk3bp-source/flakes/neovim",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/jgy5ccs7kgbiwdsiyjr0vm82mk06d0vl-source/flakes/neovim",
+        "path": "/nix/store/k4cgg3mq5s86n6pms4bxnj7x89gnk3bp-source/flakes/neovim",
         "type": "path"
       }
     },
@@ -281,6 +281,22 @@
       "original": {
         "owner": "NixOS",
         "ref": "nixos-24.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-stable_2": {
+      "locked": {
+        "lastModified": 1735651292,
+        "narHash": "sha256-YLbzcBtYo1/FEzFsB3AnM16qFc6fWPMIoOuSoDwvg9g=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "0da3c44a9460a26d2025ec3ed2ec60a895eb1114",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "release-24.05",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -370,6 +386,7 @@
         "home-manager": "home-manager",
         "neovim": "neovim",
         "nixpkgs": "nixpkgs_4",
+        "nixpkgs-stable": "nixpkgs-stable_2",
         "wezterm": "wezterm",
         "zen-browser": "zen-browser"
       }

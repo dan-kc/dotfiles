@@ -38,11 +38,12 @@
 
     wireless = {
       enable = true;
-      interfaces = [ "wlp3s0" ];
+      # wpa_supplicant.enable = true;
+      # interfaces = [ "wlp3s0" ];
+      interfaces = [ "wlan0" ];
       networks = {
-        "M-D-HOME" = {
-          psk = "secret";
-        };
+        "M-D-HOME".psk = "secret";
+        # "PowerStudios".psk = "secret";
       };
     };
   };

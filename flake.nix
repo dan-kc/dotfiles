@@ -4,6 +4,7 @@
   inputs = {
     # Flakes that will be evaluated when nix-rebuild switch is called.
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/release-24.05";
     home-manager.url = "github:nix-community/home-manager";
     neovim.url = "./flakes/neovim";
     wezterm.url = "github:wez/wezterm?dir=nix";
