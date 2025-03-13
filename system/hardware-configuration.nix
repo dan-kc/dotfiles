@@ -15,7 +15,7 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  hardware.enableAllFirmware = true;
+  # hardware.enableAllFirmware = true;
   boot.initrd.availableKernelModules = [
     "nvme"
     "xhci_pci"
@@ -27,7 +27,7 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [
     "kvm-amd"
-    "rtw89_8852be"
+    # "rtw89_8852be"
   ];
   # boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelPackages = inputs.nixpkgs-stable.legacyPackages.x86_64-linux.linuxPackages_latest;
