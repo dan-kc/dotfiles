@@ -15,7 +15,8 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  # hardware.enableAllFirmware = true;
+  hardware.enableRedistributableFirmware = true;
+  hardware.enableAllFirmware = true;
   boot.initrd.availableKernelModules = [
     "nvme"
     "xhci_pci"
@@ -27,14 +28,11 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [
     "kvm-amd"
-    # "rtw89_8852be"
+    "rtw89_8852be"
+    "iwlwifi"
   ];
   # boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelPackages = inputs.nixpkgs-stable.legacyPackages.x86_64-linux.linuxPackages_latest;
-  # boot.extraModulePackages = with config.boot.kernelPackages; [
-  #   rtw89
-  # ];
-  # boot.blacklistedKernelModules = [ "foo" ];
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/ba0ff5e6-1a71-4541-82d7-1b5ca75ab811";

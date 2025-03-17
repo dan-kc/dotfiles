@@ -38,7 +38,6 @@
 
     wireless = {
       enable = true;
-      interfaces = [ "wlan0" ];
       networks = {
         "M-D-HOME".psk = "secret";
         "PowerStudios".psk = "secret";

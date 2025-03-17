@@ -56,6 +56,7 @@
     evtest # See all inputs
     vim
 
+    firmwareLinuxNonfree
     # Not yet configured
     wlsunset
   ];
@@ -88,7 +89,6 @@
     enable = true;
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
-
   systemd.tmpfiles.rules = [
     "Z /etc/nixos 0770 root daniel - -"
   ];
