@@ -1,4 +1,12 @@
 { pkgs, ... }:
+let
+  google-cloud-with-plugins = pkgs.google-cloud-sdk.withExtraComponents (
+    with pkgs.google-cloud-sdk.components;
+    [
+      gke-gcloud-auth-plugin
+    ]
+  );
+in
 
 {
   home.file = {
@@ -47,8 +55,8 @@
     pass
     gnupg # Currently only use for pass, which i only use for gpg, which I only use for vault.
     hyprshot
-    taskwarrior
-    taskwarrior-tui
+    google-cloud-with-plugins
+    hurl
   ];
 
   programs.git = {
