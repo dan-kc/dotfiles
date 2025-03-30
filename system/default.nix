@@ -56,7 +56,6 @@
     evtest # See all inputs
     vim
 
-    firmwareLinuxNonfree
     # Not yet configured
     wlsunset
   ];

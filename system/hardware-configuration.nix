@@ -26,13 +26,9 @@
     "sdhci_pci"
   ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [
-    "kvm-amd"
-    "rtw89_8852be"
-    "iwlwifi"
-  ];
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelPackages = inputs.nixpkgs-stable.legacyPackages.x86_64-linux.linuxPackages_latest;
+  boot.kernelModules = [ "kvm-amd" ];
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = inputs.nixpkgs-stable.legacyPackages.x86_64-linux.linuxPackages_latest;
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/ba0ff5e6-1a71-4541-82d7-1b5ca75ab811";
