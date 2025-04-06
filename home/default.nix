@@ -12,6 +12,7 @@
 
   home.sessionVariables = {
     SRC_ENDPOINT = "https://sourcegraph.com";
+    EDITOR="nvim";
   };
 
   home.username = "daniel";
@@ -28,12 +29,11 @@
   nixpkgs.config.allowUnfreePredicate =
     pkg:
     builtins.elem (lib.getName pkg) [
-      "vivaldi"
+      # "vivaldi"
       "slack"
       "postman"
       "packer"
       "discord"
-      "rustdesk"
       "libsciter"
     ];
 
@@ -52,7 +52,7 @@
   home.packages = with pkgs; [
     clipboard-jh
     wl-clipboard
-    vivaldi
+    # vivaldi
     bemenu
     libnotify
     mako
@@ -77,10 +77,6 @@
     wluma
     pyprland
   ];
-
-  home.sessionVariables = {
-    EDITOR = "vim";
-  };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

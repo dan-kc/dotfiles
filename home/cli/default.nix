@@ -57,6 +57,7 @@ in
     hyprshot
     google-cloud-with-plugins
     hurl
+    unzip
   ];
 
   programs.git = {

@@ -55,9 +55,12 @@
     wget # Tool for retrieving files
     evtest # See all inputs
     vim
+    acpi # Battery
 
     # Not yet configured
     wlsunset
+    git # Need for flakes
+    home-manager
   ];
 
   programs.zsh.enable = true;
@@ -91,17 +94,7 @@
   systemd.tmpfiles.rules = [
     "Z /etc/nixos 0770 root daniel - -"
   ];
-  #
-  # systemd.services.set-tx-power = {
-  #   description = "Set TX power for wlan0";
-  #   after = [ "network.target" ];
-  #   wantedBy = [ "multi-user.target" ];
-  #   serviceConfig = {
-  #     Type = "oneshot";
-  #     ExecStart = "${pkgs.wirelesstools}/bin/iwconfig wlan0 power off";
-  #   };
-  # };
-  #
+
   # NEVER change.
   system.stateVersion = "24.05";
 }

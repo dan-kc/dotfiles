@@ -7,7 +7,7 @@
         PasswordAuthentication = false;
         PermitRootLogin = "no";
       };
-      enable = true;
+      enable = false;
     };
   };
 }
