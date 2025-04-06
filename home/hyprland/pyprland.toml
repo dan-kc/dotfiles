@@ -1,0 +1,16 @@
+[pyprland]
+plugins = ["scratchpads"]
+
+[scratchpads.term]
+command = "wezterm"
+class = "scratchpad"
+size = "75% 60%"
+margin = 50
+
+[scratchpads.volume]
+command = "pavucontrol"
+class = "scratchpad"
+size = "75% 60%"
+margin = 50
+unfocus = "hide"
+lazy = true

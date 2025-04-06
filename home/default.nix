@@ -19,7 +19,7 @@
 
   home.file = {
     ".config/alacritty.toml".source = ./alacritty.toml;
-    ".config/hypr/hyprland.conf".source = ./hyprland.conf;
+    ".config/hypr".source = ./hyprland;
     ".config/wezterm".source = ./wezterm;
     ".local/bin".source = ./scripts;
     ".config/eww".source = ./eww;
@@ -75,7 +75,7 @@
     zen
     eww
     wluma
-    rustdesk
+    pyprland
   ];
 
   home.sessionVariables = {
