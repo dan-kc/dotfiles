@@ -29,7 +29,7 @@
   nixpkgs.config.allowUnfreePredicate =
     pkg:
     builtins.elem (lib.getName pkg) [
-      # "vivaldi"
+      "vivaldi"
       "slack"
       "postman"
       "packer"
@@ -52,7 +52,7 @@
   home.packages = with pkgs; [
     clipboard-jh
     wl-clipboard
-    # vivaldi
+    vivaldi
     bemenu
     libnotify
     mako

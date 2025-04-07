@@ -61,7 +61,11 @@
     wlsunset
     git # Need for flakes
     home-manager
+
+    qmk
   ];
+
+  hardware.keyboard.qmk.enable = true;
 
   programs.zsh.enable = true;
   programs.hyprland = {

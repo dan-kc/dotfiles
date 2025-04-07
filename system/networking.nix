@@ -16,10 +16,10 @@
       139.162.206.231 terra
     '';
 
-    interfaces = {
-      eth0.useDHCP = true;
-      wlan0.useDHCP = true;
-    };
+    # interfaces = {
+    #   eth0.useDHCP = true;
+    #   wlan0.useDHCP = true;
+    # };
 
     # wg-quick.interfaces = {
     #   wg0 = {
@@ -40,7 +40,8 @@
       enable = true;
       networks = {
         "M-D-HOME".psk = "secret";
-        "PowerStudios".psk = "secret";
+        # "PowerStudios".psk = "secret";
+        "Redefined".psk = "secret";
       };
     };
   };
