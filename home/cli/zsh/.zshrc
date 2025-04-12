@@ -14,3 +14,4 @@ function atuin_search() {
     atuin search -i
 }
 bindkey '^r' atuin_search
+source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"

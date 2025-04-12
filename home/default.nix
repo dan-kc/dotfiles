@@ -47,6 +47,9 @@
     (final: prev: {
       zen = inputs.zen-browser.packages."${pkgs.system}".default;
     })
+    (final: prev: {
+      yazi = inputs.yazi.packages."${pkgs.system}".default;
+    })
   ];
 
   home.packages = with pkgs; [
@@ -76,6 +79,7 @@
     eww
     wluma
     pyprland
+    yazi
   ];
 
   # Let Home Manager install and manage itself.
