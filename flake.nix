@@ -5,10 +5,10 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/release-24.05";
     home-manager.url = "github:nix-community/home-manager";
-    neovim.url = "./flakes/neovim";
+    neovim.url = "github:dan-kc/neovim";
     wezterm.url = "github:wez/wezterm?dir=nix";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
-		yazi.url = "github:sxyazi/yazi";
+    yazi.url = "github:sxyazi/yazi";
   };
 
   outputs =

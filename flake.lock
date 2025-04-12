@@ -249,14 +249,17 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-wtwhEW6i8QXd3s1wnyQmppjtM5L0Wk8KnmvoSWWtBi0=",
-        "path": "/nix/store/czj108qfb7a4jb8zz3psy1rijh15q0l4-source/flakes/neovim",
-        "type": "path"
+        "lastModified": 1744457308,
+        "narHash": "sha256-1v1c4d0hlCmGNSvBBaS1Tnd3PNm6JbydhcXAq7m1k1s=",
+        "owner": "dan-kc",
+        "repo": "neovim",
+        "rev": "13be4739f09ad7bfd532aa1bd16272219ee1cf31",
+        "type": "github"
       },
       "original": {
-        "path": "/nix/store/czj108qfb7a4jb8zz3psy1rijh15q0l4-source/flakes/neovim",
-        "type": "path"
+        "owner": "dan-kc",
+        "repo": "neovim",
+        "type": "github"
       }
     },
     "nixpkgs": {
