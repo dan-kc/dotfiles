@@ -63,8 +63,10 @@
     home-manager
 
     qmk
+    powertop
   ];
 
+  powerManagement.powertop.enable = true;
   hardware.keyboard.qmk.enable = true;
 
   programs.zsh.enable = true;
