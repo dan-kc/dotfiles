@@ -70,12 +70,17 @@ local function fuzzy_grep_current_file_type()
 end
 
 vim.keymap.set('n', '<leader>f', function()
-  builtin.find_files()
+  builtin.find_files { hidden = true }
 end, { desc = '[t]elescope find files - ctrl[p] style' })
 vim.keymap.set('n', '<leader>/', function()
   builtin.oldfiles { cwd = vim.loop.cwd() }
 end, { desc = '[telescope] old files' })
-vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[telescope] live grep' })
+vim.keymap.set('n', '<leader>sg', function()
+  require('telescope.builtin').live_grep {
+    glob_pattern = { '!.git/', '!node_modules/' },
+    additional_args = { '--hidden' },
+  }
+end, { desc = '[telescope] live grep' })
 -- vim.keymap.set('n', '<leader>tf', fuzzy_grep, { desc = '[t]elescope [f]uzzy grep' })
 -- vim.keymap.set('n', '<M-f>', fuzzy_grep_current_file_type, { desc = '[telescope] fuzzy grep filetype' })
 -- vim.keymap.set('n', '<M-g>', live_grep_current_file_type, { desc = '[telescope] live grep filetype' })
