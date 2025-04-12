@@ -1,9 +1,3 @@
 .git
 .DS_Store
-nvim/.config/nvim/lazy-lock.json
-tmux/.config/tmux/plugins
-.dotter/cache.toml
-.dotter/cache
-nushell/history.txt
 .env
-example-neovim-flakes
