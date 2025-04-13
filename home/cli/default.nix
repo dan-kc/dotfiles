@@ -35,8 +35,6 @@ in
     k3s
     gh
     fnm
-    cargo
-    rustc
     gcc
     bandwhich
     dua

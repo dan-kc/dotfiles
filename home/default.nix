@@ -12,7 +12,7 @@
 
   home.sessionVariables = {
     SRC_ENDPOINT = "https://sourcegraph.com";
-    EDITOR="nvim";
+    EDITOR = "nvim";
   };
 
   home.username = "daniel";
@@ -50,6 +50,7 @@
     (final: prev: {
       yazi = inputs.yazi.packages."${pkgs.system}".default;
     })
+    inputs.rust-overlay.overlays.default
   ];
 
   home.packages = with pkgs; [
@@ -80,6 +81,7 @@
     wluma
     pyprland
     yazi
+    rust-bin.stable.latest.default
   ];
 
   # Let Home Manager install and manage itself.
