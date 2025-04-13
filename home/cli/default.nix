@@ -56,6 +56,7 @@ in
     google-cloud-with-plugins
     hurl
     unzip
+    git-filter-repo
   ];
 
   programs.git = {
