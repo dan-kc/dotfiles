@@ -2,9 +2,9 @@
   description = "dots...";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/release-24.05";
-    home-manager.url = "github:nix-community/home-manager";
+    # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/release-24.11";
+    home-manager.url = "github:nix-community/home-manager/release-24.11";
     neovim.url = "github:dan-kc/neovim";
     wezterm.url = "github:wez/wezterm?dir=nix";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
