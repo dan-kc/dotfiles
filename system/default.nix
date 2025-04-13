@@ -1,15 +1,23 @@
 {
   pkgs,
+  inputs,
   ...
 }:
-
+let
+  pkgs-hyprland = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+in
 {
   imports = [
     ./hardware-configuration.nix
     ./networking.nix
     ./sound.nix
     ./ssh.nix
+    inputs.sops-nix.nixosModules.sops
   ];
+  sops.defaultSopsFile = ../secrets/secrets.yaml;
+  sops.defaultSopsFormat = "yaml";
+  sops.age.keyFile = "/home/daniel/.config/sops/age/keys.txt";
+  sops.secrets."wifi.env" = { };
 
   users.users.daniel = {
     isNormalUser = true;
@@ -70,9 +78,23 @@
   hardware.keyboard.qmk.enable = true;
 
   programs.zsh.enable = true;
+
+  # Hyprland stuff
   programs.hyprland = {
     enable = true;
+    # set the flake package
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    # make sure to also set the portal package, so that they are in sync
+    portalPackage =
+      inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
     xwayland.enable = true;
+  };
+  hardware.opengl = {
+    # Needed else you may get stuttering. The Mesa version needs to be the
+    # same as the flake.
+    package = pkgs-hyprland.mesa.drivers;
+    driSupport32Bit = true;
+    package32 = pkgs-hyprland.pkgsi686Linux.mesa.drivers;
   };
 
   services.ollama.enable = true;

@@ -8,6 +8,7 @@
   imports = [
     ./cli
     ./fonts.nix
+    inputs.sops-nix.homeManagerModules.sops
   ];
 
   home.sessionVariables = {

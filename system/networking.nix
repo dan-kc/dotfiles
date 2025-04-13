@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 
 {
   networking = {
@@ -13,13 +13,9 @@
 
     wireless = {
       enable = true;
+      secretsFile = config.sops.secrets."wifi.env".path;
       networks = {
-        "M-D-HOME".psk = "secret";
-        # "PowerStudios".psk = "secret";
-        "Redefined".psk = "secret";
-        "SP OFFICE 5G".psk = "secret";
-        "SP OFFICE 2G".psk = "secret";
-        "SP Upstairs WiFi".psk = "50088690";
+        "Redefined".pskRaw = "ext:COWORK_PSK";
       };
     };
   };

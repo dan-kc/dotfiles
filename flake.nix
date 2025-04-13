@@ -9,6 +9,8 @@
     wezterm.url = "github:wez/wezterm?dir=nix";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     yazi.url = "github:sxyazi/yazi";
+    sops-nix.url = "github:Mic92/sops-nix";
+    hyprland.url = "github:hyprwm/Hyprland";
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -36,7 +38,9 @@
           specialArgs = {
             inherit inputs;
           };
-          modules = [ ./system ];
+          modules = [
+            ./system
+          ];
         };
       };
 
@@ -47,7 +51,9 @@
           extraSpecialArgs = {
             inherit inputs;
           };
-          modules = [ ./home ];
+          modules = [
+            ./home
+          ];
         };
       };
     };
