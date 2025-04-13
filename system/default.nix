@@ -63,15 +63,13 @@ in
     wget # Tool for retrieving files
     evtest # See all inputs
     vim
-    acpi # Battery
+    acpi
+    powertop
+    git # Need for flakes
+    qmk
 
     # Not yet configured
     wlsunset
-    git # Need for flakes
-    home-manager
-
-    qmk
-    powertop
   ];
 
   powerManagement.powertop.enable = true;
@@ -89,15 +87,14 @@ in
       inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
     xwayland.enable = true;
   };
-  hardware.opengl = {
+  hardware.graphics = {
     # Needed else you may get stuttering. The Mesa version needs to be the
     # same as the flake.
-    package = pkgs-hyprland.mesa.drivers;
-    driSupport32Bit = true;
-    package32 = pkgs-hyprland.pkgsi686Linux.mesa.drivers;
+    package = pkgs-hyprland.mesa;
+    # driSupport32Bit = true;
+    package32 = pkgs-hyprland.pkgsi686Linux.mesa;
   };
 
-  services.ollama.enable = true;
   services.udev.extraRules = ''
     SUBSYSTEM=="backlight", ACTION=="add", \
       RUN+="${pkgs.coreutils}/bin/chgrp video /sys/class/backlight/%k/brightness", \
