@@ -80,7 +80,6 @@
     zen
     eww
     wluma
-    pyprland
     yazi
     rust-bin.stable.latest.default
   ];
