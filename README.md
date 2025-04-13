@@ -1,8 +1,8 @@
-Dotfiles but also what are you doing here.
+What are you doing here?
 
 # Todo:
 
 - theming / wallpapers (mutagen)
-- tmux (do i really want tmux)
+- tmux
 - airpods
 - faster zoom in/out
