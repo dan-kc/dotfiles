@@ -51,7 +51,6 @@
     (final: prev: {
       yazi = inputs.yazi.packages."${pkgs.system}".default;
     })
-    inputs.rust-overlay.overlays.default
   ];
 
   home.packages = with pkgs; [
@@ -81,7 +80,6 @@
     eww
     wluma
     yazi
-    rust-bin.stable.latest.default
   ];
 
   # Let Home Manager install and manage itself.
