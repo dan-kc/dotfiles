@@ -62,10 +62,13 @@ in
   programs.git = {
     enable = true;
     userName = "Daniel Cox";
-    userEmail = "daniel@keone.dev";
+    userEmail = "63171098+dan-kc@users.noreply.github.com";
     extraConfig = {
       init = {
         defaultBranch = "main";
+      };
+      color = {
+        ui = "auto";
       };
     };
   };
