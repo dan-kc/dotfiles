@@ -11,6 +11,7 @@
     yazi.url = "github:sxyazi/yazi";
     sops-nix.url = "github:Mic92/sops-nix";
     hyprland.url = "github:hyprwm/Hyprland";
+    xremap-flake.url = "github:xremap/nix-flake";
   };
 
   outputs =

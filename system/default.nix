@@ -13,11 +13,21 @@ in
     ./sound.nix
     ./ssh.nix
     inputs.sops-nix.nixosModules.sops
+    inputs.xremap-flake.nixosModules.default
   ];
   sops.defaultSopsFile = ../secrets/secrets.yaml;
   sops.defaultSopsFormat = "yaml";
   sops.age.keyFile = "/home/daniel/.config/sops/age/keys.txt";
   sops.secrets."wifi.env" = { };
+
+  services.xremap.config.modmap = [
+    {
+      name = "Global";
+      remap = {
+        "CapsLock" = "Esc";
+      }; # globally remap CapsLock to Esc
+    }
+  ];
 
   users.users.daniel = {
     isNormalUser = true;
