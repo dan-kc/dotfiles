@@ -5,7 +5,7 @@ let
       "GeistMono"
       "Hack"
       "Monofur"
-      # "Hurmit" # Doesn't work
+      "Hermit" # Doesn't work
       "FiraCode"
       "Agave"
       "JetBrainsMono"
