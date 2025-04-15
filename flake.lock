@@ -1027,11 +1027,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1744646776,
-        "narHash": "sha256-RCaOViO25dwsGYH3kzM4PHLv661wUZiTLYy91PkYwPs=",
+        "lastModified": 1744652267,
+        "narHash": "sha256-ES16WhC49/Ze+mUjLIYo0/bBIxE6CBtuBY5VWqcQ/fA=",
         "owner": "dan-kc",
         "repo": "neovim",
-        "rev": "663d5821afca0521e503700e21c74bd1f02e2a4c",
+        "rev": "240b74dc4c4d7187cffeb6adf8f3701a3499fdf9",
         "type": "github"
       },
       "original": {
