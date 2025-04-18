@@ -9,6 +9,7 @@
       pulse.enable = true;
       jack.enable = true;
     };
+    # pulseaudio.enable = false;
   };
   hardware.pulseaudio.enable = false;
 

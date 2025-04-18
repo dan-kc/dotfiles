@@ -8,26 +8,15 @@ let
 in
 {
   imports = [
-    ./hardware-configuration.nix
     ./networking.nix
     ./sound.nix
     ./ssh.nix
     inputs.sops-nix.nixosModules.sops
-    inputs.xremap-flake.nixosModules.default
   ];
   sops.defaultSopsFile = ../secrets/secrets.yaml;
   sops.defaultSopsFormat = "yaml";
   sops.age.keyFile = "/home/daniel/.config/sops/age/keys.txt";
   sops.secrets."wifi.env" = { };
-
-  services.xremap.config.modmap = [
-    {
-      name = "Global";
-      remap = {
-        "CapsLock" = "Esc";
-      }; # globally remap CapsLock to Esc
-    }
-  ];
 
   users.users.daniel = {
     isNormalUser = true;
@@ -35,7 +24,7 @@ in
       "wheel"
       "docker"
       "video"
-    ]; # Enable ‘sudo’.
+    ];
     shell = pkgs.zsh;
   };
 
@@ -60,21 +49,14 @@ in
 
   nixpkgs.config.allowUnfree = true;
 
-  console = {
-    font = "Lat2-Terminus16";
-    #   keyMap = "gb";
-  };
+  console.font = "Lat2-Terminus16";
 
   virtualisation.docker.enable = true;
 
-  # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
-    # Configured to perfect state
-    wget # Tool for retrieving files
+    wget
     evtest # See all inputs
     vim
-    acpi
-    powertop
     git # Need for flakes
     qmk
 
@@ -82,7 +64,6 @@ in
     wlsunset
   ];
 
-  powerManagement.powertop.enable = true;
   hardware.keyboard.qmk.enable = true;
 
   programs.zsh.enable = true;
@@ -105,19 +86,9 @@ in
     package32 = pkgs-hyprland.pkgsi686Linux.mesa;
   };
 
-  services.udev.extraRules = ''
-    SUBSYSTEM=="backlight", ACTION=="add", \
-      RUN+="${pkgs.coreutils}/bin/chgrp video /sys/class/backlight/%k/brightness", \
-      RUN+="${pkgs.coreutils}/bin/chmod g+w /sys/class/backlight/%k/brightness"
-    SUBSYSTEM=="leds", ACTION=="add", \
-      RUN+="${pkgs.coreutils}/bin/chgrp video /sys/class/leds/%k/brightness", \
-      RUN+="${pkgs.coreutils}/bin/chmod g+w /sys/class/leds/%k/brightness"
-  '';
-
   security.sudo = {
     enable = true;
     extraConfig = ''
-      # User privilege specification
       Defaults timestamp_timeout=30
     '';
   };

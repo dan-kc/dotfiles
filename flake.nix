@@ -18,6 +18,7 @@
     {
       # These are all flakes
       nixpkgs,
+      # nixpkgs-stable,
       home-manager,
       ...
     }@inputs:
@@ -30,13 +31,24 @@
     {
       # 'nixos-rebuild' looks here
       nixosConfigurations = {
-        nixos = nixpkgs.lib.nixosSystem {
+        box = nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = {
             inherit inputs;
           };
           modules = [
-            ./system
+            ./system/common.nix
+            ./system/box
+          ];
+        };
+        plank = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = {
+            inherit inputs;
+          };
+          modules = [
+            ./system/common.nix
+            ./system/plank
           ];
         };
       };
