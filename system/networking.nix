@@ -13,7 +13,7 @@
 
     wireless = {
       enable = true;
-      secretsFile = config.sops.secrets."wifi.env".path;
+      # secretsFile = config.sops.secrets."wifi.env".path;
       networks = {
         "Redefined".pskRaw = "ext:COWORK_PSK";
         "M-D-HOME".psk = "ext:HOME_PSK";

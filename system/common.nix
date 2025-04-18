@@ -11,12 +11,12 @@ in
     ./networking.nix
     ./sound.nix
     ./ssh.nix
-    inputs.sops-nix.nixosModules.sops
+    # inputs.sops-nix.nixosModules.sops
   ];
-  sops.defaultSopsFile = ../secrets/secrets.yaml;
-  sops.defaultSopsFormat = "yaml";
-  sops.age.keyFile = "/home/daniel/.config/sops/age/keys.txt";
-  sops.secrets."wifi.env" = { };
+  # sops.defaultSopsFile = ../secrets/secrets.yaml;
+  # sops.defaultSopsFormat = "yaml";
+  # sops.age.keyFile = "/home/daniel/.config/sops/age/keys.txt";
+  # sops.secrets."wifi.env" = { };
 
   users.users.daniel = {
     isNormalUser = true;
