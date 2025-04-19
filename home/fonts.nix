@@ -3,6 +3,7 @@
   home.packages = with pkgs; [
     nerd-fonts.geist-mono
     nerd-fonts.hack
+    nerd-fonts.hurmit
     nerd-fonts.monofur
     nerd-fonts.fira-code
     nerd-fonts.agave
