@@ -14,7 +14,7 @@
   # before changing: `darwin-rebuild changelog`.
   system.stateVersion = 4;
 
-  system.configurationRevision = self.rev or self.dirtyRev or null;
+  # system.configurationRevision = self.rev or self.dirtyRev or null;
 
   homebrew = {
     enable = true;
