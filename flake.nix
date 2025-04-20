@@ -18,7 +18,7 @@
       url = "github:0xc000022070/zen-browser-flake/805c8f56e8ebac1527176fc9d551f73c4cd886f6";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-darwin = {
+    darwin = {
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -28,7 +28,7 @@
     {
       # These are all flakes
       nixpkgs,
-      nix-darwin,
+      darwin,
       home-manager,
       self,
       ...
@@ -78,7 +78,7 @@
       };
 
       # 'darwin-rebuild' looks here
-      dawrinConfigurations.Air = nix-darwin.lib.darwinSystem {
+      darwinConfigurations.Air = darwin.lib.darwinSystem {
         system = "aarch64-darwin";
         specialArgs = {
           inherit inputs;
