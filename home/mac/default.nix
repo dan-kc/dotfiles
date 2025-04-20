@@ -4,7 +4,6 @@
     pkgs.vim
   ];
   # environment.darwinConfig
-  services.nix-daemon.enable = true;
   # Necessary for using flakes on this system.
   nix.package = pkgs.nix;
   nix.settings.experimental-features = "nix-command flakes";
