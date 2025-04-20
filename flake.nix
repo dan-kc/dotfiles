@@ -18,14 +18,19 @@
       url = "github:0xc000022070/zen-browser-flake/805c8f56e8ebac1527176fc9d551f73c4cd886f6";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
     {
       # These are all flakes
       nixpkgs,
-      # nixpkgs-stable,
+      nix-darwin,
       home-manager,
+      self,
       ...
     }@inputs:
     let
@@ -71,5 +76,15 @@
           ];
         };
       };
+
+      # 'darwin-rebuild' looks here
+      dawrinConfigurations = {
+        air = nix-darwin.lib.darwinSystem {
+          modules = [
+            ./home/mac
+          ];
+        };
+      };
+      darwinPackages = self.darwinConfigurations."air".pkgs;
     };
 }
