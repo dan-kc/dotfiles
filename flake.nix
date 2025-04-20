@@ -79,11 +79,13 @@
 
       # 'darwin-rebuild' looks here
       dawrinConfigurations.Air = nix-darwin.lib.darwinSystem {
-        # system = "aarch64-darwin";
+        system = "aarch64-darwin";
+        specialArgs = {
+          inherit inputs;
+        };
         modules = [
           ./home/mac
         ];
       };
-      # darwinPackages = self.darwinConfigurations."Air".pkgs;
     };
 }

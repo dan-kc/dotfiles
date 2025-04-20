@@ -1,25 +1,45 @@
-{ pkgs, inputs, ... }:
+{ config, pkgs, ... }:
 {
+  environment.systemPackages = [
+    pkgs.vim
+  ];
+  # environment.darwinConfig
   services.nix-daemon.enable = true;
   # Necessary for using flakes on this system.
+  nix.package = pkgs.nix;
   nix.settings.experimental-features = "nix-command flakes";
 
-  system.configurationRevision = self.rev or self.dirtyRev or null;
-
+  programs.zsh.enable = true;
   # Used for backwards compatibility. please read the changelog
   # before changing: `darwin-rebuild changelog`.
   system.stateVersion = 4;
 
-  nixpkgs.hostPlatform = "aarch64-darwin";
+  system.configurationRevision = self.rev or self.dirtyRev or null;
+
+  homebrew = {
+    enable = true;
+    casks = [
+      "raycast"
+    ];
+  };
+
+  system.defaults = {
+    dock = {
+      autohide = true;
+      show-process-indicators = false;
+      show-recents = false;
+      static-only = true;
+    };
+    finder = {
+      AppleShowAllExtensions = true;
+      ShowPathbar = true;
+    };
+  };
 
   # Declare the user that will be running `nix-darwin`.
   users.users.daniel = {
     name = "daniel";
     home = "/Users/daniel";
   };
-
   # Create /etc/zshrc that loads the nix-darwin environment.
-  programs.zsh.enable = true;
-
-  environment.systemPackages = [ ];
 }
