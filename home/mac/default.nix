@@ -5,7 +5,8 @@
   ];
   # environment.darwinConfig
   # Necessary for using flakes on this system.
-  # nix.package = pkgs.nix; # I think i need this if i dont install nix with determinate
+  nix.enable = false; # I think I need this only because we installed via determinate.
+  nix.package = pkgs.nix;
   nix.settings.experimental-features = "nix-command flakes";
 
   programs.zsh.enable = true;
