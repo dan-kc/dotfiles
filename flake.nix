@@ -78,12 +78,10 @@
       };
 
       # 'darwin-rebuild' looks here
-      dawrinConfigurations = {
-        Air = nix-darwin.lib.darwinSystem {
-          modules = [
-            ./home/mac
-          ];
-        };
+      dawrinConfigurations."Air" = nix-darwin.lib.darwinSystem {
+        modules = [
+          ./home/mac
+        ];
       };
       darwinPackages = self.darwinConfigurations."Air".pkgs;
     };
