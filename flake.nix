@@ -85,6 +85,6 @@
           ];
         };
       };
-      darwinPackages = self.darwinConfigurations."air".pkgs;
+      darwinPackages = self.darwinConfigurations."Air".pkgs;
     };
 }
