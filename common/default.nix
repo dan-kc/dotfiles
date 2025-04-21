@@ -1,4 +1,9 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  inputs,
+  lib,
+  ...
+}:
 let
   google-cloud-with-plugins = pkgs.google-cloud-sdk.withExtraComponents (
     with pkgs.google-cloud-sdk.components;
@@ -9,6 +14,11 @@ let
 in
 
 {
+  imports = [
+    ./fonts.nix
+    inputs.sops-nix.homeManagerModules.sops
+  ];
+
   home.file = {
     ".zshrc".source = ./zsh/.zshrc;
     "zsh_modules".source = ./zsh/zsh_modules;
@@ -16,9 +26,38 @@ in
     ".config/yazi".source = ./yazi;
     ".config/lazygit/config.yml".source = ./lazygit.yml;
     ".config/atuin/config.toml".source = ./atuin.toml;
+    ".config/wezterm".source = ./wezterm;
+    ".config/alacritty.toml".source = ./alacritty.toml;
   };
 
+  home.sessionVariables = {
+    SRC_ENDPOINT = "https://sourcegraph.com";
+    EDITOR = "nvim";
+  };
+
+  nixpkgs.overlays = [
+    (final: prev: {
+      neovim = inputs.neovim.packages."${pkgs.system}".default;
+    })
+    (final: prev: {
+      wezterm = inputs.wezterm.packages."${pkgs.system}".default;
+    })
+    (final: prev: {
+      zen = inputs.zen-browser.packages."${pkgs.system}".default;
+    })
+    (final: prev: {
+      yazi = inputs.yazi.packages."${pkgs.system}".default;
+    })
+  ];
+
   home.packages = with pkgs; [
+    alacritty
+    anki
+    vlc
+    wezterm
+    neovim
+    zen
+    yazi
     atuin
     yazi
     zsh
@@ -52,7 +91,6 @@ in
     difftastic
     pass
     gnupg # Currently only use for pass, which i only use for gpg, which I only use for vault.
-    hyprshot
     google-cloud-with-plugins
     hurl
     unzip

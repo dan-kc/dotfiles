@@ -10,23 +10,16 @@
     sops-nix.url = "github:Mic92/sops-nix";
     hyprland.url = "github:hyprwm/Hyprland";
     xremap-flake.url = "github:xremap/nix-flake";
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    zen-browser = {
-      url = "github:0xc000022070/zen-browser-flake/805c8f56e8ebac1527176fc9d551f73c4cd886f6";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    darwin = {
-      url = "github:LnL7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    zen-browser.url = "github:0xc000022070/zen-browser-flake/805c8f56e8ebac1527176fc9d551f73c4cd886f6";
+    zen-browser.inputs.nixpkgs.follows = "nixpkgs";
+    darwin.url = "github:LnL7/nix-darwin";
+    darwin.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
     {
-      # These are all flakes
       nixpkgs,
       darwin,
       home-manager,
@@ -40,7 +33,6 @@
       };
     in
     {
-      # 'nixos-rebuild' looks here
       nixosConfigurations = {
         box = nixpkgs.lib.nixosSystem {
           inherit system;
@@ -48,8 +40,8 @@
             inherit inputs;
           };
           modules = [
-            ./system/common.nix
-            ./system/box
+            ./nixos/system/common
+            ./nixos/system/box
           ];
         };
         plank = nixpkgs.lib.nixosSystem {
@@ -58,13 +50,22 @@
             inherit inputs;
           };
           modules = [
-            ./system/common.nix
-            ./system/plank
+            ./nixos/system/common
+            ./nixos/system/plank
           ];
         };
       };
 
-      # 'home-manager' looks here
+      darwinConfigurations.Air = darwin.lib.darwinSystem {
+        system = "aarch64-darwin";
+        specialArgs = {
+          inherit inputs;
+        };
+        modules = [
+          ./macos/darwin.nix
+        ];
+      };
+
       homeConfigurations = {
         daniel = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
@@ -72,20 +73,19 @@
             inherit inputs;
           };
           modules = [
-            ./home
+            ./common
+            ./nixos/home
           ];
         };
-      };
-
-      # 'darwin-rebuild' looks here
-      darwinConfigurations.Air = darwin.lib.darwinSystem {
-        system = "aarch64-darwin";
-        specialArgs = {
-          inherit inputs;
+        daniel-mac = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          extraSpecialArgs = {
+            inherit inputs;
+          };
+          modules = [
+            ./common
+          ];
         };
-        modules = [
-          ./home/mac
-        ];
       };
     };
 }

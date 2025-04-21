@@ -1,7 +1,13 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 {
   environment.systemPackages = [
     pkgs.vim
+    pkgs.home-manager
   ];
   # environment.darwinConfig
   # Necessary for using flakes on this system.
@@ -16,6 +22,11 @@
 
   # system.configurationRevision = self.rev or self.dirtyRev or null;
 
+  nixpkgs.overlays = [
+    (final: prev: {
+      home-manager = inputs.home-manager.packages."${pkgs.system}".default;
+    })
+  ];
   homebrew = {
     enable = true;
     casks = [
