@@ -5,7 +5,13 @@
   ...
 }:
 {
+  nixpkgs.overlays = [
+    (final: prev: {
+      home-manager = inputs.home-manager.packages."${pkgs.system}".default;
+    })
+  ];
   environment.systemPackages = [
+    pkgs.home-manager
     pkgs.vim
     pkgs.home-manager
   ];
@@ -22,11 +28,6 @@
 
   # system.configurationRevision = self.rev or self.dirtyRev or null;
 
-  nixpkgs.overlays = [
-    (final: prev: {
-      home-manager = inputs.home-manager.packages."${pkgs.system}".default;
-    })
-  ];
   homebrew = {
     enable = true;
     casks = [

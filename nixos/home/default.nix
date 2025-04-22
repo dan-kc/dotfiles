@@ -25,6 +25,12 @@
       "libsciter"
     ];
 
+  nixpkgs.overlays = [
+    (final: prev: {
+      hyprland = inputs.hyprland.packages."${pkgs.system}".default;
+    })
+  ];
+
   home.packages = with pkgs; [
     clipboard-jh
     wl-clipboard
@@ -46,6 +52,7 @@
     eww
     wluma
     hyprshot
+    hyprland
   ];
 
   # Never change
