@@ -5,6 +5,10 @@
 [manager]
 
 keymap = [
+  { on = [
+    ":",
+    "q",
+  ], run = "quit", desc = "Quit Yazi" },
   { on = "<Esc>", run = "escape", desc = "Exit visual mode, clear selection, or cancel search" },
   { on = "<C-[>", run = "escape", desc = "Exit visual mode, clear selection, or cancel search" },
   { on = "q", run = "quit", desc = "Quit the process" },

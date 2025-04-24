@@ -31,6 +31,13 @@
     })
   ];
 
+  # wayland.windowManager.hyprland = {
+  #   enable = true;
+  #   package = pkgs.hyprland;
+  #   xwayland.enable = true;
+  #   # systemd.enable = true;
+  # };
+
   home.packages = with pkgs; [
     clipboard-jh
     wl-clipboard
@@ -52,7 +59,6 @@
     eww
     wluma
     hyprshot
-    hyprland
   ];
 
   # Never change

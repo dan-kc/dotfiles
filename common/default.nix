@@ -95,6 +95,7 @@ in
     hurl
     unzip
     git-filter-repo
+    direnv
   ];
 
   programs.git = {
