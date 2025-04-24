@@ -506,3 +506,9 @@ keymap = [
   # Filtering
   { on = "f", run = "filter", desc = "Filter help items" },
 ]
+
+# Drop out to the shell
+[[manager.prepend_keymap]]
+on = "!"
+run = 'shell "$SHELL" --block'
+desc = "Open shell here"
