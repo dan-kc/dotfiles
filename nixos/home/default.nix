@@ -25,18 +25,12 @@
       "libsciter"
     ];
 
+  # We dont use this....
   nixpkgs.overlays = [
     (final: prev: {
       hyprland = inputs.hyprland.packages."${pkgs.system}".default;
     })
   ];
-
-  # wayland.windowManager.hyprland = {
-  #   enable = true;
-  #   package = pkgs.hyprland;
-  #   xwayland.enable = true;
-  #   # systemd.enable = true;
-  # };
 
   home.packages = with pkgs; [
     clipboard-jh
@@ -59,6 +53,7 @@
     eww
     wluma
     hyprshot
+    udiskie
   ];
 
   # Never change
