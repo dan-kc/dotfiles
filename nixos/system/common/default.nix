@@ -62,7 +62,6 @@
     evtest # See all inputs
     vim
     git # Need for flakes
-    qmk
 
     # Not yet configured
     wlsunset
