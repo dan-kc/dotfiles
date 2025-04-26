@@ -23,7 +23,9 @@ in
     ".zshrc".source = ./zsh/.zshrc;
     "zsh_modules".source = ./zsh/zsh_modules;
     ".config/starship.toml".source = ./starship.toml;
-    ".config/yazi".source = ./yazi;
+    ".config/yazi/yazi.toml".source = ./yazi/yazi.toml;
+    ".config/yazi/keymap.toml".source = ./yazi/keymap.toml;
+    ".config/yazi/init.lua".source = ./yazi/init.lua;
     ".config/lazygit/config.yml".source = ./lazygit.yml;
     ".config/atuin/config.toml".source = ./atuin.toml;
     ".config/wezterm".source = ./wezterm;
@@ -57,7 +59,6 @@ in
     wezterm
     neovim
     zen
-    yazi
     atuin
     yazi
     zsh
@@ -96,8 +97,18 @@ in
     unzip
     git-filter-repo
     direnv
+    zellij
+    tmux
+    sway
   ];
 
+  programs.yazi = {
+    enable = true;
+    plugins = {
+      git = pkgs.yaziPlugins.git;
+      starship = pkgs.yaziPlugins.starship;
+    };
+  };
   programs.git = {
     enable = true;
     userName = "Daniel Cox";

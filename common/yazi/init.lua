@@ -5,12 +5,12 @@ Status:children_add(function()
 		return ""
 	end
 
-	return ui.Line {
+	return ui.Line({
 		ui.Span(ya.user_name(h.cha.uid) or tostring(h.cha.uid)):fg("magenta"),
 		":",
 		ui.Span(ya.group_name(h.cha.gid) or tostring(h.cha.gid)):fg("magenta"),
 		" ",
-	}
+	})
 end, 500, Status.RIGHT)
 
 -- Show symlink in the status bar
@@ -30,3 +30,13 @@ Header:children_add(function()
 	end
 	return ui.Span(ya.user_name() .. "@" .. ya.host_name() .. ":"):fg("blue")
 end, 500, Header.LEFT)
+
+require("starship"):setup({
+	-- Hide flags (such as filter, find and search). This is recommended for starship themes which
+	-- are intended to go across the entire width of the terminal.
+	hide_flags = false, -- Default: false
+	-- Whether to place flags after the starship prompt. False means the flags will be placed before the prompt.
+	flags_after_prompt = true, -- Default: true
+})
+
+require("git"):setup()
