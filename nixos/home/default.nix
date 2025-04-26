@@ -46,7 +46,6 @@
     protonmail-bridge
     postman
     gnumake
-    go
     tmux
     awscli2
     discord
@@ -54,6 +53,7 @@
     wluma
     hyprshot
     udiskie
+    matugen
   ];
 
   # Never change
