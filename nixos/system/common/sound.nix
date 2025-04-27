@@ -9,9 +9,8 @@
       pulse.enable = true;
       jack.enable = true;
     };
-    # pulseaudio.enable = false;
+    pulseaudio.enable = false;
   };
-  hardware.pulseaudio.enable = false;
 
   environment.systemPackages = with pkgs; [
     pamixer

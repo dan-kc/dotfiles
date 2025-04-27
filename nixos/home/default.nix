@@ -33,6 +33,8 @@
   ];
 
   home.packages = with pkgs; [
+    bruno
+    yaak
     clipboard-jh
     wl-clipboard
     vivaldi
