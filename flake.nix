@@ -33,6 +33,15 @@
       };
     in
     {
+      devShells.${system}.default = pkgs.mkShell {
+        buildInputs = [
+          pkgs.sops
+          pkgs.lua-language-server
+          pkgs.stylua
+          pkgs.nil
+          pkgs.nixfmt-rfc-style
+        ];
+      };
       nixosConfigurations = {
         box = nixpkgs.lib.nixosSystem {
           inherit system;
