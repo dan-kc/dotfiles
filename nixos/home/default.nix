@@ -23,6 +23,7 @@
       "packer"
       "discord"
       "libsciter"
+      "obsidian"
     ];
 
   # We dont use this....
@@ -56,6 +57,7 @@
     hyprshot
     udiskie
     matugen
+    obsidian
   ];
 
   # Never change
