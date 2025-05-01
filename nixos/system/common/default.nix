@@ -71,13 +71,9 @@
   hardware.keyboard.qmk.enable = true;
 
   programs.zsh.enable = true;
+  programs.light.enable = true;
 
   services.udisks2.enable = true;
-  programs.hyprland = {
-    enable = true;
-    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-    xwayland.enable = true;
-  };
 
   security.sudo = {
     enable = true;

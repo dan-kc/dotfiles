@@ -5,6 +5,15 @@
   ...
 }:
 {
+  imports = [
+    inputs.hyprland.homeManagerModules.default
+  ];
+  wayland.windowManager.hyprland = {
+    enable = true;
+    plugins = [ inputs.hy3.packages.x86_64-linux.hy3 ];
+    xwayland.enable = true;
+  };
+
   home.username = "daniel";
   home.homeDirectory = "/home/daniel";
 
@@ -26,13 +35,6 @@
       "obsidian"
     ];
 
-  # We dont use this....
-  nixpkgs.overlays = [
-    (final: prev: {
-      hyprland = inputs.hyprland.packages."${pkgs.system}".default;
-    })
-  ];
-
   home.packages = with pkgs; [
     bruno
     yaak
@@ -44,6 +46,7 @@
     mako
     eww
     hyprpaper
+    hyprshot
     thunderbird
     slack
     protonmail-bridge
@@ -54,7 +57,6 @@
     discord
     eww
     wluma
-    hyprshot
     udiskie
     matugen
     obsidian
