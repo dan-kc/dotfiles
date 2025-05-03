@@ -11,7 +11,6 @@
     })
   ];
   environment.systemPackages = [
-    pkgs.home-manager
     pkgs.vim
     pkgs.home-manager
   ];

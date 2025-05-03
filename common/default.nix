@@ -40,14 +40,8 @@ in
   nixpkgs.overlays = [
     (final: prev: {
       neovim = inputs.neovim.packages."${pkgs.system}".default;
-    })
-    (final: prev: {
       wezterm = inputs.wezterm.packages."${pkgs.system}".default;
-    })
-    (final: prev: {
       zen = inputs.zen-browser.packages."${pkgs.system}".default;
-    })
-    (final: prev: {
       yazi = inputs.yazi.packages."${pkgs.system}".default;
     })
   ];
@@ -97,9 +91,7 @@ in
     unzip
     git-filter-repo
     direnv
-    zellij
-    tmux
-    sway
+    ruplacer
   ];
 
   programs.yazi = {
