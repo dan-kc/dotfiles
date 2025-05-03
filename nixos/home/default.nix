@@ -6,16 +6,19 @@
 }:
 {
   imports = [
-    inputs.hyprland.homeManagerModules.default
+    # inputs.hyprland.homeManagerModules.default
   ];
-  wayland.windowManager.hyprland = {
-    enable = true;
-    # plugins = [ inputs.hy3.packages.x86_64-linux.hy3 ];
-    xwayland.enable = true;
-    # extraConfig = ''
-    #   plugin = ${inputs.hy3.packages.x86_64-linux.hy3}/lib/libhy3.so
-    # '';
-  };
+  # wayland.windowManager.hyprland = {
+  #   enable = true;
+  #   # plugins = [ inputs.hy3.packages.x86_64-linux.hy3 ];
+  #   xwayland.enable = true;
+  #   extraConfig = ''
+  #     $terminal = wezterm
+  #     bind = $mainMod, T, exec, $terminal
+  #   '';
+  #     #
+  #     # plugin = ${inputs.hy3.packages.x86_64-linux.hy3}/lib/libhy3.so
+  # };
   # nixpkgs.overlays = [
   #   (final: prev: {
   #     hyprland =

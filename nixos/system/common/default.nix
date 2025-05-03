@@ -44,6 +44,11 @@
     ];
   };
 
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+    package = inputs.hyprland.packages.x86_64-linux.hyprland;
+  };
   nixpkgs.config.allowUnfree = true;
 
   console.font = "Lat2-Terminus16";
