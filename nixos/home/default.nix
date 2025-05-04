@@ -76,6 +76,8 @@
     eww
     wluma
     udiskie
+    ddcutil
+    brightnessctl
     matugen
     obsidian
   ];
