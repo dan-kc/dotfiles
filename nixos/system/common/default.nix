@@ -8,12 +8,13 @@
     ./networking.nix
     ./sound.nix
     ./ssh.nix
-    # inputs.sops-nix.nixosModules.sops
+    inputs.sops-nix.nixosModules.sops
   ];
-  # sops.defaultSopsFile = ../secrets/secrets.yaml;
-  # sops.defaultSopsFormat = "yaml";
-  # sops.age.keyFile = "/home/daniel/.config/sops/age/keys.txt";
-  # sops.secrets."wifi.env" = { };
+
+  sops.defaultSopsFile = ../../../secrets/secrets.yaml;
+  sops.defaultSopsFormat = "yaml";
+  sops.age.keyFile = "/home/daniel/.config/sops/age/keys.txt";
+  sops.secrets."wifi" = { };
 
   users.users.daniel = {
     isNormalUser = true;
@@ -44,17 +45,18 @@
     ];
   };
 
+  programs.zsh.enable = true;
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
     package = inputs.hyprland.packages.x86_64-linux.hyprland;
   };
-  nixpkgs.config.allowUnfree = true;
 
   console.font = "Lat2-Terminus16";
 
   virtualisation.docker.enable = true;
 
+  nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = [
     (final: prev: {
       home-manager = inputs.home-manager.packages."${pkgs.system}".default;
@@ -70,13 +72,10 @@
 
     # Not yet configured
     wlsunset
-    udiskie
+    udiskie # Mount external drives automatically
   ];
 
   hardware.keyboard.qmk.enable = true;
-
-  programs.zsh.enable = true;
-  programs.light.enable = true;
 
   services.udisks2.enable = true;
 

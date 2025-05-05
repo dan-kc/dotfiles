@@ -5,36 +5,8 @@
   ...
 }:
 {
-  imports = [
-    # inputs.hyprland.homeManagerModules.default
-  ];
-  # wayland.windowManager.hyprland = {
-  #   enable = true;
-  #   # plugins = [ inputs.hy3.packages.x86_64-linux.hy3 ];
-  #   xwayland.enable = true;
-  #   extraConfig = ''
-  #     $terminal = wezterm
-  #     bind = $mainMod, T, exec, $terminal
-  #   '';
-  #     #
-  #     # plugin = ${inputs.hy3.packages.x86_64-linux.hy3}/lib/libhy3.so
-  # };
-  # nixpkgs.overlays = [
-  #   (final: prev: {
-  #     hyprland =
-  #   })
-  # ];
-
-  # programs.hyprland.enable = true;
-  # programs.hyprland.package = inputs.hyprland.packages.x86_64-linux.hyprland;
-  # programs.hyprland.xwayland.enable = true;
-  # programs.hyprland = {
-  #   enable = true;
-  #   xwayland.enable = true;
-  # };
   home.username = "daniel";
   home.homeDirectory = "/home/daniel";
-
   home.file = {
     ".config/hypr".source = ./hyprland;
     ".config/eww".source = ./eww;
