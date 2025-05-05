@@ -36,12 +36,14 @@
     in
     {
       devShells.${system}.default = pkgs.mkShell {
-        buildInputs = [
-          pkgs.sops
-          pkgs.lua-language-server
-          pkgs.stylua
-          pkgs.nil
-          pkgs.nixfmt-rfc-style
+        buildInputs = with pkgs; [
+          sops
+          lua-language-server
+          stylua
+          nil
+          age
+          nixfmt-rfc-style
+          ssh-to-age
         ];
       };
       nixosConfigurations = {

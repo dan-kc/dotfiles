@@ -1,7 +1,9 @@
 keys:
   - &plank age1p3x9qjyskn4vp5v3kfejvjm3u9fytw7tq7v8388lxjlfsw73mywsnf0rjp
+  - &box age19p8w2fuju9jq44hndkmqshd5qfd632gaxv9parezxkxdwsmdtu4sm009cu
 creation_rules:
   - path_regex: secrets/secrets.yaml$
     key_groups:
       - age:
         - *plank
+        - *box
