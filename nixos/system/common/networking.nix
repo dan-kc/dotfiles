@@ -15,7 +15,7 @@
       enable = true;
       secretsFile = config.sops.secrets.wifi.path;
       networks = {
-        # "Redefined".pskRaw = "ext:COWORK_PSK";
+        "Redefined".pskRaw = "ext:COWORK_SPACE";
         "M-D-HOME".pskRaw = "ext:HOME";
       };
     };
