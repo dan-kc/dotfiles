@@ -37,12 +37,13 @@
     {
       devShells.${system}.default = pkgs.mkShell {
         buildInputs = with pkgs; [
-          sops
+          nixfmt-rfc-style
+          nil
           lua-language-server
           stylua
-          nil
+          # Todo: add toml/yaml formatter
+          sops
           age
-          nixfmt-rfc-style
           ssh-to-age
         ];
       };
