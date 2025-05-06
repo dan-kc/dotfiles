@@ -4,11 +4,19 @@
   networking = {
     firewall = {
       enable = true;
-      allowedTCPPorts = [ ];
+      allowedTCPPorts = [ 8081 ];
       allowedUDPPorts = [ ];
       allowPing = false;
-      trustedInterfaces = [ ];
+      # trustedInterfaces = [ ];
       checkReversePath = true;
+
+      interfaces = {
+        "wlp2s0" = {
+          allowedTCPPorts = [
+            8081
+          ];
+        };
+      };
     };
 
     wireless = {
