@@ -4,19 +4,20 @@
   networking = {
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 8081 ];
+      allowedTCPPorts = [ ];
       allowedUDPPorts = [ ];
       allowPing = false;
       # trustedInterfaces = [ ];
       checkReversePath = true;
 
-      interfaces = {
-        "wlp2s0" = {
-          allowedTCPPorts = [
-            8081
-          ];
-        };
-      };
+      # allowedTCPPorts = [ 8081 ];
+      # interfaces = {
+      #   "wlp2s0" = {
+      #     allowedTCPPorts = [
+      #       8081
+      #     ];
+      #   };
+      # };
     };
 
     wireless = {
@@ -25,6 +26,7 @@
       networks = {
         "Redefined".pskRaw = "ext:COWORK_SPACE";
         "M-D-HOME".pskRaw = "ext:HOME";
+        "SP Office 5G".pskRaw = "ext:SP_OFFICE";
       };
     };
   };
