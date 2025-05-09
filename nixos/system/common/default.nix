@@ -60,6 +60,7 @@
   nixpkgs.overlays = [
     (final: prev: {
       home-manager = inputs.home-manager.packages."${pkgs.system}".default;
+      hyprcursor = inputs.rose-pine-hyprcursor.packages.${pkgs.system}.default;
     })
   ];
 
@@ -70,9 +71,9 @@
     vim
     git # Need for flakes
 
-    # Not yet configured
-    wlsunset
+    wlsunset # Not yet configured
     udiskie # Mount external drives automatically
+    hyprcursor
   ];
 
   hardware.keyboard.qmk.enable = true;
