@@ -5,6 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     # nixpkgs.url = "github:NixOS/nixpkgs/release-24.11";
     neovim.url = "github:dan-kc/neovim";
+    flake-gen.url = "github:dan-kc/flake-gen";
     wezterm.url = "github:wez/wezterm?dir=nix";
     yazi.url = "github:sxyazi/yazi";
     sops-nix.url = "github:Mic92/sops-nix";

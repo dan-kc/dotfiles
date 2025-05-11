@@ -43,6 +43,7 @@ in
       wezterm = inputs.wezterm.packages."${pkgs.system}".default;
       zen = inputs.zen-browser.packages."${pkgs.system}".default;
       yazi = inputs.yazi.packages."${pkgs.system}".default;
+      flake-gen = inputs.flake-gen.packages."${pkgs.system}".default;
     })
   ];
 
@@ -82,7 +83,6 @@ in
     unzip
     git-open
     ripdrag
-    # ragenix
     difftastic
     pass
     gnupg # Currently only use for pass, which i only use for gpg, which I only use for vault.
@@ -92,6 +92,7 @@ in
     git-filter-repo
     direnv
     ruplacer
+    flake-gen
   ];
 
   programs.yazi = {
