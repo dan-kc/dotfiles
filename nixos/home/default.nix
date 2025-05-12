@@ -37,6 +37,7 @@
     eww
     hyprpaper
     hyprshot
+    hyprsunset
     thunderbird
     slack
     protonmail-bridge
