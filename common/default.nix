@@ -44,10 +44,12 @@ in
       zen = inputs.zen-browser.packages."${pkgs.system}".default;
       yazi = inputs.yazi.packages."${pkgs.system}".default;
       flake-gen = inputs.flake-gen.packages."${pkgs.system}".default;
+      jt = inputs.jt.packages."${pkgs.system}".default;
     })
   ];
 
   home.packages = with pkgs; [
+    jt
     alacritty
     anki
     vlc
