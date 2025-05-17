@@ -1,6 +1,10 @@
 # Disable ctrl-s
 stty stop undef
 
+# Export vars
+export SRC_ENDPOINT="https://sourcegraph.com"
+export EDITOR="nvim"
+
 # Aliases
 alias v=nvim
 alias c=clear

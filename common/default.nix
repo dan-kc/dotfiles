@@ -33,11 +33,6 @@ in
     ".config/direnv/direnv.toml".source = ./direnv.toml;
   };
 
-  home.sessionVariables = {
-    SRC_ENDPOINT = "https://sourcegraph.com";
-    EDITOR = "nvim";
-  };
-
   nixpkgs.overlays = [
     (final: prev: {
       neovim = inputs.neovim.packages."${pkgs.system}".default;
