@@ -48,7 +48,7 @@
           nil
           lua-language-server
           stylua
-          # Todo: add toml/yaml formatter
+          taplo
           sops
           age
           ssh-to-age
