@@ -19,25 +19,11 @@ function y() {
 	rm -f -- "$tmp"
 }
 
-source ~/zsh_modules/.zsh-vi-mode.zsh
-source <(fzf --zsh)
-
 HISTSIZE=100000
 SAVEHIST=100000
 setopt HIST_SAVE_NODUPS
 
-# [DOESNT WORK] Enable CTRL-E to edit the current line in $EDITOR
-autoload -U edit-command-line
-zle -N edit-command-line
-bindkey '^e' edit-command-line
-
-# [DOESNT WORK] Enable Y in visual mode to copy to system clipboard
-function vi-yank-systemclipboard {
-  zle vi-yank
-  echo "$CUTBUFFER" | wl-copy
-}
-zle -N vi-yank-systemclipboard
-bindkey -M vicmd 'Y' vi-yank-systemclipboard
+source ~/zsh_modules/.zsh-vi-mode.zsh
 
 eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
