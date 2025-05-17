@@ -9,7 +9,6 @@ export EDITOR="nvim"
 alias v=nvim
 alias c=clear
 alias y=yazi
-alias g=lazygit
 alias rm=trash
 alias ls=exa
 ff() { du -a | awk '{print $2}' | $(fzf --height 40% --border)| xargs -r $EDITOR ; }
