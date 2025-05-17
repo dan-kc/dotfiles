@@ -30,6 +30,7 @@ in
     ".config/atuin/config.toml".source = ./atuin.toml;
     ".config/wezterm".source = ./wezterm;
     ".config/alacritty.toml".source = ./alacritty.toml;
+    ".config/direnv/direnv.toml".source = ./direnv.toml;
   };
 
   home.sessionVariables = {
@@ -58,7 +59,6 @@ in
     zen
     atuin
     yazi
-    zsh
     tree
     fzf
     lazygit

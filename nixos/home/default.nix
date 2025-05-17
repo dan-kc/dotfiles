@@ -28,7 +28,7 @@
   home.packages = with pkgs; [
     bruno
     yaak
-    clipboard-jh
+    # clipboard-jh
     wl-clipboard
     vivaldi
     bemenu

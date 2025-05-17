@@ -26,7 +26,6 @@ config.show_new_tab_button_in_tab_bar = false
 -- config.leader = keymaps.leader
 config.keys = keymaps.general
 config.font = font
--- config.default_prog = { "/opt/homebrew/bin/nu", "-l" }
 config.tab_max_width = 40
 config.colors = theme.colors
 

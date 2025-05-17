@@ -15,7 +15,7 @@ return {
 		{ key = "V", mods = "CTRL|SHIFT", action = act.PasteFrom("Clipboard") },
 		{ key = "C", mods = "CTRL|SHIFT", action = act.CopyTo("Clipboard") },
 
-		{ key = "w", mods = "CTRL", action = act.CloseCurrentTab({ confirm = true }) },
+		{ key = "w", mods = "CTRL", action = act.CloseCurrentTab({ confirm = false }) },
 		{ key = "t", mods = "CTRL", action = act.SpawnTab("CurrentPaneDomain") },
 
 		{ key = "Y", mods = "CTRL|SHIFT", action = act.ActivateCopyMode }, -- Copy mode not currently working
