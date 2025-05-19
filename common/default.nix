@@ -11,6 +11,7 @@ let
       gke-gcloud-auth-plugin
     ]
   );
+  nix-colors-lib = inputs.nix-colors.lib.contrib { inherit pkgs; };
 in
 
 {
@@ -19,7 +20,10 @@ in
     inputs.sops-nix.homeManagerModules.sops
     inputs.nix-colors.homeManagerModules.default
   ];
-
+  # colorScheme = nix-colors-lib.colorSchemeFromPicture {
+  #   path = ../../wallpapers/33.jpg;
+  #   variant = "dark";
+  # };
   colorScheme = inputs.nix-colors.colorSchemes.rose-pine;
 
   home.file = {
@@ -36,7 +40,7 @@ in
       [font]
       normal = { family = "Hack Nerd Font" } 
       builtin_box_drawing = false
-      size = 30
+      size = 25
 
       [window]
       padding = { x = 20, y = 20 }

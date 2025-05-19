@@ -26,6 +26,7 @@
     ];
 
   home.packages = with pkgs; [
+    (import ./app-launcher.nix { inherit pkgs; })
     bruno
     yaak
     # clipboard-jh
