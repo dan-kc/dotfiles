@@ -1,0 +1,10 @@
+{
+  config,
+  nix-colors,
+  ...
+}:
+{
+  imports = [
+  ];
+
+}

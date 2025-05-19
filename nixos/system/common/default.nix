@@ -47,12 +47,7 @@
   # Gives zsh-autosuggestions suggestions
   environment.pathsToLink = [ "/share/zsh" ];
 
-  programs.zsh = {
-    enable = true;
-    # enableCompletions = true;
-    # autosuggestions.enable = true;
-    # syntaxHighlighting.enable = true;
-  };
+  programs.zsh.enable = true;
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;

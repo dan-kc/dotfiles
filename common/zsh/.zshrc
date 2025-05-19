@@ -12,6 +12,12 @@ alias y=yazi
 alias rm=trash
 alias ls=exa
 ff() { du -a | awk '{print $2}' | $(fzf --height 40% --border)| xargs -r $EDITOR ; }
+
+# Define a regular Zsh function named 'h'
+h() {
+  history -n -1000 | awk '!a[$0]++' | fzf --height 40% --border | wl-copy
+}
+
 take() {mkdir -p $1 ; cd $1 ; }
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"

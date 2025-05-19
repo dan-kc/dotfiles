@@ -6,7 +6,8 @@
     # nixpkgs.url = "github:NixOS/nixpkgs/release-24.11";
     neovim.url = "github:dan-kc/neovim";
     flake-gen.url = "github:dan-kc/flake-gen";
-    jt.url = "github:dan-kc/jt";
+    jt.url = "./nixos/home/jt";
+    nix-colors.url = "github:misterio77/nix-colors";
     wezterm.url = "github:wez/wezterm?dir=nix";
     yazi.url = "github:sxyazi/yazi";
     sops-nix.url = "github:Mic92/sops-nix";
