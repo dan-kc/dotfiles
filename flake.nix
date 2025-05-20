@@ -8,7 +8,7 @@
     flake-gen.url = "github:dan-kc/flake-gen";
     jt.url = "./home/jt";
     nix-colors.url = "github:misterio77/nix-colors";
-    # flavours.url = "Misterio77/flavours";
+    flavours.url = "github:Misterio77/flavours";
     wezterm.url = "github:wez/wezterm?dir=nix";
     yazi.url = "github:sxyazi/yazi";
     sops-nix.url = "github:Mic92/sops-nix";

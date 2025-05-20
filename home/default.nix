@@ -94,6 +94,7 @@
       yazi = inputs.yazi.packages."${pkgs.system}".default;
       flake-gen = inputs.flake-gen.packages."${pkgs.system}".default;
       jt = inputs.jt.packages."${pkgs.system}".default;
+      flavours = inputs.flavours.packages."${pkgs.system}".default;
     })
   ];
   nixpkgs.config.allowUnfreePredicate =
@@ -110,6 +111,7 @@
 
   home.packages = with pkgs; [
     (import ./app-launcher.nix { inherit pkgs; })
+    flavours
     bruno
     yaak
     # clipboard-jh
