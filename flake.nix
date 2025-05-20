@@ -16,7 +16,7 @@
     xremap-flake.url = "github:xremap/nix-flake";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    zen-browser.url = "github:0xc000022070/zen-browser-flake/ebeabdb79392f3dfac8c6019754e76997e4d5dfa";
+    zen-browser.url = "github:0xc000022070/zen-browser-flake";
     zen-browser.inputs.nixpkgs.follows = "nixpkgs";
     hy3.url = "github:outfoxxed/hy3";
     hy3.inputs.hyprland.follows = "hyprland";
