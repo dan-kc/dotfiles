@@ -7,7 +7,7 @@
   home.file = {
     ".config/alacritty.toml".text = ''
       [font]
-      normal = { family = "Hack Nerd Font" } 
+      normal = { family = "Hurmit Nerd Font" } 
       builtin_box_drawing = false
       size = 25
 
