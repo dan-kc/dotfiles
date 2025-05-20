@@ -6,8 +6,9 @@
     # nixpkgs.url = "github:NixOS/nixpkgs/release-24.11";
     neovim.url = "github:dan-kc/neovim";
     flake-gen.url = "github:dan-kc/flake-gen";
-    jt.url = "./nixos/home/jt";
+    jt.url = "./home/jt";
     nix-colors.url = "github:misterio77/nix-colors";
+    # flavours.url = "Misterio77/flavours";
     wezterm.url = "github:wez/wezterm?dir=nix";
     yazi.url = "github:sxyazi/yazi";
     sops-nix.url = "github:Mic92/sops-nix";
@@ -17,8 +18,6 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     zen-browser.url = "github:0xc000022070/zen-browser-flake/805c8f56e8ebac1527176fc9d551f73c4cd886f6";
     zen-browser.inputs.nixpkgs.follows = "nixpkgs";
-    darwin.url = "github:LnL7/nix-darwin";
-    darwin.inputs.nixpkgs.follows = "nixpkgs";
     hy3.url = "github:outfoxxed/hy3";
     hy3.inputs.hyprland.follows = "hyprland";
     rose-pine-hyprcursor = {
@@ -31,7 +30,6 @@
   outputs =
     {
       nixpkgs,
-      darwin,
       home-manager,
       self,
       ...
@@ -62,8 +60,8 @@
             inherit inputs;
           };
           modules = [
-            ./nixos/system/common
-            ./nixos/system/box
+            ./system/common
+            ./system/box
           ];
         };
         plank = nixpkgs.lib.nixosSystem {
@@ -72,20 +70,10 @@
             inherit inputs;
           };
           modules = [
-            ./nixos/system/common
-            ./nixos/system/plank
+            ./system/common
+            ./system/plank
           ];
         };
-      };
-
-      darwinConfigurations.Air = darwin.lib.darwinSystem {
-        system = "aarch64-darwin";
-        specialArgs = {
-          inherit inputs;
-        };
-        modules = [
-          ./macos/darwin.nix
-        ];
       };
 
       homeConfigurations = {
@@ -95,17 +83,7 @@
             inherit inputs;
           };
           modules = [
-            ./common
-            ./nixos/home
-          ];
-        };
-        daniel-mac = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          extraSpecialArgs = {
-            inherit inputs;
-          };
-          modules = [
-            ./common
+            ./home
           ];
         };
       };

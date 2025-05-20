@@ -1,32 +1,22 @@
 {
-  pkgs,
   inputs,
+  pkgs,
   config,
+  lib,
   ...
 }:
-let
-  google-cloud-with-plugins = pkgs.google-cloud-sdk.withExtraComponents (
-    with pkgs.google-cloud-sdk.components;
-    [
-      gke-gcloud-auth-plugin
-    ]
-  );
-  nix-colors-lib = inputs.nix-colors.lib.contrib { inherit pkgs; };
-in
-
 {
   imports = [
     ./fonts.nix
     inputs.sops-nix.homeManagerModules.sops
     inputs.nix-colors.homeManagerModules.default
   ];
-  # colorScheme = nix-colors-lib.colorSchemeFromPicture {
-  #   path = ../../wallpapers/33.jpg;
-  #   variant = "dark";
-  # };
   colorScheme = inputs.nix-colors.colorSchemes.rose-pine;
-
+  home.username = "daniel";
+  home.homeDirectory = "/home/daniel";
   home.file = {
+    ".config/hypr".source = ./hyprland;
+    "wluma/config.toml".source = ./wluma.toml;
     ".zshrc".source = ./zsh/.zshrc;
     "zsh_modules".source = ./zsh/zsh_modules;
     ".config/starship.toml".source = ./starship.toml;
@@ -93,6 +83,7 @@ in
       white = '#${config.colorScheme.palette.base07}'
     '';
     ".config/direnv/direnv.toml".source = ./direnv.toml;
+
   };
 
   nixpkgs.overlays = [
@@ -105,8 +96,46 @@ in
       jt = inputs.jt.packages."${pkgs.system}".default;
     })
   ];
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
+    builtins.elem (lib.getName pkg) [
+      "vivaldi"
+      "slack"
+      "postman"
+      "packer"
+      "discord"
+      "libsciter"
+      "obsidian"
+    ];
 
   home.packages = with pkgs; [
+    (import ./app-launcher.nix { inherit pkgs; })
+    bruno
+    yaak
+    # clipboard-jh
+    wl-clipboard
+    vivaldi
+    bemenu
+    libnotify
+    mako
+    hyprpaper
+    hyprshot
+    hyprsunset
+    thunderbird
+    slack
+    protonmail-bridge
+    postman
+    gnumake
+    tmux
+    awscli2
+    discord
+    eww
+    wluma
+    udiskie
+    ddcutil
+    brightnessctl
+    matugen
+    obsidian
     jt
     alacritty
     anki
@@ -145,7 +174,6 @@ in
     difftastic
     pass
     gnupg # Currently only use for pass, which i only use for gpg, which I only use for vault.
-    google-cloud-with-plugins
     hurl
     unzip
     git-filter-repo
@@ -174,4 +202,6 @@ in
       };
     };
   };
+  # Never change
+  home.stateVersion = "24.05";
 }
