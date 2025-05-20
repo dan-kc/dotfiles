@@ -32,7 +32,7 @@ HISTSIZE=100000
 SAVEHIST=100000
 setopt HIST_SAVE_NODUPS
 
-source ~/zsh_modules/.zsh-vi-mode.zsh
+source ~/zsh_modules/zsh-vi-mode.zsh
 
 eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
