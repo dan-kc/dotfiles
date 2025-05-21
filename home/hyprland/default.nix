@@ -35,7 +35,7 @@
           # Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
           allow_tearing = false
 
-          layout = master
+          layout = hy3
       }
 
       decoration {
@@ -133,12 +133,124 @@
       bind = $mainMod ALT, 9, movetoworkspacesilent, 10
 
       # Move/resize windows with mainMod + LMB/RMB and dragging
-      bindm = $mainMod, mouse:273, movewindow
+      bindm = $mainMod, mouse:273, hy3:movewindow
       bindm = $mainMod, mouse:272, resizewindow
 
       windowrulev2 = suppressevent maximize, class:.* # Prevent maximization of windows
       windowrulev2 = float, class:floating 
       windowrulev2 = size 90% 90%, class:floating 
+
+      bind = $mainMod+SHIFT, Page_Down, hy3:movewindow, l, once
+      bind = $mainMod+SHIFT, Page_Up, hy3:movewindow, r, once
+
+      bind = $mainMod, Page_Down, hy3:focustab, l, prioritize_hovered
+      bind = $mainMod, Page_Up, hy3:focustab, r, prioritize_hovered
+
+      bind = $mainMod, z, hy3:makegroup, tab, , force_ephemeral
+      bind = $mainMod, x, hy3:changegroup, untab
+      bind = $mainMod, a, hy3:changefocus, top
+
+      # bind = $mainMod, d, hy3:makegroup, h, , force_ephemeral
+      # bind = $mainMod, s, hy3:makegroup, v, , force_ephemeral
+
+      plugin {
+        hy3 {
+          # disable gaps when only one window is onscreen
+          # 0 - always show gaps
+          # 1 - hide gaps with a single window onscreen
+          # 2 - 1 but also show the window border
+          no_gaps_when_only = 1
+
+          # policy controlling what happens when a node is removed from a group,
+          # leaving only a group
+          # 0 = remove the nested group
+          # 1 = keep the nested group
+          # 2 = keep the nested group only if its parent is a tab group
+          node_collapse_policy = 0 # default: 2
+
+          # offset from group split direction when only one window is in a group
+          group_inset = 10 # default: 10
+
+          # if a tab group will automatically be created for the first window spawned in a workspace
+          tab_first_window = false
+
+          # tab group settings
+          tabs {
+            # height of the tab bar
+            height = 10
+            padding = 0 # default: 6
+            from_top = true 
+            radius = 10 # default: 6
+
+            border_width = 0 
+            render_text = false
+            text_center = true # default: true
+            text_font = Sans # default: Sans
+            text_height = 8 # default: 8
+            text_padding = 3 # default: 3
+
+            # active tab bar segment colors
+            col.active = rgba(33ccff40)
+            col.active.border = rgba(33ccffee)
+            col.active.text = rgba(ffffffff)
+
+            # focused tab bar segment colors (focused node in unfocused container)
+            col.focused =  rgba(60606040)
+            col.focused.border =  rgba(808080ee)
+            col.focused.text =  rgba(ffffffff)
+
+            # inactive tab bar segment colors
+            col.inactive =  rgba(30303020)
+            col.inactive.border =  rgba(606060aa)
+            col.inactive.text =  rgba(ffffffff)
+
+            # urgent tab bar segment colors
+            col.urgent =  rgba(ff223340)
+            col.urgent.border =  rgba(ff2233ee)
+            col.urgent.text =  rgba(ffffffff)
+
+            # urgent tab bar segment colors
+            col.locked =  rgba(90903340)
+            col.locked.border =  rgba(909033ee)
+            col.locked.text =  rgba(ffffffff)
+
+            # if tab backgrounds should be blurred
+            # Blur is only visible when the above colors are not opaque.
+            blur = true # default: true
+
+            # opacity multiplier for tabs
+            # Applies to blur as well as the given colors.
+            opacity = 1.0 # default: 1.0
+          }
+
+          # autotiling settings
+          autotile {
+            # enable autotile
+            enable = false # default: false
+
+            # make autotile-created groups ephemeral
+            ephemeral_groups = true # default: true
+
+            # if a window would be squished smaller than this width, a vertical split will be created
+            # -1 = never automatically split vertically
+            # 0 = always automatically split vertically
+            # <number> = pixel width to split at
+            trigger_width = 0 # default: 0
+
+            # if a window would be squished smaller than this height, a horizontal split will be created
+            # -1 = never automatically split horizontally
+            # 0 = always automatically split horizontally
+            # <number> = pixel height to split at
+            trigger_height = 0 # default: 0
+
+            # a space or comma separated list of workspace ids where autotile should be enabled
+            # it's possible to create an exception rule by prefixing the definition with "not:"
+            # workspaces = 1,2 # autotiling will only be enabled on workspaces 1 and 2
+            # workspaces = not:1,2 # autotiling will be enabled on all workspaces except 1 and 2
+            workspaces = all # default: all
+          }
+        }
+      }
     '';
   };
   home.packages = with pkgs; [
