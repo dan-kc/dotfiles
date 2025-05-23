@@ -14,7 +14,7 @@
     inputs.sops-nix.homeManagerModules.sops
     inputs.nix-colors.homeManagerModules.default
   ];
-  colorScheme = inputs.nix-colors.colorSchemes.rose-pine;
+  colorScheme = inputs.nix-colors.colorSchemes.eighties;
 
   home.username = "daniel";
   home.homeDirectory = "/home/daniel";

@@ -9,7 +9,7 @@
       [font]
       normal = { family = "Hurmit Nerd Font" } 
       builtin_box_drawing = false
-      size = 25
+      size = 16
 
       [window]
       padding = { x = 20, y = 20 }

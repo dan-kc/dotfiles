@@ -1198,11 +1198,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1747510640,
-        "narHash": "sha256-oAcrDn47bKJTQHO2Ox9brbig89as/+vpnPBr+kce0g8=",
+        "lastModified": 1748006151,
+        "narHash": "sha256-dd6aDnKhvVgG6R7ZG8MAfkFYMpMGBW2WK1nv93d/l8U=",
         "owner": "dan-kc",
         "repo": "neovim",
-        "rev": "1e8d0907f569ce8dcfd009216d226a4bab703f9a",
+        "rev": "f46876a850c34beeedaaf15349a9254dc20b31ba",
         "type": "github"
       },
       "original": {

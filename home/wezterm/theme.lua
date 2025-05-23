@@ -20,7 +20,7 @@ local color_scheme = "Rosé Pine (base16)" -- 8/10
 -- local color_scheme = "Twilight (base16)" -- 6/10
 -- local color_scheme = "Harmonic16 Dark (base16)" -- 7/10
 -- local color_scheme = "DanQing (base16)" -- 7/10
--- local color_scheme = "Eighties (base16)"
+-- local color_scheme = "Eighties (base16)" 
 -- local color_scheme = "Gruvbox dark, pale (base16)"
 -- local color_scheme = "Kimber (base16)"
 
