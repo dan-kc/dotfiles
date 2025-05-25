@@ -5,7 +5,8 @@
 }:
 {
   home.file = {
-    ".config/hypr/hyprpaper.conf".source = ./hyprpaper.conf;
+    ".config/hypr/hyprpaper.conf".text = ''
+    '';
     ".config/hypr/hyprland.conf".text = ''
       plugin = ${inputs.hy3.packages.x86_64-linux.hy3}/lib/libhy3.so
       monitor=,highrr,auto,auto
@@ -15,7 +16,7 @@
       $menu = bemenu-run
 
       exec-once = udiskie
-      exec-once = hyprpaper
+      exec-once = hyprpaper & sleep 0.5 && theme-switch
       exec-once = hyprsunset
 
       env = XCURSOR_SIZE,10
@@ -92,6 +93,7 @@
 
       bind = $mainMod, J, exec, alacritty --working-directory ~/notes --class floating --command nvim $(jt)
       bind = $mainMod, Y, exec, alacritty --working-directory ~/ --class floating --command yazi
+      bind = $mainMod, T, exec, alacritty -e bash -c 'selected_dir=$(zoxide query -l | fzf --preview "ls {}"); if [ -n "$selected_dir" ]; then cd "$selected_dir"; fi; exec zsh'
 
       env = HYPRCURSOR_THEME,rose-pine-hyprcursor
 
@@ -103,7 +105,6 @@
       bind = $shiftMod, PRINT, exec, hyprshot -m region
 
       bind = $mainMod, SPACE, exec, launcher
-      bind = $mainMod, T, exec, $terminal
       bind = $mainMod, Q, killactive,
       bind = $mainMod, C, exec, $copy
       bind = $mainMod, V, exec, $paste

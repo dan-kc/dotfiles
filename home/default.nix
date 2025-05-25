@@ -24,6 +24,7 @@
     ".config/atuin/config.toml".source = ./atuin.toml;
     ".config/wezterm".source = ./wezterm;
     ".config/direnv/direnv.toml".source = ./direnv.toml;
+    ".config/flavours".source = ./flavours;
   };
 
   nixpkgs.overlays = [
@@ -50,6 +51,7 @@
 
   home.packages = with pkgs; [
     (import ./app-launcher.nix { inherit pkgs; })
+    (import ./theme.nix { inherit pkgs; })
     flavours
     bruno
     yaak

@@ -1,0 +1,7 @@
+shell = "bash -c '{}'"
+
+[[item]]
+file = "~/.config/alacritty/colors.toml"
+template = "alacritty"
+subtemplate = "default-256"
+rewrite = true
