@@ -10,7 +10,6 @@
     jt.url = "./home/jt";
     nix-colors.url = "github:misterio77/nix-colors";
     flavours.url = "github:Misterio77/flavours";
-    wezterm.url = "github:wez/wezterm?dir=nix";
     yazi.url = "github:sxyazi/yazi";
     sops-nix.url = "github:Mic92/sops-nix";
     hyprland.url = "github:hyprwm/Hyprland";

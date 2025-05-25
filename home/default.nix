@@ -22,7 +22,6 @@
     ".config/starship.toml".source = ./starship.toml;
     ".config/lazygit/config.yml".source = ./lazygit.yml;
     ".config/atuin/config.toml".source = ./atuin.toml;
-    ".config/wezterm".source = ./wezterm;
     ".config/direnv/direnv.toml".source = ./direnv.toml;
     ".config/flavours".source = ./flavours;
   };
@@ -30,7 +29,6 @@
   nixpkgs.overlays = [
     (final: prev: {
       neovim = inputs.neovim.packages."${pkgs.system}".default;
-      wezterm = inputs.wezterm.packages."${pkgs.system}".default;
       zen = inputs.zen-browser.packages."${pkgs.system}".default;
       flake-gen = inputs.flake-gen.packages."${pkgs.system}".default;
       jt = inputs.jt.packages."${pkgs.system}".default;
@@ -54,29 +52,25 @@
     (import ./theme.nix { inherit pkgs; })
     flavours
     bruno
-    yaak
     wl-clipboard
     vivaldi
     bemenu
-    libnotify
+    # libnotify
     mako
     thunderbird
     slack
     protonmail-bridge
     postman
     gnumake
-    tmux
     awscli2
     discord
     udiskie
     ddcutil
     brightnessctl
-    matugen
     obsidian
     jt
     anki
     vlc
-    wezterm
     neovim
     zen
     atuin
@@ -89,9 +83,7 @@
     zoxide
     starship
     trash-cli
-    k3s
     gh
-    fnm
     gcc
     bandwhich
     dua
