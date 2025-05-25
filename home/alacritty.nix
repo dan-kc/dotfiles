@@ -10,7 +10,7 @@
       import=["~/.config/alacritty/colors.toml"]
 
       [font]
-      normal = { family = "Hurmit Nerd Font" } 
+      normal = { family = "${config.globalFonts.selectedFont}" } 
       builtin_box_drawing = false
       size = 16
 

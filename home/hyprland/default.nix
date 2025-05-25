@@ -16,6 +16,7 @@
       $menu = bemenu-run
 
       exec-once = udiskie
+      exec-once = mako
       exec-once = hyprpaper & sleep 0.5 && theme-switch
       exec-once = hyprsunset
 

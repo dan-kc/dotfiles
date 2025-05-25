@@ -11,6 +11,7 @@
     ./zsh
     ./yazi
     ./hyprland
+    ./notifications.nix
     inputs.sops-nix.homeManagerModules.sops
     inputs.nix-colors.homeManagerModules.default
   ];
@@ -55,14 +56,11 @@
     wl-clipboard
     vivaldi
     bemenu
-    # libnotify
-    mako
     thunderbird
     slack
     protonmail-bridge
     postman
     gnumake
-    awscli2
     discord
     udiskie
     ddcutil
@@ -92,7 +90,6 @@
     miniserve
     rsync
     src-cli
-    opentofu
     packer
     unzip
     git-open
