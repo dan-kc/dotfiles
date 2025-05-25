@@ -2,3 +2,4 @@ gui:
   showBottomLine: false
   showCommandLog: false
   showListFooter: false
+  mouseEvents: false
