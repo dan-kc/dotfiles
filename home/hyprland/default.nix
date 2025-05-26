@@ -20,7 +20,7 @@
       exec-once = hyprpaper & sleep 0.5 && theme-switch
       exec-once = hyprsunset
 
-      env = XCURSOR_SIZE,10
+      env = XCURSOR_SIZE,24
       env = HYPRCURSOR_SIZE,24
 
       general { 
