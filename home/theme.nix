@@ -9,8 +9,10 @@ pkgs.stdenv.mkDerivation {
   src = pkgs.writeShellScript "theme-switch-script" ''
     #!/bin/sh
 
-    # Randomly pick a flie in /wallpapers
-    selected_file=$(find ~/wallpapers/dark ~/wallpapers/light -type f -print0 | shuf -z -n 1 | xargs -0)
+    wallpaper_base_dir="$HOME/wallpapers"
+
+    # Randomly pick a flie in wallpapers dir
+    selected_file=$(find "$wallpaper_base_dir"/dark "$wallpaper_base_dir"/light -type f -print0 | shuf -z -n 1 | xargs -0)
 
     # Check if an argument (absolute path) is provided
     if [ "$#" -ge 1 ]; then
@@ -19,12 +21,19 @@ pkgs.stdenv.mkDerivation {
 
       # Optional: Add a check to ensure the provided path is a valid file
       if [ ! -f "$selected_file" ]; then
-        echo "Error: Provided path '$selected_file' is not a valid file."
+        echo "Error: Provided path "$selected_file" is not a valid file."
         exit 1
       fi
     fi
 
-    ${pkgs.flavours}/bin/flavours generate dark "$selected_file"
+    theme="light"
+    if echo "$selected_file" | grep -q "$wallpaper_base_dir"/dark; then
+      echo "IS dark"
+      echo "$selected_file"
+      theme="dark"
+    fi
+
+    ${pkgs.flavours}/bin/flavours generate "$theme" "$selected_file"
     ${pkgs.flavours}/bin/flavours apply generated
 
     hyprctl hyprpaper reload ,"$selected_file"
