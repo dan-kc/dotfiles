@@ -56,6 +56,7 @@
     vivaldi
     bemenu
     thunderbird
+    protonmail-bridge-gui
     slack
     protonmail-bridge
     postman
@@ -96,12 +97,15 @@
     git-filter-repo
     ripdrag
     difftastic
-    pass
-    gnupg # Currently only use for pass, which i only use for gpg, which I only use for vault...
     hurl
     unzip
     ruplacer
     flake-gen
+
+    pass
+    gnupg # Currently only use for pass, which i only use for gpg, which I only use for vault and proton-bridge...
+    pinentry-tty
+
   ];
   programs.direnv = {
     enable = true;
