@@ -92,7 +92,7 @@
       $copy = wl-paste | CLIPBOARD_NOGUI=1 cb copy
       $screenshot = grim -g '$(slurp)'
 
-      bind = $mainMod, J, exec, alacritty --working-directory ~/notes --class floating --command nvim $(jt)
+      bind = $mainMod, J, exec, alacritty --working-directory ~/notes --class floating --command zsh -c "nvim $(jt)"
       bind = $mainMod, Y, exec, alacritty --working-directory ~/ --class floating --command yazi
       bind = $mainMod, T, exec, alacritty -e bash -c 'selected_dir=$(zoxide query -l | fzf --preview "ls {}"); if [ -n "$selected_dir" ]; then cd "$selected_dir"; fi; exec zsh'
 
