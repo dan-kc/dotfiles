@@ -10,6 +10,7 @@ tags: []
 - [ ] Take medication
 - [ ] Treat scalp
 - [ ] Moisturise scalp
+- [ ] Tidy room
 
 ## Studies
 
@@ -25,6 +26,11 @@ tags: []
 - [ ] Chin tucks
 - [ ] Wall starfish
 - [ ] Wall starfish
+- [ ] Hand stretches
+- [ ] Deep squat stretch
+- [ ] Hip flexor stretch
+- [ ] Hang from bar
+- [ ] Band stretch
 {% if workout=="core" -%}
 - [ ] Bycicle crunches
 - [ ] Bycicle crunches
@@ -37,6 +43,10 @@ tags: []
 - [ ] Kettle bell swings
 - [ ] Bulgarian split squats
 - [ ] Bulgarian split squats
+- [ ] Floor flexor stretch
+- [ ] Squat holding kettle 
+- [ ] Deep squat raise
+
 {% elif workout=="back" -%}
 - [ ] Pullups
 - [ ] Pullups

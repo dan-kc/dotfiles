@@ -32,8 +32,6 @@ fn main() -> Result<(), std::io::Error> {
     };
     let mut context = tera::Context::new();
     context.insert("workout", workout);
-    // let names: Vec<_> = tera.get_template_names().collect();
-    // dbg!(names);
 
     let str_to_write = tera
         .render("journal.md", &context)
