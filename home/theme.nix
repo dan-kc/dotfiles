@@ -19,7 +19,6 @@ pkgs.stdenv.mkDerivation {
       # Use the provided argument as the selected file
       selected_file="$1"
 
-      # Optional: Add a check to ensure the provided path is a valid file
       if [ ! -f "$selected_file" ]; then
         echo "Error: Provided path "$selected_file" is not a valid file."
         exit 1
@@ -28,7 +27,6 @@ pkgs.stdenv.mkDerivation {
 
     theme="light"
     if echo "$selected_file" | grep -q "$wallpaper_base_dir"/dark; then
-      echo "IS dark"
       echo "$selected_file"
       theme="dark"
     fi
