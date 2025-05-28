@@ -23,7 +23,6 @@
     ".config/starship.toml".source = ./starship.toml;
     ".config/lazygit/config.yml".source = ./lazygit.yml;
     ".config/atuin/config.toml".source = ./atuin.toml;
-    ".config/direnv/direnv.toml".source = ./direnv.toml;
     ".config/flavours".source = ./flavours;
   };
 
@@ -101,10 +100,14 @@
     gnupg # Currently only use for pass, which i only use for gpg, which I only use for vault...
     hurl
     unzip
-    direnv
     ruplacer
     flake-gen
   ];
+  programs.direnv = {
+    enable = true;
+    silent = true;
+    nix-direnv.enable = true;
+  };
 
   programs.git = {
     enable = true;
