@@ -55,6 +55,4 @@ tags: []
 {% else -%}
 Chillout today
 {% endif %}
-## Tasks Completed
-
 ## Summary
