@@ -7,6 +7,7 @@ export EDITOR="nvim"
 
 # Aliases
 alias v=nvim
+alias g=lazygit
 alias c=clear
 alias y=yazi
 alias rm=trash
