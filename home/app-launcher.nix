@@ -16,7 +16,11 @@ pkgs.stdenv.mkDerivation {
 
     # Execute if a valid selection is made
     if [ -n "$selected_app" ]; then
-        $selected_app &
+        if [ "$selected_app" = "zen" ]; then
+            exec zen -P default &
+        else
+            exec "$selected_app" &
+        fi
     fi
   '';
   phases = [ "installPhase" ];
