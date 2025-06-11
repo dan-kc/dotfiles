@@ -20,7 +20,7 @@
       exec-once = hyprpaper & sleep 0.5 && theme-switch
       exec-once = hyprsunset
 
-      env = XCURSOR_SIZE,24
+      # env = XCURSOR_SIZE,36
       env = HYPRCURSOR_SIZE,24
 
       general { 
@@ -98,12 +98,12 @@
 
       env = HYPRCURSOR_THEME,rose-pine-hyprcursor
 
-      # Screenshot a window
-      bind = $mainMod, PRINT, exec, hyprshot -m window
       # Screenshot a monitor
       bind = , PRINT, exec, hyprshot -m output
+      # Screenshot a window
+      bind = $mainMod, PRINT, exec, hyprshot -m window
       # Screenshot a region
-      bind = $shiftMod, PRINT, exec, hyprshot -m region
+      bind = $mainMod+SHIFT, PRINT, exec, hyprshot -m region
 
       bind = $mainMod, SPACE, exec, launcher
       bind = $mainMod, Q, killactive,
