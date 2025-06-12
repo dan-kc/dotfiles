@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs,
+  config,
   ...
 }:
 {
@@ -14,7 +15,10 @@
   sops.defaultSopsFile = ../../secrets/secrets.yaml;
   sops.defaultSopsFormat = "yaml";
   sops.age.keyFile = "/home/daniel/.config/sops/age/keys.txt";
-  sops.secrets."wifi" = { };
+  sops.secrets.wifi = { };
+  sops.secrets.anthropic_api_key = {
+    owner = config.users.users.daniel.name;
+  };
 
   users.users.daniel = {
     isNormalUser = true;
@@ -57,9 +61,9 @@
   console.font = "Lat2-Terminus16";
 
   nix.settings = {
-    substituters = ["https://hyprland.cachix.org"];
-    trusted-substituters = ["https://hyprland.cachix.org"];
-    trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+    substituters = [ "https://hyprland.cachix.org" ];
+    trusted-substituters = [ "https://hyprland.cachix.org" ];
+    trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
   };
   virtualisation.docker.enable = true;
 

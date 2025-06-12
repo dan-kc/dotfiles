@@ -3,3 +3,7 @@ gui:
   showCommandLog: false
   showListFooter: false
   mouseEvents: false
+git:
+  paging:
+    colorArg: always
+    pager: diff-so-fancy 

@@ -4,6 +4,7 @@ stty stop undef
 # Export vars
 export SRC_ENDPOINT="https://sourcegraph.com"
 export EDITOR="nvim"
+export ANTHROPIC_API_KEY="$(< /run/secrets/anthropic_api_key)"
 
 # Aliases
 alias v=nvim

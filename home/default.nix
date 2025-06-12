@@ -29,7 +29,7 @@
   nixpkgs.overlays = [
     (final: prev: {
       neovim = inputs.neovim.packages."${pkgs.system}".default;
-      zen = inputs.zen-browser.packages."${pkgs.system}".default;
+      # zen = inputs.zen-browser.packages."${pkgs.system}".default;
       flake-gen = inputs.flake-gen.packages."${pkgs.system}".default;
       jt = inputs.jt.packages."${pkgs.system}".default;
       flavours = inputs.flavours.packages."${pkgs.system}".default;
@@ -45,6 +45,8 @@
       "discord"
       "libsciter"
       "obsidian"
+      "claude-code"
+      "cursor"
     ];
 
   home.packages = with pkgs; [
@@ -70,7 +72,7 @@
     anki
     vlc
     neovim
-    zen
+    # zen
     atuin
     tree
     fzf
@@ -105,7 +107,8 @@
     pass
     gnupg # Currently only use for pass, which i only use for gpg, which I only use for vault and proton-bridge...
     pinentry-tty
-
+    claude-code
+    code-cursor
   ];
   programs.direnv = {
     enable = true;
@@ -114,15 +117,27 @@
   };
 
   programs.git = {
+    diff-so-fancy = {
+      enable = true;
+      markEmptyLines = true;
+    };
     enable = true;
     userName = "Daniel Cox";
     userEmail = "63171098+dan-kc@users.noreply.github.com";
     extraConfig = {
+      interactive = {
+        singleKey = true;
+      };
       init = {
         defaultBranch = "main";
       };
       color = {
         ui = "auto";
+      };
+      status = {
+        branch = true;
+        showStash = true;
+        showUntrackedFiles = "all";
       };
     };
   };

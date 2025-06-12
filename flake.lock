@@ -1129,11 +1129,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1748440847,
-        "narHash": "sha256-qWhNFLqidImsb3eIqGy/fLQjQETEtCkn03xhWqw+YRM=",
+        "lastModified": 1748985472,
+        "narHash": "sha256-3KDGGkW53Qt/g2YRgYL/WwVUSjiOOBxwTAWhxatIRRA=",
         "owner": "dan-kc",
         "repo": "neovim",
-        "rev": "b4984451ed4e80a5935c6b2ec07ddfcc3de01ecd",
+        "rev": "3bebf9e565be46ff3bbf63edbd240dd4a0d5aa53",
         "type": "github"
       },
       "original": {
@@ -1902,11 +1902,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1747747949,
-        "narHash": "sha256-Ax1S/YaEovDKz9M71AweVpDxqJiTn/tHowbbUTb4gSo=",
+        "lastModified": 1748675871,
+        "narHash": "sha256-t8kG9ZluGH3DNHtG5M196LdPgJdM2Qb8kgWi0iBKtQ0=",
         "owner": "0xc000022070",
         "repo": "zen-browser-flake",
-        "rev": "5f7f77c79f1e7512ead0bed4e8b4bbcef8d80b38",
+        "rev": "6205ec7c9c5e1fe8eac7b1af251c97a7cbef7c4e",
         "type": "github"
       },
       "original": {
