@@ -7,7 +7,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     neovim.url = "github:dan-kc/neovim";
     flake-gen.url = "github:dan-kc/flake-gen";
-    jt.url = "./home/jt";
+    jt.url = "github:dan-kc/jt";
     nix-colors.url = "github:misterio77/nix-colors";
     flavours.url = "github:Misterio77/flavours";
     yazi.url = "github:sxyazi/yazi";

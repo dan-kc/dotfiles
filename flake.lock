@@ -1097,14 +1097,18 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "path": "./home/jt",
-        "type": "path"
+        "lastModified": 1749936834,
+        "narHash": "sha256-S/+ZeNgSffsW1XGv7mWzMFHCvh56gaCJ9KebtHH0IQY=",
+        "owner": "dan-kc",
+        "repo": "jt",
+        "rev": "bebe53882d128c1c2811e217a9d444244e430b46",
+        "type": "github"
       },
       "original": {
-        "path": "./home/jt",
-        "type": "path"
-      },
-      "parent": []
+        "owner": "dan-kc",
+        "repo": "jt",
+        "type": "github"
+      }
     },
     "luvit-meta": {
       "flake": false,
@@ -1129,11 +1133,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1748985472,
-        "narHash": "sha256-3KDGGkW53Qt/g2YRgYL/WwVUSjiOOBxwTAWhxatIRRA=",
+        "lastModified": 1749754849,
+        "narHash": "sha256-gt7TrAhZO2SAvGmKLQIBE5U53DHwSkGu5tQN8H95AUI=",
         "owner": "dan-kc",
         "repo": "neovim",
-        "rev": "3bebf9e565be46ff3bbf63edbd240dd4a0d5aa53",
+        "rev": "6891701dc5f3c10484dddb2d186b5f4b50a2cde8",
         "type": "github"
       },
       "original": {
@@ -1378,11 +1382,11 @@
     },
     "nixpkgs_6": {
       "locked": {
-        "lastModified": 1748370509,
-        "narHash": "sha256-QlL8slIgc16W5UaI3w7xHQEP+Qmv/6vSNTpoZrrSlbk=",
+        "lastModified": 1749285348,
+        "narHash": "sha256-frdhQvPbmDYaScPFiCnfdh3B/Vh81Uuoo0w5TkWmmjU=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "4faa5f5321320e49a78ae7848582f684d64783e9",
+        "rev": "3e3afe5174c561dee0df6f2c2b2236990146329f",
         "type": "github"
       },
       "original": {
