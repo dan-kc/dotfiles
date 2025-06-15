@@ -30,7 +30,7 @@
     (final: prev: {
       neovim = inputs.neovim.packages."${pkgs.system}".default;
       # zen = inputs.zen-browser.packages."${pkgs.system}".default;
-      flake-gen = inputs.flake-gen.packages."${pkgs.system}".default;
+      # flake-gen = inputs.flake-gen.packages."${pkgs.system}".default;
       jt = inputs.jt.packages."${pkgs.system}".default;
       flavours = inputs.flavours.packages."${pkgs.system}".default;
     })
@@ -102,7 +102,7 @@
     hurl
     unzip
     ruplacer
-    flake-gen
+    # flake-gen
 
     pass
     gnupg # Currently only use for pass, which i only use for gpg, which I only use for vault and proton-bridge...
