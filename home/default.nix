@@ -46,7 +46,7 @@
       "libsciter"
       "obsidian"
       "claude-code"
-      "cursor"
+      # "cursor"
     ];
 
   home.packages = with pkgs; [
@@ -108,7 +108,8 @@
     gnupg # Currently only use for pass, which i only use for gpg, which I only use for vault and proton-bridge...
     pinentry-tty
     claude-code
-    code-cursor
+    # code-cursor
+    aider-chat
   ];
   programs.direnv = {
     enable = true;
