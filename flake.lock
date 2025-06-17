@@ -1073,11 +1073,11 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1749754849,
-        "narHash": "sha256-gt7TrAhZO2SAvGmKLQIBE5U53DHwSkGu5tQN8H95AUI=",
+        "lastModified": 1749996122,
+        "narHash": "sha256-PCaun5VGRUWvm8XNrybJGkZ0MA40bqfzv0jvBewYTOQ=",
         "owner": "dan-kc",
         "repo": "neovim",
-        "rev": "6891701dc5f3c10484dddb2d186b5f4b50a2cde8",
+        "rev": "24a1ebff33c51c39aeddde01e06a638ebcd50c75",
         "type": "github"
       },
       "original": {

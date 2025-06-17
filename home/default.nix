@@ -110,6 +110,7 @@
     claude-code
     # code-cursor
     aider-chat
+    opencode
   ];
   programs.direnv = {
     enable = true;
