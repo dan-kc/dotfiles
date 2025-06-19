@@ -73,7 +73,7 @@
           repeat_rate = 25
           repeat_delay = 150
           follow_mouse = 1
-          natural_scroll = false
+          natural_scroll = true
           scroll_factor = 0.3
           kb_layout = us,gb
       }
