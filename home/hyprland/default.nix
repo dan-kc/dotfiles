@@ -73,8 +73,8 @@
           repeat_rate = 25
           repeat_delay = 150
           follow_mouse = 1
-          natural_scroll = true
-          scroll_factor = 0.5
+          natural_scroll = false
+          scroll_factor = 0.3
           kb_layout = us,gb
       }
 
@@ -123,16 +123,16 @@
       bind = $mainMod, 9, workspace, 10
 
       # Move active window to a workspace with mainMod + SHIFT + [0-9]
-      bind = $mainMod ALT, 0, movetoworkspacesilent, 1
-      bind = $mainMod ALT, 1, movetoworkspacesilent, 2
-      bind = $mainMod ALT, 2, movetoworkspacesilent, 3
-      bind = $mainMod ALT, 3, movetoworkspacesilent, 4
-      bind = $mainMod ALT, 4, movetoworkspacesilent, 5
-      bind = $mainMod ALT, 5, movetoworkspacesilent, 6
-      bind = $mainMod ALT, 6, movetoworkspacesilent, 7
-      bind = $mainMod ALT, 7, movetoworkspacesilent, 8
-      bind = $mainMod ALT, 8, movetoworkspacesilent, 9
-      bind = $mainMod ALT, 9, movetoworkspacesilent, 10
+      bind = $mainMod+SHIFT, 0, movetoworkspacesilent, 1
+      bind = $mainMod+SHIFT, 1, movetoworkspacesilent, 2
+      bind = $mainMod+SHIFT, 2, movetoworkspacesilent, 3
+      bind = $mainMod+SHIFT, 3, movetoworkspacesilent, 4
+      bind = $mainMod+SHIFT, 4, movetoworkspacesilent, 5
+      bind = $mainMod+SHIFT, 5, movetoworkspacesilent, 6
+      bind = $mainMod+SHIFT, 6, movetoworkspacesilent, 7
+      bind = $mainMod+SHIFT, 7, movetoworkspacesilent, 8
+      bind = $mainMod+SHIFT, 8, movetoworkspacesilent, 9
+      bind = $mainMod+SHIFT, 9, movetoworkspacesilent, 10
 
       # Move/resize windows with mainMod + LMB/RMB and dragging
       bindm = $mainMod, mouse:273, hy3:movewindow
@@ -151,9 +151,6 @@
       bind = $mainMod, z, hy3:makegroup, tab, , force_ephemeral
       bind = $mainMod, x, hy3:changegroup, untab
       bind = $mainMod, a, hy3:changefocus, top
-
-      # bind = $mainMod, d, hy3:makegroup, h, , force_ephemeral
-      # bind = $mainMod, s, hy3:makegroup, v, , force_ephemeral
 
       plugin {
         hy3 {
@@ -179,10 +176,10 @@
           # tab group settings
           tabs {
             # height of the tab bar
-            height = 10
+            height = 20
             padding = 0 # default: 6
             from_top = true 
-            radius = 10 # default: 6
+            radius = 0 # default: 6
 
             border_width = 0 
             render_text = false
