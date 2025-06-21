@@ -41,11 +41,11 @@
       }
 
       decoration {
-          rounding = 10
+          rounding = 0
           active_opacity = 1.0
           inactive_opacity = 0.94
           blur {
-              enabled = false
+              enabled = true
           }
       }
 
@@ -152,6 +152,12 @@
       bind = $mainMod, x, hy3:changegroup, untab
       bind = $mainMod, a, hy3:changefocus, top
 
+      bindel = ,XF86MonBrightnessDown, exec, hyprctl hyprsunset gamma -10
+      bindel = ,XF86MonBrightnessUp, exec, hyprctl hyprsunset gamma +10
+
+      bindel = SHIFT,XF86MonBrightnessDown, exec, hyprctl hyprsunset temperature -250
+      bindel = SHIFT,XF86MonBrightnessUp, exec, hyprctl hyprsunset temperature +250
+
       plugin {
         hy3 {
           # disable gaps when only one window is onscreen
@@ -173,20 +179,18 @@
           # if a tab group will automatically be created for the first window spawned in a workspace
           tab_first_window = false
 
-          # tab group settings
           tabs {
-            # height of the tab bar
-            height = 20
-            padding = 0 # default: 6
+            height = 10
+            padding = 0
             from_top = true 
-            radius = 0 # default: 6
+            radius = 0
 
             border_width = 0 
             render_text = false
-            text_center = true # default: true
-            text_font = Sans # default: Sans
-            text_height = 8 # default: 8
-            text_padding = 3 # default: 3
+            text_center = true
+            text_font = Sans
+            text_height = 8
+            text_padding = 3
 
             # active tab bar segment colors
             col.active = rgba(33ccff40)
@@ -208,45 +212,13 @@
             col.urgent.border =  rgba(ff2233ee)
             col.urgent.text =  rgba(ffffffff)
 
-            # urgent tab bar segment colors
+            # locked tab bar segment colors
             col.locked =  rgba(90903340)
             col.locked.border =  rgba(909033ee)
             col.locked.text =  rgba(ffffffff)
 
-            # if tab backgrounds should be blurred
-            # Blur is only visible when the above colors are not opaque.
-            blur = true # default: true
-
-            # opacity multiplier for tabs
-            # Applies to blur as well as the given colors.
-            opacity = 1.0 # default: 1.0
-          }
-
-          # autotiling settings
-          autotile {
-            # enable autotile
-            enable = false # default: false
-
-            # make autotile-created groups ephemeral
-            ephemeral_groups = true # default: true
-
-            # if a window would be squished smaller than this width, a vertical split will be created
-            # -1 = never automatically split vertically
-            # 0 = always automatically split vertically
-            # <number> = pixel width to split at
-            trigger_width = 0 # default: 0
-
-            # if a window would be squished smaller than this height, a horizontal split will be created
-            # -1 = never automatically split horizontally
-            # 0 = always automatically split horizontally
-            # <number> = pixel height to split at
-            trigger_height = 0 # default: 0
-
-            # a space or comma separated list of workspace ids where autotile should be enabled
-            # it's possible to create an exception rule by prefixing the definition with "not:"
-            # workspaces = 1,2 # autotiling will only be enabled on workspaces 1 and 2
-            # workspaces = not:1,2 # autotiling will be enabled on all workspaces except 1 and 2
-            workspaces = all # default: all
+            blur = true
+            opacity = 1.0
           }
         }
       }
