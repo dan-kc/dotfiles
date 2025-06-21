@@ -17,7 +17,7 @@
       [window]
       padding = { x = 20, y = 20 }
       dynamic_padding = true
-      opacity = 0.98
+      opacity = 1.0
 
       [selection]
       save_to_clipboard = true
