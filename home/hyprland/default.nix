@@ -72,7 +72,7 @@
       input {
           repeat_rate = 25
           repeat_delay = 150
-          follow_mouse = 1
+          follow_mouse = 2
           natural_scroll = true
           scroll_factor = 0.3
           kb_layout = us,gb
@@ -150,8 +150,9 @@
 
       bind = $mainMod, z, hy3:makegroup, tab, , force_ephemeral
       bind = $mainMod, x, hy3:changegroup, untab
-      bind = $mainMod, a, hy3:changefocus, top
 
+      bind = $mainMod+ALT, Page_Down, hy3:movefocus, l, visible, nowarp
+      bind = $mainMod+ALT, Page_Up, hy3:movefocus, r, visible, nowarp
       bindel = ,XF86MonBrightnessDown, exec, hyprctl hyprsunset gamma -10
       bindel = ,XF86MonBrightnessUp, exec, hyprctl hyprsunset gamma +10
 
