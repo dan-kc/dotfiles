@@ -110,6 +110,7 @@
     aider-chat
     opencode
     jujutsu
+    delta
   ];
   programs.direnv = {
     enable = true;
