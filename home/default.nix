@@ -46,6 +46,7 @@
       "libsciter"
       "obsidian"
       "claude-code"
+      # "notion-app"
       # "cursor"
     ];
 
@@ -111,6 +112,8 @@
     # code-cursor
     aider-chat
     opencode
+    jujutsu
+    # notion-app
   ];
   programs.direnv = {
     enable = true;
