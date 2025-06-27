@@ -46,8 +46,6 @@
       "libsciter"
       "obsidian"
       "claude-code"
-      # "notion-app"
-      # "cursor"
     ];
 
   home.packages = with pkgs; [
@@ -109,11 +107,9 @@
     gnupg # Currently only use for pass, which i only use for gpg, which I only use for vault and proton-bridge...
     pinentry-tty
     claude-code
-    # code-cursor
     aider-chat
     opencode
     jujutsu
-    # notion-app
   ];
   programs.direnv = {
     enable = true;
