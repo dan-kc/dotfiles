@@ -9,7 +9,7 @@ pkgs.stdenv.mkDerivation {
   src = pkgs.writeShellScript "launcher-script" ''
     #!/bin/sh
 
-    apps="bruno\nvivaldi\nslack\nanki\ndiscord\npostman\nthunderbird\nalacritty\ncursor"
+    apps="bruno\nvivaldi\nslack\nanki\ndiscord\npostman\nthunderbird\nalacritty\ncursor\nsunsama\npavucontrol"
 
     # Use printf for better compatibility
     selected_app=$(printf "$apps" | bemenu -i -p "Launch Application:")
