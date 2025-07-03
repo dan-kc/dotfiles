@@ -1037,11 +1037,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1751179991,
-        "narHash": "sha256-wdnfjf9WbpShX9Dv7OEDMMUpglLKu+WTvgbNCDWzpCQ=",
+        "lastModified": 1751314257,
+        "narHash": "sha256-Oo0rx9Hi139oQCVV4iVAQXChqoL/UhwZAG5d2gseE1M=",
         "owner": "dan-kc",
         "repo": "jt",
-        "rev": "b0d130fcbf1e706e18b9d5595931e4f0d7c3e3a0",
+        "rev": "3ba92b3fc0c5d7def28514badd3bc4d89d10c40f",
         "type": "github"
       },
       "original": {
