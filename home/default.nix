@@ -111,6 +111,7 @@
     opencode
     jujutsu
     delta
+    qpdf
   ];
   programs.direnv = {
     enable = true;
