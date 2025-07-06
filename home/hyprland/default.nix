@@ -1,15 +1,20 @@
 {
   pkgs,
   inputs,
+  config,
   ...
 }:
+let
+  hexToRGBString = inputs.nix-colors.lib-core.conversions.hexToRGBString;
+in
 {
   home.file = {
     ".config/hypr/hyprpaper.conf".text = ''
     '';
     ".config/hypr/hyprland.conf".text = ''
       plugin = ${inputs.hy3.packages.x86_64-linux.hy3}/lib/libhy3.so
-      monitor=,highrr,auto,auto
+      monitor = HDMI-A-1, 2560x1440@60, auto, auto, mirror, eDP-1
+      monitor = ,highrr,auto,auto
 
       $terminal = alacritty
       $browser = vivaldi
@@ -24,15 +29,12 @@
       env = HYPRCURSOR_SIZE,24
 
       general { 
-          gaps_in = 5.5
+          gaps_in = 4
           gaps_out = 8
           border_size = 0
 
           # Disable resizing windows by clicking and dragging on borders and gaps
           resize_on_border = false 
-
-          col.active_border = rgba(33ccffee) rgba(00ff99ee) 45deg
-          col.inactive_border = rgba(595959aa)
 
           # Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
           allow_tearing = false
@@ -41,11 +43,14 @@
       }
 
       decoration {
+          shadow {
+              enabled = false
+          }
           rounding = 0
           active_opacity = 1.0
           inactive_opacity = 0.80
           blur {
-              enabled = true
+              enabled = false
           }
       }
 
@@ -181,7 +186,7 @@
           tab_first_window = false
 
           tabs {
-            height = 10
+            height = 5
             padding = 0
             from_top = true 
             radius = 0
@@ -194,31 +199,21 @@
             text_padding = 3
 
             # active tab bar segment colors
-            col.active = rgba(33ccff40)
-            col.active.border = rgba(33ccffee)
-            col.active.text = rgba(ffffffff)
+            col.active = rgb(${hexToRGBString "," config.colorScheme.palette.base0C})
 
             # focused tab bar segment colors (focused node in unfocused container)
-            col.focused =  rgba(60606040)
-            col.focused.border =  rgba(808080ee)
-            col.focused.text =  rgba(ffffffff)
+            col.focused =  rgb(${hexToRGBString "," config.colorScheme.palette.base05})
 
             # inactive tab bar segment colors
-            col.inactive =  rgba(30303020)
-            col.inactive.border =  rgba(606060aa)
-            col.inactive.text =  rgba(ffffffff)
+            col.inactive = rgb(${hexToRGBString "," config.colorScheme.palette.base00})
 
             # urgent tab bar segment colors
             col.urgent =  rgba(ff223340)
-            col.urgent.border =  rgba(ff2233ee)
-            col.urgent.text =  rgba(ffffffff)
 
             # locked tab bar segment colors
             col.locked =  rgba(90903340)
-            col.locked.border =  rgba(909033ee)
-            col.locked.text =  rgba(ffffffff)
 
-            blur = true
+            blur = false
             opacity = 1.0
           }
         }
