@@ -6,7 +6,7 @@
 {
   options.globalFonts.selectedFont = lib.mkOption {
     type = lib.types.str;
-    default = "Hack Nerd Font Propo";
+    default = "FiraCode Nerd Font Propo";
     description = "The name of the globally selected Nerd Font.";
   };
 
@@ -19,6 +19,10 @@
       nerd-fonts.fira-code # FiraCode Nerd Font Propo
       nerd-fonts.agave # Agave Nerd Font Propo
       nerd-fonts.jetbrains-mono # JetBrainsMono Nerd Font Propo
+      # nerd-fonts.blex-mono # BlexMono Nerd Font Propo
+      # nerd-fonts.terminess-ttf # Terminess Nerd Font Propo
+      nerd-fonts.space-mono # SpaceMono Nerd Font Propo
+      nerd-fonts.mononoki # Mononoki Nerd Font Propo
     ];
   };
 
