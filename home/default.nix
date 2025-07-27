@@ -2,6 +2,7 @@
   inputs,
   pkgs,
   lib,
+  config,
   ...
 }:
 {
@@ -15,7 +16,9 @@
     inputs.sops-nix.homeManagerModules.sops
     inputs.nix-colors.homeManagerModules.default
   ];
-  colorScheme = inputs.nix-colors.colorSchemes.snazzy;
+  # https://github.com/tinted-theming/base16-schemes
+  # colorScheme = inputs.nix-colors.colorSchemes.kanagawa;
+  colorScheme = inputs.nix-colors.colorSchemes.ashes;
 
   home.username = "daniel";
   home.homeDirectory = "/home/daniel";
@@ -24,6 +27,24 @@
     ".config/lazygit/config.yml".source = ./lazygit.yml;
     ".config/atuin/config.toml".source = ./atuin.toml;
     ".config/flavours".source = ./flavours;
+    ".config/theme.yaml".text = ''
+      base00: "${config.colorScheme.palette.base00}"
+      base01: "${config.colorScheme.palette.base01}"
+      base02: "${config.colorScheme.palette.base02}"
+      base03: "${config.colorScheme.palette.base03}"
+      base04: "${config.colorScheme.palette.base04}"
+      base05: "${config.colorScheme.palette.base05}"
+      base06: "${config.colorScheme.palette.base06}"
+      base07: "${config.colorScheme.palette.base07}"
+      base08: "${config.colorScheme.palette.base08}"
+      base09: "${config.colorScheme.palette.base09}"
+      base0A: "${config.colorScheme.palette.base0A}"
+      base0B: "${config.colorScheme.palette.base0B}"
+      base0C: "${config.colorScheme.palette.base0C}"
+      base0D: "${config.colorScheme.palette.base0D}"
+      base0E: "${config.colorScheme.palette.base0E}"
+      base0F: "${config.colorScheme.palette.base0F}"
+    '';
   };
 
   nixpkgs.overlays = [
