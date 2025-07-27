@@ -73,11 +73,14 @@ in
           force_default_wallpaper = 0 
           disable_hyprland_logo = true 
       }
-
+      # 0 - Cursor movement will not change focus.
+      # 1 - Cursor movement will always change focus to the window under the cursor.
+      # 2 - Cursor focus will be detached from keyboard focus. Clicking on a window will move keyboard focus to that window.
+      # 3 - Cursor focus will be completely separate from keyboard focus. Clicking on a window will not change keyboard focus.
       input {
           repeat_rate = 25
           repeat_delay = 150
-          follow_mouse = 2
+          follow_mouse = 1
           natural_scroll = true
           scroll_factor = 0.3
           kb_layout = us,gb
