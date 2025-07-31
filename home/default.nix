@@ -26,7 +26,6 @@
     ".config/starship.toml".source = ./starship.toml;
     ".config/lazygit/config.yml".source = ./lazygit.yml;
     ".config/atuin/config.toml".source = ./atuin.toml;
-    ".config/flavours".source = ./flavours;
     ".config/theme.yaml".text = ''
       base00: "${config.colorScheme.palette.base00}"
       base01: "${config.colorScheme.palette.base01}"
@@ -53,7 +52,6 @@
       # zen = inputs.zen-browser.packages."${pkgs.system}".default;
       # flake-gen = inputs.flake-gen.packages."${pkgs.system}".default;
       jt = inputs.jt.packages."${pkgs.system}".default;
-      flavours = inputs.flavours.packages."${pkgs.system}".default;
     })
   ];
   nixpkgs.config.allowUnfreePredicate =
@@ -72,7 +70,6 @@
   home.packages = with pkgs; [
     (import ./app-launcher.nix { inherit pkgs; })
     (import ./theme.nix { inherit pkgs; })
-    flavours
     bruno
     wl-clipboard
     vivaldi
