@@ -31,9 +31,6 @@ pkgs.stdenv.mkDerivation {
       theme="dark"
     fi
 
-    ${pkgs.flavours}/bin/flavours generate "$theme" "$selected_file"
-    ${pkgs.flavours}/bin/flavours apply generated
-
     hyprctl hyprpaper reload ,"$selected_file"
 
     # cat <<EOF > ~/.config/hypr/hyprpaper.conf
