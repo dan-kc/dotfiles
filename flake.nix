@@ -9,6 +9,7 @@
     # flake-gen.url = "github:dan-kc/flake-gen";
     jt.url = "github:dan-kc/jt";
     nix-colors.url = "github:misterio77/nix-colors";
+    tuxedo-nixos.url = "github:sund3RRR/tuxedo-nixos";
     yazi.url = "github:sxyazi/yazi";
     sops-nix.url = "github:Mic92/sops-nix";
     hyprland.url = "github:hyprwm/Hyprland";
@@ -16,7 +17,6 @@
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     zen-browser.inputs.nixpkgs.follows = "nixpkgs";
 
-    
     # hyprland.url = "github:hyprwm/Hyprland/refs/tags/v0.49.0"; <- worksish
     # hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1&ref=0.48.1";
     # hy3.url = "github:outfoxxed/hy3?ref=hl0.49.0";
