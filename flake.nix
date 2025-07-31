@@ -9,7 +9,6 @@
     # flake-gen.url = "github:dan-kc/flake-gen";
     jt.url = "github:dan-kc/jt";
     nix-colors.url = "github:misterio77/nix-colors";
-    flavours.url = "github:Misterio77/flavours";
     yazi.url = "github:sxyazi/yazi";
     sops-nix.url = "github:Mic92/sops-nix";
     hyprland.url = "github:hyprwm/Hyprland";
