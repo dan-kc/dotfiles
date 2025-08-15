@@ -9,9 +9,22 @@ let
 in
 {
   home.file = {
-    ".config/hypr/hyprpaper.conf".text = ''
-    '';
-    ".config/hypr/hyprland.conf".text = ''
+    ".config/hypr/hyprpaper.conf".text = '''';
+  };
+
+  home.packages = with pkgs; [
+    hyprpaper
+    hyprshot
+    hyprsunset
+  ];
+
+  wayland.windowManager.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    portalPackage =
+      inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+    extraConfig = ''
       plugin = ${inputs.hy3.packages.x86_64-linux.hy3}/lib/libhy3.so
       monitor = HDMI-A-1, 2560x1440@60, auto, auto, mirror, eDP-1
       monitor = ,highrr,auto,auto
@@ -28,13 +41,13 @@ in
       # env = XCURSOR_SIZE,36
       env = HYPRCURSOR_SIZE,24
 
-      general { 
+      general {
           gaps_in = 4
           gaps_out = 8
           border_size = 0
 
           # Disable resizing windows by clicking and dragging on borders and gaps
-          resize_on_border = false 
+          resize_on_border = false
 
           # Please see https://wiki.hyprland.org/Configuring/Tearing/ before you turn this on
           allow_tearing = false
@@ -69,9 +82,9 @@ in
           new_status = master
       }
 
-      misc { 
-          force_default_wallpaper = 0 
-          disable_hyprland_logo = true 
+      misc {
+          force_default_wallpaper = 0
+          disable_hyprland_logo = true
       }
       # 0 - Cursor movement will not change focus.
       # 1 - Cursor movement will always change focus to the window under the cursor.
@@ -147,8 +160,8 @@ in
       bindm = $mainMod, mouse:272, resizewindow
 
       windowrulev2 = suppressevent maximize, class:.* # Prevent maximization of windows
-      windowrulev2 = float, class:floating 
-      windowrulev2 = size 90% 90%, class:floating 
+      windowrulev2 = float, class:floating
+      windowrulev2 = size 90% 90%, class:floating
 
       bind = $mainMod+SHIFT, Page_Down, hy3:movewindow, l, once
       bind = $mainMod+SHIFT, Page_Up, hy3:movewindow, r, once
@@ -191,10 +204,10 @@ in
           tabs {
             height = 5
             padding = 0
-            from_top = true 
+            from_top = true
             radius = 0
 
-            border_width = 0 
+            border_width = 0
             render_text = false
             text_center = true
             text_font = Sans
@@ -223,9 +236,4 @@ in
       }
     '';
   };
-  home.packages = with pkgs; [
-    hyprpaper
-    hyprshot
-    hyprsunset
-  ];
 }

@@ -12,18 +12,14 @@
     tuxedo-nixos.url = "github:sund3RRR/tuxedo-nixos";
     yazi.url = "github:sxyazi/yazi";
     sops-nix.url = "github:Mic92/sops-nix";
-    hyprland.url = "github:hyprwm/Hyprland";
     xremap-flake.url = "github:xremap/nix-flake";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     zen-browser.inputs.nixpkgs.follows = "nixpkgs";
 
-    # hyprland.url = "github:hyprwm/Hyprland/refs/tags/v0.49.0"; <- worksish
-    # hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1&ref=0.48.1";
-    # hy3.url = "github:outfoxxed/hy3?ref=hl0.49.0";
     # hy3.url = "github:outfoxxed/hy3";
-
-    hy3.url = "github:outfoxxed/hy3";
-    hy3.inputs.hyprland.follows = "hyprland";
+    hy3.url = "github:outfoxxed/hy3?ref=hl0.50.0";
+    # hyprland.url = "github:hyprwm/Hyprland";
+    hyprland.url = "github:hyprwm/Hyprland?ref=v0.50.0";
     rose-pine-hyprcursor = {
       url = "github:ndom91/rose-pine-hyprcursor";
       inputs.nixpkgs.follows = "nixpkgs";
