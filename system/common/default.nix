@@ -10,6 +10,7 @@
     ./sound.nix
     ./ssh.nix
     inputs.sops-nix.nixosModules.sops
+    # inputs.hyprland.nixosModules.default
   ];
 
   sops.defaultSopsFile = ../../secrets/secrets.yaml;
@@ -18,6 +19,14 @@
   sops.secrets.wifi = { };
   sops.secrets.anthropic_api_key = {
     owner = config.users.users.daniel.name;
+  };
+
+  programs.hyprland = {
+    enable = true;
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    portalPackage =
+      inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+    xwayland.enable = true;
   };
 
   users.users.daniel = {
@@ -52,11 +61,6 @@
   environment.pathsToLink = [ "/share/zsh" ];
 
   programs.zsh.enable = true;
-  programs.hyprland = {
-    enable = true;
-    xwayland.enable = true;
-    package = inputs.hyprland.packages.x86_64-linux.hyprland;
-  };
 
   console.font = "Lat2-Terminus16";
 
@@ -105,6 +109,14 @@
   systemd.tmpfiles.rules = [
     "Z /etc/nixos 0770 root daniel - -"
   ];
+
+  # wayland.windowManager.hyprland = {
+  #   package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+  #   portalPackage =
+  #     inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+  #   enable = true;
+  #   xwayland.enable = true;
+  # };
 
   # NEVER change.
   system.stateVersion = "24.05";
