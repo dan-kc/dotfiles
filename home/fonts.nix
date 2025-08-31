@@ -6,7 +6,7 @@
 {
   options.globalFonts.selectedFont = lib.mkOption {
     type = lib.types.str;
-    default = "Hack Nerd Font Propo";
+    default = "Monofur Nerd Font Propo";
     description = "The name of the globally selected Nerd Font.";
   };
 
@@ -14,7 +14,7 @@
   # fc-list : file family style | grep -E "Propo"
   config = {
     home.packages = with pkgs; [
-      nerd-fonts.geist-mono
+      nerd-fonts.geist-mono # Geist Mono Nerd Font Propo
       nerd-fonts.hack # Hack Nerd Font Propo
       nerd-fonts.hurmit # Hurmit Nerd Font Propo
       nerd-fonts.monofur # Monofur Nerd Font Propo
