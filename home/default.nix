@@ -19,7 +19,8 @@
   # https://github.com/tinted-theming/base16-schemes
   # colorScheme = inputs.nix-colors.colorSchemes.kanagawa;
   # colorScheme = inputs.nix-colors.colorSchemes.ashes;
-  colorScheme = inputs.nix-colors.colorSchemes.atelier-cave;
+  # colorScheme = inputs.nix-colors.colorSchemes.atelier-cave;
+  colorScheme = inputs.nix-colors.colorSchemes.atelier-forest;
 
   home.username = "daniel";
   home.homeDirectory = "/home/daniel";
