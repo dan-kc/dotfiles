@@ -6,7 +6,7 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     neovim.url = "github:dan-kc/neovim";
-    # flake-gen.url = "github:dan-kc/flake-gen";
+    flake-gen.url = "github:dan-kc/flake-gen";
     jt.url = "github:dan-kc/jt";
     nix-colors.url = "github:misterio77/nix-colors";
     tuxedo-nixos.url = "github:sund3RRR/tuxedo-nixos";
