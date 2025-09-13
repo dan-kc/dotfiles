@@ -6,7 +6,7 @@
 {
   options.globalFonts.selectedFont = lib.mkOption {
     type = lib.types.str;
-    default = "Monofur Nerd Font Propo";
+    default = "Hurmit Nerd Font Propo";
     description = "The name of the globally selected Nerd Font.";
   };
 
