@@ -17,7 +17,7 @@ alias ls=exa
 ff() { du -a | awk '{print $2}' | $(fzf --height 40% --border)| xargs -r $EDITOR ; }
 
 h() {
-  history -n -1000 | awk '!a[$0]++' | fzf --height 40% --border | wl-copy
+  history -n -100000 | tac | fzf --height 40% --border | wl-copy
 }
 
 take() {mkdir -p $1 ; cd $1 ; }
