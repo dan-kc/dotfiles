@@ -21,9 +21,13 @@
   # colorScheme = inputs.nix-colors.colorSchemes.kanagawa;
   # colorScheme = inputs.nix-colors.colorSchemes.ashes;
   # colorScheme = inputs.nix-colors.colorSchemes.atelier-cave;
-  # colorScheme = inputs.nix-colors.colorSchemes.atelier-forest; 6/10
-  # colorScheme = inputs.nix-colors.colorSchemes.atlas; 5/10
-  colorScheme = inputs.nix-colors.colorSchemes.ayu-dark;
+  # colorScheme = inputs.nix-colors.colorSchemes.atelier-forest; # 6/10
+  # colorScheme = inputs.nix-colors.colorSchemes.atlas; # 5/10
+  # colorScheme = inputs.nix-colors.colorSchemes.ayu-dark; # 7/10
+  # colorScheme = inputs.nix-colors.colorSchemes.blueforest; # 7/10
+  # colorScheme = inputs.nix-colors.colorSchemes.catppuccin-mocha; # 8/10
+  # colorScheme = inputs.nix-colors.colorSchemes.codeschool;  # 7/10
+  colorScheme = inputs.nix-colors.colorSchemes.danqing; # 7/10
 
   home.username = "daniel";
   home.homeDirectory = "/home/daniel";
@@ -61,145 +65,80 @@
   nixpkgs.config.allowUnfreePredicate =
     pkg:
     builtins.elem (lib.getName pkg) [
-      "vivaldi"
-      "slack"
-      "postman"
-      "packer"
+      "claude-code"
       "discord"
       "libsciter"
       "obsidian"
-      "claude-code"
+      "packer"
+      "postman"
+      "slack"
+      "vivaldi"
+      "vscode"
     ];
 
   home.packages = with pkgs; [
     (import ./app-launcher.nix { inherit pkgs; })
     (import ./theme.nix { inherit pkgs; })
-    bruno
-    wl-clipboard
-    vivaldi
-    bemenu
-    thunderbird
-    protonmail-bridge-gui
-    slack
-    protonmail-bridge
-    postman
-    gnumake
-    discord
-    udiskie
-    ddcutil
-    brightnessctl
-    obsidian
-    jt
+    aider-chat
     anki
-    vlc
-    neovim
-    # zen
-    atuin
-    tree
-    fzf
-    lazydocker
+    bandwhich
+    bemenu
+    brightnessctl
+    bruno
+    claude-code
+    ddcutil
+    delta
+    difftastic
+    discord
+    dua
     eza
     fd
-    ripgrep
-    zoxide
-    starship
-    trash-cli
-    gh
-    gcc
-    bandwhich
-    dua
-    jq
-    just
-    miniserve
-    rsync
-    src-cli
-    packer
-    unzip
-    git-open
-    lazygit
-    git-filter-repo
-    ripdrag
-    difftastic
-    hurl
-    unzip
-    ruplacer
     flake-gen
-
-    pass
-    gnupg # Currently only use for pass, which i only use for gpg, which I only use for vault and proton-bridge...
-    pinentry-tty
-    claude-code
-    aider-chat
-    opencode
+    fzf
+    gcc
+    gh
+    git-filter-repo
+    git-open
+    google-cloud-sdk
+    hurl
+    jt
     jujutsu
-    delta
+    lazydocker
+    lazygit
+    lsof
+    neovim
+    obsidian
+    opencode
+    pinentry-tty
+    postman
+    protonmail-bridge
+    protonmail-bridge-gui
     qpdf
+    ripdrag
+    ripgrep
+    rsync
+    ruplacer
+    slack
+    src-cli
+    starship
+    thunderbird
+    trash-cli
+    tree
+    udiskie
+    unzip
+    vivaldi
+    vlc
+    vscode
+    wl-clipboard
+    yt-dlp
+    zoxide
   ];
+
   programs.direnv = {
     enable = true;
     silent = true;
     nix-direnv.enable = true;
   };
-
-  # programs.zen-browser = {
-  #   enable = true;
-  #   policies = {
-  #     AutofillAddressEnabled = false;
-  #     AutofillCreditCardEnabled = false;
-  #     DisableAppUpdate = true;
-  #     DisableFeedbackCommands = true;
-  #     DisableFirefoxStudies = true;
-  #     DisablePocket = true;
-  #     DisableTelemetry = true;
-  #     DontCheckDefaultBrowser = true;
-  #     NoDefaultBookmarks = true;
-  #     OfferToSaveLogins = false;
-  #     EnableTrackingProtection = {
-  #       Value = true;
-  #       Locked = true;
-  #       Cryptomining = true;
-  #       Fingerprinting = true;
-  #     };
-  #   };
-  # };
-  #
-  # xdg.mimeApps =
-  #   let
-  #     value =
-  #       let
-  #         zen-browser = inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.twilight;
-  #       in
-  #       zen-browser.meta.desktopFileName;
-  #
-  #     associations = builtins.listToAttrs (
-  #       map
-  #         (name: {
-  #           inherit name value;
-  #         })
-  #         [
-  #           "application/x-extension-shtml"
-  #           "application/x-extension-xhtml"
-  #           "application/x-extension-html"
-  #           "application/x-extension-xht"
-  #           "application/x-extension-htm"
-  #           "x-scheme-handler/unknown"
-  #           "x-scheme-handler/mailto"
-  #           "x-scheme-handler/chrome"
-  #           "x-scheme-handler/about"
-  #           "x-scheme-handler/https"
-  #           "x-scheme-handler/http"
-  #           "application/xhtml+xml"
-  #           "application/json"
-  #           "text/plain"
-  #           "text/html"
-  #         ]
-  #     );
-  #   in
-  #   {
-  #     associations.added = associations;
-  #     defaultApplications = associations;
-  #   };
-  #
 
   programs.git = {
     diff-so-fancy = {
