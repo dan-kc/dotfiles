@@ -86,10 +86,20 @@
     vim
     git # Need for flakes
 
+    pinentry-curses
+    pass
+    gnupg # Currently only use for pass, which i only use for gpg, which I only use for vault and proton-bridge...
+    protonmail-bridge
+
     wlsunset # Not yet configured
     udiskie # Mount external drives automatically
     hyprcursor
   ];
+
+  programs.gnupg.agent = {
+    enable = true;
+    pinentryPackage = pkgs.pinentry-curses;
+  };
 
   hardware.keyboard.qmk.enable = true;
 
@@ -109,14 +119,6 @@
   systemd.tmpfiles.rules = [
     "Z /etc/nixos 0770 root daniel - -"
   ];
-
-  # wayland.windowManager.hyprland = {
-  #   package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-  #   portalPackage =
-  #     inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
-  #   enable = true;
-  #   xwayland.enable = true;
-  # };
 
   # NEVER change.
   system.stateVersion = "24.05";
