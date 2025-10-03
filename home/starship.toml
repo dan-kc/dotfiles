@@ -99,7 +99,11 @@ disabled = true
 
 # Nerd fonts
 [aws]
-symbol = "  "
+symbol = " "
+disabled = true
+
+[gcloud]
+disabled = true
 
 [battery]
 format = "[ $percentage $symbol]($style)"
@@ -122,7 +126,7 @@ symbol = " "
 
 [directory]
 read_only = " 󰌾"
-style = 'bold cyan'
+# style = 'bold cyan'
 format = '[ $path]($style)[$read_only]($read_only_style) '
 truncate_to_repo = true
 
@@ -145,23 +149,23 @@ symbol = ' '
 symbol = " "
 always_show_remote = true
 format = '[$symbol$branch(:$remote_branch)]($style) '
-style = 'bold purple'
+# style = 'bold purple'
 
 [git_status]
 disabled = true
-style = 'bold purple'
+# style = 'bold purple'
 
 [git_metrics]
 format = '([ $added]($added_style)) ([ $deleted]($deleted_style))'
-added_style = 'bold green'
-deleted_style = 'bold red'
+# added_style = 'bold green'
+# deleted_style = 'bold red'
 ignore_submodules = true
 disabled = false
 
 [golang]
 symbol = " "
 format = '[$symbol]($style)'
-style = 'bold purple'
+# style = 'bold purple'
 
 [guix_shell]
 symbol = " "
@@ -187,7 +191,7 @@ symbol = " "
 [lua]
 symbol = " "
 format = '[$symbol]($style)'
-style = 'bold purple'
+# style = 'bold purple'
 
 [memory_usage]
 symbol = "󰍛 "
@@ -199,14 +203,14 @@ symbol = "󰔷 "
 symbol = "󰆥 "
 
 [nix_shell]
-symbol = " "
+symbol = "  "
 format = '[$symbol]($style)'
-style = 'bold purple'
+# style = 'bold purple'
 
 [nodejs]
 symbol = " "
 format = '[$symbol]($style)'
-style = 'bold purple'
+# style = 'bold purple'
 
 [os.symbols]
 Alpaquita = " "
@@ -258,7 +262,7 @@ symbol = " "
 [python]
 symbol = " "
 format = '[$symbol$virtualenv ]($style)'
-style = 'bold purple'
+# style = 'bold purple'
 
 [rlang]
 symbol = "󰟔 "
@@ -269,7 +273,7 @@ symbol = " "
 [rust]
 symbol = " "
 format = '[$symbol]($style)'
-style = 'bold purple'
+# style = 'bold purple'
 
 [scala]
 symbol = " "
@@ -277,4 +281,4 @@ symbol = " "
 [time]
 disabled = false
 format = '[$time]($style)'
-style = 'bold purple'
+# style = 'bold purple'
