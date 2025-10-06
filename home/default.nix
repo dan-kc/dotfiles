@@ -27,7 +27,8 @@
   # colorScheme = inputs.nix-colors.colorSchemes.blueforest; # 7/10
   # colorScheme = inputs.nix-colors.colorSchemes.catppuccin-mocha; # 8/10
   # colorScheme = inputs.nix-colors.colorSchemes.codeschool;  # 7/10
-  colorScheme = inputs.nix-colors.colorSchemes.danqing; # 7/10
+  # colorScheme = inputs.nix-colors.colorSchemes.danqing; # 7/10
+  colorScheme = inputs.nix-colors.colorSchemes.darcula;
 
   home.username = "daniel";
   home.homeDirectory = "/home/daniel";
@@ -93,6 +94,9 @@
     dua
     eza
     fd
+    nushell
+    imagemagick
+    protonmail-desktop
     flake-gen
     fzf
     gcc
