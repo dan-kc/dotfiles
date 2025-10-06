@@ -16,6 +16,7 @@ in
     hyprpaper
     hyprshot
     hyprsunset
+    jq
   ];
 
   wayland.windowManager.hyprland = {
@@ -115,7 +116,8 @@ in
 
       bind = $mainMod, J, exec, alacritty --working-directory ~/notes --class floating --command zsh -c "nvim $(jt)"
       bind = $mainMod, Y, exec, alacritty --working-directory ~/ --class floating --command yazi
-      bind = $mainMod, T, exec, alacritty -e bash -c 'selected_dir=$(zoxide query -l | fzf --preview "ls {}"); if [ -n "$selected_dir" ]; then cd "$selected_dir"; fi; exec zsh'
+      bind = $mainMod, T, exec, alacritty --working-directory "$(pid=$(hyprctl activewindow -j | jq '.pid'); ppid=$(pgrep --newest --parent "$pid"); dir=$(readlink /proc/"$ppid"/cwd || echo "$HOME"); [ -d "$dir" ] && echo "$dir" || echo "$HOME")"
+      bind = $mainMod, Z, exec, alacritty -e bash -c 'selected_dir=$(zoxide query -l | fzf --preview "ls {}"); if [ -n "$selected_dir" ]; then cd "$selected_dir"; fi; exec zsh'
 
       env = HYPRCURSOR_THEME,rose-pine-hyprcursor
 
