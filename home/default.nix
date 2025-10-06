@@ -28,7 +28,8 @@
   # colorScheme = inputs.nix-colors.colorSchemes.catppuccin-mocha; # 8/10
   # colorScheme = inputs.nix-colors.colorSchemes.codeschool;  # 7/10
   # colorScheme = inputs.nix-colors.colorSchemes.danqing; # 7/10
-  colorScheme = inputs.nix-colors.colorSchemes.darcula;
+  # colorScheme = inputs.nix-colors.colorSchemes.darcula; # 6/10
+  colorScheme = inputs.nix-colors.colorSchemes.darkmoss; # 8/10
 
   home.username = "daniel";
   home.homeDirectory = "/home/daniel";
