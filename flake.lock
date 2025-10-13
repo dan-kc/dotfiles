@@ -1451,11 +1451,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1759089582,
-        "narHash": "sha256-NTz881Z+txglChlUELxogxpt/w39Ou6RAAzIyBthgME=",
+        "lastModified": 1759868151,
+        "narHash": "sha256-X0p4d21/mtmkeFY+ef1cCe0lPOSEPVk+wk5DeLbG650=",
         "owner": "dan-kc",
         "repo": "jt",
-        "rev": "f34a5bb92cd7634117f3d584066fe47883ba9ed8",
+        "rev": "aa23b66e33c339c2f157f0df2fd656162e8f6edd",
         "type": "github"
       },
       "original": {
@@ -1487,11 +1487,11 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1759777855,
-        "narHash": "sha256-6wvrVvuvqan5cT6b67P+z4C/cNy+cXzqz2qjw4aoQeQ=",
+        "lastModified": 1760288511,
+        "narHash": "sha256-wQK/uCFSXlRZDgXCn6jKNDmcgPgH0bJCSA0R5MVbZ7I=",
         "owner": "dan-kc",
         "repo": "neovim",
-        "rev": "4cb557b6e1db848313363ae1eb11e17d5854a32e",
+        "rev": "ee63ad10eaf296f7602e4e2c6c325dbe9875084c",
         "type": "github"
       },
       "original": {
