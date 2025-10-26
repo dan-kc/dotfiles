@@ -204,7 +204,7 @@ in
           tab_first_window = false
 
           tabs {
-            height = 5
+            height = 6
             padding = 0
             from_top = true
             radius = 0

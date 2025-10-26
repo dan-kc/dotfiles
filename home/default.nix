@@ -31,7 +31,9 @@
   # colorScheme = inputs.nix-colors.colorSchemes.darcula; # 6/10
   # colorScheme = inputs.nix-colors.colorSchemes.darkmoss; # 8/10
   # colorScheme = inputs.nix-colors.colorSchemes.darktooth; # 7/10
-  colorScheme = inputs.nix-colors.colorSchemes.decaf;
+  # colorScheme = inputs.nix-colors.colorSchemes.decaf; # 6/10
+  # colorScheme = inputs.nix-colors.colorSchemes.dracula; # 8/10
+  colorScheme = inputs.nix-colors.colorSchemes.eighties; # 8/10
 
   home.username = "daniel";
   home.homeDirectory = "/home/daniel";
