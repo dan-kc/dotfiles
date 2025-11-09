@@ -15,7 +15,7 @@
     ./notifications.nix
     inputs.sops-nix.homeManagerModules.sops
     inputs.nix-colors.homeManagerModules.default
-    # inputs.zen-browser.homeModules.twilight
+    inputs.zen-browser.homeModules.twilight
   ];
   # https://github.com/tinted-theming/base16-schemes
   # colorScheme = inputs.nix-colors.colorSchemes.kanagawa;
@@ -33,7 +33,8 @@
   # colorScheme = inputs.nix-colors.colorSchemes.darktooth; # 7/10
   # colorScheme = inputs.nix-colors.colorSchemes.decaf; # 6/10
   # colorScheme = inputs.nix-colors.colorSchemes.dracula; # 8/10
-  colorScheme = inputs.nix-colors.colorSchemes.eighties; # 8/10
+  # colorScheme = inputs.nix-colors.colorSchemes.eighties; # 6/10
+  colorScheme = inputs.nix-colors.colorSchemes.equilibrium-dark;
 
   home.username = "daniel";
   home.homeDirectory = "/home/daniel";
@@ -66,6 +67,7 @@
       neovim = inputs.neovim.packages."${pkgs.system}".default;
       flake-gen = inputs.flake-gen.packages."${pkgs.system}".default;
       jt = inputs.jt.packages."${pkgs.system}".default;
+      tv = inputs.television.packages."${pkgs.system}".default;
     })
   ];
   nixpkgs.config.allowUnfreePredicate =
@@ -93,6 +95,7 @@
     bruno
     claude-code
     ddcutil
+    tv
     delta
     difftastic
     discord
@@ -143,10 +146,49 @@
     zoxide
   ];
 
+  programs.zen-browser = {
+    enable = true;
+    policies = {
+      AutofillAddressEnabled = false;
+      AutofillCreditCardEnabled = false;
+      DisableAppUpdate = true;
+      DisableFeedbackCommands = true;
+      DisableFirefoxStudies = true;
+      DisablePocket = true;
+      DisableTelemetry = true;
+      DontCheckDefaultBrowser = true;
+      NoDefaultBookmarks = true;
+      OfferToSaveLogins = false;
+      EnableTrackingProtection = {
+        Value = true;
+        Locked = true;
+        Cryptomining = true;
+        Fingerprinting = true;
+      };
+    };
+
+    profiles.default = {
+      isDefault = true;
+
+      # Here’s the important part:
+      settings = {
+        "media.cubeb.backend" = "pulse";
+      };
+      extensions.packages = with inputs.firefox-addons.packages.${pkgs.stdenv.hostPlatform.system}; [
+        ublock-origin
+        proton-pass
+        df-youtube
+      ];
+    };
+  };
+
   programs.direnv = {
     enable = true;
     silent = true;
     nix-direnv.enable = true;
+  };
+  programs.obs-studio = {
+    enable = true;
   };
 
   programs.git = {
