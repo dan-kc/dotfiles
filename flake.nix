@@ -11,10 +11,15 @@
     nix-colors.url = "github:misterio77/nix-colors";
     tuxedo-nixos.url = "github:sund3RRR/tuxedo-nixos";
     yazi.url = "github:sxyazi/yazi";
+    television.url = "github:alexpasmantier/television";
     sops-nix.url = "github:Mic92/sops-nix";
     xremap-flake.url = "github:xremap/nix-flake";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     zen-browser.inputs.nixpkgs.follows = "nixpkgs";
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # hy3.url = "github:outfoxxed/hy3";
     hy3.url = "github:outfoxxed/hy3?ref=hl0.50.0";
