@@ -102,6 +102,7 @@
   };
 
   hardware.keyboard.qmk.enable = true;
+  hardware.graphics.enable = true;
 
   services.udisks2.enable = true;
 
