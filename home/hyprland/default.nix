@@ -13,6 +13,7 @@ in
   };
 
   home.packages = with pkgs; [
+    wireplumber
     hyprpaper
     hyprshot
     hyprsunset
@@ -38,6 +39,9 @@ in
       exec-once = mako
       exec-once = hyprpaper & sleep 0.5 && theme-switch
       exec-once = hyprsunset
+
+      # for sceensharing: https://gist.github.com/brunoanc/2dea6ddf6974ba4e5d26c3139ffb7580
+      exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 
       # env = XCURSOR_SIZE,36
       env = HYPRCURSOR_SIZE,24
