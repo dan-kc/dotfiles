@@ -21,6 +21,12 @@
     owner = config.users.users.daniel.name;
   };
 
+  # Enable Yubikeys
+  services.pcscd.enable = true;
+  services.udev.packages = with pkgs; [
+    yubikey-personalization
+  ];
+
   programs.hyprland = {
     enable = true;
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;

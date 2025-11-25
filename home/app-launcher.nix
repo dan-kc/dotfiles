@@ -17,7 +17,7 @@ pkgs.stdenv.mkDerivation {
     # Execute if a valid selection is made
     if [ -n "$selected_app" ]; then
         if [ "$selected_app" = "zen" ]; then
-            exec zen -P default &
+            exec zen-twilight -P default &
         else
             exec "$selected_app" &
         fi
