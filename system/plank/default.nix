@@ -10,6 +10,7 @@
     inputs.xremap-flake.nixosModules.default
     inputs.tuxedo-nixos.nixosModules.default
   ];
+  services.xremap.enable = true;
   services.xremap.config.modmap = [
     {
       name = "Global";
