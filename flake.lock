@@ -1514,11 +1514,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1762703012,
-        "narHash": "sha256-D/8wN/7VLfNP4TPOx7Kw3JJrmr3jAvTZUzfeZw399rs=",
+        "lastModified": 1764096630,
+        "narHash": "sha256-UA2Z4N/JQK5EHp09fo8oqLm+Sz8i5BrakyQGXbUB4lw=",
         "owner": "dan-kc",
         "repo": "jt",
-        "rev": "1f4c6e8b7cec4056e613ef60b7c9c2b21e5d6eb5",
+        "rev": "0930b85c823951c73e0f38ca9c7f6b5e51243adc",
         "type": "github"
       },
       "original": {
