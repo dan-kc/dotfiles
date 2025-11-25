@@ -4,6 +4,5 @@ gui:
   showListFooter: false
   mouseEvents: false
 git:
-  paging:
-    colorArg: always
-    pager: diff-so-fancy 
+  pagers:
+    - pager: diff-so-fancy

@@ -104,10 +104,6 @@ in
           kb_layout = us,gb
       }
 
-      gestures {
-          workspace_swipe = false
-      }
-
       device {
           name = bastard-keyboards-charybdis-nano-(3x5)-splinky-mouse
           sensitivity = -0.9
