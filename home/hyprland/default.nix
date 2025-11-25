@@ -24,6 +24,7 @@ in
     enable = true;
     xwayland.enable = true;
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    # plugins = [ inputs.hy3.packages.x86_64-linux.hy3 ];
     portalPackage =
       inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
     extraConfig = ''
