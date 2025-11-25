@@ -192,15 +192,20 @@
     enable = true;
   };
 
-  programs.git = {
-    diff-so-fancy = {
-      enable = true;
+  programs.diff-so-fancy = {
+    enable = true;
+    enableGitIntegration = true;
+    settings = {
       markEmptyLines = true;
     };
+  };
+  programs.git = {
     enable = true;
-    userName = "Daniel Cox";
-    userEmail = "63171098+dan-kc@users.noreply.github.com";
-    extraConfig = {
+    settings = {
+      user = {
+        name = "Daniel Cox";
+        email = "63171098+dan-kc@users.noreply.github.com";
+      };
       interactive = {
         singleKey = true;
       };
