@@ -146,7 +146,6 @@
     yt-dlp
     zoxide
   ];
-
   programs.zen-browser = {
     enable = true;
     policies = {
