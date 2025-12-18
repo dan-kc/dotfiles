@@ -37,7 +37,8 @@
   # colorScheme = inputs.nix-colors.colorSchemes.eris; # 6/10
   # colorScheme = inputs.nix-colors.colorSchemes.espresso; # 6/10
   # colorScheme = inputs.nix-colors.colorSchemes.eva; # 8/10
-  colorScheme = inputs.nix-colors.colorSchemes.everforest; # 9/10
+  # colorScheme = inputs.nix-colors.colorSchemes.everforest; # 9/10
+  colorScheme = inputs.nix-colors.colorSchemes.flat; # 9/10
 
   home.username = "daniel";
   home.homeDirectory = "/home/daniel";
@@ -90,7 +91,7 @@
   home.packages = with pkgs; [
     (import ./app-launcher.nix { inherit pkgs; })
     (import ./theme.nix { inherit pkgs; })
-    aider-chat
+    kdePackages.kdenlive
     anki
     bandwhich
     bemenu

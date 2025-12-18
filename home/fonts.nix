@@ -6,7 +6,7 @@
 {
   options.globalFonts.selectedFont = lib.mkOption {
     type = lib.types.str;
-    default = "GeistMono Nerd Font Mono";
+    default = "FiraCode Nerd Font Propo";
     description = "The name of the globally selected Nerd Font.";
   };
 
@@ -21,7 +21,6 @@
       nerd-fonts.hurmit # Hurmit Nerd Font Propo
       nerd-fonts.monofur # Monofur Nerd Font Propo 6/10
       nerd-fonts.fira-code # FiraCode Nerd Font Propo
-      nerd-fonts.agave # Agave Nerd Font Propo 5/10
 
       # Don't work? They don't appear to be downloaded at all.
       nerd-fonts.space-mono # SpaceMono Nerd Font Propo
