@@ -33,7 +33,7 @@ in
       monitor = ,highrr,auto,auto
 
       $terminal = alacritty
-      $browser = vivaldi
+      $browser = zen-twilight -P default
       $menu = bemenu-run
 
       exec-once = udiskie
