@@ -23,8 +23,12 @@
 
     # hy3.url = "github:outfoxxed/hy3";
     hy3.url = "github:outfoxxed/hy3?ref=hl0.51.0";
+    # hy3.url = "github:outfoxxed/hy3?rev=16dae4d8f853b0d3e8434ee9941f9fc0155b8952";
+
     # hyprland.url = "github:hyprwm/Hyprland";
     hyprland.url = "github:hyprwm/Hyprland?ref=v0.51.0";
+    # hyprland.url = "github:hyprwm/Hyprland?rev=967c3c7404d4fa00234e29c70df3e263386d2597";
+
     rose-pine-hyprcursor = {
       url = "github:ndom91/rose-pine-hyprcursor";
       inputs.nixpkgs.follows = "nixpkgs";
