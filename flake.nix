@@ -86,7 +86,6 @@
       };
 
       homeConfigurations = {
-        # Nix devices
         daniel = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           extraSpecialArgs = {
