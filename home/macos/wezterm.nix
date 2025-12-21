@@ -12,7 +12,6 @@
       local config = {}
 
       local wezterm = require("wezterm")
-      local colors = require("theme")
       -- local font = require("font")
       local keymaps = require("keymaps")
 
@@ -35,7 +34,7 @@
       -- config.font = font
       -- config.default_prog = { "/opt/homebrew/bin/nu", "-l" }
       config.tab_max_width = 40
-      config.colors = colors
+      config.colors = require("theme")
 
       return config
     '';
@@ -75,38 +74,21 @@
           '#${config.colorScheme.palette.base0C}', -- cyan
           '#${config.colorScheme.palette.base05}', -- white
         },
-
         -- Bright colors
         brights = {
           '#${config.colorScheme.palette.base03}', -- bright black
-          '#${config.colorScheme.palette.base09}', -- bright red
-          '#${config.colorScheme.palette.base01}', -- bright green
-          '#${config.colorScheme.palette.base02}', -- bright yellow
-          '#${config.colorScheme.palette.base04}', -- bright blue
-          '#${config.colorScheme.palette.base06}', -- bright magenta
-          '#${config.colorScheme.palette.base0F}', -- bright cyan
+          '#${config.colorScheme.palette.base08}', -- bright red
+          '#${config.colorScheme.palette.base0B}', -- bright green
+          '#${config.colorScheme.palette.base0A}', -- bright yellow
+          '#${config.colorScheme.palette.base0D}', -- bright blue
+          '#${config.colorScheme.palette.base0E}', -- bright magenta (purple)
+          '#${config.colorScheme.palette.base0C}', -- bright cyan
           '#${config.colorScheme.palette.base07}', -- bright white
         },
 
-        -- Arbitrary colors of the palette in the range from 16 to 255
-        indexed = { [136] = '#${config.colorScheme.palette.base0A}' },
-
-        -- Since: 20220319-142410-0fcdea07
-        -- When the IME, a dead key or a leader key are being processed and are effectively
-        -- holding input pending the result of input composition, change the cursor
-        -- to this color to give a visual cue about the compose state.
         compose_cursor = '#${config.colorScheme.palette.base0E}',
 
-        -- Colors for copy_mode and quick_select
-        -- available since: 20220807-113146-c2fee766
-        -- In copy_mode, the color of the active text is:
-        -- 1. copy_mode_active_highlight_* if additional text was selected using the mouse
-        -- 2. selection_* otherwise
         copy_mode_active_highlight_bg = { Color = '#${config.colorScheme.palette.base02}' },
-        -- use `AnsiColor` to specify one of the ansi color palette values
-        -- (index 0-15) using one of the names "Black", "Maroon", "Green",
-        --  "Olive", "Navy", "Purple", "Teal", "Silver", "Grey", "Red", "Lime",
-        -- "Yellow", "Blue", "Fuchsia", "Aqua" or "White".
         copy_mode_active_highlight_fg = { Color = '#${config.colorScheme.palette.base05}' },
         copy_mode_inactive_highlight_bg = { Color = '#${config.colorScheme.palette.base01}' },
         copy_mode_inactive_highlight_fg = { Color = '#${config.colorScheme.palette.base05}' },
