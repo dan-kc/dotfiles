@@ -7,16 +7,11 @@
 }:
 {
   imports = [
-    ./fonts.nix
-    ./alacritty.nix
-    ./zsh
-    ./yazi
-    ./hyprland
-    ./notifications.nix
-    inputs.sops-nix.homeManagerModules.sops
     inputs.nix-colors.homeManagerModules.default
-    inputs.zen-browser.homeModules.twilight
+    ./fonts.nix
+    ./zsh
   ];
+
   # https://github.com/tinted-theming/base16-schemes
   # colorScheme = inputs.nix-colors.colorSchemes.kanagawa;
   # colorScheme = inputs.nix-colors.colorSchemes.ashes;
@@ -41,8 +36,6 @@
   # colorScheme = inputs.nix-colors.colorSchemes.flat; # 7/10
   colorScheme = inputs.nix-colors.colorSchemes.framer; # 7/10
 
-  home.username = "daniel";
-  home.homeDirectory = "/home/daniel";
   home.file = {
     ".config/starship.toml".source = ./starship.toml;
     ".config/lazygit/config.yml".source = ./lazygit.yml;
@@ -75,125 +68,42 @@
       tv = inputs.television.packages."${pkgs.system}".default;
     })
   ];
+
   nixpkgs.config.allowUnfreePredicate =
     pkg:
     builtins.elem (lib.getName pkg) [
       "claude-code"
-      "discord"
-      "libsciter"
-      "obsidian"
-      "packer"
-      "postman"
-      "slack"
-      "vivaldi"
-      "vscode"
     ];
 
   home.packages = with pkgs; [
-    (import ./app-launcher.nix { inherit pkgs; })
-    (import ./theme.nix { inherit pkgs; })
-    kdePackages.kdenlive
-    anki
     bandwhich
-    bemenu
-    brightnessctl
     bruno
     claude-code
-    ddcutil
-    tv
     delta
     difftastic
-    discord
     dua
     eza
     fd
-    nushell
-    imagemagick
-    protonmail-desktop
     flake-gen
     fzf
-    gcc
     gh
-    git-filter-repo
-    git-open
-    google-cloud-sdk
-    hurl
+    imagemagick
     jt
     jujutsu
     lazydocker
     lazygit
-    lsof
     neovim
-    obsidian
-    opencode
-    pinentry-tty
-    postman
-    protonmail-bridge
-    protonmail-bridge-gui
-    qpdf
-    ripdrag
     ripgrep
-    rsync
-    ruplacer
-    slack
-    src-cli
     starship
-    thunderbird
-    trash-cli
-    tree
-    udiskie
-    unzip
-    vivaldi
-    ffmpeg-full # For vivaldi playback
-    vlc
-    vscode
-    wl-clipboard
-    yt-dlp
+    tv
+    qpdf
     zoxide
   ];
-  programs.zen-browser = {
-    enable = true;
-    policies = {
-      AutofillAddressEnabled = false;
-      AutofillCreditCardEnabled = false;
-      DisableAppUpdate = true;
-      DisableFeedbackCommands = true;
-      DisableFirefoxStudies = true;
-      DisablePocket = true;
-      DisableTelemetry = true;
-      DontCheckDefaultBrowser = true;
-      NoDefaultBookmarks = true;
-      OfferToSaveLogins = false;
-      EnableTrackingProtection = {
-        Value = true;
-        Locked = true;
-        Cryptomining = true;
-        Fingerprinting = true;
-      };
-    };
-
-    profiles.default = {
-      isDefault = true;
-
-      # Here’s the important part:
-      settings = {
-        "media.cubeb.backend" = "pulse";
-      };
-      extensions.packages = with inputs.firefox-addons.packages.${pkgs.stdenv.hostPlatform.system}; [
-        ublock-origin
-        proton-pass
-        df-youtube
-      ];
-    };
-  };
 
   programs.direnv = {
     enable = true;
     silent = true;
     nix-direnv.enable = true;
-  };
-  programs.obs-studio = {
-    enable = true;
   };
 
   programs.diff-so-fancy = {
@@ -224,17 +134,6 @@
         showStash = true;
         showUntrackedFiles = "all";
       };
-    };
-  };
-
-  xdg.mimeApps = {
-    enable = true;
-    defaultApplications = {
-      "text/html" = "zen.desktop";
-      "x-scheme-handler/http" = "zen.desktop";
-      "x-scheme-handler/https" = "zen.desktop";
-      "x-scheme-handler/about" = "zen.desktop";
-      "x-scheme-handler/unknown" = "zen.desktop";
     };
   };
 

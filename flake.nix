@@ -93,7 +93,8 @@
             inherit inputs;
           };
           modules = [
-            ./home
+            ./home/common
+            ./home/nixos
           ];
         };
         danielcox = home-manager.lib.homeManagerConfiguration {
@@ -104,7 +105,8 @@
             inherit inputs;
           };
           modules = [
-            ./mac
+            ./home/common
+            ./home/macos
           ];
         };
       };
