@@ -5,7 +5,9 @@
   ...
 }:
 {
-  imports = [ ];
+  imports = [ 
+    ./wezterm.nix
+  ];
   home.username = "danielcox";
   home.homeDirectory = "/Users/danielcox";
 
