@@ -25,6 +25,7 @@
   nixpkgs.config.allowUnfreePredicate =
     pkg:
     builtins.elem (lib.getName pkg) [
+      "claude-code"
       "discord"
       "libsciter"
       "obsidian"
