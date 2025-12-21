@@ -26,7 +26,7 @@
   ];
 
   home.username = "danielcox";
-  home.homeDirectory = "Users/danielcox";
+  home.homeDirectory = "/Users/danielcox";
   home.stateVersion = "24.05";
 
   # Allow home-manager to manage home-manager.
