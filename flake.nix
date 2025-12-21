@@ -97,7 +97,9 @@
           ];
         };
         danielcox = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
+          pkgs = import nixpkgs {
+            system = "aarch64-darwin";
+          };
           extraSpecialArgs = {
             inherit inputs;
           };
