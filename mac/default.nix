@@ -18,7 +18,6 @@
       "claude-code"
     ];
 
-  programs.home-manager.enable = true;
   home.packages = with pkgs; [
     claude-code
     lazygit
@@ -26,5 +25,10 @@
     zoxide
   ];
 
+  home.username = "danielcox";
+  home.homeDirectory = "Users/danielcox";
   home.stateVersion = "24.05";
+
+  # Allow home-manager to manage home-manager.
+  programs.home-manager.enable = true;
 }
