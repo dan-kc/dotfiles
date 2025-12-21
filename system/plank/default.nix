@@ -25,6 +25,7 @@
   ];
   powerManagement.powertop.enable = true;
   networking.hostName = "plank";
+  services.upower.enable = true; # For zen to see power
 
   boot = {
     # Motorcomm YT6801 LAN drivers
