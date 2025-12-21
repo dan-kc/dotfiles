@@ -38,7 +38,6 @@
 
   home.file = {
     ".config/starship.toml".source = ./starship.toml;
-    ".config/lazygit/config.yml".source = ./lazygit.yml;
     ".config/atuin/config.toml".source = ./atuin.toml;
     ".config/theme.yaml".text = ''
       base00: "${config.colorScheme.palette.base00}"
