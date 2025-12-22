@@ -1,0 +1,52 @@
+# focus window
+alt - n : yabai -m window --focus west
+alt - e : yabai -m window --focus south
+alt - i : yabai -m window --focus north
+alt - o : yabai -m window --focus east
+
+# resize windows
+alt - left : yabai -m window --resize left:-100:0 ; yabai -m window --resize right:-100:0
+alt - down : yabai -m window --resize bottom:0:100 ; yabai -m window --resize top:0:100
+alt - up : yabai -m window --resize top:0:-100 ; yabai -m window --resize bottom:0:-100
+alt - right : yabai -m window --resize right:100:0 ; yabai -m window --resize left:100:0
+
+# move managed window
+alt + shift - n : yabai -m window --warp west
+alt + shift - e : yabai -m window --warp south
+alt + shift - i : yabai -m window --warp north
+alt + shift - o : yabai -m window --warp east
+
+# focus space
+alt + ctrl - n : yabai -m space --focus prev
+alt + ctrl - o : yabai -m space --focus next
+
+# move focused window into new space
+alt + shift + ctrl - n : yabai -m window --space prev;\
+                         yabai -m space --focus prev
+alt + shift + ctrl - o : yabai -m window --space next;\
+                         yabai -m space --focus next
+
+# delete focused space and focus first space on display
+alt + ctrl - w : yabai -m space --destroy
+
+# Create space on the active dispay
+alt + ctrl - t : yabai -m space --create
+
+# rotate tree
+alt - r : yabai -m space --rotate 90
+
+# toggle window fullscreen zoom
+alt - z : yabai -m window --toggle zoom-fullscreen
+
+# toggle padding and gap
+alt - g : yabai -m space --toggle padding; yabai -m space --toggle gap
+
+# float / unfloat window and center on screen
+alt - f : yabai -m window --toggle float;\
+          yabai -m window --grid 4:4:1:1:2:2
+
+# toggle window split type
+alt - y : yabai -m window --toggle split
+
+# balance size of windows
+alt - 0 : yabai -m space --balance
