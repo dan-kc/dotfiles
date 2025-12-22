@@ -109,6 +109,10 @@ in
           name = bastard-keyboards-charybdis-nano-(3x5)-splinky-mouse
           sensitivity = -0.9
       }
+      device {
+          name = bastard-keyboards-charybdis-(4x6)-splinky-mouse
+          sensitivity = -0.9
+      }
 
       $mainMod = WIN # Sets "Windows" key as main modifier
       $paste = CLIPBOARD_NOGUI=1 cb history | cat | jq -r '.[].content | select(. != null)' | bemenu | wl-copy
