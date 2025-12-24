@@ -127,6 +127,8 @@
     "Z /etc/nixos 0770 root daniel - -"
   ];
 
+  programs.niri.enable = true;
+
   # NEVER change.
   system.stateVersion = "24.05";
 }
