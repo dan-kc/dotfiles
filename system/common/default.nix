@@ -100,7 +100,19 @@
     wlsunset # Not yet configured
     udiskie # Mount external drives automatically
     hyprcursor
+
+    xwayland-satellite
+    swaybg
+    fuzzel
+    swaylock
+    swayidle
   ];
+  programs.waybar.enable = true;
+  services.gnome.gnome-keyring.enable = true;
+  security.polkit.enable = true;
+  security.pam.services.swaylock = {};
+
+  environment.sessionVariables.NIXOS_OZONE_WL = "1"; # Fix for some things waylandy
 
   programs.gnupg.agent = {
     enable = true;
@@ -119,15 +131,18 @@
     '';
   };
 
-  xdg.portal = {
-    enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-  };
   systemd.tmpfiles.rules = [
     "Z /etc/nixos 0770 root daniel - -"
   ];
 
   programs.niri.enable = true;
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gnome # this is enabled in programs.niri anyway
+      xdg-desktop-portal-gtk
+    ]; 
+  }; 
 
   # NEVER change.
   system.stateVersion = "24.05";
