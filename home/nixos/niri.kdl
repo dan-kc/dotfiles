@@ -1,0 +1,136 @@
+input {
+    keyboard {
+        xkb {
+            layout "us,gb"
+        }
+        repeat-rate 25
+        repeat-delay 150
+    }
+
+    touchpad {
+        tap
+        natural-scroll
+        scroll-factor 0.3
+    }
+
+    mouse {
+        // sensitivity -0.9 translated roughly:
+        accel-speed -0.9
+    }
+}
+
+// Monitor config (Mapping your 1440p mirror setup)
+output "HDMI-A-1" {
+    mode "2560x1440@60"
+    scale 1.0
+}
+
+layout {
+    gaps 8 // matches gaps_out
+    center-focused-column "never"
+    
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+    }
+
+    default-column-width { proportion 0.5; }
+
+    focus-ring {
+        width 4
+        // Using your base0C color for the active ring
+        active-color "#${config.colorScheme.palette.base0C}"
+        inactive-color "#${config.colorScheme.palette.base00}"
+    }
+
+    border {
+        off // Matches your border_size = 0
+    }
+
+    shadow {
+        off // Matches your shadow enabled = false
+    }
+}
+
+spawn-at-startup "udiskie"
+spawn-at-startup "mako"
+spawn-at-startup "hyprpaper"
+spawn-at-startup "hyprsunset"
+// Waybar or other status bars can be added here
+
+// Environment variables
+environment {
+    NIXOS_OZONE_WL "1"
+    HYPRCURSOR_THEME "rose-pine-hyprcursor"
+    HYPRCURSOR_SIZE "24"
+}
+
+// Window Rules
+window-rule {
+    match class="floating"
+    open-floating true
+    default-floating-width 90%
+    default-floating-height 90%
+}
+
+binds {
+    // Basics
+    Mod+Space { spawn "launcher"; }
+    Mod+Q { close-window; }
+    
+    // Custom Terminal Binds (Notes/Utilities)
+    Mod+J { spawn "alacritty" "--class" "floating" "-e" "zsh" "-c" "nvim $(jt)"; }
+    Mod+L { spawn "alacritty" "--class" "floating" "-e" "zsh" "-c" "nvim ~/notes/Todo.md"; }
+    Mod+S { spawn "alacritty" "--class" "floating" "-e" "zsh" "-c" "nvim ~/notes/Scratchpad.md"; }
+    Mod+Y { spawn "alacritty" "--class" "floating" "-e" "yazi"; }
+    Mod+T { spawn "alacritty"; } // Note: Dynamic PWD logic is easier handled via a script
+    
+    // Clipboard (Approximate mapping)
+    Mod+C { spawn-sh "wl-paste | CLIPBOARD_NOGUI=1 cb copy"; }
+    Mod+V { spawn-sh "CLIPBOARD_NOGUI=1 cb history | jq -r '.[].content | select(. != null)' | bemenu | wl-copy"; }
+
+    // Navigation (Mapping your Page_Up/Down focus logic)
+    Mod+Page_Down { focus-column-right; }
+    Mod+Page_Up   { focus-column-left; }
+    Mod+Alt+Page_Down { focus-window-down; }
+    Mod+Alt+Page_Up   { focus-window-up; }
+
+    // Moving windows
+    Mod+Shift+Page_Down { move-column-right; }
+    Mod+Shift+Page_Up   { move-column-left; }
+
+    // Workspaces (Niri index 1-10)
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
+    Mod+3 { focus-workspace 3; }
+    Mod+4 { focus-workspace 4; }
+    Mod+5 { focus-workspace 5; }
+    Mod+6 { focus-workspace 6; }
+    Mod+7 { focus-workspace 7; }
+    Mod+8 { focus-workspace 8; }
+    Mod+9 { focus-workspace 9; }
+    Mod+0 { focus-workspace 10; }
+
+    Mod+Shift+1 { move-column-to-workspace 1; }
+    Mod+Shift+2 { move-column-to-workspace 2; }
+    Mod+Shift+3 { move-column-to-workspace 3; }
+    Mod+Shift+4 { move-column-to-workspace 4; }
+    Mod+Shift+5 { move-column-to-workspace 5; }
+    Mod+Shift+6 { move-column-to-workspace 6; }
+    Mod+Shift+7 { move-column-to-workspace 7; }
+    Mod+Shift+8 { move-column-to-workspace 8; }
+    Mod+Shift+9 { move-column-to-workspace 9; }
+    Mod+Shift+0 { move-column-to-workspace 10; }
+
+    // Screenshot (Using your hyprshot commands)
+    Print { spawn "hyprshot" "-m" "output"; }
+    Mod+Print { spawn "hyprshot" "-m" "window"; }
+    Mod+Shift+Print { spawn "hyprshot" "-m" "region"; }
+
+    // Tiling controls
+    Mod+W { toggle-column-tabbed-display; } // Closest to hy3 tabs
+    Mod+F { maximize-column; }
+    Mod+Shift+F { fullscreen-window; }
+    Mod+R { switch-preset-column-width; }
+}
