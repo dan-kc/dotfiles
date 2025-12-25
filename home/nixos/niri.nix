@@ -21,20 +21,18 @@ in
 
         touchpad {
             tap
-            // natural-scroll
+            natural-scroll
             scroll-factor 0.3
         }
 
         mouse {
             // sensitivity -0.9 translated roughly:
-            accel-speed -0.9
+            natural-scroll
         }
-
-        // focus-follows-mouse max-scroll-amount="100%"
     }
 
     layout {
-        gaps 8 // matches gaps_out
+        gaps 16 // matches gaps_out
         center-focused-column "never"
         
         preset-column-widths {
@@ -61,7 +59,6 @@ in
 
     spawn-at-startup "udiskie"
     spawn-at-startup "mako"
-    spawn-at-startup "waybar"
 
     // Environment variables
     environment {
