@@ -6,8 +6,37 @@
 }:
 let
   hexToRGBString = inputs.nix-colors.lib-core.conversions.hexToRGBString;
+
+  status-notify = pkgs.writeShellScriptBin "status-notify" ''
+    battery=$(${pkgs.acpi}/bin/acpi -b | cut -d: -f2- | xargs)
+    date=$(date +"%Y-%m-%d %H:%M:%S")
+    ${pkgs.libnotify}/bin/notify-send "Battery: $battery" "Date: $date"
+  '';
+
+  term-cwd = pkgs.writeShellScriptBin "term-cwd" ''
+    pid=$(niri msg --json focused-window | ${pkgs.jq}/bin/jq '.pid')
+    if [ -n "$pid" ] && [ "$pid" != "null" ]; then
+      ppid=$(${pkgs.procps}/bin/pgrep --newest --parent "$pid" 2>/dev/null)
+      if [ -n "$ppid" ]; then
+        dir=$(readlink /proc/"$ppid"/cwd 2>/dev/null || echo "$HOME")
+      else
+        dir="$HOME"
+      fi
+    else
+      dir="$HOME"
+    fi
+    [ -d "$dir" ] || dir="$HOME"
+    exec ${pkgs.alacritty}/bin/alacritty --working-directory "$dir"
+  '';
+
+  niri-scripts = pkgs.symlinkJoin {
+    name = "niri-scripts";
+    paths = [ status-notify term-cwd ];
+  };
 in
 {
+  home.packages = [ niri-scripts ];
+
   home.file = {
     ".config/niri/config.kdl".text = ''
     input {
@@ -79,8 +108,8 @@ in
         Mod+L repeat=false { spawn-sh "alacritty --working-directory ~/notes --class floating --command zsh -c 'nvim ~/notes/Todo.md'"; }
         Mod+S repeat=false { spawn-sh "alacritty --working-directory ~/notes --class floating --command zsh -c 'nvim ~/notes/Scratchpad.md'"; }
         Mod+Y repeat=false { spawn-sh "alacritty --working-directory ~/ --class floating --command yazi"; }
-        Mod+T repeat=false { spawn-sh "alacritty --working-directory \"$(pid=$(hyprctl activewindow -j | jq '.pid'); ppid=$(pgrep --newest --parent \"$pid\"); dir=$(readlink /proc/\"$ppid\"/cwd || echo \"$HOME\"); [ -d \"$dir\" ] && echo \"$dir\" || echo \"$HOME\")\""; }
-
+        Mod+T repeat=false { spawn "term-cwd"; }
+        Mod+U { spawn "status-notify"; }
         // Clipboard
         Mod+C { spawn-sh "wl-paste | CLIPBOARD_NOGUI=1 cb copy"; }
         Mod+V { spawn-sh "CLIPBOARD_NOGUI=1 cb history | jq -r '.[].content | select(. != null)' | bemenu | wl-copy"; }
