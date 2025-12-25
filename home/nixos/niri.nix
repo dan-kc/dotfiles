@@ -41,7 +41,7 @@ in
             proportion 1.0
         }
 
-        default-column-width { proportion 1.0; }
+        default-column-width { proportion 0.5; }
 
         focus-ring {
             width 2
