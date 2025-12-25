@@ -52,6 +52,7 @@
       [window]
       padding = { x = 20, y = 20 }
       dynamic_padding = true
+      decorations = "None"
       opacity = 1.0
 
       [selection]
