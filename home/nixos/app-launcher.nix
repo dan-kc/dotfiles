@@ -12,7 +12,7 @@ pkgs.stdenv.mkDerivation {
     apps="bruno\nvivaldi\nslack\nanki\ndiscord\npostman\nthunderbird\nalacritty\ncursor\nsunsama\npavucontrol\nobsidian\nzen"
 
     # Use printf for better compatibility
-    selected_app=$(printf "$apps" | bemenu -i -p "Launch Application:")
+    selected_app=$(printf "$apps" | fuzzel --dmenu -p "Launch Application: ")
 
     # Execute if a valid selection is made
     if [ -n "$selected_app" ]; then
