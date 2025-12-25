@@ -100,7 +100,7 @@ in
         Mod+K repeat=false hotkey-overlay-title="Open hotkey overlay" { show-hotkey-overlay; }
         Mod+Space repeat=false hotkey-overlay-title="Spawn launcher" { spawn "launcher"; }
         Mod+Q hotkey-overlay-title="Close window" { close-window; }
-        Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
+        Super+Ctrl+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
         Mod+O repeat=false { toggle-overview; }
         
         // Custom Terminal Binds (Notes/Utilities)
@@ -167,8 +167,7 @@ in
         Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 
         // The quit action will show a confirmation dialog to avoid accidental exits.
-        Mod+Shift+E { quit; }
-        Ctrl+Alt+Delete { quit; }
+        Mod+E { quit; }
     }
     '';
   };
