@@ -26,7 +26,8 @@ in
         }
 
         mouse {
-            // sensitivity -0.9 translated roughly:
+            accel-profile "flat" // off
+            accel-speed -0.3
             natural-scroll
         }
     }
