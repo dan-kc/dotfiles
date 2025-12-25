@@ -11,6 +11,7 @@
     ./yazi
     ./hyprland
     ./notifications.nix
+    ./niri.nix
     inputs.sops-nix.homeManagerModules.sops
     inputs.zen-browser.homeModules.twilight
   ];
