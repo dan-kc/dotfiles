@@ -34,7 +34,10 @@
   # colorScheme = inputs.nix-colors.colorSchemes.eva; # 8/10
   # colorScheme = inputs.nix-colors.colorSchemes.everforest; # 9/10
   # colorScheme = inputs.nix-colors.colorSchemes.flat; # 7/10
-  colorScheme = inputs.nix-colors.colorSchemes.gigavolt; # 7/10
+  # colorScheme = inputs.nix-colors.colorSchemes.gigavolt; # 7/10
+  # colorScheme = inputs.nix-colors.colorSchemes.google-dark; # 7/10
+  # colorScheme = inputs.nix-colors.colorSchemes.gotham; # 7/10
+  colorScheme = inputs.nix-colors.colorSchemes.gruber; # 7/10
 
   home.file = {
     ".config/starship.toml".source = ./starship.toml;
