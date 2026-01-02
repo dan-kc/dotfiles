@@ -3,6 +3,31 @@ gui:
   showCommandLog: false
   showListFooter: false
   mouseEvents: false
+  theme:
+    activeBorderColor:
+      - cyan
+      - bold
+    inactiveBorderColor:
+      - default
+    searchingActiveBorderColor:
+      - cyan
+      - bold
+    optionsTextColor:
+      - default
+    inactiveViewSelectedLineBgColor:
+      - default
+    cherryPickedCommitFgColor:
+      - cyan
+    cherryPickedCommitBgColor:
+      - default
+    markedBaseCommitFgColor:
+      - cyan
+    markedBaseCommitBgColor:
+      - default
+    unstagedChangesColor:
+      - red
+    defaultFgColor:
+      - default
 git:
   pagers:
     - pager: diff-so-fancy
