@@ -152,7 +152,6 @@ in
         XF86AudioPrev        allow-when-locked=true { spawn-sh "playerctl previous"; }
         XF86AudioNext        allow-when-locked=true { spawn-sh "playerctl next"; }
 
-
         // Screenshot (doesn't work yet?)
         // screenshot-path "~/screenshots/%Y-%m-%d %H-%M-%S.png"
         
