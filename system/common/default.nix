@@ -110,6 +110,7 @@
   services.gnome.gnome-keyring.enable = true;
   security.polkit.enable = true;
   security.pam.services.swaylock = {};
+  services.displayManager.gdm.enable = true;
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1"; # Fix for some things waylandy
 
@@ -135,14 +136,13 @@
   ];
 
   programs.niri.enable = true;
-  xdg.portal = {
-    enable = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-gnome # this is enabled in programs.niri anyway
-      xdg-desktop-portal-gtk
-    ]; 
-  }; 
-
+  # xdg.portal = {
+  #   enable = true;
+  #   extraPortals = with pkgs; [
+  #     xdg-desktop-portal-gnome # this is enabled in programs.niri anyway
+  #     xdg-desktop-portal-gtk
+  #   ]; 
+  # }; 
   # NEVER change.
   system.stateVersion = "24.05";
 }
