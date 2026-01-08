@@ -9,7 +9,7 @@ pkgs.stdenv.mkDerivation {
   src = pkgs.writeShellScript "launcher-script" ''
     #!/bin/sh
 
-    apps="bruno\nvivaldi\nslack\nanki\ndiscord\npostman\nthunderbird\nalacritty\ncursor\nsunsama\npavucontrol\nobsidian\nzen"
+    apps="alacritty\nanki\nbruno\nslack\ndiscord\npostman\nthunderbird\npavucontrol\nobsidian\nzen\nobs\nvivaldi"
 
     # Use printf for better compatibility
     selected_app=$(printf "$apps" | fuzzel --dmenu -p "Launch Application: ")
