@@ -39,7 +39,8 @@
   # colorScheme = inputs.nix-colors.colorSchemes.gotham; # 7/10
   # colorScheme = inputs.nix-colors.colorSchemes.gruber; # 8/10
   # colorScheme = inputs.nix-colors.colorSchemes.gruvbox-dark-hard; # 7/10
-  colorScheme = inputs.nix-colors.colorSchemes.hardcore; # 7/10
+  # colorScheme = inputs.nix-colors.colorSchemes.hardcore; # 7/10 borders not clear
+  colorScheme = inputs.nix-colors.colorSchemes.harmonic16-dark; # 9/10 
 
   home.file = {
     ".config/starship.toml".source = ./starship.toml;
