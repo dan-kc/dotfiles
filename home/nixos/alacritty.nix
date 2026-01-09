@@ -44,7 +44,7 @@
       [font]
       normal = { family = "${config.globalFonts.selectedFont}" } 
       builtin_box_drawing = false
-      size = 20
+      size = 16
 
       [scrolling]
       multiplier = 1

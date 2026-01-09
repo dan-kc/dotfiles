@@ -19,7 +19,7 @@ in
         width=320
         margin=14
         padding=4
-        border-size=2
+        border-size=4
         border-color=#${config.colorScheme.palette.base0C}
         anchor=top-left
       '';
