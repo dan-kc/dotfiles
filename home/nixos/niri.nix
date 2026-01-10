@@ -175,7 +175,7 @@ in
         Mod+S repeat=false { spawn-sh "alacritty --working-directory ~/notes --class floating --command zsh -c 'nvim ~/notes/Scratchpad.md'"; }
         Mod+Y repeat=false { spawn-sh "alacritty --working-directory ~/ --class floating --command yazi"; }
         Mod+T repeat=false { spawn "term-cwd"; }
-        Mod+Shift+Backslash repeat=false hotkey-overlay-title="Clone neovim window" { spawn "nvim-clone"; }
+        Mod+Shift+T repeat=false hotkey-overlay-title="Clone neovim window" { spawn "nvim-clone"; }
         Mod+U { spawn "status-notify"; }
         // Clipboard
         Mod+C { spawn-sh "wl-paste | CLIPBOARD_NOGUI=1 cb copy"; }
