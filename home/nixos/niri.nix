@@ -61,8 +61,9 @@ in
         }
     }
 
+    prefer-no-csd
     layout {
-        gaps 16 // matches gaps_out
+        gaps 16
         center-focused-column "never"
         
         preset-column-widths {
@@ -75,14 +76,25 @@ in
         focus-ring {
             width 4
             active-color "#${config.colorScheme.palette.base0C}"
-            inactive-color "#${config.colorScheme.palette.base00}"
+            inactive-color "#${config.colorScheme.palette.base0C}"
+            urgent-color "#${config.colorScheme.palette.base09}"
         }
+
+        background-color "transparent"
 
         border {
             off
         }
 
         shadow {
+            off
+        }
+    }
+
+    overview {
+        zoom 0.3
+        backdrop-color "#${config.colorScheme.palette.base00}"
+        workspace-shadow {
             off
         }
     }
