@@ -29,9 +29,63 @@ let
     exec ${pkgs.alacritty}/bin/alacritty --working-directory "$dir"
   '';
 
+  nvim-clone = pkgs.writeShellScriptBin "nvim-clone" ''
+    window_info=$(niri msg --json focused-window)
+    app_id=$(echo "$window_info" | ${pkgs.jq}/bin/jq -r '.app_id // empty')
+    pid=$(echo "$window_info" | ${pkgs.jq}/bin/jq -r '.pid // empty')
+
+    if [ "$app_id" != "Alacritty" ] && [ "$app_id" != "alacritty" ]; then
+      ${pkgs.libnotify}/bin/notify-send "Not in neovim window"
+      exit 0
+    fi
+
+    # Find neovim child process
+    nvim_pid=$(${pkgs.procps}/bin/pgrep -P "$pid" -x nvim 2>/dev/null | head -1)
+    if [ -z "$nvim_pid" ]; then
+      # Try looking deeper (nvim might be grandchild via shell)
+      for child in $(${pkgs.procps}/bin/pgrep -P "$pid" 2>/dev/null); do
+        nvim_pid=$(${pkgs.procps}/bin/pgrep -P "$child" -x nvim 2>/dev/null | head -1)
+        [ -n "$nvim_pid" ] && break
+      done
+    fi
+
+    if [ -z "$nvim_pid" ]; then
+      ${pkgs.libnotify}/bin/notify-send "Not in neovim window"
+      exit 0
+    fi
+
+    # Find neovim server socket (check main nvim and its child processes)
+    socket=$(find /run/user/$(id -u)/ -maxdepth 1 -name "nvim.$nvim_pid.*" 2>/dev/null | head -1)
+    if [ -z "$socket" ]; then
+      # Check child nvim processes (embedded nvim shares buffer state)
+      for child_nvim in $(${pkgs.procps}/bin/pgrep -P "$nvim_pid" -x nvim 2>/dev/null); do
+        socket=$(find /run/user/$(id -u)/ -maxdepth 1 -name "nvim.$child_nvim.*" 2>/dev/null | head -1)
+        [ -n "$socket" ] && break
+      done
+    fi
+    if [ -z "$socket" ]; then
+      ${pkgs.libnotify}/bin/notify-send "Could not find neovim socket"
+      exit 1
+    fi
+
+    # Get current file and cursor position
+    file=$(${pkgs.neovim}/bin/nvim --server "$socket" --remote-expr 'expand("%:p")' 2>/dev/null)
+    line=$(${pkgs.neovim}/bin/nvim --server "$socket" --remote-expr 'line(".")' 2>/dev/null)
+    col=$(${pkgs.neovim}/bin/nvim --server "$socket" --remote-expr 'col(".")' 2>/dev/null)
+    cwd=$(readlink /proc/"$nvim_pid"/cwd 2>/dev/null || echo "$HOME")
+
+    if [ -z "$file" ] || [ ! -f "$file" ]; then
+      ${pkgs.libnotify}/bin/notify-send "No file open in neovim"
+      exit 1
+    fi
+
+    # Spawn new alacritty with neovim at same location
+    exec ${pkgs.alacritty}/bin/alacritty --working-directory "$cwd" -e ${pkgs.neovim}/bin/nvim "+call cursor($line,$col)" "$file"
+  '';
+
   niri-scripts = pkgs.symlinkJoin {
     name = "niri-scripts";
-    paths = [ status-notify term-cwd ];
+    paths = [ status-notify term-cwd nvim-clone ];
   };
 in
 {
@@ -121,6 +175,7 @@ in
         Mod+S repeat=false { spawn-sh "alacritty --working-directory ~/notes --class floating --command zsh -c 'nvim ~/notes/Scratchpad.md'"; }
         Mod+Y repeat=false { spawn-sh "alacritty --working-directory ~/ --class floating --command yazi"; }
         Mod+T repeat=false { spawn "term-cwd"; }
+        Mod+Shift+Backslash repeat=false hotkey-overlay-title="Clone neovim window" { spawn "nvim-clone"; }
         Mod+U { spawn "status-notify"; }
         // Clipboard
         Mod+C { spawn-sh "wl-paste | CLIPBOARD_NOGUI=1 cb copy"; }
