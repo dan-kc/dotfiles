@@ -9,6 +9,7 @@
   imports = [
     inputs.nix-colors.homeManagerModules.default
     ./fonts.nix
+    ./starship.nix
     ./zsh
   ];
 
@@ -43,7 +44,6 @@
   colorScheme = inputs.nix-colors.colorSchemes.harmonic16-dark; # 9/10 
 
   home.file = {
-    ".config/starship.toml".source = ./starship.toml;
     ".config/atuin/config.toml".source = ./atuin.toml;
     ".config/theme.yaml".text = ''
       base00: "${config.colorScheme.palette.base00}"
@@ -93,16 +93,20 @@
     lazygit
     neovim
     ripgrep
-    starship
     tv
     qpdf
-    zoxide
   ];
 
   programs.direnv = {
     enable = true;
     silent = true;
     nix-direnv.enable = true;
+    enableZshIntegration = true;
+  };
+
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
   };
 
   programs.diff-so-fancy = {
