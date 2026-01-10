@@ -10,7 +10,6 @@
     jt.url = "github:dan-kc/jt";
     nix-colors.url = "github:misterio77/nix-colors";
     tuxedo-nixos.url = "github:sund3RRR/tuxedo-nixos";
-    yazi.url = "github:sxyazi/yazi";
     television.url = "github:alexpasmantier/television";
     sops-nix.url = "github:Mic92/sops-nix";
     xremap-flake.url = "github:xremap/nix-flake";
