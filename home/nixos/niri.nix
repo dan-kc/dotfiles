@@ -29,6 +29,184 @@ let
     exec ${pkgs.alacritty}/bin/alacritty --working-directory "$dir"
   '';
 
+  spawn-new = pkgs.writeShellScriptBin "spawn-new" ''
+    TYPE=$(printf "Terminal\nBrowser\nEditor" | ${pkgs.fuzzel}/bin/fuzzel --dmenu -l 3 -p "Open: ")
+
+    case "$TYPE" in
+        "Terminal")
+            DIR=$(${pkgs.zoxide}/bin/zoxide query -l | ${pkgs.fuzzel}/bin/fuzzel --dmenu -l 20 -p "Directory: ")
+            [ -z "$DIR" ] && DIR="$HOME"
+            [ -d "$DIR" ] || DIR="$HOME"
+            exec ${pkgs.alacritty}/bin/alacritty --working-directory "$DIR"
+            ;;
+        "Browser")
+            exec vivaldi --new-window
+            ;;
+        "Editor")
+            DIR=$(${pkgs.zoxide}/bin/zoxide query -l | ${pkgs.fuzzel}/bin/fuzzel --dmenu -l 20 -p "Directory: ")
+            [ -z "$DIR" ] && DIR="$HOME"
+            [ -d "$DIR" ] || DIR="$HOME"
+            exec ${pkgs.alacritty}/bin/alacritty --working-directory "$DIR" -e ${pkgs.neovim}/bin/nvim .
+            ;;
+    esac
+  '';
+
+  window-clone = pkgs.writeShellScriptBin "window-clone" ''
+    window_info=$(niri msg --json focused-window)
+    app_id=$(echo "$window_info" | ${pkgs.jq}/bin/jq -r '.app_id // empty')
+    title=$(echo "$window_info" | ${pkgs.jq}/bin/jq -r '.title // empty')
+    pid=$(echo "$window_info" | ${pkgs.jq}/bin/jq -r '.pid // empty')
+
+    # Vivaldi window
+    if [[ "$app_id" == vivaldi* ]] || [[ "$app_id" == Vivaldi* ]]; then
+        HIST_FILE="$HOME/.config/vivaldi/Default/History"
+        TMP_HIST="/tmp/vivaldi_hist_copy"
+        cp "$HIST_FILE" "$TMP_HIST"
+        # Strip " - Vivaldi" suffix from window title
+        clean_title=$(echo "$title" | sed 's/ - Vivaldi$//')
+        escaped_title=$(echo "$clean_title" | sed "s/'/'''/g")
+        # Try exact match first, then partial match
+        URL=$(${pkgs.sqlite}/bin/sqlite3 "$TMP_HIST" "SELECT url FROM urls WHERE title = '$escaped_title' ORDER BY last_visit_time DESC LIMIT 1;")
+        if [ -z "$URL" ]; then
+            URL=$(${pkgs.sqlite}/bin/sqlite3 "$TMP_HIST" "SELECT url FROM urls WHERE title LIKE '%$escaped_title%' ORDER BY last_visit_time DESC LIMIT 1;")
+        fi
+        rm -f "$TMP_HIST"
+        if [ -n "$URL" ]; then
+            vivaldi --new-window "$URL"
+        else
+            ${pkgs.libnotify}/bin/notify-send "Could not find URL for: $clean_title"
+        fi
+        exit 0
+    fi
+
+    # Alacritty window (terminal or neovim)
+    if [[ "$app_id" == "Alacritty" ]] || [[ "$app_id" == "alacritty" ]]; then
+        # Check if running neovim
+        nvim_pid=$(${pkgs.procps}/bin/pgrep -P "$pid" -x nvim 2>/dev/null | head -1)
+        if [ -z "$nvim_pid" ]; then
+            for child in $(${pkgs.procps}/bin/pgrep -P "$pid" 2>/dev/null); do
+                nvim_pid=$(${pkgs.procps}/bin/pgrep -P "$child" -x nvim 2>/dev/null | head -1)
+                [ -n "$nvim_pid" ] && break
+            done
+        fi
+
+        if [ -n "$nvim_pid" ]; then
+            # Neovim - clone at same file/location
+            socket=$(find /run/user/$(id -u)/ -maxdepth 1 -name "nvim.$nvim_pid.*" 2>/dev/null | head -1)
+            if [ -z "$socket" ]; then
+                for child_nvim in $(${pkgs.procps}/bin/pgrep -P "$nvim_pid" -x nvim 2>/dev/null); do
+                    socket=$(find /run/user/$(id -u)/ -maxdepth 1 -name "nvim.$child_nvim.*" 2>/dev/null | head -1)
+                    [ -n "$socket" ] && break
+                done
+            fi
+            if [ -n "$socket" ]; then
+                file=$(${pkgs.neovim}/bin/nvim --server "$socket" --remote-expr 'expand("%:p")' 2>/dev/null)
+                line=$(${pkgs.neovim}/bin/nvim --server "$socket" --remote-expr 'line(".")' 2>/dev/null)
+                col=$(${pkgs.neovim}/bin/nvim --server "$socket" --remote-expr 'col(".")' 2>/dev/null)
+                cwd=$(readlink /proc/"$nvim_pid"/cwd 2>/dev/null || echo "$HOME")
+                if [ -n "$file" ] && [ -f "$file" ]; then
+                    exec ${pkgs.alacritty}/bin/alacritty --working-directory "$cwd" -e ${pkgs.neovim}/bin/nvim "+call cursor($line,$col)" "$file"
+                else
+                    ${pkgs.libnotify}/bin/notify-send "No file open in neovim"
+                fi
+            else
+                ${pkgs.libnotify}/bin/notify-send "Could not find neovim socket"
+            fi
+        else
+            # Regular terminal - open at CWD
+            ppid=$(${pkgs.procps}/bin/pgrep --newest --parent "$pid" 2>/dev/null)
+            if [ -n "$ppid" ]; then
+                dir=$(readlink /proc/"$ppid"/cwd 2>/dev/null || echo "$HOME")
+            else
+                dir="$HOME"
+            fi
+            [ -d "$dir" ] || dir="$HOME"
+            exec ${pkgs.alacritty}/bin/alacritty --working-directory "$dir"
+        fi
+        exit 0
+    fi
+
+    ${pkgs.libnotify}/bin/notify-send "Cannot duplicate: $app_id"
+  '';
+
+  nvim-tabs = pkgs.writeShellScriptBin "nvim-tabs" ''
+    windows=$(niri msg --json windows)
+    list=""
+
+    # Loop through alacritty windows and check for nvim child processes
+    while read -r line; do
+        win_id=$(echo "$line" | ${pkgs.jq}/bin/jq -r '.id')
+        win_pid=$(echo "$line" | ${pkgs.jq}/bin/jq -r '.pid')
+
+        # Check if nvim is running in this terminal
+        nvim_pid=$(${pkgs.procps}/bin/pgrep -P "$win_pid" -x nvim 2>/dev/null | head -1)
+        if [ -z "$nvim_pid" ]; then
+            for child in $(${pkgs.procps}/bin/pgrep -P "$win_pid" 2>/dev/null); do
+                nvim_pid=$(${pkgs.procps}/bin/pgrep -P "$child" -x nvim 2>/dev/null | head -1)
+                [ -n "$nvim_pid" ] && break
+            done
+        fi
+
+        if [ -n "$nvim_pid" ]; then
+            # Get the actual filename from neovim
+            socket=$(find /run/user/$(id -u)/ -maxdepth 1 -name "nvim.$nvim_pid.*" 2>/dev/null | head -1)
+            if [ -z "$socket" ]; then
+                for child_nvim in $(${pkgs.procps}/bin/pgrep -P "$nvim_pid" -x nvim 2>/dev/null); do
+                    socket=$(find /run/user/$(id -u)/ -maxdepth 1 -name "nvim.$child_nvim.*" 2>/dev/null | head -1)
+                    [ -n "$socket" ] && break
+                done
+            fi
+            if [ -n "$socket" ]; then
+                file=$(${pkgs.neovim}/bin/nvim --server "$socket" --remote-expr 'expand("%:t")' 2>/dev/null)
+                [ -z "$file" ] && file="[No file]"
+            else
+                file="[Unknown]"
+            fi
+            list="$list$file | $win_id"$'\n'
+        fi
+    done < <(echo "$windows" | ${pkgs.jq}/bin/jq -c '.[] | select(.app_id == "Alacritty" or .app_id == "alacritty")')
+
+    CHOICE=$(echo -n "$list" | ${pkgs.fuzzel}/bin/fuzzel --dmenu -l 20 -p "Neovim windows: ")
+
+    WINDOW_ID=$(echo "$CHOICE" | ${pkgs.gawk}/bin/awk -F ' \\| ' '{print $NF}')
+
+    if [ -n "$WINDOW_ID" ]; then
+        niri msg action focus-window --id "$WINDOW_ID"
+    fi
+  '';
+
+  vivaldi-tabs = pkgs.writeShellScriptBin "vivaldi-tabs" ''
+    windows=$(niri msg --json windows)
+
+    CHOICE=$(echo "$windows" | ${pkgs.jq}/bin/jq -r '.[] | select(.app_id == "vivaldi-stable" or .app_id == "vivaldi" or .app_id == "Vivaldi") | "\(.title) | \(.id)"' | \
+        ${pkgs.fuzzel}/bin/fuzzel --dmenu -l 20 -p "Vivaldi windows: ")
+
+    WINDOW_ID=$(echo "$CHOICE" | ${pkgs.gawk}/bin/awk -F ' \\| ' '{print $NF}')
+
+    if [ -n "$WINDOW_ID" ]; then
+        niri msg action focus-window --id "$WINDOW_ID"
+    fi
+  '';
+
+  vivaldi-history = pkgs.writeShellScriptBin "vivaldi-history" ''
+    HIST_FILE="$HOME/.config/vivaldi/Default/History"
+    TMP_HIST="/tmp/vivaldi_hist_copy"
+
+    cp "$HIST_FILE" "$TMP_HIST"
+
+    CHOICE=$(${pkgs.sqlite}/bin/sqlite3 "$TMP_HIST" \
+        "SELECT title || ' | ' || url FROM urls ORDER BY last_visit_time DESC LIMIT 500;" | \
+        ${pkgs.fuzzel}/bin/fuzzel --dmenu -l 20 -p "Search History: ")
+
+    URL=$(echo "$CHOICE" | ${pkgs.gawk}/bin/awk -F ' \\| ' '{print $NF}')
+
+    if [ -n "$URL" ]; then
+        vivaldi --new-window "$URL"
+    fi
+
+    rm -f "$TMP_HIST"
+  '';
+
   nvim-clone = pkgs.writeShellScriptBin "nvim-clone" ''
     window_info=$(niri msg --json focused-window)
     app_id=$(echo "$window_info" | ${pkgs.jq}/bin/jq -r '.app_id // empty')
@@ -85,7 +263,7 @@ let
 
   niri-scripts = pkgs.symlinkJoin {
     name = "niri-scripts";
-    paths = [ status-notify term-cwd nvim-clone ];
+    paths = [ status-notify term-cwd nvim-clone vivaldi-history vivaldi-tabs nvim-tabs window-clone spawn-new ];
   };
 in
 {
@@ -173,12 +351,15 @@ in
         Mod+J repeat=false { spawn-sh "alacritty --working-directory ~/notes --class floating --command zsh -c 'nvim $(jt)'"; }
         Mod+L repeat=false { spawn-sh "alacritty --working-directory ~/notes --class floating --command zsh -c 'nvim ~/notes/Todo.md'"; }
         Mod+S repeat=false { spawn-sh "alacritty --working-directory ~/notes --class floating --command zsh -c 'nvim ~/notes/Scratchpad.md'"; }
+
         Mod+Y repeat=false { spawn-sh "alacritty --working-directory ~/ --class floating --command yazi"; }
-        Mod+T repeat=false { spawn "term-cwd"; }
-        Mod+Shift+T repeat=false hotkey-overlay-title="Clone neovim window" { spawn "nvim-clone"; }
+        Mod+T repeat=false hotkey-overlay-title="Open new" { spawn "spawn-new"; }
+        Mod+Ctrl+T repeat=false hotkey-overlay-title="Switch Vivaldi window" { spawn "vivaldi-tabs"; }
         Mod+U { spawn "status-notify"; }
 
-        Mod+Z repeat=false hotkey-overlay-title="Spawn zen" { spawn-sh "zen-twilight -P default"; }
+        Mod+H repeat=false hotkey-overlay-title="Search Vivaldi history" { spawn "vivaldi-history"; }
+        Mod+B repeat=false hotkey-overlay-title="Switch Neovim window" { spawn "nvim-tabs"; }
+        Mod+D repeat=false hotkey-overlay-title="Duplicate window" { spawn "window-clone"; }
 
         Mod+Left  { focus-column-left; }
         Mod+Down  { focus-workspace-down; }
