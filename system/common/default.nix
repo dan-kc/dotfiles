@@ -136,13 +136,6 @@
   ];
 
   programs.niri.enable = true;
-  # xdg.portal = {
-  #   enable = true;
-  #   extraPortals = with pkgs; [
-  #     xdg-desktop-portal-gnome # this is enabled in programs.niri anyway
-  #     xdg-desktop-portal-gtk
-  #   ]; 
-  # }; 
   # NEVER change.
   system.stateVersion = "24.05";
 }
