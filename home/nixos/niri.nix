@@ -177,9 +177,8 @@ in
         Mod+T repeat=false { spawn "term-cwd"; }
         Mod+Shift+T repeat=false hotkey-overlay-title="Clone neovim window" { spawn "nvim-clone"; }
         Mod+U { spawn "status-notify"; }
-        // Clipboard
-        Mod+C { spawn-sh "wl-paste | CLIPBOARD_NOGUI=1 cb copy"; }
-        Mod+V { spawn-sh "CLIPBOARD_NOGUI=1 cb history | jq -r '.[].content | select(. != null)' | bemenu | wl-copy"; }
+
+        Mod+Z repeat=false hotkey-overlay-title="Spawn zen" { spawn-sh "zen-twilight -P default"; }
 
         Mod+Left  { focus-column-left; }
         Mod+Down  { focus-workspace-down; }
