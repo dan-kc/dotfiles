@@ -29,26 +29,20 @@ let
     exec ${pkgs.alacritty}/bin/alacritty --working-directory "$dir"
   '';
 
-  spawn-new = pkgs.writeShellScriptBin "spawn-new" ''
-    TYPE=$(printf "Terminal\nBrowser\nEditor" | ${pkgs.fuzzel}/bin/fuzzel --dmenu -l 3 -p "Open: ")
-
-    case "$TYPE" in
-        "Terminal")
-            DIR=$(${pkgs.zoxide}/bin/zoxide query -l | ${pkgs.fuzzel}/bin/fuzzel --dmenu -l 20 -p "Directory: ")
-            [ -z "$DIR" ] && DIR="$HOME"
-            [ -d "$DIR" ] || DIR="$HOME"
-            exec ${pkgs.alacritty}/bin/alacritty --working-directory "$DIR"
-            ;;
-        "Browser")
-            exec vivaldi --new-window
-            ;;
-        "Editor")
-            DIR=$(${pkgs.zoxide}/bin/zoxide query -l | ${pkgs.fuzzel}/bin/fuzzel --dmenu -l 20 -p "Directory: ")
-            [ -z "$DIR" ] && DIR="$HOME"
-            [ -d "$DIR" ] || DIR="$HOME"
-            exec ${pkgs.alacritty}/bin/alacritty --working-directory "$DIR" -e ${pkgs.neovim}/bin/nvim .
-            ;;
-    esac
+  nvim-cwd = pkgs.writeShellScriptBin "nvim-cwd" ''
+    pid=$(niri msg --json focused-window | ${pkgs.jq}/bin/jq '.pid')
+    if [ -n "$pid" ] && [ "$pid" != "null" ]; then
+      ppid=$(${pkgs.procps}/bin/pgrep --newest --parent "$pid" 2>/dev/null)
+      if [ -n "$ppid" ]; then
+        dir=$(readlink /proc/"$ppid"/cwd 2>/dev/null || echo "$HOME")
+      else
+        dir="$HOME"
+      fi
+    else
+      dir="$HOME"
+    fi
+    [ -d "$dir" ] || dir="$HOME"
+    exec ${pkgs.alacritty}/bin/alacritty --working-directory "$dir" -e ${pkgs.neovim}/bin/nvim .
   '';
 
   window-clone = pkgs.writeShellScriptBin "window-clone" ''
@@ -263,7 +257,7 @@ let
 
   niri-scripts = pkgs.symlinkJoin {
     name = "niri-scripts";
-    paths = [ status-notify term-cwd nvim-clone vivaldi-history vivaldi-tabs nvim-tabs window-clone spawn-new ];
+    paths = [ status-notify term-cwd nvim-cwd nvim-clone vivaldi-history vivaldi-tabs nvim-tabs window-clone];
   };
 in
 {
@@ -347,19 +341,24 @@ in
         Super+Ctrl+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
         Mod+O repeat=false { toggle-overview; }
         
-        // Custom Terminal Binds (Notes/Utilities)
+        // Applications
+        Mod+Y repeat=false { spawn-sh "alacritty --working-directory ~/ --class floating --command yazi"; }
+        Mod+T repeat=false hotkey-overlay-title="Spawn terminal" { spawn "term-cwd"; }
+        Mod+E repeat=false hotkey-overlay-title="Spawn neovim" { spawn "nvim-cwd"; }
+        Mod+B repeat=false hotkey-overlay-title="Spawn neovim" { spawn "vivaldi" "--new-window"; }
+
+        // Notes/Utilities
         Mod+J repeat=false { spawn-sh "alacritty --working-directory ~/notes --class floating --command zsh -c 'nvim $(jt)'"; }
         Mod+L repeat=false { spawn-sh "alacritty --working-directory ~/notes --class floating --command zsh -c 'nvim ~/notes/Todo.md'"; }
         Mod+S repeat=false { spawn-sh "alacritty --working-directory ~/notes --class floating --command zsh -c 'nvim ~/notes/Scratchpad.md'"; }
 
-        Mod+Y repeat=false { spawn-sh "alacritty --working-directory ~/ --class floating --command yazi"; }
-        Mod+T repeat=false hotkey-overlay-title="Open new" { spawn "spawn-new"; }
-        Mod+Ctrl+T repeat=false hotkey-overlay-title="Switch Vivaldi window" { spawn "vivaldi-tabs"; }
         Mod+U { spawn "status-notify"; }
 
         Mod+H repeat=false hotkey-overlay-title="Search Vivaldi history" { spawn "vivaldi-history"; }
-        Mod+B repeat=false hotkey-overlay-title="Switch Neovim window" { spawn "nvim-tabs"; }
+        Mod+Ctrl+B repeat=false hotkey-overlay-title="Switch Neovim window" { spawn "nvim-tabs"; }
         Mod+D repeat=false hotkey-overlay-title="Duplicate window" { spawn "window-clone"; }
+
+        Mod+Ctrl+T repeat=false hotkey-overlay-title="Switch Vivaldi window" { spawn "vivaldi-tabs"; }
 
         Mod+Left  { focus-column-left; }
         Mod+Down  { focus-workspace-down; }
@@ -377,7 +376,7 @@ in
         // Toggle tabbed column display mode.
         // Windows in this column will appear as vertical tabs,
         // rather than stacked on top of each other.
-        Mod+W { toggle-column-tabbed-display; }
+        // Mod+W { toggle-column-tabbed-display; }
 
         Print { screenshot; }
 
@@ -413,7 +412,7 @@ in
         Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 
         // The quit action will show a confirmation dialog to avoid accidental exits.
-        Mod+E { quit; }
+        Mod+Ctrl+Q { quit; }
     }
     '';
   };
