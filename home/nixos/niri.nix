@@ -202,11 +202,11 @@ let
   '';
 
   aichat-new = pkgs.writeShellScriptBin "aichat-new" ''
-    exec ${pkgs.alacritty}/bin/alacritty --class floating -e zsh -c '${pkgs.aichat}/bin/aichat; exec zsh'
+    exec ${pkgs.alacritty}/bin/alacritty -e zsh -c '${pkgs.aichat}/bin/aichat; exec zsh'
   '';
 
   tv-notes = pkgs.writeShellScriptBin "tv-notes" ''
-    exec ${pkgs.alacritty}/bin/alacritty --working-directory ~/notes --class floating -e zsh -c 'selected=$(tv); if [ -n "$selected" ]; then ${pkgs.neovim}/bin/nvim "$selected"; fi; exec zsh'
+    exec ${pkgs.alacritty}/bin/alacritty --working-directory ~/notes -e zsh -c 'selected=$(tv); if [ -n "$selected" ]; then ${pkgs.neovim}/bin/nvim "$selected"; fi; exec zsh'
   '';
 
   nvim-clone = pkgs.writeShellScriptBin "nvim-clone" ''
@@ -348,15 +348,13 @@ in
         Mod+O repeat=false { toggle-overview; }
         
         // Applications
-        Mod+Y repeat=false { spawn-sh "alacritty --working-directory ~/ --class floating --command zsh -c 'yazi; exec zsh'"; }
+        Mod+Y repeat=false { spawn-sh "alacritty --working-directory ~/ --command zsh -c 'yazi; exec zsh'"; }
         Mod+T repeat=false hotkey-overlay-title="Spawn terminal" { spawn "term-cwd"; }
         Mod+E repeat=false hotkey-overlay-title="Spawn neovim" { spawn "nvim-cwd"; }
         Mod+B repeat=false hotkey-overlay-title="Spawn neovim" { spawn "vivaldi" "--new-window"; }
 
         // Notes/Utilities
-        Mod+J repeat=false { spawn-sh "alacritty --working-directory ~/notes --class floating --command zsh -c 'nvim $(jt); exec zsh'"; }
-        Mod+L repeat=false { spawn-sh "alacritty --working-directory ~/notes --class floating --command zsh -c 'nvim ~/notes/Todo.md; exec zsh'"; }
-        Mod+N repeat=false { spawn "tv-notes"; }
+        Mod+J repeat=false { spawn-sh "alacritty --working-directory ~/notes --command zsh -c 'nvim $(jt); exec zsh'"; }
 
         Super+Ctrl+L { spawn "swaylock"; }
         // AI Chat
