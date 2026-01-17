@@ -95,6 +95,7 @@
     ripgrep
     tv
     qpdf
+    aichat
   ];
 
   programs.direnv = {
