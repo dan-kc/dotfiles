@@ -42,7 +42,7 @@ let
       dir="$HOME"
     fi
     [ -d "$dir" ] || dir="$HOME"
-    exec ${pkgs.alacritty}/bin/alacritty --working-directory "$dir" -e ${pkgs.neovim}/bin/nvim .
+    exec ${pkgs.alacritty}/bin/alacritty --working-directory "$dir" -e zsh -c '${pkgs.neovim}/bin/nvim .; exec zsh'
   '';
 
   window-clone = pkgs.writeShellScriptBin "window-clone" ''
@@ -99,7 +99,7 @@ let
                 col=$(${pkgs.neovim}/bin/nvim --server "$socket" --remote-expr 'col(".")' 2>/dev/null)
                 cwd=$(readlink /proc/"$nvim_pid"/cwd 2>/dev/null || echo "$HOME")
                 if [ -n "$file" ] && [ -f "$file" ]; then
-                    exec ${pkgs.alacritty}/bin/alacritty --working-directory "$cwd" -e ${pkgs.neovim}/bin/nvim "+call cursor($line,$col)" "$file"
+                    exec ${pkgs.alacritty}/bin/alacritty --working-directory "$cwd" -e zsh -c "${pkgs.neovim}/bin/nvim \"+call cursor($line,$col)\" \"$file\"; exec zsh"
                 else
                     ${pkgs.libnotify}/bin/notify-send "No file open in neovim"
                 fi
@@ -202,20 +202,7 @@ let
   '';
 
   aichat-new = pkgs.writeShellScriptBin "aichat-new" ''
-    session_name="chat-$(date +%Y%m%d-%H%M%S)"
-    exec ${pkgs.alacritty}/bin/alacritty --class floating -e ${pkgs.aichat}/bin/aichat -s "$session_name" --save-session
-  '';
-
-  aichat-sessions = pkgs.writeShellScriptBin "aichat-sessions" ''
-    sessions=$(${pkgs.aichat}/bin/aichat --list-sessions 2>/dev/null)
-    if [ -z "$sessions" ]; then
-      ${pkgs.libnotify}/bin/notify-send "No aichat sessions found"
-      exit 0
-    fi
-    choice=$(echo "$sessions" | ${pkgs.fuzzel}/bin/fuzzel --dmenu -l 20 -p "Session: ")
-    if [ -n "$choice" ]; then
-      exec ${pkgs.alacritty}/bin/alacritty --class floating -e ${pkgs.aichat}/bin/aichat -s "$choice" --save-session
-    fi
+    exec ${pkgs.alacritty}/bin/alacritty --class floating -e zsh -c '${pkgs.aichat}/bin/aichat; exec zsh'
   '';
 
   nvim-clone = pkgs.writeShellScriptBin "nvim-clone" ''
@@ -269,12 +256,12 @@ let
     fi
 
     # Spawn new alacritty with neovim at same location
-    exec ${pkgs.alacritty}/bin/alacritty --working-directory "$cwd" -e ${pkgs.neovim}/bin/nvim "+call cursor($line,$col)" "$file"
+    exec ${pkgs.alacritty}/bin/alacritty --working-directory "$cwd" -e zsh -c "${pkgs.neovim}/bin/nvim \"+call cursor($line,$col)\" \"$file\"; exec zsh"
   '';
 
   niri-scripts = pkgs.symlinkJoin {
     name = "niri-scripts";
-    paths = [ status-notify term-cwd nvim-cwd nvim-clone vivaldi-history vivaldi-tabs nvim-tabs window-clone aichat-new aichat-sessions ];
+    paths = [ status-notify term-cwd nvim-cwd nvim-clone vivaldi-history vivaldi-tabs nvim-tabs window-clone aichat-new ];
   };
 in
 {
@@ -352,25 +339,23 @@ in
 
     binds {
         // Basics
-        Mod+K repeat=false hotkey-overlay-title="Open hotkey overlay" { show-hotkey-overlay; }
-        Mod+Space repeat=false hotkey-overlay-title="Spawn launcher" { spawn "launcher"; }
-        Mod+Q hotkey-overlay-title="Close window" { close-window; }
-        Super+Ctrl+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
+        Mod+Space repeat=false { spawn "launcher"; }
+        Mod+Q { close-window; }
         Mod+O repeat=false { toggle-overview; }
         
         // Applications
-        Mod+Y repeat=false { spawn-sh "alacritty --working-directory ~/ --class floating --command yazi"; }
+        Mod+Y repeat=false { spawn-sh "alacritty --working-directory ~/ --class floating --command zsh -c 'yazi; exec zsh'"; }
         Mod+T repeat=false hotkey-overlay-title="Spawn terminal" { spawn "term-cwd"; }
         Mod+E repeat=false hotkey-overlay-title="Spawn neovim" { spawn "nvim-cwd"; }
         Mod+B repeat=false hotkey-overlay-title="Spawn neovim" { spawn "vivaldi" "--new-window"; }
 
         // Notes/Utilities
-        Mod+J repeat=false { spawn-sh "alacritty --working-directory ~/notes --class floating --command zsh -c 'nvim $(jt)'"; }
-        Mod+L repeat=false { spawn-sh "alacritty --working-directory ~/notes --class floating --command zsh -c 'nvim ~/notes/Todo.md'"; }
+        Mod+J repeat=false { spawn-sh "alacritty --working-directory ~/notes --class floating --command zsh -c 'nvim $(jt); exec zsh'"; }
+        Mod+L repeat=false { spawn-sh "alacritty --working-directory ~/notes --class floating --command zsh -c 'nvim ~/notes/Todo.md; exec zsh'"; }
 
+        Super+Ctrl+L { spawn "swaylock"; }
         // AI Chat
-        Mod+A repeat=false hotkey-overlay-title="New aichat session" { spawn "aichat-new"; }
-        Mod+S repeat=false hotkey-overlay-title="Browse aichat sessions" { spawn "aichat-sessions"; }
+        Mod+A repeat=false hotkey-overlay-title="Open aichat" { spawn "aichat-new"; }
 
         Mod+U { spawn "status-notify"; }
 
