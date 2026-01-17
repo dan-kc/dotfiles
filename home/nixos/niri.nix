@@ -201,6 +201,23 @@ let
     rm -f "$TMP_HIST"
   '';
 
+  aichat-new = pkgs.writeShellScriptBin "aichat-new" ''
+    session_name="chat-$(date +%Y%m%d-%H%M%S)"
+    exec ${pkgs.alacritty}/bin/alacritty --class floating -e ${pkgs.aichat}/bin/aichat -s "$session_name" --save-session
+  '';
+
+  aichat-sessions = pkgs.writeShellScriptBin "aichat-sessions" ''
+    sessions=$(${pkgs.aichat}/bin/aichat --list-sessions 2>/dev/null)
+    if [ -z "$sessions" ]; then
+      ${pkgs.libnotify}/bin/notify-send "No aichat sessions found"
+      exit 0
+    fi
+    choice=$(echo "$sessions" | ${pkgs.fuzzel}/bin/fuzzel --dmenu -l 20 -p "Session: ")
+    if [ -n "$choice" ]; then
+      exec ${pkgs.alacritty}/bin/alacritty --class floating -e ${pkgs.aichat}/bin/aichat -s "$choice" --save-session
+    fi
+  '';
+
   nvim-clone = pkgs.writeShellScriptBin "nvim-clone" ''
     window_info=$(niri msg --json focused-window)
     app_id=$(echo "$window_info" | ${pkgs.jq}/bin/jq -r '.app_id // empty')
@@ -257,7 +274,7 @@ let
 
   niri-scripts = pkgs.symlinkJoin {
     name = "niri-scripts";
-    paths = [ status-notify term-cwd nvim-cwd nvim-clone vivaldi-history vivaldi-tabs nvim-tabs window-clone];
+    paths = [ status-notify term-cwd nvim-cwd nvim-clone vivaldi-history vivaldi-tabs nvim-tabs window-clone aichat-new aichat-sessions ];
   };
 in
 {
@@ -350,7 +367,10 @@ in
         // Notes/Utilities
         Mod+J repeat=false { spawn-sh "alacritty --working-directory ~/notes --class floating --command zsh -c 'nvim $(jt)'"; }
         Mod+L repeat=false { spawn-sh "alacritty --working-directory ~/notes --class floating --command zsh -c 'nvim ~/notes/Todo.md'"; }
-        Mod+S repeat=false { spawn-sh "alacritty --working-directory ~/notes --class floating --command zsh -c 'nvim ~/notes/Scratchpad.md'"; }
+
+        // AI Chat
+        Mod+A repeat=false hotkey-overlay-title="New aichat session" { spawn "aichat-new"; }
+        Mod+S repeat=false hotkey-overlay-title="Browse aichat sessions" { spawn "aichat-sessions"; }
 
         Mod+U { spawn "status-notify"; }
 
