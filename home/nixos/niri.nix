@@ -205,6 +205,10 @@ let
     exec ${pkgs.alacritty}/bin/alacritty --class floating -e zsh -c '${pkgs.aichat}/bin/aichat; exec zsh'
   '';
 
+  tv-notes = pkgs.writeShellScriptBin "tv-notes" ''
+    exec ${pkgs.alacritty}/bin/alacritty --working-directory ~/notes --class floating -e zsh -c 'selected=$(tv); if [ -n "$selected" ]; then ${pkgs.neovim}/bin/nvim "$selected"; fi; exec zsh'
+  '';
+
   nvim-clone = pkgs.writeShellScriptBin "nvim-clone" ''
     window_info=$(niri msg --json focused-window)
     app_id=$(echo "$window_info" | ${pkgs.jq}/bin/jq -r '.app_id // empty')
@@ -261,7 +265,7 @@ let
 
   niri-scripts = pkgs.symlinkJoin {
     name = "niri-scripts";
-    paths = [ status-notify term-cwd nvim-cwd nvim-clone vivaldi-history vivaldi-tabs nvim-tabs window-clone aichat-new ];
+    paths = [ status-notify term-cwd nvim-cwd nvim-clone vivaldi-history vivaldi-tabs nvim-tabs window-clone aichat-new tv-notes ];
   };
 in
 {
@@ -352,6 +356,7 @@ in
         // Notes/Utilities
         Mod+J repeat=false { spawn-sh "alacritty --working-directory ~/notes --class floating --command zsh -c 'nvim $(jt); exec zsh'"; }
         Mod+L repeat=false { spawn-sh "alacritty --working-directory ~/notes --class floating --command zsh -c 'nvim ~/notes/Todo.md; exec zsh'"; }
+        Mod+N repeat=false { spawn "tv-notes"; }
 
         Super+Ctrl+L { spawn "swaylock"; }
         // AI Chat
