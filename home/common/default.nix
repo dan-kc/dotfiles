@@ -138,6 +138,15 @@
         showStash = true;
         showUntrackedFiles = "all";
       };
+      diff = {
+        tool = "vimdiff";
+      };
+      merge = {
+        tool = "vimdiff";
+      };
+      difftool = {
+        prompt = false;
+      };
     };
   };
 
