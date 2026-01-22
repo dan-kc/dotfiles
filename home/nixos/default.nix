@@ -27,6 +27,7 @@
   nixpkgs.config.allowUnfreePredicate =
     pkg:
     builtins.elem (lib.getName pkg) [
+    "todoist-electron"
       "claude-code"
       "discord"
       "libsciter"
@@ -56,6 +57,7 @@
     protonmail-bridge-gui
     ripdrag
     slack
+    todoist-electron
 
     thunderbird
     trash-cli

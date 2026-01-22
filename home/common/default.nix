@@ -96,6 +96,7 @@
     tv
     qpdf
     aichat
+    tig
   ];
 
   programs.direnv = {
