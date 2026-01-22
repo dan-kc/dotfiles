@@ -17,7 +17,7 @@ in
         text-color=#${config.colorScheme.palette.base05}
         height=140
         width=320
-        margin=14
+        margin=12
         padding=4
         border-size=4
         border-color=#${config.colorScheme.palette.base0C}
