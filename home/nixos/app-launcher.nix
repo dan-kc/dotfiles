@@ -9,7 +9,7 @@ pkgs.stdenv.mkDerivation {
   src = pkgs.writeShellScript "launcher-script" ''
     #!/bin/sh
 
-    apps="alacritty\nanki\nbruno\nslack\ndiscord\npostman\nthunderbird\npavucontrol\nobsidian\nzen\nobs\nvivaldi"
+    apps="alacritty\nanki\ntodoist\nbruno\nslack\ndiscord\npostman\nthunderbird\npavucontrol\nobsidian\nzen\nobs\nvivaldi"
 
     # Use printf for better compatibility
     selected_app=$(printf "$apps" | fuzzel --dmenu -p "Launch Application: ")
@@ -18,6 +18,8 @@ pkgs.stdenv.mkDerivation {
     if [ -n "$selected_app" ]; then
         if [ "$selected_app" = "zen" ]; then
             exec zen-twilight -P default &
+        elif [ "$selected_app" = "todoist" ]; then
+            exec todoist-electron &
         else
             exec "$selected_app" &
         fi

@@ -37,6 +37,7 @@
       "slack"
       "vivaldi"
       "vscode"
+      "chatbox"
     ];
 
   home.packages = with pkgs; [
@@ -44,6 +45,7 @@
     (import ./theme.nix { inherit pkgs; })
     kdePackages.kdenlive
     anki
+    chatbox
     bemenu
     brightnessctl
     ddcutil
