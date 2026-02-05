@@ -333,6 +333,18 @@ in
         }
     }
 
+    // Named workspaces
+    workspace "zero"
+    workspace "one"
+    workspace "two"
+    workspace "three"
+    workspace "four"
+    workspace "five"
+    workspace "six"
+    workspace "seven"
+    workspace "eight"
+    workspace "nine"
+
     spawn-at-startup "udiskie"
     spawn-at-startup "mako"
 
@@ -377,6 +389,29 @@ in
         Mod+Ctrl+Down  { move-column-to-workspace-down; }
         Mod+Ctrl+Up    { move-column-to-workspace-up; }
         Mod+Ctrl+Right { move-column-right; }
+
+        // Named workspaces
+        Mod+0 { focus-workspace "zero"; }
+        Mod+1 { focus-workspace "one"; }
+        Mod+2 { focus-workspace "two"; }
+        Mod+3 { focus-workspace "three"; }
+        Mod+4 { focus-workspace "four"; }
+        Mod+5 { focus-workspace "five"; }
+        Mod+6 { focus-workspace "six"; }
+        Mod+7 { focus-workspace "seven"; }
+        Mod+8 { focus-workspace "eight"; }
+        Mod+9 { focus-workspace "nine"; }
+
+        Mod+Ctrl+0 { move-column-to-workspace "zero"; }
+        Mod+Ctrl+1 { move-column-to-workspace "one"; }
+        Mod+Ctrl+2 { move-column-to-workspace "two"; }
+        Mod+Ctrl+3 { move-column-to-workspace "three"; }
+        Mod+Ctrl+4 { move-column-to-workspace "four"; }
+        Mod+Ctrl+5 { move-column-to-workspace "five"; }
+        Mod+Ctrl+6 { move-column-to-workspace "six"; }
+        Mod+Ctrl+7 { move-column-to-workspace "seven"; }
+        Mod+Ctrl+8 { move-column-to-workspace "eight"; }
+        Mod+Ctrl+9 { move-column-to-workspace "nine"; }
 
         Mod+R { switch-preset-column-width; }
         // Mod+F { maximize-column; }
