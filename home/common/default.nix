@@ -42,7 +42,7 @@
   # colorScheme = inputs.nix-colors.colorSchemes.gruvbox-dark-hard; # 7/10
   # colorScheme = inputs.nix-colors.colorSchemes.hardcore; # 7/10 borders not clear
   # colorScheme = inputs.nix-colors.colorSchemes.harmonic16-dark; # 7/10 
-  colorScheme = inputs.nix-colors.colorSchemes.helios; # 9/10 
+  colorScheme = inputs.nix-colors.colorSchemes.hopscotch; # 9/10 
 
   home.file = {
     ".config/atuin/config.toml".source = ./atuin.toml;
