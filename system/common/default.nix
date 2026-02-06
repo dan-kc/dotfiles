@@ -10,7 +10,6 @@
     ./sound.nix
     ./ssh.nix
     inputs.sops-nix.nixosModules.sops
-    # inputs.hyprland.nixosModules.default
   ];
 
   sops.defaultSopsFile = ../../secrets/secrets.yaml;
@@ -26,14 +25,6 @@
   services.udev.packages = with pkgs; [
     yubikey-personalization
   ];
-
-  programs.hyprland = {
-    enable = true;
-    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-    portalPackage =
-      inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
-    xwayland.enable = true;
-  };
 
   users.users.daniel = {
     isNormalUser = true;
@@ -70,18 +61,12 @@
 
   console.font = "Lat2-Terminus16";
 
-  nix.settings = {
-    substituters = [ "https://hyprland.cachix.org" ];
-    trusted-substituters = [ "https://hyprland.cachix.org" ];
-    trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
-  };
   virtualisation.docker.enable = true;
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = [
     (final: prev: {
       home-manager = inputs.home-manager.packages."${pkgs.system}".default;
-      hyprcursor = inputs.rose-pine-hyprcursor.packages.${pkgs.system}.default;
     })
   ];
 
@@ -99,7 +84,6 @@
 
     wlsunset # Not yet configured
     udiskie # Mount external drives automatically
-    hyprcursor
 
     xwayland-satellite
     swaybg

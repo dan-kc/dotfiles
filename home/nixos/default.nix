@@ -9,7 +9,6 @@
   imports = [
     ./alacritty.nix
     ./yazi
-    ./hyprland
     ./notifications.nix
     ./niri.nix
     ./fuzzel.nix
