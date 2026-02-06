@@ -333,6 +333,12 @@ in
         }
     }
 
+    animations {
+        workspace-switch {
+            off
+        }
+    }
+
     // Named workspaces
     workspace "zero"
     workspace "one"
