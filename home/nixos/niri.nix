@@ -374,27 +374,27 @@ in
         // Notes/Utilities
         Mod+J repeat=false { spawn-sh "alacritty --working-directory ~/notes --command zsh -c 'nvim $(jt); exec zsh'"; }
 
-        Super+Ctrl+L { spawn "swaylock"; }
+        Super+Alt+L { spawn "swaylock"; }
         // AI Chat
         Mod+A repeat=false hotkey-overlay-title="Open aichat" { spawn "aichat-new"; }
 
         Mod+U { spawn "status-notify"; }
 
         Mod+H repeat=false hotkey-overlay-title="Search Vivaldi history" { spawn "vivaldi-history"; }
-        Mod+Ctrl+B repeat=false hotkey-overlay-title="Switch Neovim window" { spawn "nvim-tabs"; }
+        Mod+Alt+B repeat=false hotkey-overlay-title="Switch Neovim window" { spawn "nvim-tabs"; }
         Mod+D repeat=false hotkey-overlay-title="Duplicate window" { spawn "window-clone"; }
 
-        Mod+Ctrl+T repeat=false hotkey-overlay-title="Switch Vivaldi window" { spawn "vivaldi-tabs"; }
+        Mod+Alt+T repeat=false hotkey-overlay-title="Switch Vivaldi window" { spawn "vivaldi-tabs"; }
 
         Mod+Left  { focus-column-left; }
         Mod+Down  { focus-workspace-down; }
         Mod+Up    { focus-workspace-up; }
         Mod+Right { focus-column-right; }
 
-        Mod+Ctrl+Left  { move-column-left; }
-        Mod+Ctrl+Down  { move-column-to-workspace-down; }
-        Mod+Ctrl+Up    { move-column-to-workspace-up; }
-        Mod+Ctrl+Right { move-column-right; }
+        Mod+Alt+Left  { move-column-left; }
+        Mod+Alt+Down  { move-column-to-workspace-down; }
+        Mod+Alt+Up    { move-column-to-workspace-up; }
+        Mod+Alt+Right { move-column-right; }
 
         // Named workspaces
         Mod+0 { focus-workspace "zero"; }
@@ -408,16 +408,16 @@ in
         Mod+8 { focus-workspace "eight"; }
         Mod+9 { focus-workspace "nine"; }
 
-        Mod+Ctrl+0 { move-column-to-workspace "zero"; }
-        Mod+Ctrl+1 { move-column-to-workspace "one"; }
-        Mod+Ctrl+2 { move-column-to-workspace "two"; }
-        Mod+Ctrl+3 { move-column-to-workspace "three"; }
-        Mod+Ctrl+4 { move-column-to-workspace "four"; }
-        Mod+Ctrl+5 { move-column-to-workspace "five"; }
-        Mod+Ctrl+6 { move-column-to-workspace "six"; }
-        Mod+Ctrl+7 { move-column-to-workspace "seven"; }
-        Mod+Ctrl+8 { move-column-to-workspace "eight"; }
-        Mod+Ctrl+9 { move-column-to-workspace "nine"; }
+        Mod+Alt+0 { move-column-to-workspace "zero"; }
+        Mod+Alt+1 { move-column-to-workspace "one"; }
+        Mod+Alt+2 { move-column-to-workspace "two"; }
+        Mod+Alt+3 { move-column-to-workspace "three"; }
+        Mod+Alt+4 { move-column-to-workspace "four"; }
+        Mod+Alt+5 { move-column-to-workspace "five"; }
+        Mod+Alt+6 { move-column-to-workspace "six"; }
+        Mod+Alt+7 { move-column-to-workspace "seven"; }
+        Mod+Alt+8 { move-column-to-workspace "eight"; }
+        Mod+Alt+9 { move-column-to-workspace "nine"; }
 
         Mod+R { switch-preset-column-width; }
         // Mod+F { maximize-column; }
@@ -461,7 +461,7 @@ in
         Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 
         // The quit action will show a confirmation dialog to avoid accidental exits.
-        Mod+Ctrl+Q { quit; }
+        Mod+Alt+Q { quit; }
     }
     '';
   };
