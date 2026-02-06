@@ -50,13 +50,10 @@
     brightnessctl
     ddcutil
     discord
-    protonmail-desktop
     gcc
     lsof
     obsidian
     pinentry-tty
-    protonmail-bridge
-    protonmail-bridge-gui
     ripdrag
     slack
     todoist-electron
