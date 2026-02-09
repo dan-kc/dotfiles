@@ -788,11 +788,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1769804065,
-        "narHash": "sha256-TqbwiRAmcn3IOD+5+rAZye9Gde591YJIj8zMp3rs1/g=",
+        "lastModified": 1770584693,
+        "narHash": "sha256-s1WA9GckD4aK4WWtuoggDtoN8MBTkWucW2RzSq4hKEE=",
         "owner": "dan-kc",
         "repo": "jt",
-        "rev": "851908d6b43b28d3f992951f069ef930118c06fa",
+        "rev": "6c955aa6a3bb28242d2ca3384dac04fc9bf4fa78",
         "type": "github"
       },
       "original": {
