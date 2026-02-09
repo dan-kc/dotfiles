@@ -46,6 +46,12 @@
 
   home.file = {
     ".config/atuin/config.toml".source = ./atuin.toml;
+    ".config/tig/config".text = ''
+      # Use local timezone with custom date format
+      set main-view-date = custom
+      set main-view-date-format = "%Y-%m-%d %H:%M"
+      set main-view-date-local = true
+    '';
     ".config/theme.yaml".text = ''
       base00: "${config.colorScheme.palette.base00}"
       base01: "${config.colorScheme.palette.base01}"

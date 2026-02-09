@@ -15,7 +15,7 @@
 
     shellAliases = {
       v = "nvim";
-      g = "lazygit";
+      # g = "lazygit";
       c = "clear";
       rm = "trash";
       ls = "exa";
