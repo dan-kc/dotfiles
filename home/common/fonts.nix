@@ -6,7 +6,7 @@
 {
   options.globalFonts.selectedFont = lib.mkOption {
     type = lib.types.str;
-    default = "FiraCode Nerd Font Propo";
+    default = "GeistMono Nerd Font Mono";
     description = "The name of the globally selected Nerd Font.";
   };
 
