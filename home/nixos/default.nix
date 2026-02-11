@@ -62,7 +62,9 @@
     udiskie
     unzip
     vivaldi
-    ffmpeg-full # For vivaldi playback
+    # (vivaldi.override {
+    #   proprietaryCodecs = true;
+    # })
     vlc
     vscode
     wl-clipboard
