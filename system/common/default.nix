@@ -119,6 +119,11 @@
     "Z /etc/nixos 0770 root daniel - -"
   ];
 
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  };
+
   programs.niri.enable = true;
   # NEVER change.
   system.stateVersion = "24.05";
