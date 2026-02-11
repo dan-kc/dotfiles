@@ -28,6 +28,9 @@
   services.upower.enable = true; # For zen to see power
 
   boot = {
+    # Uncomment to pin kernel if wifi breaks after nixpkgs update
+    # kernelPackages = pkgs.linuxPackages_6_12;
+
     # Motorcomm YT6801 LAN drivers
     extraModulePackages = with config.boot.kernelPackages; [ yt6801 ];
     kernelParams = [
