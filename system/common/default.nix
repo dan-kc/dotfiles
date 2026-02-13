@@ -15,7 +15,11 @@
   sops.defaultSopsFile = ../../secrets/secrets.yaml;
   sops.defaultSopsFormat = "yaml";
   sops.age.keyFile = "/home/daniel/.config/sops/age/keys.txt";
-  sops.secrets.wifi = { };
+  sops.secrets.wifi = { 
+    owner = "root";
+    group = "root";
+    mode = "0440";
+  };
   sops.secrets.anthropic_api_key = {
     owner = config.users.users.daniel.name;
   };
