@@ -13,7 +13,6 @@
     ./niri.nix
     ./fuzzel.nix
     inputs.sops-nix.homeManagerModules.sops
-    inputs.zen-browser.homeModules.twilight
   ];
 
   home.username = "daniel";
@@ -69,41 +68,6 @@
     vscode
     wl-clipboard
   ];
-  programs.zen-browser = {
-    enable = true;
-    policies = {
-      AutofillAddressEnabled = false;
-      AutofillCreditCardEnabled = false;
-      DisableAppUpdate = true;
-      DisableFeedbackCommands = true;
-      DisableFirefoxStudies = true;
-      DisablePocket = true;
-      DisableTelemetry = true;
-      DontCheckDefaultBrowser = true;
-      NoDefaultBookmarks = true;
-      OfferToSaveLogins = false;
-      EnableTrackingProtection = {
-        Value = true;
-        Locked = true;
-        Cryptomining = true;
-        Fingerprinting = true;
-      };
-    };
-
-    profiles.default = {
-      isDefault = true;
-
-      # Here’s the important part:
-      settings = {
-        "media.cubeb.backend" = "pulse";
-      };
-      extensions.packages = with inputs.firefox-addons.packages.${pkgs.stdenv.hostPlatform.system}; [
-        ublock-origin
-        proton-pass
-        df-youtube
-      ];
-    };
-  };
 
   programs.obs-studio = {
     enable = true;

@@ -25,7 +25,6 @@
   ];
   powerManagement.powertop.enable = true;
   networking.hostName = "plank";
-  services.upower.enable = true; # For zen to see power
 
   boot = {
     # Uncomment to pin kernel if wifi breaks after nixpkgs update
