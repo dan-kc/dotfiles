@@ -5,19 +5,16 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    sops-nix.url = "github:Mic92/sops-nix";
+
     neovim.url = "github:dan-kc/neovim";
     flake-gen.url = "github:dan-kc/flake-gen";
     jt.url = "github:dan-kc/jt";
-    nix-colors.url = "github:misterio77/nix-colors";
+
     tuxedo-nixos.url = "github:sund3RRR/tuxedo-nixos";
-    sops-nix.url = "github:Mic92/sops-nix";
     xremap-flake.url = "github:xremap/nix-flake";
-    zen-browser.url = "github:0xc000022070/zen-browser-flake";
-    zen-browser.inputs.nixpkgs.follows = "nixpkgs";
-    firefox-addons = {
-      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+
+    nix-colors.url = "github:misterio77/nix-colors";
   };
 
   outputs =
