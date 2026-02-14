@@ -78,7 +78,6 @@
       neovim = inputs.neovim.packages."${pkgs.system}".default;
       flake-gen = inputs.flake-gen.packages."${pkgs.system}".default;
       jt = inputs.jt.packages."${pkgs.system}".default;
-      tv = inputs.television.packages."${pkgs.system}".default;
     })
   ];
 
@@ -101,7 +100,7 @@
     lazygit
     neovim
     ripgrep
-    tv
+    television
     qpdf
     aichat
     tig
