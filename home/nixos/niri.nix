@@ -263,9 +263,76 @@ let
     exec ${pkgs.alacritty}/bin/alacritty --working-directory "$cwd" -e zsh -c "${pkgs.neovim}/bin/nvim \"+call cursor($line,$col)\" \"$file\"; exec zsh"
   '';
 
+  copy-link = pkgs.writeShellScriptBin "copy-link" ''
+    CHOICE=$(printf '%s\n' \
+      "LinkedIn | https://www.linkedin.com/in/dan-kc/" \
+      "GitHub | https://github.com/dan-kc" \
+      "Website | https://keone.dev" | \
+      ${pkgs.fuzzel}/bin/fuzzel --dmenu -l 20 -p "Copy link: ")
+
+    URL=$(echo "$CHOICE" | ${pkgs.gawk}/bin/awk -F ' \\| ' '{print $NF}')
+
+    if [ -n "$URL" ]; then
+      echo -n "$URL" | ${pkgs.wl-clipboard}/bin/wl-copy
+    fi
+  '';
+
+  cover-letter-inner = pkgs.writeShellScriptBin "cover-letter-inner" ''
+    TMPJOB=$(mktemp /tmp/job-listing-XXXXXX.md)
+    TMPPROMPT=$(mktemp /tmp/cover-letter-prompt-XXXXXX.txt)
+
+    ${pkgs.neovim}/bin/nvim "$TMPJOB"
+
+    if [ ! -s "$TMPJOB" ]; then
+      echo "No job listing provided. Exiting."
+      rm -f "$TMPJOB" "$TMPPROMPT"
+      sleep 2
+      exit 1
+    fi
+
+    CV_DIR="$HOME/Documents/CVs & Cover Letters"
+
+    {
+      echo "Rewrite my Covering Letter with respect to this job listing:"
+      echo
+      cat "$TMPJOB"
+      echo
+      echo "This is my current covering letter:"
+      echo
+      ${pkgs.poppler-utils}/bin/pdftotext "$CV_DIR/Cover letter.pdf" -
+      echo
+      echo "This is my CV:"
+      echo
+      ${pkgs.poppler-utils}/bin/pdftotext "$CV_DIR/CV.pdf" -
+      echo
+      echo "Do not change it that much. Keep it roughly the same length."
+      echo "Avoid glazing the company in the opening paragraph."
+      echo "Assure the first paragraph mentions about me wanting a technical challenge and how it aligns with my degree."
+      echo "Ensure it does not look ai-written"
+      echo "Do not use any em dashes"
+      echo "Use british english"
+      echo "Ensure most of the covering letter is exactly the same."
+      echo "Do not rewrite something if you don't need to"
+      echo "Do not rewrite a sentence just to make it different."
+      echo "I like the current wordings."
+    } > "$TMPPROMPT"
+
+    rm -f "$TMPJOB"
+
+    SESSION="cover-letter-$(date +%s)"
+    ${pkgs.aichat}/bin/aichat -s "$SESSION" < "$TMPPROMPT"
+    rm -f "$TMPPROMPT"
+
+    exec ${pkgs.aichat}/bin/aichat -s "$SESSION"
+  '';
+
+  cover-letter-rewrite = pkgs.writeShellScriptBin "cover-letter-rewrite" ''
+    exec ${pkgs.alacritty}/bin/alacritty -e ${cover-letter-inner}/bin/cover-letter-inner
+  '';
+
   niri-scripts = pkgs.symlinkJoin {
     name = "niri-scripts";
-    paths = [ status-notify term-cwd nvim-cwd nvim-clone vivaldi-history vivaldi-tabs nvim-tabs window-clone aichat-new tv-notes ];
+    paths = [ status-notify term-cwd nvim-cwd nvim-clone vivaldi-history vivaldi-tabs nvim-tabs window-clone aichat-new tv-notes copy-link cover-letter-rewrite ];
   };
 in
 {
@@ -377,6 +444,7 @@ in
         Super+Alt+L { spawn "swaylock"; }
         // AI Chat
         Mod+A repeat=false hotkey-overlay-title="Open aichat" { spawn "aichat-new"; }
+        Mod+L repeat=false hotkey-overlay-title="Cover letter rewrite" { spawn "cover-letter-rewrite"; }
 
         Mod+U { spawn "status-notify"; }
 
@@ -385,6 +453,7 @@ in
         Mod+D repeat=false hotkey-overlay-title="Duplicate window" { spawn "window-clone"; }
 
         Mod+Alt+T repeat=false hotkey-overlay-title="Switch Vivaldi window" { spawn "vivaldi-tabs"; }
+        Mod+C repeat=false hotkey-overlay-title="Copy link" { spawn "copy-link"; }
 
         Mod+Left  { focus-column-left; }
         Mod+Down  { focus-workspace-down; }

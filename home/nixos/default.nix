@@ -50,6 +50,7 @@
     discord
     gcc
     lsof
+    nautilus
     obsidian
     pinentry-tty
     ripdrag
