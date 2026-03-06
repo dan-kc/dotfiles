@@ -21,6 +21,25 @@
       alsa.support32Bit = true;
       pulse.enable = true;
       jack.enable = true;
+
+      # Disable DisplayLink dock audio - it can't be opened and the constant
+      # error polling disrupts the audio graph, causing browser video to freeze
+      wireplumber.extraConfig."50-disable-displaylink" = {
+        "monitor.alsa.rules" = [
+          {
+            matches = [
+              {
+                "device.name" = "~alsa_card.usb-DisplayLink*";
+              }
+            ];
+            actions = {
+              update-props = {
+                "device.disabled" = true;
+              };
+            };
+          }
+        ];
+      };
     };
     pulseaudio.enable = false;
   };
@@ -29,7 +48,4 @@
     pamixer
     pavucontrol
   ];
-  environment.sessionVariables = {
-    AUDIODEV = "pulse";
-  };
 }

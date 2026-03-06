@@ -50,6 +50,7 @@
     discord
     gcc
     lsof
+    nautilus
     obsidian
     pinentry-tty
     ripdrag
@@ -60,10 +61,8 @@
     trash-cli
     udiskie
     unzip
-    vivaldi
-    # (vivaldi.override {
-    #   proprietaryCodecs = true;
-    # })
+    # Proprietary codecs required for web video/audio (YouTube, Reddit, etc.)
+    (vivaldi.override { proprietaryCodecs = true; })
     vlc
     vscode
     wl-clipboard

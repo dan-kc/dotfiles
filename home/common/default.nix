@@ -47,6 +47,7 @@
 
   home.file = {
     ".config/atuin/config.toml".source = ./atuin.toml;
+    ".config/gh-dash/config.yml".source = ./gh-dash.yml;
     ".config/tig/config".text = ''
       # Use local timezone with custom date format
       set main-view-date = custom
@@ -93,6 +94,7 @@
     flake-gen
     fzf
     gh
+    diffnav
     imagemagick
     jt
     jujutsu
