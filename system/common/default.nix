@@ -36,6 +36,8 @@
       "wheel"
       "docker"
       "video"
+      "kvm"
+      "adbusers"
     ];
     shell = pkgs.zsh;
   };
