@@ -20,7 +20,7 @@
       ls = "exa";
     };
 
-    initExtra = ''
+    initContent = ''
       # Disable ctrl-s
       stty stop undef
 
