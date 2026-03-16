@@ -42,7 +42,7 @@
     shell = pkgs.zsh;
   };
 
-  time.timeZone = "Europe/London";
+  time.timeZone = "Asia/Bangkok";
   i18n.defaultLocale = "en_GB.UTF-8";
 
   boot.loader = {
