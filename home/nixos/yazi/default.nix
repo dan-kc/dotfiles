@@ -251,6 +251,8 @@
           { on = "!"; run = ''shell "$SHELL" --block''; desc = "Open shell here"; }
           { on = [ "g" "r" ]; run = ''shell -- ya emit cd "$(git rev-parse --show-toplevel)"''; }
           { on = [ ":" "q" ]; run = "quit"; desc = "Quit Yazi"; }
+          { on = "<C-g>"; run = ''shell 'ripdrag "$@"' --confirm''; desc = "Drag selected files out"; }
+          { on = "<A-g>"; run = ''shell 'ripdrag --target --all | while read filepath; do cp -nR "$filepath" .; done' --confirm''; desc = "Drop files into current dir"; }
         ];
         keymap = [
           { on = "<Esc>"; run = "escape"; desc = "Exit visual mode, clear selection, or cancel search"; }
