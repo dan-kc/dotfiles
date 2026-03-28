@@ -8,9 +8,13 @@ let
   hexToRGBString = inputs.nix-colors.lib-core.conversions.hexToRGBString;
 
   status-notify = pkgs.writeShellScriptBin "status-notify" ''
-    battery=$(${pkgs.acpi}/bin/acpi -b | cut -d: -f2- | xargs)
-    date=$(date +"%Y-%m-%d %H:%M:%S")
-    ${pkgs.libnotify}/bin/notify-send "Battery: $battery" "Date: $date"
+    if ${pkgs.mako}/bin/makoctl list | ${pkgs.jq}/bin/jq -e '.data[] | .[] | select(."app-name".data == "status-notify")' > /dev/null 2>&1; then
+      ${pkgs.mako}/bin/makoctl dismiss --all
+    else
+      battery=$(${pkgs.acpi}/bin/acpi -b | cut -d: -f2- | xargs)
+      date=$(date +"%Y-%m-%d %H:%M:%S")
+      ${pkgs.libnotify}/bin/notify-send -a status-notify -t 0 "Battery: $battery" "Date: $date"
+    fi
   '';
 
   term-cwd = pkgs.writeShellScriptBin "term-cwd" ''
