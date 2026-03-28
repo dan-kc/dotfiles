@@ -5,7 +5,8 @@
 {
   programs.zsh = {
     enable = true;
-    autosuggestion.enable = true;
+    autosuggestion.enable = false;
+    enableCompletion = false;
 
     history = {
       size = 100000;
@@ -21,6 +22,12 @@
     };
 
     initContent = ''
+      # Bind atuin ctrl-r after zsh-vi-mode initializes
+      zvm_after_init() {
+        zvm_bindkey viins '^R' atuin-search
+        zvm_bindkey vicmd '^R' atuin-search
+      }
+
       # Disable ctrl-s
       stty stop undef
 

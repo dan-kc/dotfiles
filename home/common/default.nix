@@ -48,7 +48,6 @@
   
 
   home.file = {
-    ".config/atuin/config.toml".source = ./atuin.toml;
     ".config/gh-dash/config.yml".source = ./gh-dash.yml;
     ".config/tig/config".text = ''
       # Use local timezone with custom date format
@@ -109,6 +108,21 @@
     aichat
     tig
   ];
+
+  programs.atuin = {
+    enable = true;
+    enableZshIntegration = true;
+    flags = [ "--disable-up-arrow" ];
+    settings = {
+      dialect = "uk";
+      update_check = false;
+      search_mode = "fuzzy";
+      style = "compact";
+      inline_height = 10;
+      show_help = false;
+      exit_mode = "return-query";
+    };
+  };
 
   programs.direnv = {
     enable = true;
