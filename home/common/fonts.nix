@@ -6,7 +6,7 @@
 {
   options.globalFonts.selectedFont = lib.mkOption {
     type = lib.types.str;
-    default = "GeistMono Nerd Font Mono";
+    default = "Hack Nerd Font Mono";
     description = "The name of the globally selected Nerd Font.";
   };
 
@@ -17,7 +17,7 @@
       nerd-fonts.jetbrains-mono # JetBrainsMono Nerd Font Mono 7/10
       proggyfonts
       nerd-fonts.geist-mono # GeistMono Nerd Font Mono
-      nerd-fonts.hack # Hack Nerd Font Mono
+      nerd-fonts.hack # Hack Nerd Font Mono 6/10
       nerd-fonts.hurmit # Hurmit Nerd Font Propo
       nerd-fonts.monofur # Monofur Nerd Font Propo 6/10
       nerd-fonts.fira-code # FiraCode Nerd Font Propo
