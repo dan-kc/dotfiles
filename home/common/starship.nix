@@ -6,7 +6,7 @@
     enable = true;
     enableZshIntegration = true;
     settings = {
-      format = "$directory$git_branch$git_commit$git_state$git_metrics$fill$time$battery\n$character";
+      format = "$directory$git_branch$git_commit$git_state$git_metrics$fill$battery\n$character";
       right_format = "";
       add_newline = true;
 
