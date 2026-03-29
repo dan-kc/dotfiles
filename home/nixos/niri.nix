@@ -404,6 +404,12 @@ in
         }
     }
 
+    gestures {
+        hot-corners {
+            off
+        }
+    }
+
     animations {
         workspace-switch {
             off
