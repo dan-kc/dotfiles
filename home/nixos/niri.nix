@@ -8,7 +8,7 @@ let
   hexToRGBString = inputs.nix-colors.lib-core.conversions.hexToRGBString;
 
   status-notify = pkgs.writeShellScriptBin "status-notify" ''
-    if ${pkgs.mako}/bin/makoctl list | ${pkgs.jq}/bin/jq -e '.data[] | .[] | select(."app-name".data == "status-notify")' > /dev/null 2>&1; then
+    if ${pkgs.mako}/bin/makoctl list | grep -q 'App name: status-notify'; then
       ${pkgs.mako}/bin/makoctl dismiss --all
     else
       battery=$(${pkgs.acpi}/bin/acpi -b | cut -d: -f2- | xargs)
