@@ -87,6 +87,8 @@
     bandwhich
     bruno
     claude-code
+    opencode
+    codex
     delta
     difftastic
     dua
