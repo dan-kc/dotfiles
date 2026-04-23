@@ -68,6 +68,12 @@
     wl-clipboard
   ];
 
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+    };
+  };
+
   programs.obs-studio = {
     enable = true;
   };
