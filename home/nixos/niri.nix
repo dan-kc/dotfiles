@@ -1,12 +1,9 @@
 {
   pkgs,
-  inputs,
   config,
   ...
 }:
 let
-  hexToRGBString = inputs.nix-colors.lib-core.conversions.hexToRGBString;
-
   status-notify = pkgs.writeShellScriptBin "status-notify" ''
     if ${pkgs.mako}/bin/makoctl list | grep -q 'App name: status-notify'; then
       ${pkgs.mako}/bin/makoctl dismiss --all
@@ -336,7 +333,20 @@ let
 
   niri-scripts = pkgs.symlinkJoin {
     name = "niri-scripts";
-    paths = [ status-notify term-cwd nvim-cwd nvim-clone vivaldi-history vivaldi-tabs nvim-tabs window-clone aichat-new tv-notes copy-link cover-letter-rewrite ];
+    paths = [
+      status-notify
+      term-cwd
+      nvim-cwd
+      nvim-clone
+      vivaldi-history
+      vivaldi-tabs
+      nvim-tabs
+      window-clone
+      aichat-new
+      tv-notes
+      copy-link
+      cover-letter-rewrite
+    ];
   };
 in
 {
@@ -344,204 +354,204 @@ in
 
   home.file = {
     ".config/niri/config.kdl".text = ''
-    input {
-        keyboard {
-            xkb {
-                layout "us,gb"
-            }
-            repeat-rate 25
-            repeat-delay 150
-        }
+      input {
+          keyboard {
+              xkb {
+                  layout "us,gb"
+              }
+              repeat-rate 25
+              repeat-delay 150
+          }
 
-        touchpad {
-            tap
-            natural-scroll
-            scroll-factor 0.3
-        }
+          touchpad {
+              tap
+              natural-scroll
+              scroll-factor 0.3
+          }
 
-        mouse {
-            accel-profile "flat" // off
-            accel-speed -0.3
-            natural-scroll
-        }
-    }
+          mouse {
+              accel-profile "flat" // off
+              accel-speed -0.3
+              natural-scroll
+          }
+      }
 
-    prefer-no-csd
-    layout {
-        gaps 16
-        center-focused-column "never"
-        
-        preset-column-widths {
-            proportion 0.5
-            proportion 1.0
-        }
+      prefer-no-csd
+      layout {
+          gaps 16
+          center-focused-column "never"
+          
+          preset-column-widths {
+              proportion 0.5
+              proportion 1.0
+          }
 
-        default-column-width { proportion 0.5; }
+          default-column-width { proportion 0.5; }
 
-        focus-ring {
-            width 4
-            active-color "#${config.colorScheme.palette.base0C}"
-            inactive-color "#${config.colorScheme.palette.base0C}"
-            urgent-color "#${config.colorScheme.palette.base09}"
-        }
+          focus-ring {
+              width 4
+              active-color "#${config.colorScheme.palette.base0C}"
+              inactive-color "#${config.colorScheme.palette.base0C}"
+              urgent-color "#${config.colorScheme.palette.base09}"
+          }
 
-        background-color "transparent"
+          background-color "transparent"
 
-        border {
-            off
-        }
+          border {
+              off
+          }
 
-        shadow {
-            off
-        }
-    }
+          shadow {
+              off
+          }
+      }
 
-    overview {
-        zoom 0.3
-        backdrop-color "#${config.colorScheme.palette.base00}"
-        workspace-shadow {
-            off
-        }
-    }
+      overview {
+          zoom 0.3
+          backdrop-color "#${config.colorScheme.palette.base00}"
+          workspace-shadow {
+              off
+          }
+      }
 
-    gestures {
-        hot-corners {
-            off
-        }
-    }
+      gestures {
+          hot-corners {
+              off
+          }
+      }
 
-    animations {
-        workspace-switch {
-            off
-        }
-    }
+      animations {
+          workspace-switch {
+              off
+          }
+      }
 
-    // Named workspaces
-    workspace "zero"
-    workspace "one"
-    workspace "two"
-    workspace "three"
-    workspace "four"
-    workspace "five"
-    workspace "six"
-    workspace "seven"
-    workspace "eight"
-    workspace "nine"
+      // Named workspaces
+      workspace "zero"
+      workspace "one"
+      workspace "two"
+      workspace "three"
+      workspace "four"
+      workspace "five"
+      workspace "six"
+      workspace "seven"
+      workspace "eight"
+      workspace "nine"
 
-    spawn-at-startup "udiskie"
-    spawn-at-startup "mako"
+      spawn-at-startup "udiskie"
+      spawn-at-startup "mako"
 
-    // Environment variables
-    environment {
-        NIXOS_OZONE_WL "1"
-    }
+      // Environment variables
+      environment {
+          NIXOS_OZONE_WL "1"
+      }
 
-    binds {
-        // Basics
-        Mod+Space repeat=false { spawn "launcher"; }
-        Mod+Q { close-window; }
-        Mod+O repeat=false { toggle-overview; }
-        
-        // Applications
-        Mod+Y repeat=false { spawn-sh "alacritty --working-directory ~/ --command zsh -c 'yazi; exec zsh'"; }
-        Mod+T repeat=false hotkey-overlay-title="Spawn terminal" { spawn "term-cwd"; }
-        Mod+E repeat=false hotkey-overlay-title="Spawn neovim" { spawn "nvim-cwd"; }
-        Mod+B repeat=false hotkey-overlay-title="Spawn neovim" { spawn "vivaldi" "--new-window"; }
+      binds {
+          // Basics
+          Mod+Space repeat=false { spawn "launcher"; }
+          Mod+Q { close-window; }
+          Mod+O repeat=false { toggle-overview; }
+          
+          // Applications
+          Mod+Y repeat=false { spawn-sh "alacritty --working-directory ~/ --command zsh -c 'yazi; exec zsh'"; }
+          Mod+T repeat=false hotkey-overlay-title="Spawn terminal" { spawn "term-cwd"; }
+          Mod+E repeat=false hotkey-overlay-title="Spawn neovim" { spawn "nvim-cwd"; }
+          Mod+B repeat=false hotkey-overlay-title="Spawn neovim" { spawn "vivaldi" "--new-window"; }
 
-        // Notes/Utilities
-        Mod+J repeat=false { spawn-sh "alacritty --working-directory ~/notes --command zsh -c 'nvim $(jt); exec zsh'"; }
+          // Notes/Utilities
+          Mod+J repeat=false { spawn-sh "alacritty --working-directory ~/notes --command zsh -c 'nvim $(jt); exec zsh'"; }
 
-        Super+Alt+L { spawn "swaylock"; }
-        // AI Chat
-        Mod+A repeat=false hotkey-overlay-title="Open aichat" { spawn "aichat-new"; }
-        Mod+L repeat=false hotkey-overlay-title="Cover letter rewrite" { spawn "cover-letter-rewrite"; }
+          Super+Alt+L { spawn "swaylock"; }
+          // AI Chat
+          Mod+A repeat=false hotkey-overlay-title="Open aichat" { spawn "aichat-new"; }
+          Mod+L repeat=false hotkey-overlay-title="Cover letter rewrite" { spawn "cover-letter-rewrite"; }
 
-        Mod+U { spawn "status-notify"; }
+          Mod+U { spawn "status-notify"; }
 
-        Mod+H repeat=false hotkey-overlay-title="Search Vivaldi history" { spawn "vivaldi-history"; }
-        Mod+Alt+B repeat=false hotkey-overlay-title="Switch Neovim window" { spawn "nvim-tabs"; }
-        Mod+D repeat=false hotkey-overlay-title="Duplicate window" { spawn "window-clone"; }
+          Mod+H repeat=false hotkey-overlay-title="Search Vivaldi history" { spawn "vivaldi-history"; }
+          Mod+Alt+B repeat=false hotkey-overlay-title="Switch Neovim window" { spawn "nvim-tabs"; }
+          Mod+D repeat=false hotkey-overlay-title="Duplicate window" { spawn "window-clone"; }
 
-        Mod+Alt+T repeat=false hotkey-overlay-title="Switch Vivaldi window" { spawn "vivaldi-tabs"; }
-        Mod+C repeat=false hotkey-overlay-title="Copy link" { spawn "copy-link"; }
+          Mod+Alt+T repeat=false hotkey-overlay-title="Switch Vivaldi window" { spawn "vivaldi-tabs"; }
+          Mod+C repeat=false hotkey-overlay-title="Copy link" { spawn "copy-link"; }
 
-        Mod+Left  { focus-column-left; }
-        Mod+Down  { focus-workspace-down; }
-        Mod+Up    { focus-workspace-up; }
-        Mod+Right { focus-column-right; }
+          Mod+Left  { focus-column-left; }
+          Mod+Down  { focus-workspace-down; }
+          Mod+Up    { focus-workspace-up; }
+          Mod+Right { focus-column-right; }
 
-        Mod+Alt+Left  { move-column-left; }
-        Mod+Alt+Down  { move-column-to-workspace-down; }
-        Mod+Alt+Up    { move-column-to-workspace-up; }
-        Mod+Alt+Right { move-column-right; }
+          Mod+Alt+Left  { move-column-left; }
+          Mod+Alt+Down  { move-column-to-workspace-down; }
+          Mod+Alt+Up    { move-column-to-workspace-up; }
+          Mod+Alt+Right { move-column-right; }
 
-        // Named workspaces
-        Mod+0 { focus-workspace "zero"; }
-        Mod+1 { focus-workspace "one"; }
-        Mod+2 { focus-workspace "two"; }
-        Mod+3 { focus-workspace "three"; }
-        Mod+4 { focus-workspace "four"; }
-        Mod+5 { focus-workspace "five"; }
-        Mod+6 { focus-workspace "six"; }
-        Mod+7 { focus-workspace "seven"; }
-        Mod+8 { focus-workspace "eight"; }
-        Mod+9 { focus-workspace "nine"; }
+          // Named workspaces
+          Mod+0 { focus-workspace "zero"; }
+          Mod+1 { focus-workspace "one"; }
+          Mod+2 { focus-workspace "two"; }
+          Mod+3 { focus-workspace "three"; }
+          Mod+4 { focus-workspace "four"; }
+          Mod+5 { focus-workspace "five"; }
+          Mod+6 { focus-workspace "six"; }
+          Mod+7 { focus-workspace "seven"; }
+          Mod+8 { focus-workspace "eight"; }
+          Mod+9 { focus-workspace "nine"; }
 
-        Mod+Alt+0 { move-column-to-workspace "zero"; }
-        Mod+Alt+1 { move-column-to-workspace "one"; }
-        Mod+Alt+2 { move-column-to-workspace "two"; }
-        Mod+Alt+3 { move-column-to-workspace "three"; }
-        Mod+Alt+4 { move-column-to-workspace "four"; }
-        Mod+Alt+5 { move-column-to-workspace "five"; }
-        Mod+Alt+6 { move-column-to-workspace "six"; }
-        Mod+Alt+7 { move-column-to-workspace "seven"; }
-        Mod+Alt+8 { move-column-to-workspace "eight"; }
-        Mod+Alt+9 { move-column-to-workspace "nine"; }
+          Mod+Alt+0 { move-column-to-workspace "zero"; }
+          Mod+Alt+1 { move-column-to-workspace "one"; }
+          Mod+Alt+2 { move-column-to-workspace "two"; }
+          Mod+Alt+3 { move-column-to-workspace "three"; }
+          Mod+Alt+4 { move-column-to-workspace "four"; }
+          Mod+Alt+5 { move-column-to-workspace "five"; }
+          Mod+Alt+6 { move-column-to-workspace "six"; }
+          Mod+Alt+7 { move-column-to-workspace "seven"; }
+          Mod+Alt+8 { move-column-to-workspace "eight"; }
+          Mod+Alt+9 { move-column-to-workspace "nine"; }
 
-        Mod+R { switch-preset-column-width; }
-        // Mod+F { maximize-column; }
+          Mod+R { switch-preset-column-width; }
+          // Mod+F { maximize-column; }
 
-        // Toggle tabbed column display mode.
-        // Windows in this column will appear as vertical tabs,
-        // rather than stacked on top of each other.
-        // Mod+W { toggle-column-tabbed-display; }
+          // Toggle tabbed column display mode.
+          // Windows in this column will appear as vertical tabs,
+          // rather than stacked on top of each other.
+          // Mod+W { toggle-column-tabbed-display; }
 
-        Print { screenshot; }
+          Print { screenshot; }
 
-        // Audio
-        XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"; }
-        XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
-        XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
-        XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
+          // Audio
+          XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"; }
+          XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
+          XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
+          XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
 
-        // Brighness
-        XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
-        XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
+          // Brighness
+          XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
+          XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
 
 
-        // Example media keys mapping using playerctl.
-        // This will work with any MPRIS-enabled media player.
-        XF86AudioPlay        allow-when-locked=true { spawn-sh "playerctl play-pause"; }
-        XF86AudioStop        allow-when-locked=true { spawn-sh "playerctl stop"; }
-        XF86AudioPrev        allow-when-locked=true { spawn-sh "playerctl previous"; }
-        XF86AudioNext        allow-when-locked=true { spawn-sh "playerctl next"; }
+          // Example media keys mapping using playerctl.
+          // This will work with any MPRIS-enabled media player.
+          XF86AudioPlay        allow-when-locked=true { spawn-sh "playerctl play-pause"; }
+          XF86AudioStop        allow-when-locked=true { spawn-sh "playerctl stop"; }
+          XF86AudioPrev        allow-when-locked=true { spawn-sh "playerctl previous"; }
+          XF86AudioNext        allow-when-locked=true { spawn-sh "playerctl next"; }
 
-        // Screenshot (doesn't work yet?)
-        // screenshot-path "~/screenshots/%Y-%m-%d %H-%M-%S.png"
-        
-        // Applications such as remote-desktop clients and software KVM switches may
-        // request that niri stops processing the keyboard shortcuts defined here
-        // so they may, for example, forward the key presses as-is to a remote machine.
-        // It's a good idea to bind an escape hatch to toggle the inhibitor,
-        // so a buggy application can't hold your session hostage.
-        //
-        // The allow-inhibiting=false property can be applied to other binds as well,
-        // which ensures niri always processes them, even when an inhibitor is active.
-        Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+          // Screenshot (doesn't work yet?)
+          // screenshot-path "~/screenshots/%Y-%m-%d %H-%M-%S.png"
+          
+          // Applications such as remote-desktop clients and software KVM switches may
+          // request that niri stops processing the keyboard shortcuts defined here
+          // so they may, for example, forward the key presses as-is to a remote machine.
+          // It's a good idea to bind an escape hatch to toggle the inhibitor,
+          // so a buggy application can't hold your session hostage.
+          //
+          // The allow-inhibiting=false property can be applied to other binds as well,
+          // which ensures niri always processes them, even when an inhibitor is active.
+          Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
 
-        // The quit action will show a confirmation dialog to avoid accidental exits.
-        Mod+Alt+Q { quit; }
-    }
+          // The quit action will show a confirmation dialog to avoid accidental exits.
+          Mod+Alt+Q { quit; }
+      }
     '';
   };
 }
