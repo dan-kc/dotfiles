@@ -78,9 +78,9 @@
 
   nixpkgs.overlays = [
     (final: prev: {
-      neovim = inputs.neovim.packages."${pkgs.system}".default;
-      flake-gen = inputs.flake-gen.packages."${pkgs.system}".default;
-      jt = inputs.jt.packages."${pkgs.system}".default;
+      neovim = inputs.neovim.packages."${pkgs.stdenv.hostPlatform.system}".default;
+      flake-gen = inputs.flake-gen.packages."${pkgs.stdenv.hostPlatform.system}".default;
+      jt = inputs.jt.packages."${pkgs.stdenv.hostPlatform.system}".default;
     })
   ];
 

@@ -72,7 +72,7 @@
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = [
     (final: prev: {
-      home-manager = inputs.home-manager.packages."${pkgs.system}".default;
+      home-manager = inputs.home-manager.packages."${pkgs.stdenv.hostPlatform.system}".default;
     })
   ];
 
