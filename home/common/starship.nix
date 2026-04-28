@@ -6,7 +6,7 @@
     enable = true;
     enableZshIntegration = true;
     settings = {
-      format = "$directory$git_branch$git_commit$git_state$git_metrics$fill$battery\n$character";
+      format = "$directory$hostname$git_branch$git_commit$git_state$git_metrics$fill$battery\n$character";
       right_format = "";
       add_newline = true;
 
@@ -36,6 +36,11 @@
         read_only = " 󰌾";
         format = "[ $path]($style)[$read_only]($read_only_style) ";
         truncate_to_repo = true;
+      };
+
+      hostname = {
+        ssh_only = true;
+        format = "[@[$hostname](bold yellow) ]($style)";
       };
 
       git_branch = {
