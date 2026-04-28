@@ -6,6 +6,9 @@
 {
   home.file = {
     ".config/alacritty.toml".text = ''
+      [env]
+      TERM = "xterm-256color"
+
       [colors]
       draw_bold_text_with_bright_colors = false
 

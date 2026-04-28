@@ -22,24 +22,10 @@
     };
 
     initContent = ''
-      zvm_config() {
-        if [[ -n "$SSH_CONNECTION" ]]; then
-          # Avoid prompt redraw glitches with the two-line Starship prompt over SSH.
-          ZVM_RESET_PROMPT_DISABLED=true
-        fi
-      }
-
       # Bind atuin ctrl-r after zsh-vi-mode initializes
       zvm_after_init() {
         zvm_bindkey viins '^R' atuin-search
         zvm_bindkey vicmd '^R' atuin-search
-
-        if [[ -n "$SSH_CONNECTION" ]]; then
-          # Remote terminals vary between DEL (^?) and BS (^H) for backspace.
-          zvm_bindkey viins '^?' backward-delete-char
-          zvm_bindkey viins '^H' backward-delete-char
-          zvm_bindkey vicmd '^H' vi-backward-char
-        fi
       }
 
       # Disable ctrl-s
