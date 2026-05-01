@@ -23,12 +23,7 @@
         set -euo pipefail
 
         if [[ -n "''${SSH_TTY:-}" ]]; then
-          tty_path="/dev/tty"
-          if [[ ! -w "$tty_path" ]]; then
-            tty_path="$SSH_TTY"
-          fi
-
-          printf '\033]52;c;%s\a' "$(base64 | tr -d '\r\n')" > "$tty_path"
+          printf '\033]52;c;%s\a' "$(base64 | tr -d '\r\n')" > "$SSH_TTY"
           exit 0
         fi
 
