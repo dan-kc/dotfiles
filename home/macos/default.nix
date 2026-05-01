@@ -16,6 +16,25 @@
     ".config/yabai/yabairc".source = ./yabairc;
     ".config/skhd/skhdrc".source = ./skhdrc;
     ".zprofile".source = ./zprofile;
+    ".local/bin/pbcopy" = {
+      executable = true;
+      text = ''
+        #!/usr/bin/env bash
+        set -euo pipefail
+
+        if [[ -n "''${SSH_TTY:-}" ]]; then
+          tty_path="/dev/tty"
+          if [[ ! -w "$tty_path" ]]; then
+            tty_path="$SSH_TTY"
+          fi
+
+          printf '\033]52;c;%s\a' "$(base64 | tr -d '\r\n')" > "$tty_path"
+          exit 0
+        fi
+
+        exec /usr/bin/pbcopy "$@"
+      '';
+    };
   };
 
   home.packages = with pkgs; [
