@@ -1,7 +1,6 @@
 {
   inputs,
   pkgs,
-  lib,
   config,
   ...
 }:
@@ -41,15 +40,15 @@
   # colorScheme = inputs.nix-colors.colorSchemes.gruber; # 8/10
   # colorScheme = inputs.nix-colors.colorSchemes.gruvbox-dark-hard; # 7/10
   # colorScheme = inputs.nix-colors.colorSchemes.hardcore; # 7/10 borders not clear
-  # colorScheme = inputs.nix-colors.colorSchemes.harmonic16-dark; # 7/10 
-  # colorScheme = inputs.nix-colors.colorSchemes.hopscotch; # 8/10 
-  # colorScheme = inputs.nix-colors.colorSchemes.horizon-dark; # 7/10 
-  # colorScheme = inputs.nix-colors.colorSchemes.humanoid-dark; # 7/10 
-  # colorScheme = inputs.nix-colors.colorSchemes.kanagawa; # 7/10 
+  # colorScheme = inputs.nix-colors.colorSchemes.harmonic16-dark; # 7/10
+  # colorScheme = inputs.nix-colors.colorSchemes.hopscotch; # 8/10
+  # colorScheme = inputs.nix-colors.colorSchemes.horizon-dark; # 7/10
+  # colorScheme = inputs.nix-colors.colorSchemes.humanoid-dark; # 7/10
+  # colorScheme = inputs.nix-colors.colorSchemes.kanagawa; # 7/10
   # colorScheme = inputs.nix-colors.colorSchemes.katy; # 8/10 very blue
-  colorScheme = inputs.nix-colors.colorSchemes.materia; # 8/10
-  # colorScheme = inputs.nix-colors.colorSchemes.material;
-  # colorScheme = inputs.nix-colors.colorSchemes.material-darker;
+  # colorScheme = inputs.nix-colors.colorSchemes.materia; # 7/10
+  # colorScheme = inputs.nix-colors.colorSchemes.material; # 7/10
+  colorScheme = inputs.nix-colors.colorSchemes.material-darker;
   # colorScheme = inputs.nix-colors.colorSchemes.material-lighter;
   # colorScheme = inputs.nix-colors.colorSchemes.material-palenight;
   # colorScheme = inputs.nix-colors.colorSchemes.material-vivid;
@@ -156,7 +155,6 @@
   # colorScheme = inputs.nix-colors.colorSchemes.xcode-dusk;
   # colorScheme = inputs.nix-colors.colorSchemes.zenbones;
   # colorScheme = inputs.nix-colors.colorSchemes.zenburn;
-  
 
   home.file = {
     ".config/gh-dash/config.yml".source = ./gh-dash.yml;
