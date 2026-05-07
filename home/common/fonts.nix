@@ -6,7 +6,7 @@
 }:
 let
   # Change this one value when you want to switch fonts.
-  defaultFont = "ubuntu-mono";
+  defaultFont = "hurmit";
 
   fontCatalog = {
     # key = exact family name used by apps
@@ -100,6 +100,11 @@ in
 
   config = {
     globalFonts.selectedFont = selectedFont.family;
+
+    fonts.fontconfig = {
+      enable = true;
+      defaultFonts.monospace = [ selectedFont.family ];
+    };
 
     home.packages = [
       selectedFont.package
