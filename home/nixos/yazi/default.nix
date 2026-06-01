@@ -7,6 +7,7 @@
   programs.yazi = {
     enable = true;
     enableZshIntegration = true;
+    shellWrapperName = "yy";
 
     plugins = {
       wl-clipboard = pkgs.yaziPlugins.wl-clipboard;
