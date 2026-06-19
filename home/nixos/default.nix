@@ -2,7 +2,6 @@
   inputs,
   pkgs,
   lib,
-  config,
   ...
 }:
 {
@@ -25,7 +24,7 @@
   nixpkgs.config.allowUnfreePredicate =
     pkg:
     builtins.elem (lib.getName pkg) [
-    "todoist-electron"
+      "todoist-electron"
       "claude-code"
       "discord"
       "libsciter"
@@ -35,7 +34,6 @@
       "slack"
       "vivaldi"
       "vscode"
-      "chatbox"
     ];
 
   home.packages = with pkgs; [
@@ -43,7 +41,6 @@
     (import ./theme.nix { inherit pkgs; })
     kdePackages.kdenlive
     anki
-    chatbox
     bemenu
     brightnessctl
     ddcutil
