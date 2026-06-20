@@ -35,6 +35,9 @@
       export SRC_ENDPOINT="https://sourcegraph.com"
       export EDITOR="nvim"
       export HYPRSHOT_DIR="/home/daniel/screenshots/"
+      if [ -r /run/secrets/cloudflare_api_key ]; then
+        export CLOUDFLARE_API_TOKEN="$(cat /run/secrets/cloudflare_api_key)"
+      fi
 
       # Functions
       ff() { du -a | awk '{print $2}' | $(fzf --height 40% --border)| xargs -r $EDITOR ; }
