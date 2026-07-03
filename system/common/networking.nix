@@ -21,9 +21,8 @@
           rebuild your config with no success due to being unable to reach
           https://cache.nixos.org, then run 'sudo nixos-rebuild switch --flake .
           --option substitute false'. This will build from local/source.
-        */
-        /*
-          To access the portal page, hit a http (not https) site from your
+
+          To access the portal page, hit a http (not https) site from your 
           browser
         */
         "#StarbucksWifi" = { };
