@@ -133,7 +133,7 @@ in
       [keyboard]
       bindings = [
         { key = "0", mods = "Control", command = { program = "${alacritty-font-size}/bin/alacritty-font-size", args = ["9"] } },
-        { key = "1", mods = "Control", command = { program = "${alacritty-font-size}/bin/alacritty-font-size", args = ["18"] } },
+        { key = "1", mods = "Control", command = { program = "${alacritty-font-size}/bin/alacritty-font-size", args = ["19"] } },
         { key = "Plus", mods = "Control|Shift", action = "IncreaseFontSize" } # QMK inputs "Control|Shift Equals" when you try to "Control Plus". For some reason this fixes it.
       ]
     '';
