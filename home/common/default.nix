@@ -54,9 +54,8 @@
   # colorScheme = inputs.nix-colors.colorSchemes.monokai;
   # colorScheme = inputs.nix-colors.colorSchemes.nebula; # 7/10 Very blue
   # colorScheme = inputs.nix-colors.colorSchemes.nord; # 7/10
-  colorScheme = inputs.nix-colors.colorSchemes.nova;
-  # colorScheme = inputs.nix-colors.colorSchemes.ocean;
-  # colorScheme = inputs.nix-colors.colorSchemes.oceanicnext;
+  # colorScheme = inputs.nix-colors.colorSchemes.nova; # 8/10
+  colorScheme = inputs.nix-colors.colorSchemes.oceanicnext;
   # colorScheme = inputs.nix-colors.colorSchemes.one-light;
   # colorScheme = inputs.nix-colors.colorSchemes.onedark;
   # colorScheme = inputs.nix-colors.colorSchemes.outrun-dark;
