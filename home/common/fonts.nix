@@ -6,7 +6,7 @@
 }:
 let
   # Change this one value when you want to switch fonts.
-  defaultFont = "monaspace";
+  defaultFont = "monaspace-argon";
 
   fontCatalog = {
     # key = exact family name used by apps
@@ -26,7 +26,7 @@ let
       package = pkgs.nerd-fonts.martian-mono;
       family = "MartianMono Nerd Font Mono";
     };
-    monaspace = {
+    monaspace = { # 8/10
       package = pkgs.monaspace;
       family = "Monaspace Neon NF";
     };
