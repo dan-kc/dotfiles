@@ -8,6 +8,7 @@
   imports = [
     inputs.nix-colors.homeManagerModules.default
     ./fonts.nix
+    ./ghostty.nix
     ./starship.nix
     ./zsh
   ];
