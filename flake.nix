@@ -29,19 +29,29 @@
       pkgs = import nixpkgs {
         inherit system;
       };
+      mkDevShell = system:
+        let
+          pkgs = import nixpkgs {
+            inherit system;
+          };
+        in
+        pkgs.mkShell {
+          buildInputs = with pkgs; [
+            nixfmt
+            nil
+            lua-language-server
+            stylua
+            taplo
+            sops
+            age
+            ssh-to-age
+          ];
+        };
     in
     {
-      devShells.${system}.default = pkgs.mkShell {
-        buildInputs = with pkgs; [
-          nixfmt
-          nil
-          lua-language-server
-          stylua
-          taplo
-          sops
-          age
-          ssh-to-age
-        ];
+      devShells = {
+        x86_64-linux.default = mkDevShell "x86_64-linux";
+        aarch64-darwin.default = mkDevShell "aarch64-darwin";
       };
       nixosConfigurations = {
         box = nixpkgs.lib.nixosSystem {
