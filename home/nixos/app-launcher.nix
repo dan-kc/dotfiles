@@ -9,7 +9,7 @@ pkgs.stdenv.mkDerivation {
   src = pkgs.writeShellScript "launcher-script" ''
     #!/bin/sh
 
-    apps="alacritty\nanki\ntodoist\nbruno\nslack\ndiscord\npostman\nthunderbird\npavucontrol\nobsidian\nobs\nvivaldi\nfiles"
+    apps="alacritty\nghostty\nanki\ntodoist\nbruno\nslack\ndiscord\npostman\nthunderbird\npavucontrol\nobsidian\nobs\nvivaldi\nfiles"
 
     # Use printf for better compatibility
     selected_app=$(printf "$apps" | fuzzel --dmenu -p "Launch Application: ")
@@ -20,6 +20,8 @@ pkgs.stdenv.mkDerivation {
             exec todoist-electron &
         elif [ "$selected_app" = "files" ]; then
             exec nautilus &
+        elif [ "$selected_app" = "ghostty" ]; then
+            exec ghostty +new-window &
         else
             exec "$selected_app" &
         fi
