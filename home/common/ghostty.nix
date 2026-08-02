@@ -7,12 +7,15 @@
   programs.ghostty = {
     enable = true;
     package = if pkgs.stdenv.hostPlatform.isDarwin then null else pkgs.ghostty;
+    systemd.enable = pkgs.stdenv.hostPlatform.isLinux;
 
     settings = {
       font-family = config.globalFonts.selectedFont;
       theme = "nix-colors";
       window-padding-x = 20;
       window-padding-y = 20;
+      confirm-close-surface = false;
+      quit-after-last-window-closed = true;
     };
 
     themes.nix-colors = {

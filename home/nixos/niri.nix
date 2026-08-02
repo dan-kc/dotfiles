@@ -27,7 +27,7 @@ let
       dir="$HOME"
     fi
     [ -d "$dir" ] || dir="$HOME"
-    exec ${pkgs.alacritty}/bin/alacritty --working-directory "$dir"
+    exec ${pkgs.ghostty}/bin/ghostty +new-window --working-directory="$dir"
   '';
 
   nvim-cwd = pkgs.writeShellScriptBin "nvim-cwd" ''
@@ -43,7 +43,7 @@ let
       dir="$HOME"
     fi
     [ -d "$dir" ] || dir="$HOME"
-    exec ${pkgs.alacritty}/bin/alacritty --working-directory "$dir" -e zsh -c '${pkgs.neovim}/bin/nvim .; exec zsh'
+    exec ${pkgs.ghostty}/bin/ghostty +new-window --working-directory="$dir" -e zsh -c '${pkgs.neovim}/bin/nvim .; exec zsh'
   '';
 
   window-clone = pkgs.writeShellScriptBin "window-clone" ''
@@ -74,8 +74,8 @@ let
         exit 0
     fi
 
-    # Alacritty window (terminal or neovim)
-    if [[ "$app_id" == "Alacritty" ]] || [[ "$app_id" == "alacritty" ]]; then
+    # Ghostty window (terminal or neovim)
+    if [[ "$app_id" == "com.mitchellh.ghostty" ]]; then
         # Check if running neovim
         nvim_pid=$(${pkgs.procps}/bin/pgrep -P "$pid" -x nvim 2>/dev/null | head -1)
         if [ -z "$nvim_pid" ]; then
@@ -100,7 +100,7 @@ let
                 col=$(${pkgs.neovim}/bin/nvim --server "$socket" --remote-expr 'col(".")' 2>/dev/null)
                 cwd=$(readlink /proc/"$nvim_pid"/cwd 2>/dev/null || echo "$HOME")
                 if [ -n "$file" ] && [ -f "$file" ]; then
-                    exec ${pkgs.alacritty}/bin/alacritty --working-directory "$cwd" -e zsh -c "${pkgs.neovim}/bin/nvim \"+call cursor($line,$col)\" \"$file\"; exec zsh"
+                    exec ${pkgs.ghostty}/bin/ghostty +new-window --working-directory="$cwd" -e zsh -c "${pkgs.neovim}/bin/nvim \"+call cursor($line,$col)\" \"$file\"; exec zsh"
                 else
                     ${pkgs.libnotify}/bin/notify-send "No file open in neovim"
                 fi
@@ -116,7 +116,7 @@ let
                 dir="$HOME"
             fi
             [ -d "$dir" ] || dir="$HOME"
-            exec ${pkgs.alacritty}/bin/alacritty --working-directory "$dir"
+            exec ${pkgs.ghostty}/bin/ghostty +new-window --working-directory="$dir"
         fi
         exit 0
     fi
@@ -128,7 +128,7 @@ let
     windows=$(niri msg --json windows)
     list=""
 
-    # Loop through alacritty windows and check for nvim child processes
+    # Loop through Ghostty windows and check for nvim child processes
     while read -r line; do
         win_id=$(echo "$line" | ${pkgs.jq}/bin/jq -r '.id')
         win_pid=$(echo "$line" | ${pkgs.jq}/bin/jq -r '.pid')
@@ -159,7 +159,7 @@ let
             fi
             list="$list$file | $win_id"$'\n'
         fi
-    done < <(echo "$windows" | ${pkgs.jq}/bin/jq -c '.[] | select(.app_id == "Alacritty" or .app_id == "alacritty")')
+    done < <(echo "$windows" | ${pkgs.jq}/bin/jq -c '.[] | select(.app_id == "com.mitchellh.ghostty")')
 
     CHOICE=$(echo -n "$list" | ${pkgs.fuzzel}/bin/fuzzel --dmenu -l 20 -p "Neovim windows: ")
 
@@ -203,11 +203,11 @@ let
   '';
 
   aichat-new = pkgs.writeShellScriptBin "aichat-new" ''
-    exec ${pkgs.alacritty}/bin/alacritty -e zsh -c '${pkgs.aichat}/bin/aichat; exec zsh'
+    exec ${pkgs.ghostty}/bin/ghostty +new-window -e zsh -c '${pkgs.aichat}/bin/aichat; exec zsh'
   '';
 
   tv-notes = pkgs.writeShellScriptBin "tv-notes" ''
-    exec ${pkgs.alacritty}/bin/alacritty --working-directory ~/notes -e zsh -c 'selected=$(tv); if [ -n "$selected" ]; then ${pkgs.neovim}/bin/nvim "$selected"; fi; exec zsh'
+    exec ${pkgs.ghostty}/bin/ghostty +new-window --working-directory=~/notes -e zsh -c 'selected=$(tv); if [ -n "$selected" ]; then ${pkgs.neovim}/bin/nvim "$selected"; fi; exec zsh'
   '';
 
   nvim-clone = pkgs.writeShellScriptBin "nvim-clone" ''
@@ -215,7 +215,7 @@ let
     app_id=$(echo "$window_info" | ${pkgs.jq}/bin/jq -r '.app_id // empty')
     pid=$(echo "$window_info" | ${pkgs.jq}/bin/jq -r '.pid // empty')
 
-    if [ "$app_id" != "Alacritty" ] && [ "$app_id" != "alacritty" ]; then
+    if [ "$app_id" != "com.mitchellh.ghostty" ]; then
       ${pkgs.libnotify}/bin/notify-send "Not in neovim window"
       exit 0
     fi
@@ -260,8 +260,8 @@ let
       exit 1
     fi
 
-    # Spawn new alacritty with neovim at same location
-    exec ${pkgs.alacritty}/bin/alacritty --working-directory "$cwd" -e zsh -c "${pkgs.neovim}/bin/nvim \"+call cursor($line,$col)\" \"$file\"; exec zsh"
+    # Spawn new Ghostty window with neovim at the same location
+    exec ${pkgs.ghostty}/bin/ghostty +new-window --working-directory="$cwd" -e zsh -c "${pkgs.neovim}/bin/nvim \"+call cursor($line,$col)\" \"$file\"; exec zsh"
   '';
 
   copy-link = pkgs.writeShellScriptBin "copy-link" ''
@@ -328,7 +328,7 @@ let
   '';
 
   cover-letter-rewrite = pkgs.writeShellScriptBin "cover-letter-rewrite" ''
-    exec ${pkgs.alacritty}/bin/alacritty -e ${cover-letter-inner}/bin/cover-letter-inner
+    exec ${pkgs.ghostty}/bin/ghostty +new-window -e ${cover-letter-inner}/bin/cover-letter-inner
   '';
 
   niri-scripts = pkgs.symlinkJoin {
@@ -453,13 +453,13 @@ in
           Mod+O repeat=false { toggle-overview; }
           
           // Applications
-          Mod+Y repeat=false { spawn-sh "alacritty --working-directory ~/ --command zsh -c 'yazi; exec zsh'"; }
+          Mod+Y repeat=false { spawn-sh "ghostty +new-window --working-directory=~/ -e zsh -c 'yazi; exec zsh'"; }
           Mod+T repeat=false hotkey-overlay-title="Spawn terminal" { spawn "term-cwd"; }
           Mod+E repeat=false hotkey-overlay-title="Spawn neovim" { spawn "nvim-cwd"; }
           Mod+B repeat=false hotkey-overlay-title="Spawn neovim" { spawn "vivaldi" "--new-window"; }
 
           // Notes/Utilities
-          Mod+J repeat=false { spawn-sh "alacritty --working-directory ~/notes --command zsh -c 'nvim $(jt); exec zsh'"; }
+          Mod+J repeat=false { spawn-sh "ghostty +new-window --working-directory=~/notes -e zsh -c 'nvim $(jt); exec zsh'"; }
 
           Super+Alt+L { spawn "swaylock"; }
           // AI Chat
