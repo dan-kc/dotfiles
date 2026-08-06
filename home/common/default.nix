@@ -58,8 +58,8 @@
   # colorScheme = inputs.nix-colors.colorSchemes.nova; # 8/10
   # colorScheme = inputs.nix-colors.colorSchemes.oceanicnext # 8/10;
   # colorScheme = inputs.nix-colors.colorSchemes.one-light;
-  colorScheme = inputs.nix-colors.colorSchemes.onedark;
-  # colorScheme = inputs.nix-colors.colorSchemes.outrun-dark;
+  # colorScheme = inputs.nix-colors.colorSchemes.onedark; # 8/10;
+  colorScheme = inputs.nix-colors.colorSchemes.outrun-dark;
   # colorScheme = inputs.nix-colors.colorSchemes.oxocarbon-dark;
   # colorScheme = inputs.nix-colors.colorSchemes.oxocarbon-light;
   # colorScheme = inputs.nix-colors.colorSchemes.pandora;
