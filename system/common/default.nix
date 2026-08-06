@@ -49,19 +49,33 @@
   i18n.defaultLocale = "en_GB.UTF-8";
 
   boot.loader = {
-    systemd-boot.enable = true;
+    systemd-boot = {
+      enable = true;
+      configurationLimit = 5;
+    };
     efi.canTouchEfiVariables = true;
   };
 
-  nix.settings = {
-    experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
-    allowed-users = [
-      "root"
-      "daniel"
-    ];
+  nix = {
+    settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+      allowed-users = [
+        "root"
+        "daniel"
+      ];
+      auto-optimise-store = true;
+      min-free = 100 * 1024 * 1024 * 1024;
+      max-free = 200 * 1024 * 1024 * 1024;
+    };
+
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 28d";
+    };
   };
   # Gives zsh-autosuggestions suggestions
   environment.pathsToLink = [ "/share/zsh" ];

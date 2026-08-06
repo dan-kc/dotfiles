@@ -6,7 +6,7 @@
 }:
 let
   # Change this one value when you want to switch fonts.
-  defaultFont = "monaspace-argon";
+  defaultFont = "monaspace-krypton";
 
   fontCatalog = {
     # key = exact family name used by apps
