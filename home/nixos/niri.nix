@@ -420,8 +420,8 @@ in
 
           focus-ring {
               width 2
-              active-color "#${config.colorScheme.palette.base0C}"
-              inactive-color "#${config.colorScheme.palette.base0C}"
+              active-color "#${config.colorScheme.palette.base03}"
+              inactive-color "#${config.colorScheme.palette.base03}"
               urgent-color "#${config.colorScheme.palette.base09}"
           }
 
