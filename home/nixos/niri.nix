@@ -4,6 +4,36 @@
   ...
 }:
 let
+  # Valid values: "alacritty" or "ghostty".
+  term = "alacritty";
+
+  terminals = {
+    alacritty = {
+      name = "Alacritty";
+      launch = "${pkgs.alacritty}/bin/alacritty";
+      kdlLaunch = "alacritty";
+      workingDirectoryOption = "--working-directory ";
+      commandOption = "--command";
+      appIdCondition = ''[[ "$app_id" == "Alacritty" ]] || [[ "$app_id" == "alacritty" ]]'';
+      jqAppIdCondition = ''.app_id == "Alacritty" or .app_id == "alacritty"'';
+    };
+    ghostty = {
+      name = "Ghostty";
+      launch = "${pkgs.ghostty}/bin/ghostty +new-window";
+      kdlLaunch = "ghostty +new-window";
+      workingDirectoryOption = "--working-directory=";
+      commandOption = "-e";
+      appIdCondition = ''[[ "$app_id" == "com.mitchellh.ghostty" ]]'';
+      jqAppIdCondition = ''.app_id == "com.mitchellh.ghostty"'';
+    };
+  };
+
+  terminal =
+    if builtins.hasAttr term terminals then
+      builtins.getAttr term terminals
+    else
+      throw ''Invalid niri terminal "${term}"; expected one of: ${builtins.concatStringsSep ", " (builtins.attrNames terminals)}'';
+
   status-notify = pkgs.writeShellScriptBin "status-notify" ''
     if ${pkgs.mako}/bin/makoctl list | grep -q 'App name: status-notify'; then
       ${pkgs.mako}/bin/makoctl dismiss --all
@@ -27,7 +57,7 @@ let
       dir="$HOME"
     fi
     [ -d "$dir" ] || dir="$HOME"
-    exec ${pkgs.ghostty}/bin/ghostty +new-window --working-directory="$dir"
+    exec ${terminal.launch} ${terminal.workingDirectoryOption}"$dir"
   '';
 
   nvim-cwd = pkgs.writeShellScriptBin "nvim-cwd" ''
@@ -43,7 +73,7 @@ let
       dir="$HOME"
     fi
     [ -d "$dir" ] || dir="$HOME"
-    exec ${pkgs.ghostty}/bin/ghostty +new-window --working-directory="$dir" -e zsh -c '${pkgs.neovim}/bin/nvim .; exec zsh'
+    exec ${terminal.launch} ${terminal.workingDirectoryOption}"$dir" -e zsh -c '${pkgs.neovim}/bin/nvim .; exec zsh'
   '';
 
   window-clone = pkgs.writeShellScriptBin "window-clone" ''
@@ -74,8 +104,8 @@ let
         exit 0
     fi
 
-    # Ghostty window (terminal or neovim)
-    if [[ "$app_id" == "com.mitchellh.ghostty" ]]; then
+    # ${terminal.name} window (terminal or neovim)
+    if ${terminal.appIdCondition}; then
         # Check if running neovim
         nvim_pid=$(${pkgs.procps}/bin/pgrep -P "$pid" -x nvim 2>/dev/null | head -1)
         if [ -z "$nvim_pid" ]; then
@@ -100,7 +130,7 @@ let
                 col=$(${pkgs.neovim}/bin/nvim --server "$socket" --remote-expr 'col(".")' 2>/dev/null)
                 cwd=$(readlink /proc/"$nvim_pid"/cwd 2>/dev/null || echo "$HOME")
                 if [ -n "$file" ] && [ -f "$file" ]; then
-                    exec ${pkgs.ghostty}/bin/ghostty +new-window --working-directory="$cwd" -e zsh -c "${pkgs.neovim}/bin/nvim \"+call cursor($line,$col)\" \"$file\"; exec zsh"
+                    exec ${terminal.launch} ${terminal.workingDirectoryOption}"$cwd" -e zsh -c "${pkgs.neovim}/bin/nvim \"+call cursor($line,$col)\" \"$file\"; exec zsh"
                 else
                     ${pkgs.libnotify}/bin/notify-send "No file open in neovim"
                 fi
@@ -116,7 +146,7 @@ let
                 dir="$HOME"
             fi
             [ -d "$dir" ] || dir="$HOME"
-            exec ${pkgs.ghostty}/bin/ghostty +new-window --working-directory="$dir"
+            exec ${terminal.launch} ${terminal.workingDirectoryOption}"$dir"
         fi
         exit 0
     fi
@@ -128,7 +158,7 @@ let
     windows=$(niri msg --json windows)
     list=""
 
-    # Loop through Ghostty windows and check for nvim child processes
+    # Loop through ${terminal.name} windows and check for nvim child processes
     while read -r line; do
         win_id=$(echo "$line" | ${pkgs.jq}/bin/jq -r '.id')
         win_pid=$(echo "$line" | ${pkgs.jq}/bin/jq -r '.pid')
@@ -159,7 +189,7 @@ let
             fi
             list="$list$file | $win_id"$'\n'
         fi
-    done < <(echo "$windows" | ${pkgs.jq}/bin/jq -c '.[] | select(.app_id == "com.mitchellh.ghostty")')
+    done < <(echo "$windows" | ${pkgs.jq}/bin/jq -c '.[] | select(${terminal.jqAppIdCondition})')
 
     CHOICE=$(echo -n "$list" | ${pkgs.fuzzel}/bin/fuzzel --dmenu -l 20 -p "Neovim windows: ")
 
@@ -203,11 +233,11 @@ let
   '';
 
   aichat-new = pkgs.writeShellScriptBin "aichat-new" ''
-    exec ${pkgs.ghostty}/bin/ghostty +new-window -e zsh -c '${pkgs.aichat}/bin/aichat; exec zsh'
+    exec ${terminal.launch} -e zsh -c '${pkgs.aichat}/bin/aichat; exec zsh'
   '';
 
   tv-notes = pkgs.writeShellScriptBin "tv-notes" ''
-    exec ${pkgs.ghostty}/bin/ghostty +new-window --working-directory=~/notes -e zsh -c 'selected=$(tv); if [ -n "$selected" ]; then ${pkgs.neovim}/bin/nvim "$selected"; fi; exec zsh'
+    exec ${terminal.launch} ${terminal.workingDirectoryOption}~/notes -e zsh -c 'selected=$(tv); if [ -n "$selected" ]; then ${pkgs.neovim}/bin/nvim "$selected"; fi; exec zsh'
   '';
 
   nvim-clone = pkgs.writeShellScriptBin "nvim-clone" ''
@@ -215,7 +245,7 @@ let
     app_id=$(echo "$window_info" | ${pkgs.jq}/bin/jq -r '.app_id // empty')
     pid=$(echo "$window_info" | ${pkgs.jq}/bin/jq -r '.pid // empty')
 
-    if [ "$app_id" != "com.mitchellh.ghostty" ]; then
+    if ! ( ${terminal.appIdCondition} ); then
       ${pkgs.libnotify}/bin/notify-send "Not in neovim window"
       exit 0
     fi
@@ -260,8 +290,8 @@ let
       exit 1
     fi
 
-    # Spawn new Ghostty window with neovim at the same location
-    exec ${pkgs.ghostty}/bin/ghostty +new-window --working-directory="$cwd" -e zsh -c "${pkgs.neovim}/bin/nvim \"+call cursor($line,$col)\" \"$file\"; exec zsh"
+    # Spawn a new ${terminal.name} window with neovim at the same location
+    exec ${terminal.launch} ${terminal.workingDirectoryOption}"$cwd" -e zsh -c "${pkgs.neovim}/bin/nvim \"+call cursor($line,$col)\" \"$file\"; exec zsh"
   '';
 
   copy-link = pkgs.writeShellScriptBin "copy-link" ''
@@ -328,7 +358,7 @@ let
   '';
 
   cover-letter-rewrite = pkgs.writeShellScriptBin "cover-letter-rewrite" ''
-    exec ${pkgs.ghostty}/bin/ghostty +new-window -e ${cover-letter-inner}/bin/cover-letter-inner
+    exec ${terminal.launch} -e ${cover-letter-inner}/bin/cover-letter-inner
   '';
 
   niri-scripts = pkgs.symlinkJoin {
@@ -453,13 +483,13 @@ in
           Mod+O repeat=false { toggle-overview; }
           
           // Applications
-          Mod+Y repeat=false { spawn-sh "ghostty +new-window --working-directory=~/ -e zsh -c 'yazi; exec zsh'"; }
+          Mod+Y repeat=false { spawn-sh "${terminal.kdlLaunch} ${terminal.workingDirectoryOption}~/ ${terminal.commandOption} zsh -c 'yazi; exec zsh'"; }
           Mod+T repeat=false hotkey-overlay-title="Spawn terminal" { spawn "term-cwd"; }
           Mod+E repeat=false hotkey-overlay-title="Spawn neovim" { spawn "nvim-cwd"; }
           Mod+B repeat=false hotkey-overlay-title="Spawn neovim" { spawn "vivaldi" "--new-window"; }
 
           // Notes/Utilities
-          Mod+J repeat=false { spawn-sh "ghostty +new-window --working-directory=~/notes -e zsh -c 'nvim $(jt); exec zsh'"; }
+          Mod+J repeat=false { spawn-sh "${terminal.kdlLaunch} ${terminal.workingDirectoryOption}~/notes ${terminal.commandOption} zsh -c 'nvim $(jt); exec zsh'"; }
 
           Super+Alt+L { spawn "swaylock"; }
           // AI Chat
