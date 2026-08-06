@@ -408,7 +408,7 @@ in
 
       prefer-no-csd
       layout {
-          gaps 16
+          gaps 8
           center-focused-column "never"
           
           preset-column-widths {

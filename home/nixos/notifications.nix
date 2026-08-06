@@ -13,10 +13,10 @@
         text-color=#${config.colorScheme.palette.base05}
         height=140
         width=520
-        margin=14
+        margin=6
         padding=4
         border-size=2
-        border-color=#${config.colorScheme.palette.base0C}
+        border-color=#${config.colorScheme.palette.base03}
         anchor=top-left
       '';
       onChange = "${pkgs.mako}/bin/makoctl reload || true";

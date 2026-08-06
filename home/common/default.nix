@@ -59,8 +59,8 @@
   # colorScheme = inputs.nix-colors.colorSchemes.oceanicnext # 8/10;
   # colorScheme = inputs.nix-colors.colorSchemes.one-light;
   # colorScheme = inputs.nix-colors.colorSchemes.onedark; # 8/10;
-  # colorScheme = inputs.nix-colors.colorSchemes.outrun-dark; # 7/10 Bluey
-  colorScheme = inputs.nix-colors.colorSchemes.oxocarbon-dark;
+  colorScheme = inputs.nix-colors.colorSchemes.outrun-dark; # 7/10 Bluey
+  # colorScheme = inputs.nix-colors.colorSchemes.oxocarbon-dark;
   # colorScheme = inputs.nix-colors.colorSchemes.oxocarbon-light;
   # colorScheme = inputs.nix-colors.colorSchemes.pandora;
   # colorScheme = inputs.nix-colors.colorSchemes.papercolor-dark;
