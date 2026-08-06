@@ -419,7 +419,7 @@ in
           default-column-width { proportion 0.5; }
 
           focus-ring {
-              width 4
+              width 2
               active-color "#${config.colorScheme.palette.base0C}"
               inactive-color "#${config.colorScheme.palette.base0C}"
               urgent-color "#${config.colorScheme.palette.base09}"
