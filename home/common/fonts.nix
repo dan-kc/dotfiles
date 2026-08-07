@@ -6,7 +6,7 @@
 }:
 let
   # Change this one value when you want to switch fonts.
-  defaultFont = "monaspace-krypton";
+  defaultFont = "monaspace-xenon";
 
   fontCatalog = {
     # key = exact family name used by apps
@@ -37,10 +37,6 @@ let
     monaspace-krypton = {
       package = pkgs.monaspace;
       family = "Monaspace Krypton NF";
-    };
-    monaspace-radon = {
-      package = pkgs.monaspace;
-      family = "Monaspace Radon NF";
     };
     monaspace-xenon = {
       package = pkgs.monaspace;
