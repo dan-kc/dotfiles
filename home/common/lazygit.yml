@@ -29,5 +29,5 @@ gui:
     defaultFgColor:
       - default
 git:
-  pagers:
-    - pager: diff-so-fancy
+  diffRenderers:
+    - command: diff-so-fancy

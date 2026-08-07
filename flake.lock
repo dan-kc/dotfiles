@@ -348,11 +348,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1786011720,
-        "narHash": "sha256-cJuVDs6AG+7kbRFPNXLEEWVt435ThTCD5o4ZM7jEgMQ=",
+        "lastModified": 1786114369,
+        "narHash": "sha256-s/0tYI7Aiu+mMG5lWjAnQZY6yEaEDpyv0AT2tSshEts=",
         "owner": "dan-kc",
         "repo": "neovim",
-        "rev": "750be97e2372e48d9dca1a023cf2ace04008acdd",
+        "rev": "ce6dd1b0376fe05b0b6c2c6f9274723e82c4b43a",
         "type": "github"
       },
       "original": {

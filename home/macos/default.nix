@@ -1,11 +1,9 @@
 {
-  inputs,
-  pkgs,
   lib,
   ...
 }:
 {
-  imports = [ 
+  imports = [
     ./wezterm.nix
   ];
   home.username = "danielcox";
@@ -59,9 +57,6 @@
       '';
     };
   };
-
-  home.packages = with pkgs; [
-  ];
 
   nixpkgs.config.allowUnfreePredicate =
     pkg:
