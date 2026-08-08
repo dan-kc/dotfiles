@@ -13,7 +13,7 @@
         [colors]
         background=${config.colorScheme.palette.base00}ff
         text=${config.colorScheme.palette.base05}ff
-        border=${config.colorScheme.palette.base0C}ff
+        border=${config.colorScheme.palette.base03}ff
 
         [border]
         width=2
