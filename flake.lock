@@ -345,15 +345,14 @@
       "inputs": {
         "flake-utils": "flake-utils_3",
         "gen-luarc": "gen-luarc",
-        "nixpkgs": "nixpkgs_4",
-        "tobira-nvim": "tobira-nvim"
+        "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1786205389,
-        "narHash": "sha256-axsSUi4aCgni6zRNKzzBvt8A73fOebDa41ShvK9yX2Q=",
+        "lastModified": 1786257548,
+        "narHash": "sha256-eWhqDe2pj+HvW4Z47/zLBWRllsH1yUtAsCYvqMofrJY=",
         "owner": "dan-kc",
         "repo": "neovim",
-        "rev": "801539d54060471910f1c97952a6ad83f1617a45",
+        "rev": "001cba166357dbc53e385cfef487dde608d653e7",
         "type": "github"
       },
       "original": {
@@ -674,22 +673,6 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
-        "type": "github"
-      }
-    },
-    "tobira-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1786123597,
-        "narHash": "sha256-dODxZCemKCGxlGavSZoAMYg8S/Qr+9HVYdMNnGEOO7k=",
-        "owner": "kamegoro",
-        "repo": "tobira.nvim",
-        "rev": "052fc11d44440f4673f10e5039fc573af2101d8c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "kamegoro",
-        "repo": "tobira.nvim",
         "type": "github"
       }
     },
