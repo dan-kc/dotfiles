@@ -59,12 +59,7 @@
   # colorScheme = inputs.nix-colors.colorSchemes.oceanicnext # 8/10;
   # colorScheme = inputs.nix-colors.colorSchemes.one-light;
   # colorScheme = inputs.nix-colors.colorSchemes.onedark; # 8/10;
-  colorScheme = inputs.nix-colors.colorSchemes.oxocarbon-dark;
-  # colorScheme = inputs.nix-colors.colorSchemes.oxocarbon-light;
-  # colorScheme = inputs.nix-colors.colorSchemes.pandora;
-  # colorScheme = inputs.nix-colors.colorSchemes.papercolor-dark;
-  # colorScheme = inputs.nix-colors.colorSchemes.papercolor-light;
-  # colorScheme = inputs.nix-colors.colorSchemes.paraiso;
+  colorScheme = inputs.nix-colors.colorSchemes.paraiso;
   # colorScheme = inputs.nix-colors.colorSchemes.pasque;
   # colorScheme = inputs.nix-colors.colorSchemes.phd;
   # colorScheme = inputs.nix-colors.colorSchemes.pico;
