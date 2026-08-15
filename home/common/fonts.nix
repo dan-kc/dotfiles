@@ -6,7 +6,7 @@
 }:
 let
   # Change this one value when you want to switch fonts.
-  defaultFont = "monofur";
+  defaultFont = "proggy-clean";
 
   fontCatalog = {
     # key = exact family name used by apps
@@ -46,10 +46,6 @@ let
       package = pkgs.nerd-fonts.monofur;
       family = "Monofur Nerd Font Mono";
     };
-    profont = {
-      package = pkgs.profont;
-      family = "ProFont";
-    };
     proggy-clean = {
       package = pkgs.proggyfonts;
       family = "ProggyCleanTT";
@@ -77,6 +73,10 @@ let
   };
 
   selectedFont = fontCatalog.${config.globalFonts.default};
+  iconFont = {
+    package = pkgs.nerd-fonts.symbols-only;
+    family = "Symbols Nerd Font Mono";
+  };
 in
 {
   options.globalFonts = {
@@ -99,11 +99,34 @@ in
 
     fonts.fontconfig = {
       enable = true;
-      defaultFonts.monospace = [ selectedFont.family ];
+      defaultFonts.monospace = [
+        selectedFont.family
+        iconFont.family
+      ];
+      configFile.icon-fallback = {
+        enable = true;
+        priority = 60;
+        text = ''
+          <?xml version="1.0"?>
+          <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+          <fontconfig>
+            <description>Add Nerd Font symbols after the selected monospace font</description>
+            <match target="pattern">
+              <test name="family" compare="eq" qual="any">
+                <string>${selectedFont.family}</string>
+              </test>
+              <edit name="family" mode="append" binding="strong">
+                <string>${iconFont.family}</string>
+              </edit>
+            </match>
+          </fontconfig>
+        '';
+      };
     };
 
     home.packages = [
       selectedFont.package
+      iconFont.package
     ];
   };
 }

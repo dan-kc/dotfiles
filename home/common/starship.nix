@@ -10,11 +10,11 @@
       right_format = "";
       add_newline = true;
 
-      # character = {
-      #   success_symbol = "[󰍛](bold cyan)";
-      #   error_symbol = "[󰍛](bold cyan)";
-      #   vimcmd_symbol = "[](bold purple)";
-      # };
+      character = {
+        success_symbol = "[󰍛 ](bold cyan)";
+        error_symbol = "[󰍛 ](bold red)";
+        vimcmd_symbol = "[󰍛 ](bold purple)";
+      };
 
       package.disabled = true;
       cmd_duration.disabled = true;
