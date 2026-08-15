@@ -59,8 +59,8 @@
   # colorScheme = inputs.nix-colors.colorSchemes.oceanicnext # 8/10;
   # colorScheme = inputs.nix-colors.colorSchemes.one-light;
   # colorScheme = inputs.nix-colors.colorSchemes.onedark; # 8/10;
-  colorScheme = inputs.nix-colors.colorSchemes.paraiso;
-  # colorScheme = inputs.nix-colors.colorSchemes.pasque;
+  # colorScheme = inputs.nix-colors.colorSchemes.paraiso; # 8/10;
+  colorScheme = inputs.nix-colors.colorSchemes.pasque;
   # colorScheme = inputs.nix-colors.colorSchemes.phd;
   # colorScheme = inputs.nix-colors.colorSchemes.pico;
   # colorScheme = inputs.nix-colors.colorSchemes.pinky;

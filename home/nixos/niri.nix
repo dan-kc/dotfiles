@@ -5,7 +5,7 @@
 }:
 let
   # Valid values: "alacritty" or "ghostty".
-  term = "alacritty";
+  term = "ghostty";
 
   terminals = {
     alacritty = {

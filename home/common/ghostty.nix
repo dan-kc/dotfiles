@@ -10,7 +10,12 @@
     systemd.enable = pkgs.stdenv.hostPlatform.isLinux;
 
     settings = {
-      font-family = config.globalFonts.selectedFont;
+      # Keep the selected font for text and use Nerd Fonts only for glyphs the
+      # text font does not provide (icons, prompt symbols, etc.).
+      font-family = [
+        config.globalFonts.selectedFont
+        "Symbols Nerd Font Mono"
+      ];
       theme = "nix-colors";
       window-padding-x = 20;
       window-padding-y = 20;
