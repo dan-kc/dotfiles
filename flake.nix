@@ -10,6 +10,7 @@
     neovim.url = "github:dan-kc/neovim";
     flake-gen.url = "github:dan-kc/flake-gen";
     jt.url = "github:dan-kc/jt";
+    retent.url = "github:dan-kc/retent";
 
     tuxedo-nixos.url = "github:sund3RRR/tuxedo-nixos";
     xremap-flake.url = "github:xremap/nix-flake";

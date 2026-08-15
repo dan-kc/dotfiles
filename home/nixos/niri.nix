@@ -308,6 +308,12 @@ let
     fi
   '';
 
+  file-picker = pkgs.writeShellScriptBin "file-picker" ''
+    exec ${pkgs.zenity}/bin/zenity \
+      --file-selection \
+      --filename="$HOME/Pictures/Screenshots/"
+  '';
+
   cover-letter-inner = pkgs.writeShellScriptBin "cover-letter-inner" ''
     TMPJOB=$(mktemp /tmp/job-listing-XXXXXX.md)
     TMPPROMPT=$(mktemp /tmp/cover-letter-prompt-XXXXXX.txt)
@@ -375,6 +381,7 @@ let
       aichat-new
       tv-notes
       copy-link
+      file-picker
       cover-letter-rewrite
     ];
   };
@@ -504,6 +511,7 @@ in
 
           Mod+Alt+T repeat=false hotkey-overlay-title="Switch Vivaldi window" { spawn "vivaldi-tabs"; }
           Mod+C repeat=false hotkey-overlay-title="Copy link" { spawn "copy-link"; }
+          Mod+P repeat=false hotkey-overlay-title="Open screenshot file picker" { spawn "file-picker"; }
 
           Mod+Left  { focus-column-left; }
           Mod+Down  { focus-workspace-down; }
