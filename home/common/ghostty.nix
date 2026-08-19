@@ -109,6 +109,7 @@
             "super+ctrl+shift+arrow_down=unbind"
             "super+ctrl+shift+arrow_left=unbind"
             "super+ctrl+shift+arrow_right=unbind"
+            "ctrl+enter=unbind"
             "ctrl+shift+enter=unbind"
           ];
     };
