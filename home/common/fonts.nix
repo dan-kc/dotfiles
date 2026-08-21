@@ -6,7 +6,7 @@
 }:
 let
   # Change this one value when you want to switch fonts.
-  defaultFont = "proggy-clean";
+  defaultFont = "space-mono";
 
   fontCatalog = {
     # key = exact family name used by apps
@@ -46,21 +46,9 @@ let
       package = pkgs.nerd-fonts.monofur;
       family = "Monofur Nerd Font Mono";
     };
-    proggy-clean = {
-      package = pkgs.proggyfonts;
-      family = "ProggyCleanTT";
-    };
-    proggy-small = {
-      package = pkgs.proggyfonts;
-      family = "ProggySmallTT";
-    };
     proggy-square = {
       package = pkgs.proggyfonts;
       family = "ProggySquareTT";
-    };
-    proggy-tiny = {
-      package = pkgs.proggyfonts;
-      family = "ProggyTinyTT";
     };
     space-mono = {
       package = pkgs.google-fonts;
