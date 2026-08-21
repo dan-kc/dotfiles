@@ -60,12 +60,10 @@
   # colorScheme = inputs.nix-colors.colorSchemes.one-light;
   # colorScheme = inputs.nix-colors.colorSchemes.onedark; # 8/10;
   # colorScheme = inputs.nix-colors.colorSchemes.paraiso; # 8/10;
-  colorScheme = inputs.nix-colors.colorSchemes.pasque;
-  # colorScheme = inputs.nix-colors.colorSchemes.phd;
-  # colorScheme = inputs.nix-colors.colorSchemes.pico;
-  # colorScheme = inputs.nix-colors.colorSchemes.pinky;
-  # colorScheme = inputs.nix-colors.colorSchemes.pop;
-  # colorScheme = inputs.nix-colors.colorSchemes.porple;
+  # colorScheme = inputs.nix-colors.colorSchemes.pasque; # 7/10 
+  # colorScheme = inputs.nix-colors.colorSchemes.phd; # 7/10
+  # colorScheme = inputs.nix-colors.colorSchemes.pinky; # 8/10 really nice but too dark bg
+  colorScheme = inputs.nix-colors.colorSchemes.porple;
   # colorScheme = inputs.nix-colors.colorSchemes.primer-dark;
   # colorScheme = inputs.nix-colors.colorSchemes.primer-dark-dimmed;
   # colorScheme = inputs.nix-colors.colorSchemes.primer-light;
