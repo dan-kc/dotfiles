@@ -665,7 +665,8 @@
         "retent": "retent",
         "sops-nix": "sops-nix",
         "tuxedo-nixos": "tuxedo-nixos",
-        "xremap-flake": "xremap-flake"
+        "xremap-flake": "xremap-flake",
+        "yazi-base16": "yazi-base16"
       }
     },
     "rust-analyzer-src": {
@@ -851,6 +852,22 @@
       "original": {
         "owner": "xremap",
         "repo": "nix-flake",
+        "type": "github"
+      }
+    },
+    "yazi-base16": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1778083448,
+        "narHash": "sha256-1WhixzYE1zsXg9o6T/YKWJgzfRZnzsmpiUIfi+j4H9Q=",
+        "owner": "matt-dong-123",
+        "repo": "base16.yazi",
+        "rev": "ed793528890e2b37595c76b70c212ccfdc81d9ae",
+        "type": "github"
+      },
+      "original": {
+        "owner": "matt-dong-123",
+        "repo": "base16.yazi",
         "type": "github"
       }
     }

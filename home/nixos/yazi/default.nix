@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   ...
 }:
@@ -7,6 +8,13 @@
     enable = true;
     enableZshIntegration = true;
     shellWrapperName = "yy";
+
+    flavors.base16 = inputs.yazi-base16;
+
+    theme.flavor = {
+      dark = "base16";
+      light = "base16";
+    };
 
     plugins = {
       wl-clipboard = pkgs.yaziPlugins.wl-clipboard;
