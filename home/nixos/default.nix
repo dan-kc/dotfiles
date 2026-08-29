@@ -25,8 +25,6 @@
     pkg:
     builtins.elem (lib.getName pkg) [
       "todoist-electron"
-      "claude-code"
-      "discord"
       "libsciter"
       "obsidian"
       "packer"
@@ -44,7 +42,6 @@
     bemenu
     brightnessctl
     ddcutil
-    discord
     gcc
     lsof
     nautilus
