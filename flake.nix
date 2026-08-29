@@ -19,6 +19,11 @@
     xremap-flake.url = "github:xremap/nix-flake";
 
     nix-colors.url = "github:misterio77/nix-colors";
+
+    yazi-base16 = {
+      url = "github:matt-dong-123/base16.yazi";
+      flake = false;
+    };
   };
 
   outputs =
