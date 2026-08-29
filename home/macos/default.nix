@@ -58,12 +58,6 @@
     };
   };
 
-  nixpkgs.config.allowUnfreePredicate =
-    pkg:
-    builtins.elem (lib.getName pkg) [
-      "claude-code"
-    ];
-
   nixpkgs.overlays = [
     (_final: prev: {
       # direnv 2.37.1 can hang in upstream shell tests during checkPhase on Darwin.

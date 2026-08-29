@@ -180,8 +180,6 @@
 
   home.packages = with pkgs; [
     bandwhich
-    bruno
-    claude-code
     opencode
     codex
     delta
@@ -195,7 +193,6 @@
     diffnav
     imagemagick
     jt
-    jujutsu
     lazydocker
     lazygit
     neovim
