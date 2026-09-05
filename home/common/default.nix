@@ -63,10 +63,8 @@
   # colorScheme = inputs.nix-colors.colorSchemes.pasque; # 7/10 
   # colorScheme = inputs.nix-colors.colorSchemes.phd; # 7/10
   # colorScheme = inputs.nix-colors.colorSchemes.pinky; # 8/10 really nice but too dark bg
-  colorScheme = inputs.nix-colors.colorSchemes.porple;
-  # colorScheme = inputs.nix-colors.colorSchemes.primer-dark;
-  # colorScheme = inputs.nix-colors.colorSchemes.primer-dark-dimmed;
-  # colorScheme = inputs.nix-colors.colorSchemes.primer-light;
+  # colorScheme = inputs.nix-colors.colorSchemes.porple; # 7/10
+  colorScheme = inputs.nix-colors.colorSchemes.primer-dark-dimmed;
   # colorScheme = inputs.nix-colors.colorSchemes.purpledream;
   # colorScheme = inputs.nix-colors.colorSchemes.qualia;
   # colorScheme = inputs.nix-colors.colorSchemes.railscasts;
