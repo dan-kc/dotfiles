@@ -213,6 +213,13 @@
     enable = true;
     enableZshIntegration = true;
     flags = [ "--disable-up-arrow" ];
+    themes."nix-colors" = {
+      theme = {
+        name = "nix-colors";
+        parent = "default";
+      };
+      colors.SyntaxCommand = "@white";
+    };
     settings = {
       dialect = "uk";
       update_check = false;
@@ -221,6 +228,8 @@
       inline_height = 10;
       show_help = false;
       exit_mode = "return-query";
+      keys.scroll_exits = false;
+      theme.name = "nix-colors";
     };
   };
 
