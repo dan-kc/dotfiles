@@ -6,7 +6,7 @@
 }:
 let
   # Change this one value when you want to switch fonts.
-  defaultFont = "space-mono";
+  defaultFont = "ubuntu-mono";
 
   fontCatalog = {
     # key = exact family name used by apps
@@ -50,11 +50,11 @@ let
       package = pkgs.proggyfonts;
       family = "ProggySquareTT";
     };
-    space-mono = {
+    space-mono = { # 8/10
       package = pkgs.google-fonts;
       family = "Space Mono";
     };
-    ubuntu-mono = {
+    ubuntu-mono = { # 9/10
       package = pkgs.nerd-fonts.ubuntu-mono;
       family = "UbuntuMono Nerd Font Mono";
     };
