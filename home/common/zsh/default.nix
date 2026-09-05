@@ -43,7 +43,12 @@
       ff() { du -a | awk '{print $2}' | $(fzf --height 40% --border)| xargs -r $EDITOR ; }
 
       h() {
-        history -n -100000 | tac | awk '!seen[$0]++' | fzf --height 40% --border | wl-copy
+        local clipboard_command="wl-copy"
+        local selected
+        [[ "$OSTYPE" == darwin* ]] && clipboard_command="pbcopy"
+
+        selected=$(history -n -100000 | tac | awk '!seen[$0]++' | fzf --height 40% --border) || return
+        printf '%s' "$selected" | "$clipboard_command"
       }
 
       function y() {
