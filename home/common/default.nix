@@ -224,6 +224,10 @@
       show_help = false;
       exit_mode = "return-query";
       keys.scroll_exits = false;
+      search.filters = [
+        "global"
+        "directory"
+      ];
       theme.name = "nix-colors";
     };
   };
