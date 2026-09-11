@@ -6,7 +6,7 @@
 }:
 let
   # Change this one value when you want to switch fonts.
-  defaultFont = "ubuntu-mono";
+  defaultFont = "fira-code";
 
   fontCatalog = {
     # key = exact family name used by apps

@@ -35,7 +35,6 @@
 
   home.packages = with pkgs; [
     (import ./app-launcher.nix { inherit pkgs; })
-    (import ./theme.nix { inherit pkgs; })
     kdePackages.kdenlive
     anki
     bemenu
@@ -50,14 +49,12 @@
     slack
     todoist-electron
 
-    thunderbird
     trash-cli
     udiskie
     unzip
     # Proprietary codecs required for web video/audio (YouTube, Reddit, etc.)
     (vivaldi.override { proprietaryCodecs = true; })
     vlc
-    vscode
     wl-clipboard
   ];
 
