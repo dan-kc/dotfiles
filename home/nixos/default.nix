@@ -7,7 +7,6 @@
 {
   imports = [
     ./alacritty.nix
-    ./yazi
     ./notifications.nix
     ./niri.nix
     ./fuzzel.nix

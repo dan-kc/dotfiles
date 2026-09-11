@@ -4,6 +4,8 @@
   ...
 }:
 {
+  home.packages = [ pkgs.fd ];
+
   programs.yazi = {
     enable = true;
     enableZshIntegration = true;

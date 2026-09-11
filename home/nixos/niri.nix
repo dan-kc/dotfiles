@@ -232,10 +232,6 @@ let
     rm -f "$TMP_HIST"
   '';
 
-  aichat-new = pkgs.writeShellScriptBin "aichat-new" ''
-    exec ${terminal.launch} -e zsh -c '${pkgs.aichat}/bin/aichat; exec zsh'
-  '';
-
   tv-notes = pkgs.writeShellScriptBin "tv-notes" ''
     exec ${terminal.launch} ${terminal.workingDirectoryOption}~/notes -e zsh -c 'selected=$(tv); if [ -n "$selected" ]; then ${pkgs.neovim}/bin/nvim "$selected"; fi; exec zsh'
   '';
@@ -314,59 +310,6 @@ let
       --filename="$HOME/Pictures/Screenshots/"
   '';
 
-  cover-letter-inner = pkgs.writeShellScriptBin "cover-letter-inner" ''
-    TMPJOB=$(mktemp /tmp/job-listing-XXXXXX.md)
-    TMPPROMPT=$(mktemp /tmp/cover-letter-prompt-XXXXXX.txt)
-
-    ${pkgs.neovim}/bin/nvim "$TMPJOB"
-
-    if [ ! -s "$TMPJOB" ]; then
-      echo "No job listing provided. Exiting."
-      rm -f "$TMPJOB" "$TMPPROMPT"
-      sleep 2
-      exit 1
-    fi
-
-    CV_DIR="$HOME/Documents/CVs & Cover Letters"
-
-    {
-      echo "Rewrite my Covering Letter with respect to this job listing:"
-      echo
-      cat "$TMPJOB"
-      echo
-      echo "This is my current covering letter:"
-      echo
-      ${pkgs.poppler-utils}/bin/pdftotext "$CV_DIR/Cover letter.pdf" -
-      echo
-      echo "This is my CV:"
-      echo
-      ${pkgs.poppler-utils}/bin/pdftotext "$CV_DIR/CV.pdf" -
-      echo
-      echo "Do not change it that much. Keep it roughly the same length."
-      echo "Avoid glazing the company in the opening paragraph."
-      echo "Assure the first paragraph mentions about me wanting a technical challenge and how it aligns with my degree."
-      echo "Ensure it does not look ai-written"
-      echo "Do not use any em dashes"
-      echo "Use british english"
-      echo "Ensure most of the covering letter is exactly the same."
-      echo "Do not rewrite something if you don't need to"
-      echo "Do not rewrite a sentence just to make it different."
-      echo "I like the current wordings."
-    } > "$TMPPROMPT"
-
-    rm -f "$TMPJOB"
-
-    SESSION="cover-letter-$(date +%s)"
-    ${pkgs.aichat}/bin/aichat -s "$SESSION" < "$TMPPROMPT"
-    rm -f "$TMPPROMPT"
-
-    exec ${pkgs.aichat}/bin/aichat -s "$SESSION"
-  '';
-
-  cover-letter-rewrite = pkgs.writeShellScriptBin "cover-letter-rewrite" ''
-    exec ${terminal.launch} -e ${cover-letter-inner}/bin/cover-letter-inner
-  '';
-
   niri-scripts = pkgs.symlinkJoin {
     name = "niri-scripts";
     paths = [
@@ -378,11 +321,9 @@ let
       vivaldi-tabs
       nvim-tabs
       window-clone
-      aichat-new
       tv-notes
       copy-link
       file-picker
-      cover-letter-rewrite
     ];
   };
 in
@@ -499,9 +440,6 @@ in
           Mod+J repeat=false { spawn-sh "${terminal.kdlLaunch} ${terminal.workingDirectoryOption}~/notes ${terminal.commandOption} zsh -c 'nvim $(jt); exec zsh'"; }
 
           Super+Alt+L { spawn "swaylock"; }
-          // AI Chat
-          Mod+A repeat=false hotkey-overlay-title="Open aichat" { spawn "aichat-new"; }
-          Mod+L repeat=false hotkey-overlay-title="Cover letter rewrite" { spawn "cover-letter-rewrite"; }
 
           Mod+U { spawn "status-notify"; }
 

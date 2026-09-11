@@ -10,6 +10,7 @@
     ./fonts.nix
     ./ghostty.nix
     ./starship.nix
+    ./yazi
     ./zsh
   ];
 
@@ -174,19 +175,14 @@
       neovim = inputs.neovim.packages."${pkgs.stdenv.hostPlatform.system}".default;
       flake-gen = inputs.flake-gen.packages."${pkgs.stdenv.hostPlatform.system}".default;
       jt = inputs.jt.packages."${pkgs.stdenv.hostPlatform.system}".default;
-      retent = inputs.retent.packages."${pkgs.stdenv.hostPlatform.system}".default;
     })
   ];
 
   home.packages = with pkgs; [
-    bandwhich
-    opencode
     codex
     delta
     difftastic
     dua
-    eza
-    fd
     flake-gen
     fzf
     gh
@@ -197,11 +193,7 @@
     lazygit
     neovim
     ripgrep
-    television
     qpdf
-    aichat
-    tig
-    retent
   ];
 
   programs.atuin = {
