@@ -143,13 +143,6 @@
   # colorScheme = inputs.nix-colors.colorSchemes.zenburn;
 
   home.file = {
-    ".config/gh-dash/config.yml".source = ./gh-dash.yml;
-    ".config/tig/config".text = ''
-      # Use local timezone with custom date format
-      set main-view-date = custom
-      set main-view-date-format = "%Y-%m-%d %H:%M"
-      set main-view-date-local = true
-    '';
     ".config/theme.yaml".text = ''
       base00: "${config.colorScheme.palette.base00}"
       base01: "${config.colorScheme.palette.base01}"
@@ -179,25 +172,17 @@
   ];
 
   home.packages = with pkgs; [
-    # Idk
-    delta
-    difftastic
-
     codex
     flake-gen
     fzf
     gh
-    diffnav
-    imagemagick
     jt
+    neovim
+    ripgrep
     lazydocker
     lazygit
-    neovim
+    imagemagick
     qpdf
-
-    # Tools I don't use but may one day idk
-    ripgrep
-    dua
   ];
 
   programs.atuin = {
@@ -240,13 +225,6 @@
     enableZshIntegration = true;
   };
 
-  programs.diff-so-fancy = {
-    enable = true;
-    enableGitIntegration = true;
-    settings = {
-      markEmptyLines = true;
-    };
-  };
   programs.git = {
     enable = true;
     settings = {
@@ -268,15 +246,14 @@
         showStash = true;
         showUntrackedFiles = "all";
       };
-      diff = {
-        tool = "vimdiff";
-      };
-      merge = {
-        tool = "vimdiff";
-      };
-      difftool = {
-        prompt = false;
-      };
+    };
+  };
+
+  programs.diff-so-fancy = {
+    enable = true;
+    enableGitIntegration = true;
+    settings = {
+      markEmptyLines = true;
     };
   };
 
