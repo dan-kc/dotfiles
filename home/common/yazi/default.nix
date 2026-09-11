@@ -4,7 +4,11 @@
   ...
 }:
 {
-  home.packages = [ pkgs.fd ];
+  home.packages = with pkgs; [
+    fd
+    fzf
+    ripgrep
+  ];
 
   programs.yazi = {
     enable = true;
@@ -924,6 +928,7 @@
             run = "escape --search";
             desc = "Cancel the ongoing search";
           }
+          # The following two are built-in plugins that rely on  
           {
             on = "z";
             run = "plugin fzf";

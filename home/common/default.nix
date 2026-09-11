@@ -61,7 +61,7 @@
   # colorScheme = inputs.nix-colors.colorSchemes.one-light;
   # colorScheme = inputs.nix-colors.colorSchemes.onedark; # 8/10;
   # colorScheme = inputs.nix-colors.colorSchemes.paraiso; # 8/10;
-  # colorScheme = inputs.nix-colors.colorSchemes.pasque; # 7/10 
+  # colorScheme = inputs.nix-colors.colorSchemes.pasque; # 7/10
   # colorScheme = inputs.nix-colors.colorSchemes.phd; # 7/10
   # colorScheme = inputs.nix-colors.colorSchemes.pinky; # 8/10 really nice but too dark bg
   # colorScheme = inputs.nix-colors.colorSchemes.porple; # 7/10
@@ -179,10 +179,11 @@
   ];
 
   home.packages = with pkgs; [
-    codex
+    # Idk
     delta
     difftastic
-    dua
+
+    codex
     flake-gen
     fzf
     gh
@@ -192,8 +193,11 @@
     lazydocker
     lazygit
     neovim
-    ripgrep
     qpdf
+
+    # Tools I don't use but may one day idk
+    ripgrep
+    dua
   ];
 
   programs.atuin = {

@@ -1,7 +1,11 @@
 {
+  inputs,
   pkgs,
   ...
 }:
+let
+  neovim = inputs.neovim.packages.${pkgs.stdenv.hostPlatform.system}.default;
+in
 {
   programs.zsh = {
     enable = true;
@@ -15,10 +19,9 @@
     };
 
     shellAliases = {
-      v = "nvim";
-      c = "clear";
-      rm = "trash";
-      ls = "exa";
+      v = "${neovim}/bin/nvim";
+      rm = "${pkgs.trash-cli}/bin/trash";
+      ls = "${pkgs.eza}/bin/eza";
     };
 
     initContent = ''
@@ -29,35 +32,42 @@
       }
 
       # Disable ctrl-s
-      stty stop undef
+      ${pkgs.coreutils}/bin/stty stop undef
 
       # Export vars
-      export SRC_ENDPOINT="https://sourcegraph.com"
-      export EDITOR="nvim"
-      export HYPRSHOT_DIR="/home/daniel/screenshots/"
+      export EDITOR="${neovim}/bin/nvim"
       if [ -r /run/secrets/cloudflare_api_key ]; then
-        export CLOUDFLARE_API_TOKEN="$(cat /run/secrets/cloudflare_api_key)"
+        export CLOUDFLARE_API_TOKEN="$(${pkgs.coreutils}/bin/cat /run/secrets/cloudflare_api_key)"
       fi
 
       # Functions
-      ff() { du -a | awk '{print $2}' | $(fzf --height 40% --border)| xargs -r $EDITOR ; }
+      ff() {
+        ${pkgs.coreutils}/bin/du -a |
+          ${pkgs.gawk}/bin/awk '{print $2}' |
+          ${pkgs.fzf}/bin/fzf --height 40% --border |
+          ${pkgs.findutils}/bin/xargs -r "$EDITOR"
+      }
 
       h() {
-        local clipboard_command="wl-copy"
+        local clipboard_command="${
+          if pkgs.stdenv.isDarwin then "$HOME/.local/bin/pbcopy" else "${pkgs.wl-clipboard}/bin/wl-copy"
+        }"
         local selected
-        [[ "$OSTYPE" == darwin* ]] && clipboard_command="pbcopy"
 
-        selected=$(history -n -100000 | tac | awk '!seen[$0]++' | fzf --height 40% --border) || return
+        selected=$(history -n -100000 |
+          ${pkgs.coreutils}/bin/tac |
+          ${pkgs.gawk}/bin/awk '!seen[$0]++' |
+          ${pkgs.fzf}/bin/fzf --height 40% --border) || return
         printf '%s' "$selected" | "$clipboard_command"
       }
 
       function y() {
-        local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
-        yazi "$@" --cwd-file="$tmp"
-        if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+        local tmp="$(${pkgs.coreutils}/bin/mktemp -t "yazi-cwd.XXXXXX")"
+        ${pkgs.yazi}/bin/yazi "$@" --cwd-file="$tmp"
+        if cwd="$(${pkgs.coreutils}/bin/cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
           builtin cd -- "$cwd"
         fi
-        rm -f -- "$tmp"
+        ${pkgs.coreutils}/bin/rm -f -- "$tmp"
       }
     '';
 
