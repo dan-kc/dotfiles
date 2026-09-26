@@ -243,6 +243,7 @@
       defaultModel = "gpt-5.6-sol";
       defaultThinkingLevel = "high";
       theme = "nix-colors";
+      quietStartup = true;
       lastChangelogVersion = pkgs.pi-coding-agent.version;
     };
     context = ''
