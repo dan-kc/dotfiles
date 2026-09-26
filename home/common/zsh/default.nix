@@ -41,6 +41,22 @@ in
       fi
 
       # Functions
+      pi() {
+        case "$1" in
+          resume)
+            shift
+            command pi --resume "$@"
+            ;;
+          ""|-*|install|remove|uninstall|update|list|config|auth)
+            command pi "$@"
+            ;;
+          *)
+            printf 'Unknown subcommand: %s\nUse pi -- "your prompt" to start a chat with a prompt.\n' "$1" >&2
+            return 1
+            ;;
+        esac
+      }
+
       ff() {
         ${pkgs.coreutils}/bin/du -a |
           ${pkgs.gawk}/bin/awk '{print $2}' |
