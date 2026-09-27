@@ -69,12 +69,10 @@
   # colorScheme = inputs.nix-colors.colorSchemes.primer-dark-dimmed; # 7/10
   # colorScheme = inputs.nix-colors.colorSchemes.railscasts;
   # colorScheme = inputs.nix-colors.colorSchemes.rebecca; # 6.5 Intensely blue/violet
-  colorScheme = inputs.nix-colors.colorSchemes.rose-pine;
-  # colorScheme = inputs.nix-colors.colorSchemes.rose-pine-dawn;
-  # colorScheme = inputs.nix-colors.colorSchemes.rose-pine-moon;
-  # colorScheme = inputs.nix-colors.colorSchemes.sagelight;
+  # colorScheme = inputs.nix-colors.colorSchemes.rose-pine; # 8
+  # colorScheme = inputs.nix-colors.colorSchemes.rose-pine-moon; # 9 lighter bg
   # colorScheme = inputs.nix-colors.colorSchemes.sakura;
-  # colorScheme = inputs.nix-colors.colorSchemes.sandcastle;
+  colorScheme = inputs.nix-colors.colorSchemes.sandcastle; # 9 Sandy but cool
   # colorScheme = inputs.nix-colors.colorSchemes.selenized-black;
   # colorScheme = inputs.nix-colors.colorSchemes.selenized-dark;
   # colorScheme = inputs.nix-colors.colorSchemes.selenized-light;
