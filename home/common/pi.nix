@@ -5,12 +5,49 @@
 }:
 let
   piSubagentExample = "${pkgs.pi-coding-agent}/lib/node_modules/pi-monorepo/examples/extensions/subagent";
+  piGuardrailsVersion = "0.19.0";
 in
 {
   home.file = {
     ".pi/agent/extensions/subagent/index.ts".source = "${piSubagentExample}/index.ts";
     ".pi/agent/extensions/subagent/agents.ts".source = "${piSubagentExample}/agents.ts";
     ".pi/agent/extensions/system-prompt.ts".source = ./pi/extensions/system-prompt.ts;
+    ".pi/agent/extensions/guardrails.json".text = builtins.toJSON {
+      "$schema" =
+        "https://raw.githubusercontent.com/aliou/pi-guardrails/v${piGuardrailsVersion}/schema.json";
+      version = piGuardrailsVersion;
+      enabled = true;
+      applyBuiltinDefaults = true;
+      onboarding = {
+        completed = true;
+        version = piGuardrailsVersion;
+      };
+      features = {
+        policies = true;
+        permissionGate = true;
+        pathAccess = true;
+      };
+      pathAccess = {
+        mode = "ask";
+        allowedPaths = [
+          {
+            kind = "file";
+            path = "/dev/null";
+          }
+        ];
+      };
+      permissionGate = {
+        requireConfirmation = true;
+      }
+      // pkgs.lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
+        patterns = [
+          {
+            pattern = "brew";
+            description = "Homebrew package manager";
+          }
+        ];
+      };
+    };
 
     ".pi/agent/agents/scout.md".source = ./pi/agents/scout.md;
     ".pi/agent/agents/planner.md".source = ./pi/agents/planner.md;
@@ -107,6 +144,8 @@ in
       theme = "nix-colors";
       quietStartup = true;
       lastChangelogVersion = pkgs.pi-coding-agent.version;
+      npmCommand = [ "${pkgs.nodejs}/bin/npm" ];
+      packages = [ "npm:@aliou/pi-guardrails@${piGuardrailsVersion}" ];
     };
     context = ''
       ## Pi configuration
