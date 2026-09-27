@@ -10,6 +10,7 @@ in
   home.file = {
     ".pi/agent/extensions/subagent/index.ts".source = "${piSubagentExample}/index.ts";
     ".pi/agent/extensions/subagent/agents.ts".source = "${piSubagentExample}/agents.ts";
+    ".pi/agent/extensions/system-prompt.ts".source = ./pi/extensions/system-prompt.ts;
 
     ".pi/agent/agents/scout.md".source = ./pi/agents/scout.md;
     ".pi/agent/agents/planner.md".source = ./pi/agents/planner.md;
