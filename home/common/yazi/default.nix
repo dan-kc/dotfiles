@@ -3,6 +3,9 @@
   pkgs,
   ...
 }:
+let
+  neovim = inputs.neovim.packages.${pkgs.stdenv.hostPlatform.system}.default;
+in
 {
   home.packages = with pkgs; [
     fd
@@ -115,8 +118,8 @@
       opener = {
         edit = [
           {
-            run = ''nvim "$@"'';
-            desc = "$EDITOR";
+            run = ''"${neovim}/bin/nvim" "$@"'';
+            desc = "Neovim";
             block = true;
             "for" = "unix";
           }
