@@ -828,13 +828,13 @@ in
           }
           {
             on = "<Enter>";
-            run = "open";
-            desc = "Open selected files";
+            run = ''shell 'exec "${neovim}/bin/nvim" "$0"' --block'';
+            desc = "Open hovered file in Neovim";
           }
           {
             on = "<S-Enter>";
-            run = "open --interactive";
-            desc = "Open selected files interactively";
+            run = ''shell 'exec "${neovim}/bin/nvim" "$0"' --block'';
+            desc = "Open hovered file in Neovim";
           }
           {
             on = "y";
