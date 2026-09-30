@@ -1,13 +1,30 @@
 {
   inputs,
   pkgs,
+  lib,
+  config,
   ...
 }:
 let
   neovim = inputs.neovim.packages.${pkgs.stdenv.hostPlatform.system}.default;
+  cfg = config.local.agent;
+  agent = cfg.command;
 in
 {
-  programs.zsh = {
+  options.local.agent = {
+    command = lib.mkOption {
+      type = lib.types.str;
+      default = "codex";
+      description = "Coding agent CLI that ctrl-y sends the current command line to.";
+    };
+    resumeArgs = lib.mkOption {
+      type = lib.types.str;
+      default = "resume --last";
+      description = "Arguments that resume the coding agent's most recent session, aliased to c.";
+    };
+  };
+
+  config.programs.zsh = {
     enable = true;
     autosuggestion.enable = false;
     enableCompletion = false;
@@ -22,13 +39,25 @@ in
       v = "${neovim}/bin/nvim";
       rm = "${pkgs.trash-cli}/bin/trash";
       ls = "${pkgs.eza}/bin/eza";
+      c = "${agent} ${cfg.resumeArgs}";
     };
 
     initContent = ''
-      # Bind atuin ctrl-r after zsh-vi-mode initializes
+      # Send the current command line to the coding agent as a prompt
+      agent-prompt() {
+        [[ -n "$BUFFER" ]] || return
+        BUFFER="${agent} ''${(q)BUFFER}"
+        zle end-of-line
+        zle accept-line
+      }
+      zle -N agent-prompt
+
+      # Bind atuin ctrl-r and agent ctrl-y after zsh-vi-mode initializes
       zvm_after_init() {
         zvm_bindkey viins '^R' atuin-search
         zvm_bindkey vicmd '^R' atuin-search
+        zvm_bindkey viins '^Y' agent-prompt
+        zvm_bindkey vicmd '^Y' agent-prompt
       }
 
       # Disable ctrl-s
