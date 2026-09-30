@@ -9,7 +9,6 @@
     inputs.nix-colors.homeManagerModules.default
     ./fonts.nix
     ./ghostty.nix
-    ./pi.nix
     ./starship.nix
     ./yazi
     ./zsh
@@ -163,23 +162,17 @@
   nixpkgs.overlays = [
     (final: prev: {
       neovim = inputs.neovim.packages."${pkgs.stdenv.hostPlatform.system}".default;
-      flake-gen = inputs.flake-gen.packages."${pkgs.stdenv.hostPlatform.system}".default;
       jt = inputs.jt.packages."${pkgs.stdenv.hostPlatform.system}".default;
     })
   ];
 
   home.packages = with pkgs; [
-    codex
-    flake-gen
     fzf
     gh
     jt
     neovim
     ripgrep
-    lazydocker
     lazygit
-    imagemagick
-    qpdf
   ];
 
   programs.atuin = {

@@ -13,9 +13,6 @@
     inputs.sops-nix.homeManagerModules.sops
   ];
 
-  home.username = "daniel";
-  home.homeDirectory = "/home/daniel";
-
   home.file = {
     ".config/lazygit/config.yml".source = ../common/lazygit.yml;
   };
