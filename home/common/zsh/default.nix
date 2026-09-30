@@ -66,7 +66,7 @@ in
 
       h() {
         local clipboard_command="${
-          if pkgs.stdenv.isDarwin then "$HOME/.local/bin/pbcopy" else "${pkgs.wl-clipboard}/bin/wl-copy"
+          if pkgs.stdenv.hostPlatform.isDarwin then "pbcopy" else "${pkgs.wl-clipboard}/bin/wl-copy"
         }"
         local selected
 

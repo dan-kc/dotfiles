@@ -34,10 +34,8 @@
     }@inputs:
     let
       system = "x86_64-linux";
-      pkgs = import nixpkgs {
-        inherit system;
-      };
-      mkDevShell = system:
+      mkDevShell =
+        system:
         let
           pkgs = import nixpkgs {
             inherit system;
@@ -54,6 +52,31 @@
             age
             ssh-to-age
           ];
+        };
+      mkHome =
+        {
+          system,
+          username,
+          modules,
+        }:
+        home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            inherit system;
+          };
+          extraSpecialArgs = {
+            inherit inputs;
+          };
+          modules = [
+            {
+              home = {
+                inherit username;
+                homeDirectory = "${
+                  if nixpkgs.lib.hasSuffix "-darwin" system then "/Users" else "/home"
+                }/${username}";
+              };
+            }
+          ]
+          ++ modules;
         };
     in
     {
@@ -85,26 +108,32 @@
       };
 
       homeConfigurations = {
-        daniel = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          extraSpecialArgs = {
-            inherit inputs;
-          };
+        daniel = mkHome {
+          inherit system;
+          username = "daniel";
           modules = [
             ./home/common
+            ./home/personal
             ./home/nixos
           ];
         };
-        danielcox = home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            system = "aarch64-darwin";
-          };
-          extraSpecialArgs = {
-            inherit inputs;
-          };
+        danielcox = mkHome {
+          system = "aarch64-darwin";
+          username = "danielcox";
+          modules = [
+            ./home/common
+            ./home/personal
+            ./home/macos
+            ./home/macos/ssh-clipboard.nix
+          ];
+        };
+        "daniel.cox" = mkHome {
+          system = "aarch64-darwin";
+          username = "daniel.cox";
           modules = [
             ./home/common
             ./home/macos
+            ./home/work
           ];
         };
       };
