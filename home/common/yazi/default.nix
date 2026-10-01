@@ -844,15 +844,18 @@ in
             run = "open --interactive";
             desc = "Open selected files interactively";
           }
+
+          # yazi.nvim relies on Yazi's native open command to write to its
+          # chooser file. Standalone Yazi uses the edit opener configured above.
           {
             on = "<Enter>";
-            run = ''shell 'exec "${neovim}/bin/nvim" "$0"' --block'';
-            desc = "Open hovered file in Neovim";
+            run = "open";
+            desc = "Open selected files";
           }
           {
             on = "<S-Enter>";
-            run = ''shell 'exec "${neovim}/bin/nvim" "$0"' --block'';
-            desc = "Open hovered file in Neovim";
+            run = "open --interactive";
+            desc = "Open selected files interactively";
           }
           {
             on = "y";
