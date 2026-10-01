@@ -5,6 +5,65 @@
 }:
 let
   neovim = inputs.neovim.packages.${pkgs.stdenv.hostPlatform.system}.default;
+  openInNeovim = pkgs.writeTextDir "main.lua" ''
+    local M = {}
+
+    local selected_or_hovered = ya.sync(function()
+      local targets = {}
+      for _, url in pairs(cx.active.selected) do
+        targets[#targets + 1] = tostring(url)
+      end
+
+      if #targets == 0 then
+        local hovered = cx.active.current.hovered
+        if hovered then
+          targets[1] = tostring(hovered.url)
+        end
+      end
+
+      return targets
+    end)
+
+    function M:entry(job)
+      -- yazi.nvim launches Yazi as a chooser, so native open returns the path
+      -- to the existing Neovim instance instead of spawning another one.
+      if rt.args.chooser_file then
+        return ya.emit("open", {})
+      end
+
+      local targets = selected_or_hovered()
+      if #targets == 0 then
+        return
+      end
+
+      local _permit = ui.hide()
+      local command = Command(job.args[1])
+      for _, target in ipairs(targets) do
+        command:arg(target)
+      end
+
+      local status, err = command
+        :stdin(Command.INHERIT)
+        :stdout(Command.INHERIT)
+        :stderr(Command.INHERIT)
+        :status()
+
+      if not status then
+        return ya.notify({
+          title = "Neovim",
+          content = tostring(err),
+          level = "error",
+          timeout = 5,
+        })
+      end
+
+      -- Yazi handles SIGTERM as a graceful direct exit. Sending it from a
+      -- child avoids the "unfinished task" prompt caused by this plugin.
+      Command("sh"):arg({ "-c", 'kill -TERM "$PPID"' }):status()
+    end
+
+    return M
+  '';
 in
 {
   home.packages = with pkgs; [
@@ -25,6 +84,7 @@ in
     };
 
     plugins = {
+      open-in-neovim = openInNeovim;
       wl-clipboard = pkgs.yaziPlugins.wl-clipboard;
       git = pkgs.yaziPlugins.git;
       starship = pkgs.yaziPlugins.starship;
@@ -95,16 +155,16 @@ in
     };
 
     keymap.mgr.prepend_keymap = [
-      # Native open returns the selection in chooser mode (yazi.nvim), and
-      # uses the configured Neovim opener when Yazi runs standalone.
+      # Return chooser selections to yazi.nvim. Standalone Yazi launches
+      # Neovim and quits when that editor exits.
       {
         on = "<Enter>";
-        run = "open";
+        run = ''plugin open-in-neovim "${neovim}/bin/nvim"'';
         desc = "Open hovered file in Neovim";
       }
       {
         on = "<S-Enter>";
-        run = "open";
+        run = ''plugin open-in-neovim "${neovim}/bin/nvim"'';
         desc = "Open hovered file in Neovim";
       }
       {
