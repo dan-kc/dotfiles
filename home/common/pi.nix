@@ -4,14 +4,17 @@
   ...
 }:
 let
-  piSubagentExample = "${pkgs.pi-coding-agent}/lib/node_modules/pi-monorepo/examples/extensions/subagent";
+  piExtensionExamples = "${pkgs.pi-coding-agent}/lib/node_modules/pi-monorepo/examples/extensions";
+  piSubagentExample = "${piExtensionExamples}/subagent";
   piGuardrailsVersion = "0.19.0";
 in
 {
   home.file = {
     ".pi/agent/extensions/subagent/index.ts".source = "${piSubagentExample}/index.ts";
     ".pi/agent/extensions/subagent/agents.ts".source = "${piSubagentExample}/agents.ts";
+    ".pi/agent/extensions/question.ts".source = "${piExtensionExamples}/question.ts";
     ".pi/agent/extensions/system-prompt.ts".source = ./pi/extensions/system-prompt.ts;
+    ".pi/agent/extensions/openrouter-web-search.ts".source = ./pi/extensions/openrouter-web-search.ts;
     ".pi/agent/extensions/guardrails.json".text = builtins.toJSON {
       "$schema" =
         "https://raw.githubusercontent.com/aliou/pi-guardrails/v${piGuardrailsVersion}/schema.json";
@@ -34,8 +37,67 @@ in
             kind = "file";
             path = "/dev/null";
           }
+          {
+            # Read-only at the filesystem level; grants pi access to the Nix
+            # environment (store paths, built outputs, docs) without prompting.
+            kind = "directory";
+            path = "/nix/store";
+          }
+          {
+            kind = "directory";
+            path = "/nix/var";
+          }
         ];
       };
+      policies.rules = [
+        {
+          id = "protect-ssh-keys";
+          name = "SSH keys";
+          patterns = [ { pattern = "~/.ssh/**"; } ];
+          protection = "noAccess";
+        }
+        {
+          id = "protect-gnupg";
+          name = "GnuPG keys";
+          patterns = [ { pattern = "~/.gnupg/**"; } ];
+          protection = "noAccess";
+        }
+        {
+          id = "protect-cloud-credentials";
+          name = "Cloud provider credentials";
+          patterns = [
+            { pattern = "~/.aws/**"; }
+            { pattern = "~/.netrc"; }
+            { pattern = "~/.kube/config"; }
+          ];
+          protection = "noAccess";
+        }
+        {
+          # Read-only so pi can inspect its own agents/extensions but cannot
+          # self-modify generated config (managed in Nix anyway).
+          id = "protect-pi-config";
+          name = "Pi agent config";
+          patterns = [ { pattern = "~/.pi/**"; } ];
+          protection = "readOnly";
+        }
+        {
+          # Shell startup files and git config are persistence vectors
+          # (aliases, hooks, env vars injected into future sessions).
+          id = "protect-shell-and-git-config";
+          name = "Shell startup files and git config";
+          patterns = [
+            { pattern = "~/.bashrc"; }
+            { pattern = "~/.bash_profile"; }
+            { pattern = "~/.profile"; }
+            { pattern = "~/.zshrc"; }
+            { pattern = "~/.zprofile"; }
+            { pattern = "~/.zshenv"; }
+            { pattern = "~/.gitconfig"; }
+            { pattern = "~/.gitignore_global"; }
+          ];
+          protection = "readOnly";
+        }
+      ];
       permissionGate = {
         requireConfirmation = true;
       }
@@ -140,7 +202,7 @@ in
     settings = {
       defaultProvider = "openai-codex";
       defaultModel = "gpt-5.6-sol";
-      defaultThinkingLevel = "high";
+      defaultThinkingLevel = "medium";
       theme = "nix-colors";
       quietStartup = true;
       lastChangelogVersion = pkgs.pi-coding-agent.version;
@@ -159,6 +221,10 @@ in
       changes are fine. Credentials, sessions, caches, and trust state remain
       writable and are not managed in Nix; never put credentials in the Nix
       store.
+
+      When missing user input would materially affect the result, use the
+      question tool to ask rather than guessing. Continue with reasonable
+      assumptions when the answer would not materially change the work.
     '';
   };
 
@@ -168,12 +234,19 @@ in
         postInstall = (old.postInstall or "") + ''
           pi_bundle="$out/lib/node_modules/pi-monorepo/dist/bundle"
           command_file=$(grep -R -l 'name:"quit",description:`Quit ' "$pi_bundle" | head -n1)
+          subagent_file="$out/lib/node_modules/pi-monorepo/examples/extensions/subagent/index.ts"
 
           substituteInPlace "$command_file" \
             --replace-fail '{name:"quit",description:`Quit ''${APP_NAME}`}' \
                            '{name:"quit",description:`Quit ''${APP_NAME}`},{name:"exit",description:`Quit ''${APP_NAME}`}' \
             --replace-fail 'if(text==="/quit"){this.editor.setText(""),await this.shutdown();return}' \
                            'if(text==="/quit"||text==="/exit"){this.editor.setText(""),await this.shutdown();return}'
+
+          substituteInPlace "$subagent_file" \
+            --replace-fail 'const COLLAPSED_ITEM_COUNT = 10;' \
+                           'const COLLAPSED_ITEM_COUNT = 5;' \
+            --replace-fail 'renderDisplayItems(displayItems, 5)' \
+                           'renderDisplayItems(displayItems, 3)'
         '';
       });
     })
