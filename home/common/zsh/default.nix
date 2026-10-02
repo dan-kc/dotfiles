@@ -74,9 +74,12 @@ in
         case "$1" in
           resume)
             shift
-            command pi --resume "$@"
+            command pi --system-prompt "$HOME/.pi/agent/pair-programmer.md" --resume "$@"
             ;;
-          ""|-*|install|remove|uninstall|update|list|config|auth)
+          ""|-*)
+            command pi --system-prompt "$HOME/.pi/agent/pair-programmer.md" "$@"
+            ;;
+          install|remove|uninstall|update|list|config|auth)
             command pi "$@"
             ;;
           *)
