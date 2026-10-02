@@ -71,13 +71,14 @@ in
 
       # Functions
       pi() {
+        local blank_system_prompt=" "
         case "$1" in
           resume)
             shift
-            command pi --system-prompt "$HOME/.pi/agent/pair-programmer.md" --resume "$@"
+            command pi --system-prompt "$blank_system_prompt" --resume "$@"
             ;;
           ""|-*)
-            command pi --system-prompt "$HOME/.pi/agent/pair-programmer.md" "$@"
+            command pi --system-prompt "$blank_system_prompt" "$@"
             ;;
           install|remove|uninstall|update|list|config|auth)
             command pi "$@"
