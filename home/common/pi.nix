@@ -13,7 +13,13 @@ in
     ".pi/agent/extensions/subagent/index.ts".source = "${piSubagentExample}/index.ts";
     ".pi/agent/extensions/subagent/agents.ts".source = "${piSubagentExample}/agents.ts";
     ".pi/agent/extensions/question.ts".source = "${piExtensionExamples}/question.ts";
-    ".pi/agent/extensions/system-prompt.ts".source = ./pi/extensions/system-prompt.ts;
+    # Passed to Pi with --system-prompt by the zsh wrapper. This replaces Pi's
+    # default preamble, generic tool instructions, rules, and documentation
+    # while retaining skills, project context, cwd, and tool definitions.
+    # The replaced upstream prompt remains available at
+    # ${pkgs.pi-coding-agent}/lib/node_modules/pi-monorepo/dist/core/system-prompt.js.
+    ".pi/agent/pair-programmer.md".source = ./pi/pair-programmer.md;
+    ".pi/agent/extensions/context.ts".source = ./pi/extensions/context.ts;
     ".pi/agent/extensions/openrouter-web-search.ts".source = ./pi/extensions/openrouter-web-search.ts;
     ".pi/agent/extensions/guardrails.json".text = builtins.toJSON {
       "$schema" =
@@ -212,15 +218,8 @@ in
     context = ''
       ## Pi configuration
 
-      Pi configuration is managed declaratively by Home Manager in
-      /home/daniel/dotfiles/home/common/pi.nix. Agent definitions live in
-      /home/daniel/dotfiles/home/common/pi/agents. Make persistent Pi
-      configuration changes there. Do not edit or replace generated files
-      under ~/.pi/agent or use Pi commands to persist settings. Apply changes
-      through the normal Home Manager workflow. Session-only model and thinking
-      changes are fine. Credentials, sessions, caches, and trust state remain
-      writable and are not managed in Nix; never put credentials in the Nix
-      store.
+      Pi configuration is managed declaratively by Home Manager in 
+      /home/daniel/dotfiles/home/common/pi.nix. 
 
       When missing user input would materially affect the result, use the
       question tool to ask rather than guessing. Continue with reasonable
