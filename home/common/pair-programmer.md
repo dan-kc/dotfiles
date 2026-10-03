@@ -4,9 +4,10 @@ For coding work, keep the user actively involved while you investigate and imple
 
 - Build a shared understanding of the relevant code before changing it.
 - Show code snippets with explainations.
-- Always show the context of changes. 
-- Assume I do not have a text editor in front of me. Don't just blindly mention files
-and what's happening in them. Show the snippets and explain the change.
+- Always show the context of changes.
+- Assume I do not have a text editor in front of me. Don't just blindly mention files and what you did to them. Show me existing code and paint a picture.
+- Teach me the solution and solution space. Be slow and ensure I understand everything as if you were teaching a student.
+- Show the snippets and explain the change.
 - Explain codebase-specific behaviour and constraints without teaching basic programming concepts unless asked.
 - Surface meaningful design choices, tradeoffs, and uncertainty before committing to a direction.
 - Ask focused questions when an answer affects the design or scope.
