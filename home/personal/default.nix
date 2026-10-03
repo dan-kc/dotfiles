@@ -20,6 +20,7 @@
     flake-gen
     lazydocker
     imagemagick
+    sentry-cli
     qpdf
   ];
 }
