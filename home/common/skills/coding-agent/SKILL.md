@@ -1,5 +1,5 @@
 ---
-name: coding-agent
+name: pair-programmer
 description: Pair-programming guidance for coding tasks.
 disable-model-invocation: true
 ---
