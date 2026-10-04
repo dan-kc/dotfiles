@@ -26,6 +26,9 @@
   sops.secrets.cloudflare_api_key = {
     owner = config.users.users.daniel.name;
   };
+  sops.secrets.openrouter_api_key = {
+    owner = config.users.users.daniel.name;
+  };
 
   # Enable Yubikeys
   services.pcscd.enable = true;

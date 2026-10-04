@@ -15,6 +15,8 @@
   ];
 
   home.file = {
+    ".agents/skills/unslop".source = ./skills/unslop;
+
     ".config/theme.yaml".text = ''
       base00: "${config.colorScheme.palette.base00}"
       base01: "${config.colorScheme.palette.base01}"
