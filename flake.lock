@@ -350,11 +350,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790851222,
-        "narHash": "sha256-jyJLMkWJTO6S20tyLBFEE/elRLMIedvvLiBqLSRp/tM=",
+        "lastModified": 1791113623,
+        "narHash": "sha256-ozNyan3gkDHlbNpS85onBLPevMna3q5Sf3Ns17ZtENM=",
         "owner": "dan-kc",
         "repo": "neovim",
-        "rev": "ab3075402379052864c9b92b7f415fd6dae9eaee",
+        "rev": "c399bb58f138899ada7bf4ead29abcb51cafc02e",
         "type": "github"
       },
       "original": {

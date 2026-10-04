@@ -200,8 +200,8 @@ in
   programs.pi-coding-agent = {
     enable = true;
     settings = {
-      defaultProvider = "openai-codex";
-      defaultModel = "gpt-5.6-sol";
+      defaultProvider = "openrouter";
+      defaultModel = "z-ai/glm-5.3-flash";
       defaultThinkingLevel = "medium";
       theme = "nix-colors";
       quietStartup = true;
