@@ -6,11 +6,11 @@ disable-model-invocation: true
 
 # Architect
 
-Design before implementing. Sketch types, function signatures, class shapes, and module boundaries with `not implemented` bodies and pseudocode. Synthesize across multiple model perspectives, then fill in code against the chosen sketch. If implementation proves the sketch wrong, throw it out and redesign.
+Design before implementing. Sketch types, function signatures, module boundaries, and the caller's usage with `not implemented` bodies and pseudocode. Race several candidate designs through parallel subagents, synthesize one winner, then fill in code against it. If implementation proves the sketch wrong, throw it out and redesign.
 
 ## Start
 
-Open a todolist with one entry per phase before starting.
+Write the five phases into your plan before starting, and check them off as you finish each one.
 
 1. Ground
 2. Sketch
@@ -20,25 +20,25 @@ Open a todolist with one entry per phase before starting.
 
 ## Phase A: Ground the problem
 
-Build a real mental model of every system the new code touches. Run the **how** skill over the relevant subsystems.
+Build a real mental model of every system the new code touches. Trace the runtime flow through the relevant subsystems. Naming a file is not grounding. You need the traced shape. Entry points, the core types as they exist today, who owns each piece of state, where the new code must hook in, and the callers you cannot break.
 
-Naming a file isn't grounding. Produce the traced model `how` prescribes. If the design redefines ownership or layering, also run the **why** skill on the existing shape so the rationale becomes a constraint, not a guess.
+For a small area, read the files yourself. For anything larger, hand the recon to a `scout` agent through the subagent tool and keep its summary in your context instead of the raw files. Read its listed key sections yourself when the sketch will hinge on them.
+
+If the design redefines ownership or layering, also dig out why the existing shape is what it is (`git log`, old PRs, docs) so the rationale becomes a constraint rather than a guess.
 
 Skip Phase A only when the work is genuinely greenfield with no surrounding system to integrate.
 
 ## Phase B: Sketch
 
-Run the **arena** skill with the design-sketch task and the Phase A grounding artifacts. Pass `references/runner-prompt.md` as each runner's prompt. Each candidate produces a design package shaped per `references/rationale-template.md`.
+Spawn candidate designs in parallel with the subagent tool's parallel mode. One fresh agent per candidate. Give each runner the task, the Phase A grounding summary, an isolated working directory (a git worktree made with bash when the repo supports it, otherwise a per-runner subdirectory under the sketch dir), and the path where it writes its design package. Pass [`references/runner-prompt.md`](references/runner-prompt.md) as each runner's prompt. Each candidate writes its package per [`references/rationale-template.md`](references/rationale-template.md).
 
-Take the runners from the `architect runners` line in the `pstack-models.mdc` rule, in place of the `arena runners` line. If the rule or that line is missing, use `claude-opus-5-5-max`, `gpt-5.6-sol-max`, `grok-4.7-xhigh-fast`. Alias and rejected entries follow the runner rules in the **arena** skill's Phase A.
+Run at least two candidates, three when the design space has real contenders. Give each runner a distinct structural bet so the candidates diverge, for example one deep module with a small interface, one data-first shape built around a table or registry, one explicit state machine or reducer. Runners on the same model converge without a bet, and a second flavor of the first shape does not count. Design it twice. Whole-shape alternatives, not point fixes inside one shape.
 
-Design it twice. Require at least two structurally distinct candidates before synthesis, even when the first looks sufficient. This is the **exhaust-the-design-space** principle skill made concrete. Whole-shape alternatives, not point fixes inside one shape.
+Then synthesize yourself. Read every candidate package. Screen each against [`references/design-red-flags.md`](references/design-red-flags.md) and revise or reject on what you find. Assume the next contributor is an agent that sees only the files it opened, copies the nearest example, and takes the shortest path that compiles. Prefer the design where a change that looks right from one file is right for the whole repo.
 
-Screen every candidate against [`references/design-red-flags.md`](references/design-red-flags.md) before synthesis. Assume the next contributor is an agent that sees only the files it opened, copies the nearest example, and takes the shortest path that compiles. Prefer the design where a change that looks right from one file is right for the whole repo.
+Compare the survivors on interface depth. Prefer the design that hides more complexity behind a smaller, simpler public surface. A rich interface can keep call chains short by concentrating capability instead of scattering it across layers.
 
-Compare viable candidates on interface depth. Prefer the design that hides more complexity behind a smaller, simpler public surface. A rich interface can keep call chains short by concentrating capability instead of scattering it across layers.
-
-Arena returns one synthesized design package. The synthesis decision populates the rationale's "Synthesis decision" section.
+Pick a base, graft in what the other candidates did better, and record the choice in the rationale's "Synthesis decision" section.
 
 ## Phase C: Agree (opt-in)
 
@@ -46,7 +46,7 @@ Default: proceed directly to implementation with the synthesized design. No huma
 
 Opt in to a checkpoint when the invoker explicitly asks: "/architect with checkpoint," "stop and show me before implementing," or similar. Then surface the synthesized design and pause for sign-off.
 
-The synthesis can ship as its own commit either way, as the "scaffold first" mode of the **foundational-thinking** principle skill. Planned and scoped breakage during fill-in is fine, per the **outcome-oriented-execution** principle skill. For adversarial pressure on the design before implementing, run the **interrogate** skill on the synthesized sketch.
+The synthesis can ship as its own commit either way, as a scaffold-first step. Planned and scoped breakage during fill-in is fine. For adversarial pressure on the design before implementing, hand the sketch to a `reviewer` agent and ask it to attack the shape, not the formatting.
 
 If the human pushes back on the shape (in a checkpoint or after the fact), treat that as Phase A evidence. Re-ground and re-run Phase B before writing more code.
 
@@ -58,7 +58,7 @@ Deviations from the sketch are signal worth surfacing, not friction to absorb si
 
 ## Phase E: Scrap when the architecture is wrong
 
-If implementation keeps producing friction the sketch can't absorb, throw the sketch out. Don't bolt fixes onto a wrong design, per the **redesign-from-first-principles** and **fix-root-causes** principle skills.
+If implementation keeps producing friction the sketch can't absorb, throw the sketch out. Don't bolt fixes onto a wrong design.
 
 The signal is a *pattern*, not single instances. Tells:
 
@@ -73,11 +73,11 @@ Use judgment. A few edge cases don't condemn an architecture. Some problems are 
 
 When you scrap:
 
-1. Re-run the **how** skill over what's been built.
-2. Redesign as if the new constraints had been day-one assumptions, per redesign-from-first-principles.
-3. Subtract before adding, per the **subtract-before-you-add** principle skill. The new sketch should be smaller than the old one before it grows.
-4. Return to Phase B and re-run arena.
+1. Re-ground on what has been built, per Phase A, run against the new code.
+2. Redesign as if the new constraints had been day-one assumptions.
+3. Subtract before adding. The new sketch should be smaller than the old one before it grows.
+4. Return to Phase B and re-run the race.
 
 ## Outputs
 
-The caller's usage is written first and the type sketch derived from it. One file with new types and signatures for small changes. Module map plus type definitions for larger work. The rationale ships alongside, shaped per `references/rationale-template.md`, including the usage sketch and the synthesis decision.
+The caller's usage is written first and the type sketch derived from it. One file with new types and signatures for small changes. Module map plus type definitions for larger work. The rationale ships alongside, shaped per [`references/rationale-template.md`](references/rationale-template.md), including the usage sketch and the synthesis decision.
