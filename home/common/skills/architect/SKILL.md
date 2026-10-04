@@ -60,7 +60,7 @@ Deviations from the sketch are signal worth surfacing, not friction to absorb si
 
 If implementation keeps producing friction the sketch can't absorb, throw the sketch out. Don't bolt fixes onto a wrong design.
 
-The signal is a *pattern*, not single instances. Tells:
+The signal is a _pattern_, not single instances. Tells:
 
 - The same shape of workaround appearing repeatedly across unrelated code.
 - Multiple unrelated edge cases that all need special-case branches.
