@@ -22,7 +22,7 @@ Work the phases in order. The numbered list is the checklist. Finish one before 
 
 Build a real mental model of every system the new code touches. Trace the runtime flow through the relevant subsystems. Naming a file is not grounding. You need the traced shape. Entry points, the core types as they exist today, who owns each piece of state, where the new code must hook in, and the callers you cannot break.
 
-For a small area, read the files yourself. For anything larger, hand the recon to a `scout` agent through the subagent tool and keep its summary in your context instead of the raw files. Read its listed key sections yourself when the sketch will hinge on them.
+For a small area, read the files yourself. For anything larger, launch a `scout` child with a single `subagent({ agent: "scout", task })` call and keep its summary in your context instead of the raw files. Read its listed key sections yourself when the sketch will hinge on them.
 
 If the design redefines ownership or layering, also dig out why the existing shape is what it is (`git log`, old PRs, docs) so the rationale becomes a constraint rather than a guess.
 
@@ -30,9 +30,9 @@ Skip Phase A only when the work is genuinely greenfield with no surrounding syst
 
 ## Phase B: Sketch
 
-Spawn candidate designs in parallel with the subagent tool's parallel mode. One fresh agent per candidate. Give each runner the task, the Phase A grounding summary, an isolated working directory (a git worktree made with bash when the repo supports it, otherwise a per-runner subdirectory under the sketch dir), and the path where it writes its design package. Pass [`references/runner-prompt.md`](references/runner-prompt.md) as each runner's prompt. Each candidate writes its package per [`references/rationale-template.md`](references/rationale-template.md).
+Spawn the candidates with one `subagent` call running a workflow script. Write a `js workflow` block that fans the candidates out with `runs.all`, one child per candidate, then call `subagent({ workflow: true })` in the same reply. Each child entry carries the agent name, its task, and a per-child `model` override when more than one model is available. Each child's task text carries the runner prompt from [`references/runner-prompt.md`](references/runner-prompt.md) plus the Phase A grounding summary and the output path where the child writes its design package. Each candidate writes its package per [`references/rationale-template.md`](references/rationale-template.md). Use per-child worktrees when the repo supports them, otherwise distinct output subdirectories, so candidates stay independent.
 
-Run at least two candidates, three when the design space has real contenders. Give each runner a distinct structural bet so the candidates diverge, for example one deep module with a small interface, one data-first shape built around a table or registry, one explicit state machine or reducer. Runners on the same model converge without a bet, and a second flavor of the first shape does not count. Design it twice. Whole-shape alternatives, not point fixes inside one shape.
+Run at least two candidates, three when the design space has real contenders. Give each runner a distinct structural bet so the candidates diverge, for example one deep module with a small interface, one data-first shape built around a table or registry, one explicit state machine or reducer. Set a different model per runner when more than one is available, since the same model racing against itself converges. The bet and the model both stay on when both are available, and a second flavor of the first shape does not count. Design it twice. Whole-shape alternatives, not point fixes inside one shape.
 
 Then synthesize yourself. Read every candidate package. Screen each against [`references/design-red-flags.md`](references/design-red-flags.md) and revise or reject on what you find. Assume the next contributor is an agent that sees only the files it opened, copies the nearest example, and takes the shortest path that compiles. Prefer the design where a change that looks right from one file is right for the whole repo.
 
