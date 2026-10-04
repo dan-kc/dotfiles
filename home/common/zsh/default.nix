@@ -69,6 +69,10 @@ in
         export CLOUDFLARE_API_TOKEN="$(${pkgs.coreutils}/bin/cat /run/secrets/cloudflare_api_key)"
       fi
 
+      if [ -r /run/secrets/openrouter_api_key ]; then
+        export OPENROUTER_API_KEY="$(${pkgs.coreutils}/bin/cat /run/secrets/openrouter_api_key)"
+      fi
+
       # Functions
       pi() {
         local blank_system_prompt=" "
