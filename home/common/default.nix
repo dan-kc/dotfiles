@@ -15,8 +15,9 @@
   ];
 
   home.file = {
+    # Skills available to every agent (pi and codex both read ~/.agents/skills).
     ".agents/skills/coding-agent".source = ./skills/coding-agent;
-    ".agents/skills/unslop".source = ./skills/unslop;
+    ".agents/skills/bro".source = ./skills/bro;
 
     ".config/theme.yaml".text = ''
       base00: "${config.colorScheme.palette.base00}"
@@ -41,11 +42,11 @@
   in
     builtins.listToAttrs (builtins.map
       (name: {
-        name = ".agents/skills/${name}";
+        name = ".pi/agent/skills/${name}";
         value.source = ./skills + "/${name}";
       })
       (builtins.filter
-        (name: skills.${name} == "directory" && name != "coding-agent" && name != "unslop")
+        (name: skills.${name} == "directory" && name != "coding-agent" && name != "bro")
         (builtins.attrNames skills))));
 
   nixpkgs.overlays = [
