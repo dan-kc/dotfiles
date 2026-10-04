@@ -5,14 +5,31 @@
 }:
 let
   piExtensionExamples = "${pkgs.pi-coding-agent}/lib/node_modules/pi-monorepo/examples/extensions";
-  piSubagentExample = "${piExtensionExamples}/subagent";
+  piSubagentsVersion = "0.75.0";
   piGuardrailsVersion = "0.19.0";
 in
 {
   home.file = {
-    ".pi/agent/extensions/subagent/index.ts".source = "${piSubagentExample}/index.ts";
-    ".pi/agent/extensions/subagent/agents.ts".source = "${piSubagentExample}/agents.ts";
     ".pi/agent/extensions/question.ts".source = "${piExtensionExamples}/question.ts";
+    # pi-subagents reads its config from the directory its package occupies.
+    ".pi/agent/extensions/subagent/config.json".text = builtins.toJSON {
+      # Register subagent from the first request; no loader tool.
+      toolActivation = "eager";
+      # Trim feature groups this setup does not use from the tool schema.
+      # Re-enable by removing names from this list.
+      disabledFeatures = [
+        "missions"
+        "panes"
+        "watchdog"
+        "lane-management"
+        "lane-metadata"
+        "external-machines"
+        "control-overrides"
+        "extension-bindings"
+        "spawn-budget-grants"
+        "preflight"
+      ];
+    };
     ".pi/agent/extensions/context.ts".source = ./pi/extensions/context.ts;
     ".pi/agent/extensions/openrouter-web-search.ts".source = ./pi/extensions/openrouter-web-search.ts;
     ".pi/agent/extensions/guardrails.json".text = builtins.toJSON {
@@ -116,11 +133,6 @@ in
     ".pi/agent/agents/reviewer.md".source = ./pi/agents/reviewer.md;
     ".pi/agent/agents/worker.md".source = ./pi/agents/worker.md;
 
-    ".pi/agent/prompts/implement.md".source = "${piSubagentExample}/prompts/implement.md";
-    ".pi/agent/prompts/scout-and-plan.md".source = "${piSubagentExample}/prompts/scout-and-plan.md";
-    ".pi/agent/prompts/implement-and-review.md".source =
-      "${piSubagentExample}/prompts/implement-and-review.md";
-
     ".pi/agent/themes/nix-colors.json".text = builtins.toJSON {
       "$schema" =
         "https://raw.githubusercontent.com/earendil-works/pi/main/packages/coding-agent/src/modes/interactive/theme/theme-schema.json";
@@ -207,7 +219,10 @@ in
       quietStartup = true;
       lastChangelogVersion = pkgs.pi-coding-agent.version;
       npmCommand = [ "${pkgs.nodejs}/bin/npm" ];
-      packages = [ "npm:@aliou/pi-guardrails@${piGuardrailsVersion}" ];
+      packages = [
+        "npm:@aliou/pi-guardrails@${piGuardrailsVersion}"
+        "npm:pi-subagents@${piSubagentsVersion}"
+      ];
     };
   };
 
@@ -221,7 +236,6 @@ in
           test "$(printf '%s\n' "$autocomplete_matches" | grep -c .)" -eq 1
           autocomplete_file="$autocomplete_matches"
           test "$(grep -F -o 'this.autocompletePrefix.startsWith("/")' "$autocomplete_file" | wc -l)" -eq 1
-          subagent_file="$out/lib/node_modules/pi-monorepo/examples/extensions/subagent/index.ts"
 
           substituteInPlace "$command_file" \
             --replace-fail '{name:"quit",description:`Quit ''${APP_NAME}`}' \
@@ -232,12 +246,6 @@ in
           substituteInPlace "$autocomplete_file" \
             --replace-fail 'this.autocompletePrefix.startsWith("/"))this.cancelAutocomplete();else{this.cancelAutocomplete(),this.onChange&&this.onChange(this.getText());return' \
                            'this.autocompletePrefix.startsWith("/")&&!selected.value.startsWith("skill:"))this.cancelAutocomplete();else{this.cancelAutocomplete(),this.onChange&&this.onChange(this.getText());return'
-
-          substituteInPlace "$subagent_file" \
-            --replace-fail 'const COLLAPSED_ITEM_COUNT = 10;' \
-                           'const COLLAPSED_ITEM_COUNT = 5;' \
-            --replace-fail 'renderDisplayItems(displayItems, 5)' \
-                           'renderDisplayItems(displayItems, 3)'
         '';
       });
     })
