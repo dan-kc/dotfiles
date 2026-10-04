@@ -3,7 +3,7 @@ import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 
 const OPENROUTER_ENDPOINT = "https://openrouter.ai/api/v1/chat/completions";
 const SEARCH_PROVIDER = "openrouter";
-const SEARCH_MODEL = "x-ai/grok-4.7";
+const SEARCH_MODEL = "x-ai/grok-4.3";
 const REQUEST_TIMEOUT_MS = 120_000;
 
 interface SearchSource {
@@ -101,8 +101,8 @@ export default function (pi: ExtensionAPI) {
     name: "web_search",
     label: "Web Search",
     description:
-      "Search the live web with the dedicated OpenRouter x-ai/grok-4.7 model. Use for current, changing, niche, or source-dependent information.",
-    promptSnippet: "Search the live web with Grok 4.7 through OpenRouter.",
+      "Search the live web with the dedicated OpenRouter x-ai/grok-4.3 model (no reasoning). Use for current, changing, niche, or source-dependent information.",
+    promptSnippet: "Search the live web with Grok 4.3 through OpenRouter (no reasoning).",
     parameters: Type.Object({
       query: Type.String({ description: "The search query or question to research" }),
     }),
@@ -133,7 +133,7 @@ export default function (pi: ExtensionAPI) {
         }
 
         onUpdate?.({
-          content: [{ type: "text", text: `Searching the web with ${SEARCH_MODEL}…` }],
+          content: [{ type: "text", text: `Searching the web with ${SEARCH_MODEL} (no reasoning)…` }],
           details,
         });
 
@@ -145,6 +145,7 @@ export default function (pi: ExtensionAPI) {
           signal: requestSignal,
           body: JSON.stringify({
             model: SEARCH_MODEL,
+            reasoning: { enabled: false },
             messages: [
               {
                 role: "system",
