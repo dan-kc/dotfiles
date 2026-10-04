@@ -209,11 +209,6 @@ in
       npmCommand = [ "${pkgs.nodejs}/bin/npm" ];
       packages = [ "npm:@aliou/pi-guardrails@${piGuardrailsVersion}" ];
     };
-    # The zsh wrapper passes a single space to --system-prompt: Pi treats it as
-    # a custom prompt, suppressing its default preamble without adding visible
-    # content. The replaced generic prompt remains available at
-    # ${pkgs.pi-coding-agent}/lib/node_modules/pi-monorepo/dist/core/system-prompt.js.
-    context = builtins.readFile ./pair-programmer.md;
   };
 
   nixpkgs.overlays = [

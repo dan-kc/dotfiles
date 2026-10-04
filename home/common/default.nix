@@ -15,6 +15,7 @@
   ];
 
   home.file = {
+    ".agents/skills/coding-agent".source = ./skills/coding-agent;
     ".agents/skills/unslop".source = ./skills/unslop;
 
     ".config/theme.yaml".text = ''
@@ -35,7 +36,17 @@
       base0E: "${config.colorScheme.palette.base0E}"
       base0F: "${config.colorScheme.palette.base0F}"
     '';
-  };
+  } // (let
+    skills = builtins.readDir ./skills;
+  in
+    builtins.listToAttrs (builtins.map
+      (name: {
+        name = ".agents/skills/${name}";
+        value.source = ./skills + "/${name}";
+      })
+      (builtins.filter
+        (name: skills.${name} == "directory" && name != "coding-agent" && name != "unslop")
+        (builtins.attrNames skills))));
 
   nixpkgs.overlays = [
     (final: prev: {
