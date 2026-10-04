@@ -10,7 +10,7 @@ Design before implementing. Sketch types, function signatures, module boundaries
 
 ## Start
 
-Write the five phases into your plan before starting, and check them off as you finish each one.
+Work the phases in order. The numbered list is the checklist. Finish one before starting the next, and treat skipping a phase as a decision you state with a reason.
 
 1. Ground
 2. Sketch
