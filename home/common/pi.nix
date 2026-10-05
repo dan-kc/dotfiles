@@ -31,7 +31,7 @@ in
       ];
     };
     ".pi/agent/extensions/context.ts".source = ./pi/extensions/context.ts;
-    ".pi/agent/extensions/openrouter-web-search.ts".source = ./pi/extensions/openrouter-web-search.ts;
+    ".pi/agent/extensions/openrouter-server-tools.ts".source = ./pi/extensions/openrouter-server-tools.ts;
     ".pi/agent/extensions/guardrails.json".text = builtins.toJSON {
       "$schema" =
         "https://raw.githubusercontent.com/aliou/pi-guardrails/v${piGuardrailsVersion}/schema.json";
