@@ -9,19 +9,15 @@
 
   programs.claude-code.enable = true;
 
-  home.file =
-    let
-      skills = builtins.readDir ../common/skills;
-    in
-    {
-      "./.zshenv".enable = false;
-    }
-    // builtins.listToAttrs (
-      builtins.map (name: {
-        name = ".claude/skills/${name}";
-        value.source = ../common/skills + "/${name}";
-      }) (builtins.filter (name: skills.${name} == "directory") (builtins.attrNames skills))
-    );
+  home.file = {
+    "./.zshenv".enable = false;
+  }
+  // builtins.listToAttrs (
+    builtins.map (name: {
+      name = ".claude/skills/${name}";
+      value.source = ../common/skills + "/${name}";
+    }) [ "architect" "bro" "explain" "unslop" ]
+  );
 
   local.agent = {
     command = "claude";
