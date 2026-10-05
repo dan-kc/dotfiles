@@ -25,20 +25,22 @@ The N candidates will receive the same prompt, so the prompt is the contract.
 
 1. State the artifact each candidate is producing.
 2. Derive the rubric. State what success looks like for _this_ task, then turn it into 3-6 concrete gradeable criteria. The rubric is the picker's tool in Phase D. Candidates only see the task.
-3. Pick the runners. Use the `arena runners` line in `~/.cursor/rules/pstack-models.mdc`. If the rule or that line is missing, default to one each on `claude-opus-5-5-max`, `gpt-5.6-sol-max`, `grok-4.7-xhigh-fast`. An `auto` or `inherit-parent` entry in this line or the cross-judge line means the parent model, so omit `model` for it. If the Task tool rejects a configured entry, run that seat on its family's default and say so. Families go by prefix: `claude-*`, `gpt-*`, and `grok-*`. With no family match, use `claude-opus-5-5-max`. If it rejects a default, use the closest valid slug of the same family from its error message. Spawn more when the arena covers multiple design directions. Same model N times when the work is generation-bound rather than judgment-sensitive.
-4. Assign output paths. Each candidate writes to its own location (a git worktree where possible, otherwise `/tmp/arena-<slug>/candidate-<n>/`), per the **separate-before-serializing-shared-state** principle skill.
+3. Pick the runners from Pi's live registry by calling `subagent({ action: "models" })`. Use exact `provider/id` values returned by Pi; do not depend on Cursor configuration, hardcoded model slugs, or models that are not in the live registry. For a three-candidate arena, choose three distinct models when available. When a fourth suitable model from another family is available, reserve it for the cross-judge. Prefer different model families for judgment-sensitive bakeoffs. If fewer than three are available, use the distinct models Pi offers and repeat only when there is no suitable alternative. Record the exact models used. If an explicit model cannot launch, report the failure and choose another listed model; do not silently fall back to an unpinned model.
+4. Assign each candidate a distinct relative output path inside its managed worktree, per the **separate-before-serializing-shared-state** principle skill.
 
 ## Phase B: Fan out
 
-Spawn all N subagents in one message with `run_in_background: true`, each with the task, the path to the shared grounding, its own output path, and instructions to produce both the artifact and a short rationale.
+Spawn all N candidates in one Pi workflow: a single `js workflow` block calling `runs.all`, followed by `subagent({ workflow: true, worktree: true })` in the same reply. Each item names its key, agent, task, exact `provider/id` model, and distinct relative output path. Pi manages one git worktree per candidate; do not pass Cursor's `run_in_background` option. Return each result and `artifactPaths` so the parent can inspect the artifacts and captured handoffs.
 
 Each rationale names the alternatives the candidate considered and what it rejected.
+
+Managed worktrees require a git repository with a clean working tree at the chosen source checkout. If allocation is rejected for a dirty or unsuitable checkout, stop the fan-out and report the requirement; do not disable isolation or let candidates write in the same checkout. Select a clean, appropriate base ref or checkout when available.
 
 If a candidate fails to produce output, proceed with N-1 and note the dropout in the synthesis record.
 
 ## Phase C: Cross-judge
 
-After all Phase B candidates complete, choose one model from the `arena cross-judge pool` line in `~/.cursor/rules/pstack-models.mdc`. If the rule or that line is missing, choose from `claude-opus-5-5-max`, `gpt-5.6-sol-max`, `grok-4.7-xhigh-fast`. Prefer a different model family from the parent's. Spawn one readonly judge subagent on that model. It sees the rubric and the candidates by path label, scores each criterion, and recommends a base with rationale. It runs in parallel with the parent's reading in Phase D, not with the candidates themselves. Don't spawn the judge while candidates are still writing.
+After all Phase B candidates complete, choose one available model from the live Pi registry, again using `subagent({ action: "models" })` and an exact `provider/id`. Prefer the reserved fourth model from a family not represented among the candidates; otherwise choose an available model from a family different from the parent when possible. Spawn one read-only judge subagent on that model. It sees the rubric and the candidate artifacts by path label, scores each criterion, and recommends a base with rationale. It runs in parallel with the parent's reading in Phase D, not with the candidates themselves. Don't spawn the judge while candidates are still writing. The judge only reads captured candidate artifacts, so it does not need a writable worktree.
 
 ## Phase D: Pick a base
 
