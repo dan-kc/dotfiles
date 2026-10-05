@@ -16,7 +16,7 @@
 
   home.file = {
     # Skills available to every agent (pi and codex both read ~/.agents/skills).
-    ".agents/skills/pair-programmer".source = ./skills/pair-programmer;
+    # ".agents/skills/pair-programmer".source = ./skills/pair-programmer;
     ".agents/skills/bro".source = ./skills/bro;
 
     ".config/theme.yaml".text = ''
@@ -46,7 +46,7 @@
         value.source = ./skills + "/${name}";
       })
       (builtins.filter
-        (name: skills.${name} == "directory" && name != "pair-programmer" && name != "bro")
+        (name: skills.${name} == "directory" && builtins.elem name [ "architect" "bro" ])
         (builtins.attrNames skills))));
 
   nixpkgs.overlays = [
