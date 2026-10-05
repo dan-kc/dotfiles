@@ -6,8 +6,8 @@ in
   imports = [ inputs.nix-colors.homeManagerModules.default ];
 
   # Hand-rolled, in ./themes
-  colorScheme = themes.driftwood; # warm sand and taupe
-  # colorScheme = themes.harbour; # cool blue slate
+  # colorScheme = themes.driftwood; # warm sand and taupe
+  colorScheme = themes.harbour; # cool blue slate
   # colorScheme = themes.fernglow; # soft forest green
   # colorScheme = themes.plumsmoke; # muted violet
   # colorScheme = themes.graphite; # neutral charcoal
@@ -16,11 +16,9 @@ in
   # colorScheme = themes.bruise; # hues rotated half a turn
 
   # https://github.com/tinted-theming/base16-schemes
-  # colorScheme = inputs.nix-colors.colorSchemes.kanagawa;
   # colorScheme = inputs.nix-colors.colorSchemes.ashes;
   # colorScheme = inputs.nix-colors.colorSchemes.atelier-cave;
   # colorScheme = inputs.nix-colors.colorSchemes.atelier-forest; # 6/10
-  # colorScheme = inputs.nix-colors.colorSchemes.atlas; # 5/10
   # colorScheme = inputs.nix-colors.colorSchemes.ayu-dark; # 7/10
   # colorScheme = inputs.nix-colors.colorSchemes.blueforest; # 7/10
   # colorScheme = inputs.nix-colors.colorSchemes.catppuccin-mocha; # 8/10
