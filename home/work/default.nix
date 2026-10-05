@@ -11,12 +11,18 @@
 
   home.file = {
     "./.zshenv".enable = false;
+    ".claude/CLAUDE.md".source = ./CLAUDE.md;
   }
   // builtins.listToAttrs (
-    builtins.map (name: {
-      name = ".claude/skills/${name}";
-      value.source = ../common/skills + "/${name}";
-    }) [ "architect" "bro" "explain" "unslop" ]
+    builtins.map
+      (name: {
+        name = ".claude/skills/${name}";
+        value.source = ../common/skills + "/${name}";
+      })
+      (
+        [ "bro" "explain" "unslop" ]
+        ++ builtins.filter (lib.hasPrefix "principle-") (builtins.attrNames (builtins.readDir ../common/skills))
+      )
   );
 
   local.agent = {
