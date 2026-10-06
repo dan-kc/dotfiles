@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 Explore the codebase to answer "how does X work?" questions. Produce architectural explanations at the level of a senior engineer onboarding onto a subsystem, enough to build a working mental model, not so much that it reads like annotated source code.
 
-Each spawn below names a role line in the `pstack-models.mdc` rule and a default. Set `model` to that line's value, or to the default if the rule or the line is missing. Leave `model` unset when the value is `auto` or `inherit-parent`. If the Task tool rejects a slug, use the default and say so. If it rejects the default, use the closest valid slug of the same family from its error message.
+Delegation uses Pi's `subagent` tool. Omit `model` so a child runs on the parent model. When the question rewards model diversity, call `subagent({ action: "models" })` and use exact `provider/id` values from the returned live registry. Never assume model names or invent slugs. If a chosen model cannot launch, report the failure and pick another listed model.
 
 ## Step 1. Assess Complexity
 
@@ -21,33 +21,21 @@ When in doubt, take the simple path.
 
 ## Step 2a. Explore (complex questions only)
 
-Decompose the question into 2 to 4 exploration angles, each a distinct slice of the subsystem. Spawn all explorers in a single message:
+Decompose the question into 2 to 4 exploration angles, each a distinct slice of the subsystem. Spawn all explorers in one Pi workflow: a single `js workflow` block fanning them out with `runs.all`, then `subagent({ workflow: true })` in the same reply.
 
-- `subagent_type`: `generalPurpose`
-- `model`: the `how explorer` line, default `grok-4.7-xhigh-fast`
-- `readonly`: `true`
+- agent: `scout` (read-only recon, returns compressed findings)
+- `model`: unset to inherit the parent model, or one distinct `provider/id` from the live registry per explorer when diversity helps
+- task: the prompt in `references/explorer-prompt.md` with the explorer's angle filled in
 
-Each explorer gets the prompt in `references/explorer-prompt.md` with its angle filled in. Then go to Step 3.
+Return each result so the findings land in your context. Then go to Step 3.
 
 ## Step 2b. Direct Explain (simple questions)
 
-Spawn one Task subagent that explores and explains in one pass:
-
-- `subagent_type`: `generalPurpose`
-- `model`: the `how explainer` line, default `claude-opus-5-5-max`
-- `readonly`: `true`
-
-Build its prompt from `references/explainer-prompt.md` without the explorer-findings section. Go to Step 4.
+Spawn one explainer child with a single `subagent({ agent: "worker", task })` call, `model` unset so it runs on the parent model. Build its task from `references/explainer-prompt.md` without the explorer-findings section. Go to Step 4.
 
 ## Step 3. Synthesize (complex questions only)
 
-Once all explorers have returned, spawn one Task subagent to synthesize their findings into one explanation:
-
-- `subagent_type`: `generalPurpose`
-- `model`: the `how explainer` line, default `claude-opus-5-5-max`
-- `readonly`: `true`
-
-Build its prompt from `references/explainer-prompt.md` with every explorer's findings filled in.
+Once all explorers have returned, spawn one synthesizing explainer with a single `subagent({ agent: "worker", task })` call, `model` unset so it runs on the parent model. Build its task from `references/explainer-prompt.md` with every explorer's findings filled in.
 
 ## Step 4. Present
 
