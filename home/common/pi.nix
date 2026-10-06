@@ -132,6 +132,7 @@ in
     ".pi/agent/agents/planner.md".source = ./pi/agents/planner.md;
     ".pi/agent/agents/reviewer.md".source = ./pi/agents/reviewer.md;
     ".pi/agent/agents/worker.md".source = ./pi/agents/worker.md;
+    ".pi/agent/agents/comment-sicko.md".source = ./pi/agents/comment-sicko.md;
 
     ".pi/agent/themes/nix-colors.json".text = builtins.toJSON {
       "$schema" =

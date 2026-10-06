@@ -22,9 +22,10 @@ prs=$(mktemp)
 gh pr list --author "@me" --state all --limit 1000 \
 	--json number,state,headRefName 2>/dev/null > "$prs" || echo "[]" > "$prs"
 
-# Transcripts dir: ~/.cursor/projects/<slugified-repo-path>/agent-transcripts.
-slug=$(printf '%s' "$main_wt" | sed 's#^/##; s#/#-#g')
-transcripts="$HOME/.cursor/projects/$slug/agent-transcripts"
+# Pi session files: ~/.pi/agent/sessions/--<repo-path-slug>--/ where the slug
+# is the absolute path with the leading / dropped and each / or : turned into -.
+slug=$(printf '%s' "$main_wt" | sed 's#^/##; s#[/:]#-#g')
+transcripts="$HOME/.pi/agent/sessions/--$slug--"
 now=$(date +%s)
 
 printf "SIZE\tAGE\tMERGED\tDIRTY\tREMOTE\tPR\tLAST_CHAT\tBUCKET\tWORKTREE\n"
