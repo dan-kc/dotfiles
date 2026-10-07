@@ -117,8 +117,9 @@
           username = "daniel";
           modules = [
             ./home/base
-            ./home/personal
             ./home/platforms/nixos
+
+            ./home/personal
           ];
         };
         danielcox = mkHome {
@@ -126,9 +127,9 @@
           username = "danielcox";
           modules = [
             ./home/base
-            ./home/personal
             ./home/platforms/darwin
-            ./home/platforms/darwin/ssh-clipboard.nix
+
+            ./home/personal
           ];
         };
         "daniel.cox" = mkHome {
@@ -137,6 +138,7 @@
           modules = [
             ./home/base
             ./home/platforms/darwin
+
             ./home/work
           ];
         };

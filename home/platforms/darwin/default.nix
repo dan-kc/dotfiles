@@ -2,6 +2,10 @@
   ...
 }:
 {
+  imports = [
+    ./ssh-clipboard.nix
+  ];
+
   home.file = {
     "Library/Application\ Support/lazygit/config.yml".source = ../../base/lazygit.yml;
     ".zprofile".source = ./zprofile;
