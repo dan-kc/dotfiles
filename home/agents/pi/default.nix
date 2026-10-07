@@ -30,8 +30,8 @@ in
         "preflight"
       ];
     };
-    ".pi/agent/extensions/context.ts".source = ./pi/extensions/context.ts;
-    ".pi/agent/extensions/openrouter-server-tools.ts".source = ./pi/extensions/openrouter-server-tools.ts;
+    ".pi/agent/extensions/context.ts".source = ./extensions/context.ts;
+    ".pi/agent/extensions/openrouter-server-tools.ts".source = ./extensions/openrouter-server-tools.ts;
     ".pi/agent/extensions/guardrails.json".text = builtins.toJSON {
       "$schema" =
         "https://raw.githubusercontent.com/aliou/pi-guardrails/v${piGuardrailsVersion}/schema.json";
@@ -128,11 +128,11 @@ in
       };
     };
 
-    ".pi/agent/agents/scout.md".source = ./pi/agents/scout.md;
-    ".pi/agent/agents/planner.md".source = ./pi/agents/planner.md;
-    ".pi/agent/agents/reviewer.md".source = ./pi/agents/reviewer.md;
-    ".pi/agent/agents/worker.md".source = ./pi/agents/worker.md;
-    ".pi/agent/agents/comment-sicko.md".source = ./pi/agents/comment-sicko.md;
+    ".pi/agent/agents/scout.md".source = ./agents/scout.md;
+    ".pi/agent/agents/planner.md".source = ./agents/planner.md;
+    ".pi/agent/agents/reviewer.md".source = ./agents/reviewer.md;
+    ".pi/agent/agents/worker.md".source = ./agents/worker.md;
+    ".pi/agent/agents/comment-sicko.md".source = ./agents/comment-sicko.md;
 
     ".pi/agent/themes/nix-colors.json".text = builtins.toJSON {
       "$schema" =

@@ -17,11 +17,11 @@
     builtins.map
       (name: {
         name = ".claude/skills/${name}";
-        value.source = ../common/skills + "/${name}";
+        value.source = ../base/skills + "/${name}";
       })
       (
         [ "bro" "explain" "unslop" ]
-        ++ builtins.filter (lib.hasPrefix "principle-") (builtins.attrNames (builtins.readDir ../common/skills))
+        ++ builtins.filter (lib.hasPrefix "principle-") (builtins.attrNames (builtins.readDir ../base/skills))
       )
   );
 
