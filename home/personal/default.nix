@@ -5,7 +5,7 @@
 }:
 {
   imports = [
-    ../common/pi.nix
+    ../agents/pi
     inputs.oh-my-pi.homeManagerModules.default
   ];
 

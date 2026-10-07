@@ -116,27 +116,27 @@
           inherit system;
           username = "daniel";
           modules = [
-            ./home/common
+            ./home/base
             ./home/personal
-            ./home/nixos
+            ./home/platforms/nixos
           ];
         };
         danielcox = mkHome {
           system = "aarch64-darwin";
           username = "danielcox";
           modules = [
-            ./home/common
+            ./home/base
             ./home/personal
-            ./home/macos
-            ./home/macos/ssh-clipboard.nix
+            ./home/platforms/darwin
+            ./home/platforms/darwin/ssh-clipboard.nix
           ];
         };
         "daniel.cox" = mkHome {
           system = "aarch64-darwin";
           username = "daniel.cox";
           modules = [
-            ./home/common
-            ./home/macos
+            ./home/base
+            ./home/platforms/darwin
             ./home/work
           ];
         };

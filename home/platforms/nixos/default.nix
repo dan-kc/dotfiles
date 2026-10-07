@@ -15,7 +15,7 @@
   ];
 
   home.file = {
-    ".config/lazygit/config.yml".source = ../common/lazygit.yml;
+    ".config/lazygit/config.yml".source = ../../base/lazygit.yml;
   };
 
   nixpkgs.config.allowUnfreePredicate =
