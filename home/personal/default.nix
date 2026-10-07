@@ -6,7 +6,10 @@
 {
   imports = [
     ../common/pi.nix
+    inputs.oh-my-pi.homeManagerModules.default
   ];
+
+  programs.omp.enable = true;
 
   nixpkgs.overlays = [
     (_final: _prev: {
