@@ -10,6 +10,7 @@
     ./notifications.nix
     ./niri.nix
     ./fuzzel.nix
+    ./battery-watch.nix
     inputs.sops-nix.homeManagerModules.sops
   ];
 
