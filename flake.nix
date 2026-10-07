@@ -13,6 +13,10 @@
     };
     flake-gen.url = "github:dan-kc/flake-gen";
     jt.url = "github:dan-kc/jt";
+    oh-my-pi = {
+      url = "github:can1357/oh-my-pi";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     tuxedo-nixos.url = "github:sund3RRR/tuxedo-nixos";
     xremap-flake.url = "github:xremap/nix-flake";
