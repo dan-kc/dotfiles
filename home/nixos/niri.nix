@@ -418,6 +418,7 @@ in
 
       spawn-at-startup "udiskie"
       spawn-at-startup "mako"
+      spawn-at-startup "battery-watch"
 
       // Environment variables
       environment {
