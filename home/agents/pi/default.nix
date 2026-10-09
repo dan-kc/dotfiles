@@ -10,6 +10,10 @@ let
 in
 {
   home.file = {
+    # Pi recursively discovers all skills. Keep the upstream layout so each
+    # skill can resolve its ../../references links and bundled scripts.
+    ".pi/agent/skills/osmani".source = ../../base/skills/osmani;
+
     ".pi/agent/extensions/question.ts".source = "${piExtensionExamples}/question.ts";
     # pi-subagents reads its config from the directory its package occupies.
     ".pi/agent/extensions/subagent/config.json".text = builtins.toJSON {
@@ -133,6 +137,10 @@ in
     ".pi/agent/agents/reviewer.md".source = ./agents/reviewer.md;
     ".pi/agent/agents/worker.md".source = ./agents/worker.md;
     ".pi/agent/agents/comment-sicko.md".source = ./agents/comment-sicko.md;
+    ".pi/agent/agents/code-reviewer.md".source = ./agents/code-reviewer.md;
+    ".pi/agent/agents/security-auditor.md".source = ./agents/security-auditor.md;
+    ".pi/agent/agents/test-engineer.md".source = ./agents/test-engineer.md;
+    ".pi/agent/agents/web-performance-auditor.md".source = ./agents/web-performance-auditor.md;
 
     ".pi/agent/themes/nix-colors.json".text = builtins.toJSON {
       "$schema" =
