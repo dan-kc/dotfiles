@@ -17,11 +17,18 @@
     builtins.map
       (name: {
         name = ".claude/skills/${name}";
-        value.source = ../base/skills + "/${name}";
+        value.source =
+          if name == "explain" then ../base/skills/explain else ../base/skills/pstack + "/${name}";
       })
       (
-        [ "bro" "explain" "unslop" ]
-        ++ builtins.filter (lib.hasPrefix "principle-") (builtins.attrNames (builtins.readDir ../base/skills))
+        [
+          "bro"
+          "explain"
+          "unslop"
+        ]
+        ++ builtins.filter (lib.hasPrefix "principle-") (
+          builtins.attrNames (builtins.readDir ../base/skills/pstack)
+        )
       )
   );
 

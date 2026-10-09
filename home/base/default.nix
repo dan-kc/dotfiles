@@ -17,7 +17,7 @@
   home.file = {
     # Skills available to every agent (pi and codex both read ~/.agents/skills).
     # ".agents/skills/pair-programmer".source = ./skills/pair-programmer;
-    ".agents/skills/bro".source = ./skills/bro;
+    ".agents/skills/bro".source = ./skills/pstack/bro;
 
     ".config/theme.yaml".text = ''
       base00: "${config.colorScheme.palette.base00}"
@@ -37,17 +37,28 @@
       base0E: "${config.colorScheme.palette.base0E}"
       base0F: "${config.colorScheme.palette.base0F}"
     '';
-  } // (let
-    skills = builtins.readDir ./skills;
-  in
-    builtins.listToAttrs (builtins.map
-      (name: {
-        name = ".pi/agent/skills/${name}";
-        value.source = ./skills + "/${name}";
-      })
-      (builtins.filter
-        (name: skills.${name} == "directory" && builtins.elem name [ "architect" "bro" ])
-        (builtins.attrNames skills))));
+  }
+  // (
+    let
+      skills = builtins.readDir ./skills/pstack;
+    in
+    builtins.listToAttrs (
+      builtins.map
+        (name: {
+          name = ".pi/agent/skills/${name}";
+          value.source = ./skills/pstack + "/${name}";
+        })
+        (
+          builtins.filter (
+            name:
+            skills.${name} == "directory"
+            && builtins.elem name [
+              "bro"
+            ]
+          ) (builtins.attrNames skills)
+        )
+    )
+  );
 
   nixpkgs.overlays = [
     (final: prev: {
