@@ -52,12 +52,17 @@ in
       }
       zle -N agent-prompt
 
-      # Bind atuin ctrl-r and agent ctrl-y after zsh-vi-mode initializes
+      # Bind atuin ctrl-r, agent ctrl-y, and edit-command-line ctrl-g
+      # (opens the command line in $EDITOR) after zsh-vi-mode initializes
       zvm_after_init() {
+        autoload -Uz edit-command-line
+        zle -N edit-command-line
         zvm_bindkey viins '^R' atuin-search
         zvm_bindkey vicmd '^R' atuin-search
         zvm_bindkey viins '^Y' agent-prompt
         zvm_bindkey vicmd '^Y' agent-prompt
+        zvm_bindkey viins '^G' edit-command-line
+        zvm_bindkey vicmd '^G' edit-command-line
       }
 
       # Disable ctrl-s
