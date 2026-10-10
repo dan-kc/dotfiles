@@ -13,15 +13,9 @@ Agent Skills is a collection of engineering workflow skills organized by develop
 
 ## Invocation in Pi
 
-Run `/skill:<name>` (for example `/skill:code-review-and-quality`) or read the
-listed skill file when it applies. Bare Osmani lifecycle wrappers such as
-`/spec`, `/build`, and `/ship` were not installed. To combine skills, read their
-sibling files by path and continue in the main session; don't spawn a router
-agent or create a separate conversation for every stage.
+Run `/skill:<name>` (for example `/skill:code-review-and-quality`) or read the listed skill file when it applies. Bare Osmani lifecycle wrappers such as `/spec`, `/build`, and `/ship` were not installed. To combine skills, read their sibling files by path and continue in the main session; don't spawn a router agent or create a separate conversation for every stage.
 
-Keep only the current skill and relevant references in context. For delegated
-work, include the actual skill paths in the brief. Parent and child workflows
-use the existing pi agent profiles and the shared runtime contract.
+Keep only the current skill and relevant references in context. For delegated work, include the actual skill paths in the brief. Parent and child workflows use the existing pi agent profiles and the shared runtime contract.
 
 ## Skill Discovery
 
@@ -75,14 +69,9 @@ Don't silently fill in ambiguous requirements. The most common failure mode is m
 
 ### 2. Manage Confusion Actively
 
-Resolve factual uncertainty by inspecting the repository and relevant docs.
-State routine assumptions within the current approved phase. Preserve intent/spec/plan confirmation gates before downstream work. For a
-material product choice, conflicting requirements, or missing authorization,
-name the uncertainty and ask through `question` or chat. Pause only work that
-depends on that answer; continue independent investigation.
+Resolve factual uncertainty by inspecting the repository and relevant docs. State routine assumptions within the current approved phase. Preserve intent/spec/plan confirmation gates before downstream work. For a material product choice, conflicting requirements, or missing authorization, name the uncertainty and ask through `question` or chat. Pause only work that depends on that answer; continue independent investigation.
 
-**Bad:** Silently picking one interpretation and hoping it's right.
-**Good:** "I see X in the spec but Y in the existing code. Which takes precedence?"
+**Bad:** Silently picking one interpretation and hoping it's right. **Good:** "I see X in the spec but Y in the existing code. Which takes precedence?"
 
 ### 3. Push Back When Warranted
 
@@ -179,27 +168,27 @@ Not every task needs every skill. A bug fix might only need: `debugging-and-erro
 
 ## Quick Reference
 
-| Phase  | Skill                             | One-Line Summary                                                           |
-| ------ | --------------------------------- | -------------------------------------------------------------------------- |
-| Define | interview-me                      | Surface what the user actually wants before any plan, spec, or code exists |
-| Define | idea-refine                       | Refine ideas through structured divergent and convergent thinking          |
-| Define | spec-driven-development           | Requirements and acceptance criteria before code                           |
-| Plan   | planning-and-task-breakdown       | Decompose into small, verifiable tasks                                     |
-| Build  | incremental-implementation        | Thin vertical slices, test each before expanding                           |
-| Build  | source-driven-development         | Verify against official docs before implementing                           |
-| Build  | doubt-driven-development          | Adversarial fresh-context review of every non-trivial decision             |
-| Build  | context-engineering               | Right context at the right time                                            |
-| Build  | frontend-ui-engineering           | Production-quality UI with accessibility                                   |
-| Build  | api-and-interface-design          | Stable interfaces with clear contracts                                     |
-| Verify | test-driven-development           | Failing test first, then make it pass                                      |
-| Verify | debugging-and-error-recovery      | Reproduce → localize → fix → guard                                         |
-| Review | code-review-and-quality           | Five-axis review with quality gates                                        |
-| Review | code-simplification               | Preserve behavior while reducing unnecessary complexity                    |
-| Review | security-and-hardening            | OWASP prevention, input validation, least privilege                        |
-| Review | performance-optimization          | Measure first, optimize only what matters                                  |
-| Ship   | git-workflow-and-versioning       | Atomic commits, clean history                                              |
-| Ship   | ci-cd-and-automation              | Automated quality gates on every change                                    |
-| Ship   | deprecation-and-migration         | Remove old systems and migrate users safely                                |
-| Ship   | documentation-and-adrs            | Document the why, not just the what                                        |
-| Ship   | observability-and-instrumentation | Structured logs, RED metrics, traces, symptom-based alerts                 |
-| Ship   | shipping-and-launch               | Pre-launch checklist, monitoring, rollback plan                            |
+| Phase | Skill | One-Line Summary |
+| --- | --- | --- |
+| Define | interview-me | Surface what the user actually wants before any plan, spec, or code exists |
+| Define | idea-refine | Refine ideas through structured divergent and convergent thinking |
+| Define | spec-driven-development | Requirements and acceptance criteria before code |
+| Plan | planning-and-task-breakdown | Decompose into small, verifiable tasks |
+| Build | incremental-implementation | Thin vertical slices, test each before expanding |
+| Build | source-driven-development | Verify against official docs before implementing |
+| Build | doubt-driven-development | Adversarial fresh-context review of every non-trivial decision |
+| Build | context-engineering | Right context at the right time |
+| Build | frontend-ui-engineering | Production-quality UI with accessibility |
+| Build | api-and-interface-design | Stable interfaces with clear contracts |
+| Verify | test-driven-development | Failing test first, then make it pass |
+| Verify | debugging-and-error-recovery | Reproduce → localize → fix → guard |
+| Review | code-review-and-quality | Five-axis review with quality gates |
+| Review | code-simplification | Preserve behavior while reducing unnecessary complexity |
+| Review | security-and-hardening | OWASP prevention, input validation, least privilege |
+| Review | performance-optimization | Measure first, optimize only what matters |
+| Ship | git-workflow-and-versioning | Atomic commits, clean history |
+| Ship | ci-cd-and-automation | Automated quality gates on every change |
+| Ship | deprecation-and-migration | Remove old systems and migrate users safely |
+| Ship | documentation-and-adrs | Document the why, not just the what |
+| Ship | observability-and-instrumentation | Structured logs, RED metrics, traces, symptom-based alerts |
+| Ship | shipping-and-launch | Pre-launch checklist, monitoring, rollback plan |

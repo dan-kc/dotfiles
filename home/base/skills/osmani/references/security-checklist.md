@@ -67,15 +67,14 @@ Before reaching for controls, spend five minutes thinking like an attacker:
 
 ### Destructive Path Operations
 
-Containment for a target named by data. Resolve first, then decide — and treat the
-result as a candidate, not as authorization:
+Containment for a target named by data. Resolve first, then decide — and treat the result as a candidate, not as authorization:
 
 ```typescript
-import { realpath, readFile } from 'node:fs/promises';
-import { resolve, relative, isAbsolute, join, sep } from 'node:path';
+import { realpath, readFile } from "node:fs/promises";
+import { resolve, relative, isAbsolute, join, sep } from "node:path";
 
-const ALLOWED_ROOTS = ['/var/lib/myapp/sessions']; // an allowlist, not a pattern
-const MIN_DEPTH = 1;                               // so a root is never the target
+const ALLOWED_ROOTS = ["/var/lib/myapp/sessions"]; // an allowlist, not a pattern
+const MIN_DEPTH = 1; // so a root is never the target
 
 async function resolveDeletable(candidate: string, expectedOwner: string) {
   const target = await realpath(resolve(candidate)); // symlinks resolved BEFORE the check
@@ -83,26 +82,30 @@ async function resolveDeletable(candidate: string, expectedOwner: string) {
     const rel = relative(root, target);
     // `rel === '..'` / `'../'` only — a plain `startsWith('..')` would also
     // reject a legitimate child named `..cache`.
-    if (rel === '' || rel === '..' || rel.startsWith(`..${sep}`) || isAbsolute(rel)) return false;
+    if (
+      rel === "" ||
+      rel === ".." ||
+      rel.startsWith(`..${sep}`) ||
+      isAbsolute(rel)
+    )
+      return false;
     return rel.split(sep).length >= MIN_DEPTH;
   });
   if (!inRoot) throw new Error(`refusing: outside allowed roots (${target})`);
 
-  const owner = await readFile(join(target, '.owner'), 'utf8').catch(() => null);
-  if (owner?.trim() !== expectedOwner) throw new Error(`refusing: unproven owner (${target})`);
+  const owner = await readFile(join(target, ".owner"), "utf8").catch(
+    () => null,
+  );
+  if (owner?.trim() !== expectedOwner)
+    throw new Error(`refusing: unproven owner (${target})`);
   return target;
 }
 ```
 
 What this does not do, and must be said where the snippet is copied from:
 
-- **The marker is self-attestation.** Anything that can write inside the root can write
-  `.owner`. `expectedOwner` has to come from authenticated state, and the marker needs
-  integrity protection (restrictive ownership, or a MAC) before it is authorization
-  rather than a consistency check against a misderived target.
-- **Returning a path leaves a check/use race.** Where an untrusted process can swap an
-  ancestor between the check and the call, operate on a descriptor with no-follow,
-  beneath-the-root semantics, or guarantee the hierarchy is immutable for the duration.
+- **The marker is self-attestation.** Anything that can write inside the root can write `.owner`. `expectedOwner` has to come from authenticated state, and the marker needs integrity protection (restrictive ownership, or a MAC) before it is authorization rather than a consistency check against a misderived target.
+- **Returning a path leaves a check/use race.** Where an untrusted process can swap an ancestor between the check and the call, operate on a descriptor with no-follow, beneath-the-root semantics, or guarantee the hierarchy is immutable for the duration.
 
 ## Security Headers
 
@@ -121,14 +124,14 @@ Permissions-Policy: camera=(), microphone=(), geolocation=()
 ```typescript
 // Restrictive (recommended)
 cors({
-  origin: ['https://yourdomain.com', 'https://app.yourdomain.com'],
+  origin: ["https://yourdomain.com", "https://app.yourdomain.com"],
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-})
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+});
 
 // NEVER use in production:
-cors({ origin: '*' })  // Allows any origin
+cors({ origin: "*" }); // Allows any origin
 ```
 
 ## Data Protection
@@ -147,7 +150,7 @@ cors({ origin: '*' })  // Allows any origin
 First locate the **installation boundary**. If the package is matched by a parent `workspaces` declaration, use that workspace root; otherwise use the nearest project root that owns both its manifest and dependency graph. At that boundary, corroborate `packageManager` (when present), the lockfile, and CI commands. Stop if they disagree or competing manager lockfiles exist there. A nested project is independent only when it is outside the parent workspace; independent subprojects may legitimately use different managers.
 
 | Manager/version signal | Frozen/immutable CI install | Known-advisory audit |
-|---|---|---|
+| --- | --- | --- |
 | npm (`package-lock.json` or `npm-shrinkwrap.json`) | `npm ci` | `npm audit` |
 | pnpm | `pnpm install --frozen-lockfile` | `pnpm audit` |
 | Yarn 2+ | `yarn install --immutable` | `yarn npm audit -A -R` |
@@ -167,7 +170,7 @@ Never discover dependency lifecycle scripts by first executing an ordinary insta
 **Point-in-time snapshot:** Package-manager defaults and command names change quickly. Verify this matrix against the pinned client's current official documentation before relying on it.
 
 | Manager version | Native policy |
-|---|---|
+| --- | --- |
 | npm without verified granular approvals | Bootstrap with `npm ci --ignore-scripts`, or persist `ignore-scripts=true` when project-wide blocking is intended. Keep scripts disabled or deliberately upgrade before allowing any reviewed dependency script. |
 | npm 11.18.x (verified on 11.18.0) | Unreviewed dependency scripts run with a warning by default. Enforce `strict-allow-scripts=true` before a normal install, then use the workspace-unaware `npm install-scripts ls` from the installation boundary; keep approvals version-pinned and denials name-wide. |
 | npm 12.x (verified on 12.0.1) | Unreviewed dependency scripts are skipped by default; `strict-allow-scripts=true` makes their presence fail the install before execution. Use the same `npm install-scripts` review and approval flow. |
@@ -182,6 +185,7 @@ Never discover dependency lifecycle scripts by first executing an ordinary insta
 Authoritative checks: [npm install-scripts](https://docs.npmjs.com/cli/v11/commands/npm-install-scripts/), [install policy](https://docs.npmjs.com/cli/v11/commands/npm-install/), and [CLI releases](https://github.com/npm/cli/releases); [pnpm approve-builds](https://pnpm.io/cli/approve-builds) and [build settings](https://pnpm.io/settings#allowbuilds); [Yarn security](https://yarnpkg.com/features/security) and [manifest](https://yarnpkg.com/configuration/manifest#dependenciesMeta).
 
 **Supply-chain hygiene** (advisory audits do not catch newly malicious packages):
+
 - [ ] Exactly one authoritative lockfile per project/workspace root is committed and CI never rewrites it
 - [ ] Critical/high findings are triaged for reachability; deferrals have a reason and review date
 - [ ] Forced audit remediation (`npm audit fix --force` or equivalent) is never automatic; remediation diffs and changelogs are reviewed
@@ -204,21 +208,21 @@ For any feature that calls an LLM (chatbots, summarizers, agents, RAG):
 ```typescript
 // Production: generic error, no internals
 res.status(500).json({
-  error: { code: 'INTERNAL_ERROR', message: 'Something went wrong' }
+  error: { code: "INTERNAL_ERROR", message: "Something went wrong" },
 });
 
 // NEVER in production:
 res.status(500).json({
   error: err.message,
-  stack: err.stack,         // Exposes internals
-  query: err.sql,           // Exposes database details
+  stack: err.stack, // Exposes internals
+  query: err.sql, // Exposes database details
 });
 ```
 
 ## OWASP Top 10 Quick Reference
 
 | # | Vulnerability | Prevention |
-|---|---|---|
+| --- | --- | --- |
 | 1 | Broken Access Control | Auth checks on every endpoint, ownership verification |
 | 2 | Cryptographic Failures | HTTPS, strong hashing, no secrets in code |
 | 3 | Injection | Parameterized queries, input validation |
@@ -235,7 +239,7 @@ res.status(500).json({
 For apps with LLM features. See the [OWASP GenAI Security Project](https://genai.owasp.org/llm-top-10/).
 
 | ID | Risk | Prevention |
-|---|---|---|
+| --- | --- | --- |
 | LLM01 | Prompt Injection | Don't trust the system prompt as a boundary; enforce permissions in code |
 | LLM02 | Sensitive Information Disclosure | Keep secrets/PII out of prompts; filter outputs |
 | LLM03 | Supply Chain | Vet models, datasets, and plugins like any dependency |

@@ -46,7 +46,7 @@ The interview needs a live user. **Don't run it in non-interactive contexts** (C
 Never ask what you can read. Before the first question, gather:
 
 | What | Where to look |
-|------|---------------|
+| --- | --- |
 | Language and stack | `package.json`, `pyproject.toml`, `go.mod`, `Cargo.toml` |
 | Test runner | dev dependencies, `test` script, existing test files |
 | Existing linters | `eslint.config.*`, `biome.json`, `.ruff.toml` |
@@ -112,7 +112,7 @@ Last reviewed: 2026-08-08 by @addy
 ## Enforced with numbers
 
 | Dimension | Rule | Checked by | Runs at |
-|-----------|------|-----------|---------|
+| --- | --- | --- | --- |
 | Types | Zero type errors | `tsc --noEmit` | every edit |
 | Lint | Zero errors from our config | `biome check` | every edit |
 | Secrets | No secrets in source | `gitleaks detect --redact` | every edit |
@@ -122,20 +122,19 @@ Last reviewed: 2026-08-08 by @addy
 | Accessibility | Zero critical or serious | `axe $PREVIEW_URL --tags wcag2a,wcag2aa,wcag21aa` | preview deploy |
 | Performance | LCP ≤ 2500ms, CLS ≤ 0.1 | `lighthouse $PREVIEW_URL --output=json` | preview deploy |
 
-Every row names the command that produces the verdict. A dimension with a
-number and no command in this column is an aspiration, not a constraint.
+Every row names the command that produces the verdict. A dimension with a number and no command in this column is an aspiration, not a constraint.
 
 ## Measured, not yet enforced
 
-| Metric | Today | Direction |
-|--------|-------|-----------|
-| Project coverage | 62.4% | must not fall |
+| Metric             | Today  | Direction     |
+| ------------------ | ------ | ------------- |
+| Project coverage   | 62.4%  | must not fall |
 | Bundle size (main) | 184 kB | must not grow |
 
 ## Exceptions
 
 | ID | Rule | Path | Reason | Owner | Expires |
-|----|------|------|--------|-------|---------|
+| --- | --- | --- | --- | --- | --- |
 | W1 | `no-explicit-any` | `src/legacy/**` | Rewrite tracked in ENG-441 | @addy | 2026-11-01 |
 ```
 
@@ -146,7 +145,7 @@ Then add one line to the project's `AGENTS.md`: `Read CONSTRAINTS.md before writ
 Picking a dimension means installing something. Don't leave the user with a number and no mechanism, and don't invent your own checker when a de facto one exists — these tools are listed because their rule formats and thresholds are what everything else in the ecosystem targets, so the team's existing config keeps working.
 
 | Dimension | Tool | Install | Run | Gate on |
-|-----------|------|---------|-----|---------|
+| --- | --- | --- | --- | --- |
 | Types (TS) | tsc | already there | `tsc --noEmit` | any error |
 | Types (Python) | mypy | `pip install mypy` | `mypy .` | any error |
 | Lint | your existing config | already there | `eslint .` / `biome check` / `ruff check` | any error |
@@ -190,7 +189,7 @@ The commands now live in two places — the `Checked by` column in `CONSTRAINTS.
 The single biggest mistake is running everything everywhere. A check that stalls the agent gets switched off, and a gate people switched off is worse than no gate, because the bar still looks like it exists.
 
 | Phase | Command | What runs | Budget |
-|-------|---------|-----------|--------|
+| --- | --- | --- | --- |
 | BUILD | `/skill:incremental-implementation` | Types, lint, secrets, the floor | under 5s, changed file only |
 | VERIFY | `/skill:test-driven-development` | Related tests, coverage on changed lines | under 90s |
 | REVIEW | `/skill:code-review-and-quality` | Everything, plus the guards below | minutes |
@@ -238,7 +237,7 @@ This also answers a fair objection to training. Models are rewarded for passing 
 When the user has no opinion, use these. They're chosen to be met by most codebases on day one.
 
 | Constraint | Default | Why this number |
-|------------|---------|-----------------|
+| --- | --- | --- |
 | Coverage of changed lines | ≥ 80% | High enough to force a test, low enough to allow a config line |
 | Project coverage | today's value, must not fall | No argument needed to adopt |
 | Mutation score (if used) | ≥ 60% to start | Typical for a suite never mutated before; 80% is mature |
@@ -266,7 +265,7 @@ Most projects should stop at 2. Move to 3 when you're maintaining more than abou
 ## Common Rationalizations
 
 | Excuse | Reality |
-|--------|---------|
+| --- | --- |
 | "We'll add constraints once the code settles" | Code settles around whatever was allowed while it was moving |
 | "The tests are the constraints" | Tests you wrote prove you agree with yourself; they say nothing about coverage of new code, dependency risk, or bundle growth |
 | "We can't hit 80% coverage" | Then don't set 80%. Set today's number and hold it |

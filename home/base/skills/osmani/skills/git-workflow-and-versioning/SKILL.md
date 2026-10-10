@@ -66,7 +66,7 @@ x1y2z3a Add task feature, fix sidebar, update deps, refactor utils
 
 ### 3. Descriptive Messages
 
-Commit messages explain the *why*, not just the *what*:
+Commit messages explain the _why_, not just the _what_:
 
 ```
 # Good: Explains intent
@@ -81,6 +81,7 @@ update auth.ts
 ```
 
 **Format:**
+
 ```
 <type>: <short description>
 
@@ -88,6 +89,7 @@ update auth.ts
 ```
 
 **Types:**
+
 - `feat` — New feature
 - `fix` — Bug fix
 - `refactor` — Code change that neither fixes a bug nor adds a feature
@@ -166,14 +168,10 @@ ls ../
 git worktree remove ../project-feature-a
 ```
 
-For pi-subagents writers, prefer its managed `worktree: true` mechanism rather
-than ad hoc worktree allocation. It requires a clean source checkout; do not
-stash/commit user edits or discard them to satisfy that requirement. See
-`../../references/orchestration-patterns.md` for handoff and supported base refs.
-The shell commands above are illustrative manual Git usage, not automatic
-cleanup instructions.
+For pi-subagents writers, prefer its managed `worktree: true` mechanism rather than ad hoc worktree allocation. It requires a clean source checkout; do not stash/commit user edits or discard them to satisfy that requirement. See `../../references/orchestration-patterns.md` for handoff and supported base refs. The shell commands above are illustrative manual Git usage, not automatic cleanup instructions.
 
 Benefits:
+
 - Multiple agents can work on different features simultaneously
 - No branch switching needed (each directory has its own branch)
 - If an experiment fails, preserve its partial diff and inspect the handoff before managed cleanup
@@ -278,7 +276,7 @@ git log --grep="validation" --oneline
 
 ## Release & Versioning
 
-Commits are how *you* track change; a **version** is how your *consumers* track it. The moment anything else depends on your code — another team, a published package, a deployed client — "latest on main" stops being a sufficient answer to "what am I running, and is it safe to upgrade?" A version number and a changelog are the contract that answers it.
+Commits are how _you_ track change; a **version** is how your _consumers_ track it. The moment anything else depends on your code — another team, a published package, a deployed client — "latest on main" stops being a sufficient answer to "what am I running, and is it safe to upgrade?" A version number and a changelog are the contract that answers it.
 
 ### Semantic Versioning
 
@@ -309,11 +307,17 @@ A changelog is not `git log`. It's the curated, consumer-facing answer to "what 
 
 ```markdown
 ## [1.4.0] - 2025-06-12
+
 ### Added
+
 - Bulk task import via CSV
+
 ### Fixed
+
 - Timezone drift in recurring task due dates
+
 ### Deprecated
+
 - `GET /v1/tasks/all` — use the paginated `GET /v1/tasks` (removal in 2.0)
 ```
 
@@ -322,7 +326,7 @@ Write the entry in the same change that makes the change, while the impact is fr
 ## Common Rationalizations
 
 | Rationalization | Reality |
-|---|---|
+| --- | --- |
 | "I'll commit when the feature is done" | One giant commit is impossible to review, debug, or revert. Commit each slice. |
 | "The message doesn't matter" | Messages are documentation. Future you (and future agents) will need to understand what changed and why. |
 | "I'll squash it all later" | Squashing destroys the development narrative. Prefer clean incremental commits from the start. |

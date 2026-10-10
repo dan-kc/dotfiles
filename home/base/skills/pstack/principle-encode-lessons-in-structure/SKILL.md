@@ -9,8 +9,7 @@ Encode recurring fixes in mechanisms (tools, code, metadata, automation) instead
 
 **Why:** Textual instructions are easy to miss. They require the reader to notice, remember, and comply. Structural mechanisms (lint rules, metadata flags, runtime checks, automation scripts) enforce the rule without cooperation.
 
-**Pattern:**
-When you catch yourself writing the same instruction a second time:
+**Pattern:** When you catch yourself writing the same instruction a second time:
 
 1. Ask: can this be a lint rule, a metadata flag, a runtime check, or a script?
 2. If yes, encode it. Delete the instruction
