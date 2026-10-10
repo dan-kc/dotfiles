@@ -12,7 +12,19 @@ in
   home.file = {
     # Pi recursively discovers all skills. Keep the upstream layout so each
     # skill can resolve its ../../references links and bundled scripts.
-    ".pi/agent/skills/osmani".source = ../../base/skills/osmani;
+    # ".pi/agent/skills/osmani".source = ../../base/skills/osmani;
+    ".pi/agent/skills/harness".source = ../../base/skills/harness;
+
+    # Short user commands load the skills, which are hidden from model discovery.
+    ".pi/agent/prompts/review-correctness.md".source =
+      ../../base/skills/harness/prompts/review-correctness.md;
+    ".pi/agent/prompts/review-tests.md".source = ../../base/skills/harness/prompts/review-tests.md;
+    ".pi/agent/prompts/review-principles.md".source =
+      ../../base/skills/harness/prompts/review-principles.md;
+    ".pi/agent/prompts/review-security.md".source =
+      ../../base/skills/harness/prompts/review-security.md;
+    ".pi/agent/prompts/review-regressions.md".source =
+      ../../base/skills/harness/prompts/review-regressions.md;
 
     ".pi/agent/extensions/question.ts".source = "${piExtensionExamples}/question.ts";
     # pi-subagents reads its config from the directory its package occupies.
@@ -135,6 +147,7 @@ in
     ".pi/agent/agents/scout.md".source = ./agents/scout.md;
     ".pi/agent/agents/planner.md".source = ./agents/planner.md;
     ".pi/agent/agents/reviewer.md".source = ./agents/reviewer.md;
+    ".pi/agent/agents/harness-reviewer.md".source = ./agents/harness-reviewer.md;
     ".pi/agent/agents/worker.md".source = ./agents/worker.md;
     ".pi/agent/agents/comment-sicko.md".source = ./agents/comment-sicko.md;
     ".pi/agent/agents/code-reviewer.md".source = ./agents/code-reviewer.md;
@@ -233,7 +246,26 @@ in
         "npm:pi-subagents@${piSubagentsVersion}"
       ];
     };
-    context = builtins.readFile ./pi-context.md;
+
+    # Always include routing and runtime rules; domain skills stay on demand.
+    context = pkgs.lib.concatStringsSep "\n\n" [
+      ''
+        You are pi coding agent.
+      ''
+      # ''
+      #   The Osmani routing guide and Pi runtime contract below are already loaded.
+      #   Apply them before choosing a workflow; read other skills only as needed.
+      #   References point to the installed skills under ~/.pi/agent/skills/osmani.
+      # ''
+      # (builtins.replaceStrings [ "../../references/" ] [ "~/.pi/agent/skills/osmani/references/" ] (
+      #   builtins.readFile ../../base/skills/osmani/skills/using-agent-skills/SKILL.md
+      # ))
+      # (builtins.replaceStrings
+      #   [ "](orchestration-patterns.md)" ]
+      #   [ "](~/.pi/agent/skills/osmani/references/orchestration-patterns.md)" ]
+      #   (builtins.readFile ../../base/skills/osmani/references/pi-runtime.md)
+      # )
+    ];
   };
 
   nixpkgs.overlays = [
