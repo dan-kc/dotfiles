@@ -1,57 +1,20 @@
 # Engineering principles rubric
 
-Selected pstack principles, interpreted alongside Osmani's simplicity and
-architecture review. Apply only relevant lenses and require concrete evidence.
-These are engineering heuristics, not automatic refactor mandates or overrides
-of the user's chosen workflow.
+Selected pstack principles, interpreted alongside Osmani's simplicity and architecture review. Apply only relevant lenses and require concrete evidence. These are engineering heuristics, not automatic refactor mandates or overrides of the user's chosen workflow.
 
-- **Model the domain:** find invalid combinations, scattered booleans, duplicated
-  domain rules, and state transitions better captured by a smaller explicit
-  model. Prefer total operations and a representation that removes branches.
-- **Type-system discipline:** make illegal states unrepresentable, distinguish
-  semantic identifiers, exhaust real variants, derive authoritative schemas,
-  and parse external data before trusting it. Reject casts hiding a reachable
-  invalid state; don't demand stronger types without an operational benefit.
-- **Boundary discipline:** validation and framework adapters belong at external
-  boundaries; business logic should express domain rules without transport or
-  persistence internals leaking through the public interface. Check the actual
-  upstream validation before flagging redundant internal guards or missing ones.
-- **Minimize reader load:** reduce layers between a question and its answer and
-  mutable state the reader must track. Collapse pointless wrappers and narrow
-  state lifetime; moving code into more files does not itself improve clarity.
-- **Subtract before adding / laziness:** remove incidental machinery and repeated
-  work before adding caches, abstractions, registries, or compensation loops.
-  Prefer boring mechanisms that directly meet the present requirement.
-- **Root causes / attack the premise:** a fix should address the cause rather
-  than mask symptoms. If multiple fixes share a failing assumption, examine that
-  assumption with evidence. Do not invent a historical pattern from one diff.
-- **Redesign from first principles:** reason about the requirement in the model,
-  not just bolt another branch onto an unrelated path. Recommend only a bounded
-  restructuring with demonstrated payoff within this target's scope.
-- **Idempotent operations:** repeated execution and restart after partial work
-  should converge. Inspect duplicate effects, partial writes, ownership, and
-  reconciliation where retries/restarts are part of the actual contract.
-- **Separate before serializing shared state:** reduce accidental shared mutable
-  ownership before adding locks or serialized coordination. Verify atomicity and
-  sequencing where effects really must remain shared.
-- **Build the lever / encode lessons:** repeated edits and checks benefit from
-  rerunnable mechanisms and authoritative schemas. Do not demand a generator,
-  framework, or persistent script for one trivial action without a clear payoff.
-- **Prove it works / test behavior:** verify public results, not self-reports,
-  mocks of the subject, private call sequences, or constants copied into tests.
-  Keep negative assertions when they establish a meaningful external contract.
-- **Migrate callers then remove legacy APIs:** identify actual consumers and
-  compatibility obligations before deletion. Avoid permanent throwaway shims;
-  use a bounded migration only when the contract warrants it.
-- **Experience first / explain the number:** controls, error handling, thresholds,
-  and budgets should have user value or measured rationale. Arbitrary choices
-  become findings only with a demonstrated cost, not a preference for another
-  number. Do not fabricate performance measurements.
-- **Foundations / verifiable units:** dependencies, contracts, and checks should
-  support a coherent incremental delivery. Respect agreed phase boundaries and
-  incremental commits; do not impose a conflicting autonomy or commit workflow.
+- **Model the domain:** find invalid combinations, scattered booleans, duplicated domain rules, and state transitions better captured by a smaller explicit model. Prefer total operations and a representation that removes branches.
+- **Type-system discipline:** make illegal states unrepresentable, distinguish semantic identifiers, exhaust real variants, derive authoritative schemas, and parse external data before trusting it. Reject casts hiding a reachable invalid state; don't demand stronger types without an operational benefit.
+- **Boundary discipline:** validation and framework adapters belong at external boundaries; business logic should express domain rules without transport or persistence internals leaking through the public interface. Check the actual upstream validation before flagging redundant internal guards or missing ones.
+- **Minimize reader load:** reduce layers between a question and its answer and mutable state the reader must track. Collapse pointless wrappers and narrow state lifetime; moving code into more files does not itself improve clarity.
+- **Subtract before adding / laziness:** remove incidental machinery and repeated work before adding caches, abstractions, registries, or compensation loops. Prefer boring mechanisms that directly meet the present requirement.
+- **Root causes / attack the premise:** a fix should address the cause rather than mask symptoms. If multiple fixes share a failing assumption, examine that assumption with evidence. Do not invent a historical pattern from one diff.
+- **Redesign from first principles:** reason about the requirement in the model, not just bolt another branch onto an unrelated path. Recommend only a bounded restructuring with demonstrated payoff within this target's scope.
+- **Idempotent operations:** repeated execution and restart after partial work should converge. Inspect duplicate effects, partial writes, ownership, and reconciliation where retries/restarts are part of the actual contract.
+- **Separate before serializing shared state:** reduce accidental shared mutable ownership before adding locks or serialized coordination. Verify atomicity and sequencing where effects really must remain shared.
+- **Build the lever / encode lessons:** repeated edits and checks benefit from rerunnable mechanisms and authoritative schemas. Do not demand a generator, framework, or persistent script for one trivial action without a clear payoff.
+- **Prove it works / test behavior:** verify public results, not self-reports, mocks of the subject, private call sequences, or constants copied into tests. Keep negative assertions when they establish a meaningful external contract.
+- **Migrate callers then remove legacy APIs:** identify actual consumers and compatibility obligations before deletion. Avoid permanent throwaway shims; use a bounded migration only when the contract warrants it.
+- **Experience first / explain the number:** controls, error handling, thresholds, and budgets should have user value or measured rationale. Arbitrary choices become findings only with a demonstrated cost, not a preference for another number. Do not fabricate performance measurements.
+- **Foundations / verifiable units:** dependencies, contracts, and checks should support a coherent incremental delivery. Respect agreed phase boundaries and incremental commits; do not impose a conflicting autonomy or commit workflow.
 
-Do not use pstack's never-block principle to remove confirmation gates, allow
-temporary breakage contrary to an agreed working-slice contract, demand browser
-tooling, or insist on tests of internal functions. The outcome of this review is
-evidenced structural advice, not execution authorization.
+Do not use pstack's never-block principle to remove confirmation gates, allow temporary breakage contrary to an agreed working-slice contract, demand browser tooling, or insist on tests of internal functions. The outcome of this review is evidenced structural advice, not execution authorization.

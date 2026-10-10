@@ -43,14 +43,9 @@ If you doubt every keystroke, you ship nothing. The skill applies only to non-tr
 
 ## Loading Constraints
 
-The main pi session owns the doubt cycle. Use the installed `reviewer` profile
-with `context: "fresh"`; do not give this orchestration workflow to a child.
-A child needing another review returns the artifact and contract to its parent.
-The local reviewer inherits project/global instructions but not the parent's
-conversation. Do not include the author's reasoning in its task.
+The main pi session owns the doubt cycle. Use the installed `reviewer` profile with `context: "fresh"`; do not give this orchestration workflow to a child. A child needing another review returns the artifact and contract to its parent. The local reviewer inherits project/global instructions but not the parent's conversation. Do not include the author's reasoning in its task.
 
-If delegation is unavailable, report the gap. Self-questioning can still help,
-but it is not independent review and does not satisfy that verification item.
+If delegation is unavailable, report the gap. Self-questioning can still help, but it is not independent review and does not satisfy that verification item.
 
 ## The Process
 
@@ -111,42 +106,21 @@ CONTRACT: <paste contract>
 
 **Pass ARTIFACT + CONTRACT only. Do NOT pass the CLAIM.** Handing the reviewer your conclusion biases it toward agreement. The reviewer must independently determine whether the artifact satisfies the contract.
 
-In pi, call `subagent({ agent: "code-reviewer", context: "fresh", task })` with
-ARTIFACT + CONTRACT and the adversarial prompt. Name exact source/skill paths
-needed to inspect the claim. The reviewer must not edit or run builds. If a
-finding needs an executable probe, the parent or a `worker` runs it separately.
+In pi, call `subagent({ agent: "code-reviewer", context: "fresh", task })` with ARTIFACT + CONTRACT and the adversarial prompt. Name exact source/skill paths needed to inspect the claim. The reviewer must not edit or run builds. If a finding needs an executable probe, the parent or a `worker` runs it separately.
 
-Ask for issues-only output even though the profile's default report includes
-suggestions and a summary. The parent still evaluates each finding.
+Ask for issues-only output even though the profile's default report includes suggestions and a summary. The parent still evaluates each finding.
 
 #### Cross-model review in Pi
 
-After the same-model fresh review, offer a cross-model second opinion before
-RECONCILE in each interactive doubt cycle. Query
-`subagent({ action: "models" })` to discover available exact `provider/id` values.
-Present a small suitable shortlist, recommend one, and let the user choose
-a model, request another available model, or skip. Example:
+After the same-model fresh review, offer a cross-model second opinion before RECONCILE in each interactive doubt cycle. Query `subagent({ action: "models" })` to discover available exact `provider/id` values. Present a small suitable shortlist, recommend one, and let the user choose a model, request another available model, or skip. Example:
 
-> Same-model review complete. Would you like an independent second opinion?
-> I recommend <available model> for this artifact. Alternatives: <available model>,
-> or skip. The chosen model receives only the artifact and requirements.
+> Same-model review complete. Would you like an independent second opinion? I recommend <available model> for this artifact. Alternatives: <available model>, or skip. The chosen model receives only the artifact and requirements.
 
-Wait for the answer before launching that cross-model review. This is an offer
-to obtain another review, not a confirmation after the model has already run.
-Set the selected model on a fresh specialist reviewer (usually code-reviewer,
-or security-auditor for a security claim). State the models used. A user may
-explicitly authorize a standing model choice for subsequent cycles; follow that
-instruction instead of asking repeatedly. Otherwise offer the choice each cycle.
+Wait for the answer before launching that cross-model review. This is an offer to obtain another review, not a confirmation after the model has already run. Set the selected model on a fresh specialist reviewer (usually code-reviewer, or security-auditor for a security claim). State the models used. A user may explicitly authorize a standing model choice for subsequent cycles; follow that instruction instead of asking repeatedly. Otherwise offer the choice each cycle.
 
-In a non-interactive run, skip and announce the cross-model review unless the
-user already selected/authorized it. If no different model is available, report
-that limitation. Respect cost and provider constraints. No external CLI is used.
+In a non-interactive run, skip and announce the cross-model review unless the user already selected/authorized it. If no different model is available, report that limitation. Respect cost and provider constraints. No external CLI is used.
 
-Two independent perspectives can use the `runs.all` workflow in
-`../../references/orchestration-patterns.md`. Keep child `async` unset and
-consume final reports. If launch fails, preserve the failure, retry through pi
-when justified, and report missing coverage. Do not switch to an external CLI
-or silently substitute a self-review.
+Two independent perspectives can use the `runs.all` workflow in `../../references/orchestration-patterns.md`. Keep child `async` unset and consume final reports. If launch fails, preserve the failure, retry through pi when justified, and report missing coverage. Do not switch to an external CLI or silently substitute a self-review.
 
 ### Step 4: RECONCILE — Fold findings back
 
@@ -176,7 +150,7 @@ If 3 cycles is "obviously insufficient" because the artifact is large: the artif
 ## Common Rationalizations
 
 | Rationalization | Reality |
-|---|---|
+| --- | --- |
 | "I'm confident, skip the doubt step" | Confidence correlates poorly with correctness on novel problems. Moments of certainty are exactly when blind spots hide. |
 | "Spawning a reviewer is expensive" | Debugging a wrong commit in production is more expensive. The check is bounded; the bug isn't. |
 | "The reviewer will just nitpick" | Only if unscoped. Constrain the prompt to "issues that would make this fail under the contract." |
@@ -206,8 +180,8 @@ If 3 cycles is "obviously insufficient" because the artifact is large: the artif
 ## Interaction with Other Skills
 
 - **`code-review-and-quality` / `/skill:code-review-and-quality`**: complementary. `/skill:code-review-and-quality` is post-hoc PR verdict; doubt-driven is in-flight per-decision. Use both.
-- **`source-driven-development`**: SDD verifies *facts about frameworks* against official docs. Doubt-driven verifies *your reasoning about the artifact*. SDD checks the API exists; doubt-driven checks you used it correctly under the contract.
-- **`test-driven-development`**: TDD's RED step is doubt made concrete — a failing test is a disproof attempt. When TDD applies, that failing test *is* the doubt step for behavioral claims.
+- **`source-driven-development`**: SDD verifies _facts about frameworks_ against official docs. Doubt-driven verifies _your reasoning about the artifact_. SDD checks the API exists; doubt-driven checks you used it correctly under the contract.
+- **`test-driven-development`**: TDD's RED step is doubt made concrete — a failing test is a disproof attempt. When TDD applies, that failing test _is_ the doubt step for behavioral claims.
 - **`debugging-and-error-recovery`**: when the reviewer surfaces a real failure mode, drop into the debugging skill to localize and fix.
 - **Pi orchestration rules** (`../../references/orchestration-patterns.md`): the main session owns spawning, synthesis, and bounded retries; children return review needs to the parent.
 

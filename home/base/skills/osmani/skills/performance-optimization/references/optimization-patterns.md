@@ -29,7 +29,7 @@ const allTasks = await db.tasks.findMany();
 const tasks = await db.tasks.findMany({
   take: 20,
   skip: (page - 1) * 20,
-  orderBy: { createdAt: 'desc' },
+  orderBy: { createdAt: "desc" },
 });
 ```
 
@@ -46,7 +46,7 @@ WHERE owner_id = 42 ORDER BY created_at DESC LIMIT 20;
 Three things in the output decide the fix:
 
 | What you see | What it means |
-|---|---|
+| --- | --- |
 | `Seq Scan` on a large table where you expected an index | No usable index for this predicate |
 | Estimated `rows=` off from actual by an order of magnitude | Stale statistics; the planner is choosing on bad information |
 | A `Sort` node above the scan | The index covers the filter but not the `ORDER BY` |
@@ -60,7 +60,7 @@ CREATE INDEX idx_tasks_owner_created ON tasks (owner_id, created_at DESC);
 **When an index will not help:**
 
 | Situation | Why |
-|---|---|
+| --- | --- |
 | Low selectivity, querying the dominant value (a `status` column that is 95% `active`, filtered on `active`) | A sequential scan is genuinely cheaper; the planner will ignore the index. Filtering on the rare value is the opposite case, and a partial index serves it well |
 | Leading wildcard (`LIKE '%term'`) | A B-tree cannot seek without a prefix; needs trigram or full-text |
 | Function on the column (`WHERE lower(email) = ?`) | The plain column index is unusable; index the expression instead |
@@ -77,7 +77,7 @@ The signature is distinctive: **every** endpoint slows at once, the slow time is
 // by instance count and exhausts the database's connection limit
 // GOOD: one pool per process, sized against the database's ceiling
 const pool = new Pool({
-  max: 10,                        // instances × max must stay under max_connections
+  max: 10, // instances × max must stay under max_connections
   idleTimeoutMillis: 30_000,
   connectionTimeoutMillis: 5_000, // fail fast instead of queueing forever
 });
@@ -155,11 +155,11 @@ const pool = new Pool({
 ```tsx
 // BAD: Creates new object on every render, causing children to re-render
 function TaskList() {
-  return <TaskFilters options={{ sortBy: 'date', order: 'desc' }} />;
+  return <TaskFilters options={{ sortBy: "date", order: "desc" }} />;
 }
 
 // GOOD: Stable reference
-const DEFAULT_OPTIONS = { sortBy: 'date', order: 'desc' } as const;
+const DEFAULT_OPTIONS = { sortBy: "date", order: "desc" } as const;
 function TaskList() {
   return <TaskFilters options={DEFAULT_OPTIONS} />;
 }
@@ -172,7 +172,11 @@ const TaskItem = React.memo(function TaskItem({ task }: Props) {
 // Use useMemo for expensive computations
 function TaskStats({ tasks }: Props) {
   const stats = useMemo(() => calculateStats(tasks), [tasks]);
-  return <div>{stats.completed} / {stats.total}</div>;
+  return (
+    <div>
+      {stats.completed} / {stats.total}
+    </div>
+  );
 }
 ```
 
@@ -205,7 +209,7 @@ Cache what is expensive to produce and read far more often than it changes. Cach
 **Pick the layer deliberately:**
 
 | Layer | Visible to | Use when | Cost |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | In-process (`Map`, LRU) | One instance | Small, hot, per-instance staleness is acceptable | Each instance drifts independently; invalidation reaches only one |
 | Shared (Redis, Memcached) | All instances | Instances must agree, or the value is expensive to recompute | A network hop, and another service to run and monitor |
 | CDN / edge | Everyone, per URL | Responses are public and identical for a given key | Invalidation is the hard part; assume you cannot recall a bad response quickly |
@@ -226,13 +230,16 @@ async function getAppConfig(): Promise<AppConfig> {
 }
 
 // HTTP caching headers for static assets
-app.use('/static', express.static('public', {
-  maxAge: '1y',           // Cache for 1 year
-  immutable: true,        // Never revalidate (use content hashing in filenames)
-}));
+app.use(
+  "/static",
+  express.static("public", {
+    maxAge: "1y", // Cache for 1 year
+    immutable: true, // Never revalidate (use content hashing in filenames)
+  }),
+);
 
 // Cache-Control for API responses
-res.set('Cache-Control', 'public, max-age=300'); // 5 minutes
+res.set("Cache-Control", "public, max-age=300"); // 5 minutes
 ```
 
 **Key design decides correctness.** Every input that changes the response belongs in the key: tenant, locale, permissions, feature flags. A key that omits the viewer is how one user's data gets served to another, and that ships as a performance win.
@@ -240,7 +247,7 @@ res.set('Cache-Control', 'public, max-age=300'); // 5 minutes
 **Choose one invalidation strategy, not three:**
 
 | Strategy | Trade-off |
-|---|---|
+| --- | --- |
 | TTL | Simplest. You accept staleness up to the TTL, so state the acceptable window explicitly |
 | Event or tag based | Fresh on write, but writers now have to know the cache topology |
 | Versioned keys (`user:42:profile:v7`) | Never invalidate, just stop reading old keys. Costs memory until eviction |

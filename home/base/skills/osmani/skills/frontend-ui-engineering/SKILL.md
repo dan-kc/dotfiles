@@ -67,7 +67,9 @@ export function TaskItem({ task, onToggle, onDelete }: TaskItemProps) {
   return (
     <li className="flex items-center gap-3 p-3">
       <Checkbox checked={task.done} onChange={() => onToggle(task.id)} />
-      <span className={task.done ? 'line-through text-muted' : ''}>{task.title}</span>
+      <span className={task.done ? "line-through text-muted" : ""}>
+        {task.title}
+      </span>
       <Button variant="ghost" size="sm" onClick={() => onDelete(task.id)}>
         <TrashIcon />
       </Button>
@@ -84,7 +86,8 @@ export function TaskListContainer() {
   const { tasks, isLoading, error } = useTasks();
 
   if (isLoading) return <TaskListSkeleton />;
-  if (error) return <ErrorState message="Failed to load tasks" retry={refetch} />;
+  if (error)
+    return <ErrorState message="Failed to load tasks" retry={refetch} />;
   if (tasks.length === 0) return <EmptyState message="No tasks yet" />;
 
   return <TaskList tasks={tasks} />;
@@ -94,7 +97,9 @@ export function TaskListContainer() {
 export function TaskList({ tasks }: { tasks: Task[] }) {
   return (
     <ul role="list" className="divide-y">
-      {tasks.map(task => <TaskItem key={task.id} task={task} />)}
+      {tasks.map((task) => (
+        <TaskItem key={task.id} task={task} />
+      ))}
     </ul>
   );
 }
@@ -133,7 +138,7 @@ Use references as evidence, not as templates. If references are unavailable, doc
 AI-generated UI has recognizable patterns. Avoid all of them:
 
 | AI Default | Why It Is a Problem | Production Quality |
-|---|---|---|
+| --- | --- | --- |
 | Purple/indigo everything | Models default to visually "safe" palettes, making every app look identical | Use the project's actual color palette |
 | Excessive gradients | Gradients add visual noise and clash with most design systems | Flat or subtle gradients matching the design system |
 | Rounded everything (rounded-2xl) | Maximum rounding signals "friendly" but ignores the hierarchy of corner radii in real designs | Consistent border-radius from the design system |
@@ -149,10 +154,14 @@ Use a consistent spacing scale. Don't invent values:
 
 ```css
 /* Use the scale: 0.25rem increments (or whatever the project uses) */
-/* Good */  padding: 1rem;      /* 16px */
-/* Good */  gap: 0.75rem;       /* 12px */
-/* Bad */   padding: 13px;      /* Not on any scale */
-/* Bad */   margin-top: 2.3rem; /* Not on any scale */
+/* Good */
+padding: 1rem; /* 16px */
+/* Good */
+gap: 0.75rem; /* 12px */
+/* Bad */
+padding: 13px; /* Not on any scale */
+/* Bad */
+margin-top: 2.3rem; /* Not on any scale */
 ```
 
 ### Typography
@@ -225,7 +234,9 @@ function Dialog({ isOpen, onClose }: DialogProps) {
   // Trap focus inside dialog when open
   return (
     <dialog open={isOpen}>
-      <button ref={closeRef} onClick={onClose}>Close</button>
+      <button ref={closeRef} onClick={onClose}>
+        Close
+      </button>
       {/* dialog content */}
     </dialog>
   );
@@ -242,8 +253,12 @@ function TaskList({ tasks }: { tasks: Task[] }) {
       <div role="status" className="text-center py-12">
         <TasksEmptyIcon className="mx-auto h-12 w-12 text-muted" />
         <h3 className="mt-2 text-sm font-medium">No tasks</h3>
-        <p className="mt-1 text-sm text-muted">Get started by creating a new task.</p>
-        <Button className="mt-4" onClick={onCreateTask}>Create Task</Button>
+        <p className="mt-1 text-sm text-muted">
+          Get started by creating a new task.
+        </p>
+        <Button className="mt-4" onClick={onCreateTask}>
+          Create Task
+        </Button>
       </div>
     );
   }
@@ -289,17 +304,17 @@ function useToggleTask() {
   return useMutation({
     mutationFn: toggleTask,
     onMutate: async (taskId) => {
-      await queryClient.cancelQueries({ queryKey: ['tasks'] });
-      const previous = queryClient.getQueryData(['tasks']);
+      await queryClient.cancelQueries({ queryKey: ["tasks"] });
+      const previous = queryClient.getQueryData(["tasks"]);
 
-      queryClient.setQueryData(['tasks'], (old: Task[]) =>
-        old.map(t => t.id === taskId ? { ...t, done: !t.done } : t)
+      queryClient.setQueryData(["tasks"], (old: Task[]) =>
+        old.map((t) => (t.id === taskId ? { ...t, done: !t.done } : t)),
       );
 
       return { previous };
     },
     onError: (_err, _taskId, context) => {
-      queryClient.setQueryData(['tasks'], context?.previous);
+      queryClient.setQueryData(["tasks"], context?.previous);
     },
   });
 }
@@ -312,7 +327,7 @@ For detailed accessibility requirements and testing tools, see `../../references
 ## Common Rationalizations
 
 | Rationalization | Reality |
-|---|---|
+| --- | --- |
 | "Accessibility is a nice-to-have" | It's a legal requirement in many jurisdictions and an engineering quality standard. |
 | "We'll make it responsive later" | Retrofitting responsive design is 3x harder than building it from the start. |
 | "The design isn't final, so I'll skip styling" | Use the design system defaults. Unstyled UI creates a broken first impression for reviewers. |

@@ -29,8 +29,7 @@ Work like a careful, cautious, precise investigator. Don't produce a narrative. 
 
 **Key symbols:** {SYMBOLS}
 
-**Initial commits touching this code (most recent first):**
-{COMMIT_LIST}
+**Initial commits touching this code (most recent first):** {COMMIT_LIST}
 
 **PR numbers extracted from commit messages:** {PR_NUMBERS}
 
