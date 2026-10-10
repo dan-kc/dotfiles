@@ -2,7 +2,11 @@
 
 24 skills are enabled through the pi-only Home Manager source. The dedicated
 `browser-testing-with-devtools` skill is intentionally removed at the user’s request.
-Every skill reads [pi-runtime.md](references/pi-runtime.md) once per session.
+Pi's global startup context always includes `using-agent-skills` and
+[pi-runtime.md](references/pi-runtime.md), composed directly from their source
+files through Nix. Their reference paths are rewritten to the installed skill
+paths. Other skills remain available on demand; the model does not need to
+discover the routing guide before receiving its instructions.
 The remaining skill names stay stable. Four upstream specialist profiles are
 installed alongside the existing general pi profiles.
 Claude's configuration and the adapted pstack collection receive no new changes
