@@ -90,6 +90,11 @@ sudo nixos-rebuild switch --rollback
 bootstrap. Weekly garbage collection removes generations older than 14 days;
 five boot entries are retained. Keep `system.stateVersion` at `26.05` on upgrades.
 
+Fail2ban watches SSH authentication failures and bans an address for one hour
+after five failures within ten minutes. Inspect it with
+`sudo fail2ban-client status sshd`; unban an address with
+`sudo fail2ban-client set sshd unbanip ADDRESS`.
+
 The loft Home Manager profile is applied by the same `nixos-rebuild switch`.
 It provides Zsh, a Starship prompt that always shows `@loft`, the shared colours
 and fonts, Yazi, lazygit, Herdr, Pi and Codex. Agent credentials are not installed;

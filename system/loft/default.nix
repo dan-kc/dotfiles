@@ -49,6 +49,13 @@
     };
   };
   services.amazon-ssm-agent.enable = lib.mkForce false;
+  # The NixOS module enables the SSH jail when OpenSSH is enabled.
+  services.fail2ban = {
+    enable = true;
+    maxretry = 5;
+    bantime = "1h";
+    jails.sshd.settings.findtime = "10m";
+  };
   # User data is a first-install mechanism, never a recurring deployment.
   virtualisation.amazon-init.enable = false;
 
