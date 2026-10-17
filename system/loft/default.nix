@@ -2,6 +2,7 @@
   modulesPath,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 {
@@ -22,6 +23,13 @@
   users.users.daniel = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
+    shell = pkgs.zsh;
+  };
+  programs.zsh.enable = true;
+  home-manager = {
+    useUserPackages = true;
+    extraSpecialArgs = { inherit inputs; };
+    users.daniel = import ../../home/loft;
   };
   security.sudo.wheelNeedsPassword = false;
   services.openssh = {

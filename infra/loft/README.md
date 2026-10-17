@@ -90,6 +90,12 @@ sudo nixos-rebuild switch --rollback
 bootstrap. Weekly garbage collection removes generations older than 14 days;
 five boot entries are retained. Keep `system.stateVersion` at `26.05` on upgrades.
 
+The loft Home Manager profile is applied by the same `nixos-rebuild switch`.
+It provides Zsh, a Starship prompt that always shows `@loft`, the shared colours
+and fonts, Yazi, lazygit, Herdr, Pi and Codex. Agent credentials are not installed;
+authenticate on loft when ready. Fonts used to render SSH sessions still come
+from your local terminal.
+
 For key rotation, add the new public key to `/var/lib/loft/authorized_keys/daniel`
 on the server using sudo, then verify a second session before removing the old
 key. Edit `secrets/loft.yaml` with `sops` and apply the OpenTofu change for future
