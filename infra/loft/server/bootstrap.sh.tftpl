@@ -54,7 +54,9 @@ if ! test -e /var/lib/loft/authorized_keys/daniel; then
   install -m 0644 /etc/ec2-metadata/public-keys-0-openssh-key /var/lib/loft/authorized_keys/daniel
 fi
 ssh-keygen -lf /var/lib/loft/authorized_keys/daniel
-nixos-rebuild switch --flake /etc/nixos#loft --no-write-lock-file
+# Keep the AMI's rebuild tool for this first switch: the target's newer rebuild
+# may require systemd-run flags unavailable until the new system is activated.
+nixos-rebuild switch --flake /etc/nixos#loft --no-write-lock-file --no-reexec
 chown -R daniel:users /etc/nixos
 mkdir -p /var/lib
 touch /var/lib/loft-bootstrap-complete
