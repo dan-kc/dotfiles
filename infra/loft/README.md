@@ -1,10 +1,19 @@
 # loft
 
 NixOS on an ARM `t4g.medium` in London, with one encrypted 50 GiB gp3 root disk
-and a fixed public IPv4 address. Only SSH is exposed; outbound IPv4 is unrestricted.
+and a fixed public IPv4 address for outbound internet access. AWS permits no
+unsolicited inbound traffic; SSH is available only over Tailscale. Outbound IPv4
+is unrestricted.
 The dev shell includes OpenTofu, AWS CLI, and SSH.
 
 ## Deployment
+
+The configuration below manages the existing, enrolled host. A replacement needs
+a separate bootstrap/recovery access plan: the default security group has no
+ingress and a fresh machine has no Tailscale enrollment. Before replacement,
+arrange console/offline access or a temporary, narrowly scoped SSH rule and host
+firewall exception, enroll Tailscale, then remove those exceptions. The existing
+host needs none of these exceptions.
 
 The S3 backend is already provisioned and its state migrated. The SSH key is at
 `~/.ssh/loft`; its public key is SOPS-encrypted in `secrets/loft.yaml` for the same
@@ -108,7 +117,10 @@ aws ec2 get-console-output --region eu-west-2 --latest \
 tofu -chdir=infra/loft/server output -raw ssh_command
 ```
 
-Run the displayed SSH command and compare its fingerprint with the console output.
+Run the displayed SSH command from your tailnet using MagicDNS and compare its
+fingerprint with the console output. Alternatively, use loft's Tailscale IP
+(`100.114.30.120` for the current instance). Any local `Host loft` SSH alias must
+point to that Tailscale IP, not the public Elastic IP.
 Once connected:
 
 ```sh
@@ -205,6 +217,36 @@ key. Edit `secrets/loft.yaml` with `sops` and apply the OpenTofu change for futu
 launches. Changing SOPS or the EC2 key pair alone does not rotate an existing
 instance's login key. Keep the server's authorized-key file root-owned and mode 0644.
 
+## Tailscale
+
+Tailscale starts automatically. After deploying this configuration with the rebuild
+command above, join your existing tailnet from loft:
+
+```sh
+sudo tailscale up --accept-dns=false
+tailscale status
+tailscale ip -4
+```
+
+Open the login URL printed by `tailscale up` and sign in to your existing Tailscale
+account. Approve the device in the admin console if your tailnet requires approval.
+Enrollment persists across rebuilds and reboots in `/var/lib/tailscale`.
+Loft keeps its existing DNS resolver, matching the other NixOS hosts.
+
+From a workstation connected to the same tailnet, connect using the reported IP:
+
+```sh
+ssh -i ~/.ssh/loft daniel@TAILSCALE_IP
+```
+
+You can also use `loft` as the hostname if your workstation uses Tailscale MagicDNS.
+This uses the existing OpenSSH key authentication; tailnet access rules must allow
+TCP port 22. NixOS opens SSH only on `tailscale0`; AWS has no ingress rules.
+Tailscale uses outbound connections and can relay traffic when a direct connection
+is unavailable. The Elastic IP, internet gateway, default route, and unrestricted
+AWS egress remain in place for public internet access. No subnet or exit-node
+routing is advertised.
+
 ## Backend and recovery
 
 Both OpenTofu roots use the existing versioned, encrypted S3 bucket with native
@@ -219,9 +261,12 @@ tofu -chdir=infra/loft/backend init -backend-config=backend.hcl
 tofu -chdir=infra/loft/backend plan
 ```
 
-If first boot fails before activation, connect as `root` with the same key and
-inspect `journalctl -u amazon-init` and `/var/log/loft-bootstrap.log`. Retry with
-`systemctl restart amazon-init`. After activation, use `daniel` and sudo.
+Public SSH is unavailable, including for recovery. If Tailscale enrollment expires,
+renew it before losing access. If access is lost, use a separately arranged
+console/offline recovery path or deliberately restore narrowly scoped SSH access
+at both the AWS and host firewalls. Changing the security group alone does not
+reopen the host firewall. For bootstrap failures, inspect `journalctl -u amazon-init`
+and `/var/log/loft-bootstrap.log` through that recovery path.
 
 Instance replacement/deletion and backend deletion are blocked by `prevent_destroy`.
 For deliberate replacement, back up your data, select a current official AMI,
