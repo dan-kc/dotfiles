@@ -26,6 +26,11 @@
     shell = pkgs.zsh;
   };
   programs.zsh.enable = true;
+  programs.git = {
+    enable = true;
+    # Root rebuilds from the checkout maintained by daniel.
+    config.safe.directory = "/etc/nixos";
+  };
   home-manager = {
     useUserPackages = true;
     extraSpecialArgs = { inherit inputs; };
