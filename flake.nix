@@ -55,6 +55,12 @@
             sops
             age
             ssh-to-age
+            opentofu
+            awscli2
+            jq
+            git
+            openssh
+            shellcheck
           ];
         };
       mkHome =
@@ -89,6 +95,10 @@
         aarch64-darwin.default = mkDevShell "aarch64-darwin";
       };
       nixosConfigurations = {
+        loft = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          modules = [ ./system/loft ];
+        };
         box = nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = {

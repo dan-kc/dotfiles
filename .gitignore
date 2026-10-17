@@ -3,3 +3,15 @@
 .env
 .git
 .aider*
+
+# OpenTofu local metadata, state, plans, and generated deployment configuration.
+**/.terraform/
+**/*.tfstate
+**/*.tfstate.*
+**/*.tfplan
+**/crash.log
+/infra/loft/**/backend.generated.tf
+/infra/loft/**/backend.generated.tf.disabled
+/infra/loft/**/backend.generated.hcl
+/infra/loft/server/deployment.auto.tfvars.json
+/infra/loft/.known_hosts

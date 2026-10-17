@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+# Executed by the official NixOS AMI's amazon-init service.
+set -eu
+exec > >(tee -a /var/log/loft-bootstrap.log) 2>&1
+if test -e /var/lib/loft-bootstrap-complete; then
+  exit 0
+fi
+
+# Allocate swap before evaluating the flake on a 1 GiB instance.
+if ! test -e /swapfile; then
+  umask 077
+  fallocate -l 4G /swapfile
+fi
+if ! swapon --show=NAME --noheadings | grep -qx /swapfile; then
+  chmod 600 /swapfile
+  if ! blkid -p -s TYPE -o value /swapfile | grep -qx swap; then
+    mkswap /swapfile
+  fi
+  swapon /swapfile
+fi
+
+# The Elastic IP is attached shortly after launch. Retry network-dependent work.
+retry() {
+  attempt=0
+  until "$@"; do
+    attempt=$((attempt + 1))
+    test "$attempt" -lt 30 || return 1
+    sleep 10
+  done
+}
+mkdir -p /etc/nixos
+if ! test -d /etc/nixos/.git; then
+  git -C /etc/nixos init
+fi
+if ! git -C /etc/nixos remote get-url origin >/dev/null 2>&1; then
+  git -C /etc/nixos remote add origin https://github.com/dan-kc/dotfiles.git
+fi
+# shellcheck disable=SC2154 # OpenTofu supplies the validated commit SHA.
+retry git -C /etc/nixos fetch origin "${revision}"
+git -C /etc/nixos checkout -B main "${revision}"
+git -C /etc/nixos config branch.main.remote origin
+git -C /etc/nixos config branch.main.merge refs/heads/main
+
+# Keep the AMI's running system available if evaluation or building fails.
+export NIX_CONFIG='experimental-features = nix-command flakes
+max-jobs = 1
+cores = 1'
+retry nix build /etc/nixos#nixosConfigurations.loft.config.system.build.toplevel --no-link --no-write-lock-file
+# Install the launch key before the switch disables root SSH. Preserve any later
+# manual rotation if an interrupted bootstrap is retried.
+install -d -m 0755 /var/lib/loft/authorized_keys
+if ! test -e /var/lib/loft/authorized_keys/daniel; then
+  ssh-keygen -lf /etc/ec2-metadata/public-keys-0-openssh-key
+  install -m 0644 /etc/ec2-metadata/public-keys-0-openssh-key /var/lib/loft/authorized_keys/daniel
+fi
+ssh-keygen -lf /var/lib/loft/authorized_keys/daniel
+nixos-rebuild switch --flake /etc/nixos#loft --no-write-lock-file
+chown -R daniel:users /etc/nixos
+mkdir -p /var/lib
+touch /var/lib/loft-bootstrap-complete
+echo 'loft bootstrap complete'
