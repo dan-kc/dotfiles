@@ -6,7 +6,20 @@
   ...
 }:
 {
-  imports = [ (modulesPath + "/virtualisation/amazon-image.nix") ];
+  imports = [
+    (modulesPath + "/virtualisation/amazon-image.nix")
+    inputs.sops-nix.nixosModules.sops
+  ];
+
+  sops = {
+    defaultSopsFile = ../../secrets/loft-runtime.yaml;
+    age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+    gnupg.sshKeyPaths = [ ];
+    secrets.openrouter_api_key = {
+      owner = "daniel";
+      mode = "0400";
+    };
+  };
 
   networking = {
     hostName = "loft";
@@ -40,7 +53,7 @@
   services.openssh = {
     enable = true;
     # Bootstrap installs EC2's public key here before activating this system.
-    # It persists across rebuilds; this host needs no SOPS decryption identity.
+    # It persists across rebuilds independently of runtime SOPS secrets.
     authorizedKeysFiles = lib.mkForce [ "/var/lib/loft/authorized_keys/%u" ];
     settings = {
       PermitRootLogin = lib.mkForce "no";

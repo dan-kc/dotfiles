@@ -60,8 +60,8 @@ First boot enables 4 GiB of swap on the root disk, fetches the pinned commit int
 `/etc/nixos`, and builds and activates `loft` on EC2. Allow time for this on a small
 instance. Before switching, bootstrap installs the EC2 metadata public key into
 `/var/lib/loft/authorized_keys/daniel`, which sshd reads at runtime. Rebuilds and
-reboots preserve that file; the server receives no age private key and does not
-decrypt SOPS files. Subsequent reboots do not replay bootstrap.
+reboots preserve that file. Runtime SOPS secrets are decrypted separately using
+the server's existing SSH host key. Subsequent reboots do not replay bootstrap.
 
 ## SSH and updates
 
@@ -97,9 +97,21 @@ after five failures within ten minutes. Inspect it with
 
 The loft Home Manager profile is applied by the same `nixos-rebuild switch`.
 It provides Zsh, a Starship prompt that always shows `@loft`, the shared colours
-and fonts, Yazi, lazygit, Herdr, Pi and Codex. Agent credentials are not installed;
-authenticate on loft when ready. Fonts used to render SSH sessions still come
-from your local terminal.
+and fonts, Yazi, lazygit, Herdr, Pi and Codex. Fonts used to render SSH sessions
+still come from your local terminal.
+
+OpenRouter is stored in `secrets/loft-runtime.yaml`, encrypted for plank, box and
+loft's SSH host key. Edit it with `nix develop -c sops secrets/loft-runtime.yaml`,
+commit and pull the change on loft, then rebuild. Sops-nix installs it at
+`/run/secrets/openrouter_api_key`, owned by `daniel` with mode `0400`. A new
+interactive Zsh session exports it as `OPENROUTER_API_KEY`; restart existing
+agents to pick up a rotated key. This file is never read by OpenTofu.
+
+If loft is replaced, its new SSH host key must be converted with `ssh-to-age`,
+the loft recipient in `.sops.yaml` updated, and `sops updatekeys
+secrets/loft-runtime.yaml` run from an existing recipient machine before the
+new host can activate this configuration. Keep a workstation recipient for
+recovery; do not copy a workstation's age private key onto loft.
 
 For key rotation, add the new public key to `/var/lib/loft/authorized_keys/daniel`
 on the server using sudo, then verify a second session before removing the old
