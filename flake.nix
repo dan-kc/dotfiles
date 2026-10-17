@@ -97,7 +97,11 @@
       nixosConfigurations = {
         loft = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
-          modules = [ ./system/loft ];
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./system/loft
+            home-manager.nixosModules.home-manager
+          ];
         };
         box = nixpkgs.lib.nixosSystem {
           inherit system;
