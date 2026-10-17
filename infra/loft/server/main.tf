@@ -77,15 +77,12 @@ resource "aws_route_table_association" "loft" {
 }
 
 resource "aws_security_group" "loft" {
+  # Retain the existing name/description to avoid replacing the attached group.
   name        = "loft-ssh"
   description = "Public key-only SSH; unrestricted outbound IPv4"
   vpc_id      = aws_vpc.loft.id
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+  # Explicitly revoke all ingress; Tailscale establishes outbound connections.
+  ingress = []
   egress {
     from_port   = 0
     to_port     = 0
@@ -146,4 +143,4 @@ resource "aws_eip_association" "loft" {
 
 output "instance_id" { value = aws_instance.loft.id }
 output "public_ip" { value = aws_eip.loft.public_ip }
-output "ssh_command" { value = "ssh -i ~/.ssh/loft daniel@${aws_eip.loft.public_ip}" }
+output "ssh_command" { value = "ssh -i ~/.ssh/loft daniel@loft" }
