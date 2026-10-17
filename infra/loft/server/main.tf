@@ -127,8 +127,9 @@ resource "aws_instance" "loft" {
   }
   lifecycle {
     prevent_destroy = true
-    # Launch inputs do not control subsequent in-place NixOS updates/key rotation.
-    ignore_changes = [user_data, key_name]
+    # These are launch inputs. AWS reports public-IP association as true after
+    # attaching the separately managed Elastic IP; that must not replace EC2.
+    ignore_changes = [user_data, key_name, associate_public_ip_address]
   }
   depends_on = [aws_route_table_association.loft]
   tags       = { Name = "loft" }
