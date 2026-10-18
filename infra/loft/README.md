@@ -247,6 +247,26 @@ is unavailable. The Elastic IP, internet gateway, default route, and unrestricte
 AWS egress remain in place for public internet access. No subnet or exit-node
 routing is advertised.
 
+SSH also advertises `hmac-sha2-256` alongside the default encrypt-then-MAC options.
+The iPhone app's SwiftNIOSSH client requires a shared MAC name even for AES-GCM;
+without it, the connection stalls during key exchange before authentication.
+
+## Headless Codex
+
+Home Manager runs `codex-app-server.service` as daniel with a local Unix socket.
+User lingering keeps it available without an active SSH session and starts it at
+boot. SSH clients reach the server through Tailscale; no additional network port
+is opened. Codex must be signed in as daniel (`codex login status`).
+
+Inspect it with `systemctl --user status codex-app-server` and
+`codex app-server daemon version`. Restart it with
+`systemctl --user restart codex-app-server`. The service runs the Nix-packaged
+binary directly because Codex's own daemon bootstrap expects a different package
+layout.
+
+The iPhone SSH bootstrap sets `PATH=/usr/bin:/bin` when detecting Linux. A
+tmpfiles-managed `/usr/bin/uname` link lets this probe work on NixOS.
+
 ## Backend and recovery
 
 Both OpenTofu roots use the existing versioned, encrypted S3 bucket with native
