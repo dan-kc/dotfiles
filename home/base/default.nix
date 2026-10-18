@@ -14,6 +14,11 @@
     ./zsh
   ];
 
+  services.home-manager.autoExpire = {
+    enable = true;
+    timestamp = "-30 days";
+  };
+
   home.file = {
     # Skills available to every agent (pi and codex both read ~/.agents/skills).
     # ".agents/skills/pair-programmer".source = ./skills/pair-programmer;
