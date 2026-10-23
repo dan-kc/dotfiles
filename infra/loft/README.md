@@ -104,6 +104,52 @@ It provides Zsh, a Starship prompt that always shows `@loft`, the shared colours
 and fonts, Yazi, lazygit, Pi and Codex. Fonts used to render SSH sessions
 still come from your local terminal.
 
+## T3 Code on iPhone
+
+The rebuild also starts the `t3code` systemd user service as `daniel`. Lingering
+keeps it running after SSH logout and starts it at boot. It waits for Tailscale
+to have an IPv4 address, then binds HTTP/WebSocket port 3773 to that address.
+The NixOS firewall allows this port only on `tailscale0`; no public T3 port or
+T3 Connect relay is needed. Your tailnet policy must allow the phone to reach
+`loft:3773`.
+
+On loft, after pulling and rebuilding:
+
+```sh
+systemctl --user status t3code
+tailscale ip -4
+t3 pair
+```
+
+Connect the iPhone's Tailscale app to the same tailnet. In T3 Code, choose
+**Add environment**, then scan the QR code printed by `t3 pair`, or enter the
+Tailscale IPv4 address followed by `:3773` in **Address** and the fresh pairing
+code in **Code**. A pairing link is a credential; generate a new one for each
+device. In the paired app, add a project from loft's `~/projects` directory.
+
+Pi and Codex are enabled automatically with the Nix-managed binaries. Pi uses
+the existing `~/.pi/agent` configuration and the OpenRouter key loaded from
+`/run/secrets/openrouter_api_key`. Codex uses daniel's existing CLI credentials;
+if not already authenticated, run `codex login --device-auth` on loft and finish
+the login in your phone's browser. T3 starts its own provider processes; the
+separate `codex-app-server` service remains available for SSH clients.
+
+Inspect startup/provider failures with `journalctl --user -u t3code -n 100`.
+After rotating the OpenRouter key, run `systemctl --user restart t3code`.
+If Tailscale is not authenticated, run `sudo tailscale up` once; the service
+retries automatically. T3 stores threads, pairings and settings in `~/.t3`.
+On service startup, the two managed provider entries are refreshed while other
+settings are preserved.
+
+The CLI is pinned in `pkgs/t3code/default.nix` to the upstream 0.1.2 headless
+archive, with its checksum and NixOS ELF fixes. This avoids compiling the
+desktop application on the micro instance. Update the version and archive
+checksums there and rebuild to upgrade; use Nix to manage this installation
+instead of `t3 update` or `t3 service install`. Client and server orchestration
+protocols must match; if the phone requests a newer server, update this pin.
+
+## Runtime secrets
+
 OpenRouter is stored in `secrets/loft-runtime.yaml`, encrypted for plank, box and
 loft's SSH host key. Edit it with `nix develop -c sops secrets/loft-runtime.yaml`,
 commit and pull the change on loft, then rebuild. Sops-nix installs it at

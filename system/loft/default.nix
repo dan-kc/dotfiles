@@ -27,7 +27,10 @@
       enable = true;
       allowedTCPPorts = [ ];
       allowedUDPPorts = [ ];
-      interfaces.tailscale0.allowedTCPPorts = [ 22 ];
+      interfaces.tailscale0.allowedTCPPorts = [
+        22
+        3773 # T3 Code HTTP/WebSocket access from the tailnet only.
+      ];
       allowPing = false;
     };
   };
