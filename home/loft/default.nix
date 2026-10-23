@@ -20,12 +20,23 @@
     stateVersion = "26.05";
     packages = with pkgs; [
       codex
-      herdr
       lazygit
       gh
       ripgrep
       fzf
     ];
+  };
+
+  # Run the Nix package directly; Codex's daemon installer expects its own layout.
+  systemd.user.services.codex-app-server = {
+    Unit.Description = "Codex headless server for SSH connections";
+    Service = {
+      ExecStart = "${pkgs.codex}/bin/codex app-server --listen unix://";
+      Restart = "on-failure";
+      RestartSec = 5;
+      Environment = "PATH=/etc/profiles/per-user/daniel/bin:/run/current-system/sw/bin";
+    };
+    Install.WantedBy = [ "default.target" ];
   };
 
   # Also identify loft in local shells, tmux and Yazi's Starship header.
@@ -37,11 +48,19 @@
     enable = true;
     enableZshIntegration = true;
     flags = [ "--disable-up-arrow" ];
+    themes."nix-colors" = {
+      theme = {
+        name = "nix-colors";
+        parent = "default";
+      };
+      colors.SyntaxCommand = "@white";
+    };
     settings = {
       dialect = "uk";
       update_check = false;
       style = "compact";
       inline_height = 10;
+      theme.name = "nix-colors";
     };
   };
   programs.direnv = {
