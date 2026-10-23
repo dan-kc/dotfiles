@@ -97,7 +97,7 @@ after five failures within ten minutes. Inspect it with
 
 The loft Home Manager profile is applied by the same `nixos-rebuild switch`.
 It provides Zsh, a Starship prompt that always shows `@loft`, the shared colours
-and fonts, Yazi, lazygit, Herdr, Pi and Codex. Fonts used to render SSH sessions
+and fonts, Yazi, lazygit, Pi and Codex. Fonts used to render SSH sessions
 still come from your local terminal.
 
 OpenRouter is stored in `secrets/loft-runtime.yaml`, encrypted for plank, box and
