@@ -6,6 +6,7 @@
 }:
 {
   imports = [
+    ./t3code.nix
     ../base/colorscheme.nix
     ../base/fonts.nix
     ../base/starship.nix
