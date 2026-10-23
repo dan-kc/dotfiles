@@ -57,11 +57,15 @@ decrypted data-source values are stored in plans/state. Your existing API secret
 remain in the separate `secrets/secrets.yaml` file.
 
 First boot enables 4 GiB of swap on the root disk, fetches the pinned commit into
-`/etc/nixos`, and builds and activates `loft` on EC2. Allow time for this on a small
-instance. Before switching, bootstrap installs the EC2 metadata public key into
-`/var/lib/loft/authorized_keys/daniel`, which sshd reads at runtime. Rebuilds and
+`/home/daniel/projects/dotfiles`, and builds and activates `loft` on EC2. Allow time
+for this on a small instance. Before switching, bootstrap installs the EC2 metadata
+public key into `/var/lib/loft/authorized_keys/daniel`, which sshd reads at runtime. Rebuilds and
 reboots preserve that file. Runtime SOPS secrets are decrypted separately using
 the server's existing SSH host key. Subsequent reboots do not replay bootstrap.
+
+The checkout lives at `~/projects/dotfiles`. The AMI's original
+`/etc/nixos/configuration.nix` stays separate as a bootstrap artifact; routine
+rebuilds use the checkout's `loft` flake configuration.
 
 ## SSH and updates
 
@@ -79,7 +83,7 @@ Run the displayed SSH command and compare its fingerprint with the console outpu
 Once connected:
 
 ```sh
-cd /etc/nixos
+cd /home/daniel/projects/dotfiles
 git pull --ff-only
 sudo nixos-rebuild switch --flake .#loft
 # Roll back if needed:

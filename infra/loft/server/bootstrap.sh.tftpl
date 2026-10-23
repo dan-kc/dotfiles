@@ -28,24 +28,24 @@ retry() {
     sleep 10
   done
 }
-mkdir -p /etc/nixos
-if ! test -d /etc/nixos/.git; then
-  git -C /etc/nixos init
+mkdir -p /home/daniel/projects/dotfiles
+if ! test -d /home/daniel/projects/dotfiles/.git; then
+  git -C /home/daniel/projects/dotfiles init
 fi
-if ! git -C /etc/nixos remote get-url origin >/dev/null 2>&1; then
-  git -C /etc/nixos remote add origin https://github.com/dan-kc/dotfiles.git
+if ! git -C /home/daniel/projects/dotfiles remote get-url origin >/dev/null 2>&1; then
+  git -C /home/daniel/projects/dotfiles remote add origin https://github.com/dan-kc/dotfiles.git
 fi
 # shellcheck disable=SC2154 # OpenTofu supplies the validated commit SHA.
-retry git -C /etc/nixos fetch origin "${revision}"
-git -C /etc/nixos checkout -B main "${revision}"
-git -C /etc/nixos config branch.main.remote origin
-git -C /etc/nixos config branch.main.merge refs/heads/main
+retry git -C /home/daniel/projects/dotfiles fetch origin "${revision}"
+git -C /home/daniel/projects/dotfiles checkout -B main "${revision}"
+git -C /home/daniel/projects/dotfiles config branch.main.remote origin
+git -C /home/daniel/projects/dotfiles config branch.main.merge refs/heads/main
 
 # Keep the AMI's running system available if evaluation or building fails.
 export NIX_CONFIG='experimental-features = nix-command flakes
 max-jobs = 1
 cores = 1'
-retry nix build /etc/nixos#nixosConfigurations.loft.config.system.build.toplevel --no-link --no-write-lock-file
+retry nix build /home/daniel/projects/dotfiles#nixosConfigurations.loft.config.system.build.toplevel --no-link --no-write-lock-file
 # Install the launch key before the switch disables root SSH. Preserve any later
 # manual rotation if an interrupted bootstrap is retried.
 install -d -m 0755 /var/lib/loft/authorized_keys
@@ -56,8 +56,9 @@ fi
 ssh-keygen -lf /var/lib/loft/authorized_keys/daniel
 # Keep the AMI's rebuild tool for this first switch: the target's newer rebuild
 # may require systemd-run flags unavailable until the new system is activated.
-nixos-rebuild switch --flake /etc/nixos#loft --no-write-lock-file --no-reexec
-chown -R daniel:users /etc/nixos
+nixos-rebuild switch --flake /home/daniel/projects/dotfiles#loft --no-write-lock-file --no-reexec
+chown daniel:users /home/daniel /home/daniel/projects
+chown -R daniel:users /home/daniel/projects/dotfiles
 mkdir -p /var/lib
 touch /var/lib/loft-bootstrap-complete
 echo 'loft bootstrap complete'
