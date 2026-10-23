@@ -1,6 +1,6 @@
 # loft
 
-NixOS on an ARM `t4g.micro` in London, with one encrypted 30 GiB gp3 root disk
+NixOS on an ARM `t4g.medium` in London, with one encrypted 50 GiB gp3 root disk
 and a fixed public IPv4 address. Only SSH is exposed; outbound IPv4 is unrestricted.
 The dev shell includes OpenTofu, AWS CLI, and SSH.
 
@@ -66,6 +66,35 @@ the server's existing SSH host key. Subsequent reboots do not replay bootstrap.
 The checkout lives at `~/projects/dotfiles`. The AMI's original
 `/etc/nixos/configuration.nix` stays separate as a bootstrap artifact; routine
 rebuilds use the checkout's `loft` flake configuration.
+
+## Resize an existing instance
+
+Instance type and EBS capacity are managed by OpenTofu; a `nixos-rebuild` alone
+does not resize them. From a workstation with AWS credentials, the existing SOPS
+age identity, and `server/deployment.auto.tfvars.json`, pull this configuration
+and run:
+
+```sh
+nix develop
+export SOPS_AGE_KEY_FILE="$HOME/.config/sops/age/keys.txt"
+tofu -chdir=infra/loft/server init -backend-config=backend.hcl
+tofu -chdir=infra/loft/server plan -out=loft.tfplan
+tofu -chdir=infra/loft/server apply loft.tfplan
+```
+
+The micro-to-medium upgrade and 30-to-50 GiB volume expansion should appear as
+an in-place update to `aws_instance.loft`. Changing instance type stops and starts
+EC2, interrupting SSH and active agents. The root disk, Elastic IP, Tailscale
+identity, provider credentials and T3 pairings are retained. Keep the existing AMI
+and launch revision inputs for this resize; `prevent_destroy` stays enabled.
+This exercises recovery after restart while preserving state. Testing a fresh
+reprovision requires the separate replacement/recovery procedure below.
+
+Once apply finishes, reconnect and run `sudo reboot` so the installed NixOS
+Amazon image's partition/filesystem growth runs against the enlarged EBS volume.
+After reconnecting, verify `lsblk`, `df -h /`, and
+`systemctl --user status t3code codex-app-server`. EBS volumes can grow but cannot
+be shrunk in place.
 
 ## SSH and updates
 
@@ -143,7 +172,7 @@ settings are preserved.
 
 The CLI is pinned in `pkgs/t3code/default.nix` to the upstream 0.1.2 headless
 archive, with its checksum and NixOS ELF fixes. This avoids compiling the
-desktop application on the micro instance. Update the version and archive
+desktop application on the EC2 instance. Update the version and archive
 checksums there and rebuild to upgrade; use Nix to manage this installation
 instead of `t3 update` or `t3 service install`. Client and server orchestration
 protocols must match; if the phone requests a newer server, update this pin.

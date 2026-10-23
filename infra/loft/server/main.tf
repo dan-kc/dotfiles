@@ -105,7 +105,7 @@ resource "aws_instance" "loft" {
   # Do not re-query this pinned AMI: upstream removes old images after 90 days, while
   # an existing instance must remain manageable after its image disappears.
   ami                         = var.ami_id
-  instance_type               = "t4g.micro"
+  instance_type               = "t4g.medium"
   subnet_id                   = aws_subnet.loft.id
   vpc_security_group_ids      = [aws_security_group.loft.id]
   associate_public_ip_address = false
@@ -121,7 +121,7 @@ resource "aws_instance" "loft" {
   }
   root_block_device {
     volume_type           = "gp3"
-    volume_size           = 30
+    volume_size           = 50
     encrypted             = true
     delete_on_termination = true
   }

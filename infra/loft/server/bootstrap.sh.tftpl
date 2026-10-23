@@ -6,7 +6,7 @@ if test -e /var/lib/loft-bootstrap-complete; then
   exit 0
 fi
 
-# Allocate swap before evaluating the flake on a 1 GiB instance.
+# Allocate swap before evaluating the flake on the fresh instance.
 if ! test -e /swapfile; then
   umask 077
   fallocate -l 4G /swapfile
