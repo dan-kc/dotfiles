@@ -44,7 +44,7 @@
   programs.git = {
     enable = true;
     # Root rebuilds from the checkout maintained by daniel.
-    config.safe.directory = "/etc/nixos";
+    config.safe.directory = "/home/daniel/projects/dotfiles";
   };
   home-manager = {
     useUserPackages = true;
@@ -118,7 +118,8 @@
     vim
   ];
   systemd.tmpfiles.rules = [
-    "d /etc/nixos 0755 daniel users - -"
+    "d /home/daniel/projects 0755 daniel users - -"
+    "d /home/daniel/projects/dotfiles 0755 daniel users - -"
     # The iPhone SSH bootstrap probes uname with PATH=/usr/bin:/bin.
     "L+ /usr/bin/uname - - - - ${pkgs.coreutils}/bin/uname"
   ];
