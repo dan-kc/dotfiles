@@ -6,6 +6,8 @@
 {
   imports = [
     ../agents/pi
+    # No T3 Code here, so keep native subagent delegation available.
+    ../agents/pi/subagents.nix
     inputs.oh-my-pi.homeManagerModules.default
   ];
 
@@ -18,6 +20,7 @@
   ];
 
   home.packages = with pkgs; [
+    (callPackage ../../pkgs/t3code-desktop { })
     codex
     flake-gen
     lazydocker

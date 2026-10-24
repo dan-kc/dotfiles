@@ -5,7 +5,6 @@
 }:
 let
   piExtensionExamples = "${pkgs.pi-coding-agent}/lib/node_modules/pi-monorepo/examples/extensions";
-  piSubagentsVersion = "0.75.0";
   piGuardrailsVersion = "0.19.0";
 in
 {
@@ -27,25 +26,6 @@ in
       ../../base/skills/harness/prompts/review-regressions.md;
 
     ".pi/agent/extensions/question.ts".source = "${piExtensionExamples}/question.ts";
-    # pi-subagents reads its config from the directory its package occupies.
-    ".pi/agent/extensions/subagent/config.json".text = builtins.toJSON {
-      # Register subagent from the first request; no loader tool.
-      toolActivation = "eager";
-      # Trim feature groups this setup does not use from the tool schema.
-      # Re-enable by removing names from this list.
-      disabledFeatures = [
-        "missions"
-        "panes"
-        "watchdog"
-        "lane-management"
-        "lane-metadata"
-        "external-machines"
-        "control-overrides"
-        "extension-bindings"
-        "spawn-budget-grants"
-        "preflight"
-      ];
-    };
     ".pi/agent/extensions/context.ts".source = ./extensions/context.ts;
     ".pi/agent/extensions/openrouter-server-tools.ts".source = ./extensions/openrouter-server-tools.ts;
     ".pi/agent/extensions/guardrails.json".text = builtins.toJSON {
@@ -243,7 +223,6 @@ in
       npmCommand = [ "${pkgs.nodejs}/bin/npm" ];
       packages = [
         "npm:@aliou/pi-guardrails@${piGuardrailsVersion}"
-        "npm:pi-subagents@${piSubagentsVersion}"
       ];
     };
 
