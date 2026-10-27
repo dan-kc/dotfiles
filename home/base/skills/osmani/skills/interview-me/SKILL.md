@@ -3,8 +3,6 @@ name: interview-me
 description: Extracts what the user actually wants instead of what they think they should want. Achieves this through one-question-at-a-time interview until ~95% confidence about the underlying intent. Use when an ask is underspecified ("build me X" without "for whom" or "why now"), when the user explicitly invokes ("interview me", "grill me", "are we sure?", "stress-test my thinking"), or when you catch yourself silently filling in ambiguous requirements before any plan, spec, or code exists.
 ---
 
-Read [the Pi runtime contract](../../references/pi-runtime.md) once per session before using this skill.
-
 # Interview Me
 
 ## Overview
@@ -13,7 +11,7 @@ What people ask for and what they actually want are different things. They ask f
 
 The cheapest moment to find this gap is before any plan, spec, or code exists. Once you've started building, switching costs are real, and the user will rationalize the wrong thing into a "good enough" thing. The misfit gets locked in.
 
-This skill closes the gap before it costs anything. The other Define-phase skills assume you already know roughly what you want: `idea-refine` generates variations from an idea, `spec-driven-development` writes the requirements down, `doubt-driven-development` stress-tests a plan after you've drafted one. Interview-me is the part before all of those, where you ask one question at a time, with your best guess attached, until you can predict what the user is going to say before they say it.
+This skill closes the gap before it costs anything. Later definition work — generating idea variations, writing a spec, stress-testing a drafted plan — assumes you already know roughly what you want. Interview-me is the part before all of that, where you ask one question at a time, with your best guess attached, until you can predict what the user is going to say before they say it.
 
 ## When to Use
 
@@ -35,7 +33,7 @@ Apply this skill when:
 
 ## Loading Constraints
 
-This skill needs a live, responsive user in the main pi session. Use `question` for choices or ordinary chat for free-form questions. A child returns missing information to its parent. **Do not invoke in non-interactive contexts** like CI pipelines, scheduled or unattended runs. If you're in one of those and the ask is underspecified, flag that as a blocker for the user instead of guessing.
+This skill needs a live, responsive user. Ask in ordinary chat; offer concrete options inline when a choice helps the user react faster. **Do not invoke in non-interactive contexts** like CI pipelines, scheduled or unattended runs. If you're in one of those and the ask is underspecified, flag that as a blocker for the user instead of guessing. Delegated subagents should return missing information to their parent rather than interview.
 
 ## The Process
 
@@ -187,13 +185,14 @@ Agent: <continues>
 
 Two questions in, the agent has discovered the actual ask isn't "a dashboard." It's "a list." Different artifact, different scope, different work. The dashboard would have been wrong.
 
-## Interaction with Other Skills
+## What Comes After
 
-- **`idea-refine`**: downstream. If the confirmed intent is "I want X but I don't know how to scope it," hand off to `idea-refine` to generate variations against the now-explicit intent.
-- **`spec-driven-development`**: downstream. If the confirmed intent is concrete ("I want X for Y users with Z success criteria"), hand off to `spec-driven-development` to write it down.
-- **`planning-and-task-breakdown`**: two hops downstream of this skill (after the spec).
-- **`doubt-driven-development`**: opposite end of the timeline. Interview-me is pre-decision intent extraction; doubt-driven is post-decision artifact review. Both catch divergence, but at different moments.
-- **`source-driven-development`**: orthogonal. Interview-me clarifies what the user wants; SDD verifies framework facts. They don't compete.
+The confirmed statement of intent is the input to downstream work:
+
+- **Idea generation**: if the intent is "I want X but I don't know how to scope it," generate variations against the now-explicit intent before committing to one.
+- **Spec writing**: if the intent is concrete ("I want X for Y users with Z success criteria"), write it down as a spec.
+- **Planning**: task breakdown comes after the spec, not before.
+- **Artifact review**: interview-me is pre-decision intent extraction; stress-testing a drafted plan is post-decision review. Both catch divergence, but at different moments — don't substitute one for the other.
 
 ## Common Rationalizations
 
@@ -234,4 +233,4 @@ After applying interview-me:
 - [ ] The user confirmed the restate with an explicit yes (not "whatever you think," not "sounds good," not silence)
 - [ ] At the stop point, the agent could predict reactions to the next three questions it would ask
 - [ ] Upon receiving explicit confirmation, stopped the turn immediately without invoking tools or starting downstream work
-- [ ] Any handoff to a downstream skill (`idea-refine`, `spec-driven-development`) was framed in terms of the confirmed intent, not the original underspecified ask
+- [ ] Any handoff to downstream work (idea generation, spec writing) was framed in terms of the confirmed intent, not the original underspecified ask

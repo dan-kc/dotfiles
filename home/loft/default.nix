@@ -13,8 +13,6 @@
     ../base/zsh
     ../base/yazi
     ../agents/pi
-    # Deliberately no ../agents/pi/subagents.nix: t3code.nix provides T3
-    # orchestration (delegate_task), which supersedes pi-subagents here.
   ];
 
   home = {
