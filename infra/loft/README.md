@@ -177,6 +177,13 @@ checksums there and rebuild to upgrade; use Nix to manage this installation
 instead of `t3 update` or `t3 service install`. Client and server orchestration
 protocols must match; if the phone requests a newer server, update this pin.
 
+The package separately pins patchelf to 0.15.2: 0.19.2 produces a startup
+segmentation fault in the ARM64 Node single-executable archive. This does not
+pin T3 upgrades. Both ELF fixup steps use the pinned tool, and a post-fixup
+`t3 --version` smoke check rejects broken native
+builds before activation. Revisit the patcher pin when a newer version passes
+that check and server startup.
+
 ## Runtime secrets
 
 OpenRouter is stored in `secrets/loft-runtime.yaml`, encrypted for plank, box and
