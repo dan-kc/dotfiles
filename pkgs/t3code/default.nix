@@ -3,9 +3,19 @@
   stdenv,
   fetchurl,
   autoPatchelfHook,
+  patchelf,
 }:
 let
   version = "0.1.2";
+  # 0.19.2 corrupts this Node SEA executable on aarch64 (startup SIGSEGV).
+  # Keep this tool pin independent of the T3 version; revisit on patcher updates.
+  t3Patchelf = patchelf.overrideAttrs {
+    version = "0.15.2";
+    src = fetchurl {
+      url = "https://github.com/NixOS/patchelf/releases/download/0.15.2/patchelf-0.15.2.tar.bz2";
+      hash = "sha256-F3RfVkFZyOIo/EEtplogSLhGxLa0Igt3y/IkFuAvLXw=";
+    };
+  };
   platforms = {
     aarch64-linux = {
       arch = "arm64";
@@ -29,7 +39,14 @@ stdenv.mkDerivation {
     inherit (platform) hash;
   };
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [
+    t3Patchelf
+    autoPatchelfHook
+  ];
+  # Both stdenv's ELF fixup and autoPatchelfHook invoke patchelf via PATH.
+  preFixup = ''
+    export PATH="${lib.makeBinPath [ t3Patchelf ]}:$PATH"
+  '';
   buildInputs = [ stdenv.cc.cc.lib ];
   dontBuild = true;
   # Node's single-executable application embeds its JavaScript in the ELF.
@@ -45,6 +62,14 @@ stdenv.mkDerivation {
     ln -s "$out/libexec/t3code/t3" "$out/bin/t3"
 
     runHook postInstall
+  '';
+
+  # installCheck runs after all ELF fixups, including autoPatchelf's hook.
+  doInstallCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
+  installCheckPhase = ''
+    runHook preInstallCheck
+    "$out/bin/t3" --version
+    runHook postInstallCheck
   '';
 
   meta = {
