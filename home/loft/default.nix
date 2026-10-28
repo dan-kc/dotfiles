@@ -28,6 +28,11 @@
     ];
   };
 
+  home.file.".codex/config.toml".text = ''
+    approval_policy = "never"
+    sandbox_mode = "workspace-write"
+  '';
+
   # Run the Nix package directly; Codex's daemon installer expects its own layout.
   systemd.user.services.codex-app-server = {
     Unit.Description = "Codex headless server for SSH connections";
