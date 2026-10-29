@@ -8,6 +8,7 @@
 }:
 let
   version = "0.1.2";
+  darwinAppName = "T3 Code (Beta)";
   sources = {
     x86_64-linux = {
       url = "https://github.com/pingdotgg/t3code/releases/download/v${version}/T3-Code-${version}-x86_64.AppImage";
@@ -29,14 +30,14 @@ if stdenv.hostPlatform.isDarwin then
 
     nativeBuildInputs = [ undmg ];
 
-    sourceRoot = "T3 Code.app";
+    sourceRoot = "${darwinAppName}.app";
 
     installPhase = ''
       runHook preInstall
       mkdir -p $out/Applications
-      cp -r . $out/Applications/"T3 Code.app"
+      cp -r . "$out/Applications/${darwinAppName}.app"
       mkdir -p $out/bin
-      ln -s "$out/Applications/T3 Code.app/Contents/MacOS/T3 Code" $out/bin/t3-desktop
+      ln -s "$out/Applications/${darwinAppName}.app/Contents/MacOS/${darwinAppName}" $out/bin/t3-desktop
       runHook postInstall
     '';
 
