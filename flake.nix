@@ -91,14 +91,6 @@
         aarch64-darwin.default = mkDevShell "aarch64-darwin";
       };
       nixosConfigurations = {
-        loft = nixpkgs.lib.nixosSystem {
-          system = "aarch64-linux";
-          specialArgs = { inherit inputs; };
-          modules = [
-            ./system/loft
-            home-manager.nixosModules.home-manager
-          ];
-        };
         box = nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = {
