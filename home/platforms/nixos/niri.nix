@@ -311,6 +311,16 @@ let
       --filename="$HOME/Pictures/Screenshots/"
   '';
 
+  handy-clear-notification = pkgs.writeShellScript "handy-clear-notification" ''
+    state_dir="''${XDG_RUNTIME_DIR:?}/handy-notifications"
+    id=$(${pkgs.coreutils}/bin/cat "$state_dir/notification-id" 2>/dev/null || true)
+    case "$id" in
+      ""|*[!0-9]*) ;;
+      *) ${pkgs.mako}/bin/makoctl dismiss -n "$id" --no-history || true ;;
+    esac
+    ${pkgs.coreutils}/bin/rm -f "$state_dir/notification-id" "$state_dir/recording"
+  '';
+
   handy-toggle = pkgs.writeShellApplication {
     name = "handy-toggle";
     runtimeInputs = [ pkgs.systemd pkgs.libnotify pkgs.coreutils pkgs.util-linux ];
@@ -322,24 +332,24 @@ let
 
       invocation=$(systemctl --user show handy.service --property=InvocationID --value)
       if ! systemctl --user is-active --quiet handy.service || [ -z "$invocation" ]; then
-        notify-send -a Handy -u critical "Handy is not running" "Run: systemctl --user restart handy"
+        ${handy-clear-notification}
+        echo "Handy is not running: systemctl --user restart handy" >&2
         exit 1
       fi
 
       previous=$(cat "$state_dir/recording" 2>/dev/null || true)
       if ! systemctl --user kill --kill-whom=main --signal=SIGUSR2 handy.service; then
-        notify-send -a Handy -u critical "Could not toggle Handy" "Check: journalctl --user -u handy"
+        echo "Could not toggle Handy: journalctl --user -u handy" >&2
         exit 1
       fi
 
       if [ "$previous" = "$invocation" ]; then
-        rm -f "$state_dir/recording"
-        notify-send -a Handy -h string:x-canonical-private-synchronous:handy-recording \
-          -t 3000 "Recording stopped" "Handy is processing your dictation."
+        ${handy-clear-notification}
       else
+        ${handy-clear-notification}
         printf '%s\n' "$invocation" > "$state_dir/recording"
-        notify-send -a Handy -h string:x-canonical-private-synchronous:handy-recording \
-          -t 0 "Recording" "Press Alt+Space again to finish."
+        notify-send -p -a Handy -h string:x-canonical-private-synchronous:handy-recording \
+          -t 0 "Recording" "Press Alt+Space again to finish." > "$state_dir/notification-id"
       fi
     '';
   };
@@ -389,12 +399,7 @@ in
         ${pkgs.coreutils}/bin/mv "$tmp" "$settings"
       ''}";
       ExecStart = "${pkgs.handy}/bin/handy --start-hidden";
-      ExecStopPost = "${pkgs.writeShellScript "handy-clear-recording-notification" ''
-        ${pkgs.coreutils}/bin/rm -f "''${XDG_RUNTIME_DIR:?}/handy-notifications/recording"
-        ${pkgs.libnotify}/bin/notify-send -a Handy \
-          -h string:x-canonical-private-synchronous:handy-recording \
-          -t 3000 "Handy stopped" "Dictation is no longer active." || true
-      ''}";
+      ExecStopPost = "${handy-clear-notification}";
       Environment = "PATH=${lib.makeBinPath [ pkgs.wtype pkgs.wl-clipboard ]}:/run/current-system/sw/bin";
       Restart = "on-failure";
       RestartSec = 3;
