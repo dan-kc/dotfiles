@@ -31,6 +31,7 @@
   };
   services.tailscale = {
     enable = true;
-    extraSetFlags = [ "--accept-dns=false" ];
+    # Workaround: DNS can break when Tailscale is down.
+    # extraSetFlags = [ "--accept-dns=false" ];
   };
 }
