@@ -428,7 +428,8 @@ in
       binds {
           // Basics
           Mod+Space repeat=false { spawn "launcher"; }
-          Alt+Space repeat=false hotkey-overlay-title="Toggle Handy dictation" { spawn "${pkgs.handy}/bin/handy" "--toggle-transcription"; }
+          // Signal the existing service; launching Handy can open its settings window.
+          Alt+Space repeat=false hotkey-overlay-title="Toggle Handy dictation" { spawn "${pkgs.systemd}/bin/systemctl" "--user" "kill" "--kill-whom=main" "--signal=SIGUSR2" "handy.service"; }
           Mod+Q { close-window; }
           Mod+O repeat=false { toggle-overview; }
           
