@@ -7,6 +7,7 @@ for host in plank box; do
   printf '\n'
 done
 for profile in danielcox daniel.cox; do
-  nix eval ".#darwinConfigurations.\"$profile\".system.drvPath" --raw
+  test "$(nix eval ".#homeConfigurations.\"$profile\".config.programs.home-manager.enable")" = true
+  nix eval ".#homeConfigurations.\"$profile\".activationPackage.drvPath" --raw
   printf '\n'
 done

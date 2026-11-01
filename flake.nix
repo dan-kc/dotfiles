@@ -5,8 +5,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    nix-darwin.url = "github:nix-darwin/nix-darwin/master";
-    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     sops-nix.url = "github:Mic92/sops-nix";
 
     neovim = {
@@ -31,7 +29,6 @@
     {
       nixpkgs,
       home-manager,
-      nix-darwin,
       self,
       ...
     }@inputs:
@@ -62,31 +59,22 @@
             shellcheck
           ];
         };
-      mkDarwin =
+      mkMacHome =
         { username, modules }:
-        nix-darwin.lib.darwinSystem {
-          specialArgs = { inherit inputs; };
+        home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            system = "aarch64-darwin";
+          };
+          extraSpecialArgs = { inherit inputs; };
           modules = [
-            home-manager.darwinModules.home-manager
             {
-              nixpkgs.hostPlatform = "aarch64-darwin";
-              nix.enable = false;
-              system.primaryUser = username;
-              system.stateVersion = 7;
-              users.users.${username}.home = "/Users/${username}";
-              home-manager = {
-                useUserPackages = true;
-                extraSpecialArgs = { inherit inputs; };
-                users.${username} = {
-                  imports = modules;
-                  home = {
-                    inherit username;
-                    homeDirectory = "/Users/${username}";
-                  };
-                };
+              home = {
+                inherit username;
+                homeDirectory = "/Users/${username}";
               };
             }
-          ];
+          ]
+          ++ modules;
         };
     in
     {
@@ -117,8 +105,9 @@
         };
       };
 
-      darwinConfigurations = {
-        danielcox = mkDarwin {
+      # Macs use standalone Home Manager; NixOS integrates it in system/common.
+      homeConfigurations = {
+        danielcox = mkMacHome {
           username = "danielcox";
           modules = [
             ./home/base
@@ -127,7 +116,7 @@
             ./home/personal
           ];
         };
-        "daniel.cox" = mkDarwin {
+        "daniel.cox" = mkMacHome {
           username = "daniel.cox";
           modules = [
             ./home/base
