@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   config,
   ...
 }:
@@ -330,6 +331,21 @@ in
 {
   home.packages = [ niri-scripts ];
 
+  systemd.user.services.handy = {
+    Unit = {
+      Description = "Handy speech-to-text";
+      PartOf = [ "graphical-session.target" ];
+      After = [ "graphical-session.target" ];
+    };
+    Service = {
+      ExecStart = "${pkgs.handy}/bin/handy --start-hidden";
+      Environment = "PATH=${lib.makeBinPath [ pkgs.wtype pkgs.wl-clipboard ]}:/run/current-system/sw/bin";
+      Restart = "on-failure";
+      RestartSec = 3;
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
+  };
+
   home.file = {
     ".config/niri/config.kdl".text = ''
       input {
@@ -419,6 +435,8 @@ in
       spawn-at-startup "udiskie"
       spawn-at-startup "mako"
       spawn-at-startup "battery-watch"
+      // Start the supervised instance; repeated starts are harmless.
+      spawn-at-startup "${pkgs.systemd}/bin/systemctl" "--user" "start" "handy.service"
 
       // Environment variables
       environment {
