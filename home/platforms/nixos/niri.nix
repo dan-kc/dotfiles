@@ -428,6 +428,7 @@ in
       binds {
           // Basics
           Mod+Space repeat=false { spawn "launcher"; }
+          Alt+Space repeat=false hotkey-overlay-title="Toggle Handy dictation" { spawn "${pkgs.handy}/bin/handy" "--toggle-transcription"; }
           Mod+Q { close-window; }
           Mod+O repeat=false { toggle-overview; }
           
