@@ -19,7 +19,7 @@
     with pkgs;
     lib.optionals stdenv.hostPlatform.isLinux [
       (callPackage ../../pkgs/t3code-desktop { })
-      affine
+      (callPackage ../../pkgs/affine-desktop { })
     ]
     ++ [
       codex

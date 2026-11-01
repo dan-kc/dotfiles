@@ -4,7 +4,7 @@
   ...
 }:
 let
-  piGuardrailsVersion = "0.19.0";
+  piGuardrailsVersion = "0.21.0";
 in
 {
   home.file = {
