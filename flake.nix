@@ -5,6 +5,8 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    nix-darwin.url = "github:nix-darwin/nix-darwin/master";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     sops-nix.url = "github:Mic92/sops-nix";
 
     neovim = {
@@ -29,6 +31,7 @@
     {
       nixpkgs,
       home-manager,
+      nix-darwin,
       self,
       ...
     }@inputs:
@@ -59,30 +62,31 @@
             shellcheck
           ];
         };
-      mkHome =
-        {
-          system,
-          username,
-          modules,
-        }:
-        home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            inherit system;
-          };
-          extraSpecialArgs = {
-            inherit inputs;
-          };
+      mkDarwin =
+        { username, modules }:
+        nix-darwin.lib.darwinSystem {
+          specialArgs = { inherit inputs; };
           modules = [
+            home-manager.darwinModules.home-manager
             {
-              home = {
-                inherit username;
-                homeDirectory = "${
-                  if nixpkgs.lib.hasSuffix "-darwin" system then "/Users" else "/home"
-                }/${username}";
+              nixpkgs.hostPlatform = "aarch64-darwin";
+              nix.enable = false;
+              system.primaryUser = username;
+              system.stateVersion = 7;
+              users.users.${username}.home = "/Users/${username}";
+              home-manager = {
+                useUserPackages = true;
+                extraSpecialArgs = { inherit inputs; };
+                users.${username} = {
+                  imports = modules;
+                  home = {
+                    inherit username;
+                    homeDirectory = "/Users/${username}";
+                  };
+                };
               };
             }
-          ]
-          ++ modules;
+          ];
         };
     in
     {
@@ -113,19 +117,8 @@
         };
       };
 
-      homeConfigurations = {
-        daniel = mkHome {
-          inherit system;
-          username = "daniel";
-          modules = [
-            ./home/base
-            ./home/platforms/nixos
-
-            ./home/personal
-          ];
-        };
-        danielcox = mkHome {
-          system = "aarch64-darwin";
+      darwinConfigurations = {
+        danielcox = mkDarwin {
           username = "danielcox";
           modules = [
             ./home/base
@@ -134,8 +127,7 @@
             ./home/personal
           ];
         };
-        "daniel.cox" = mkHome {
-          system = "aarch64-darwin";
+        "daniel.cox" = mkDarwin {
           username = "daniel.cox";
           modules = [
             ./home/base

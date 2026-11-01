@@ -10,6 +10,7 @@
     ./sound.nix
     ./ssh.nix
     inputs.sops-nix.nixosModules.sops
+    inputs.home-manager.nixosModules.home-manager
   ];
 
   sops.defaultSopsFile = ../../secrets/secrets.yaml;
@@ -90,14 +91,23 @@
   virtualisation.docker.enable = true;
 
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.overlays = [
-    (final: prev: {
-      home-manager = inputs.home-manager.packages."${pkgs.stdenv.hostPlatform.system}".default;
-    })
-  ];
+  home-manager = {
+    useUserPackages = true;
+    extraSpecialArgs = { inherit inputs; };
+    users.daniel = {
+      imports = [
+        ../../home/base
+        ../../home/platforms/nixos
+        ../../home/personal
+      ];
+      home = {
+        username = "daniel";
+        homeDirectory = "/home/daniel";
+      };
+    };
+  };
 
   environment.systemPackages = with pkgs; [
-    home-manager
     wget
     evtest # See all inputs
     vim
@@ -119,7 +129,7 @@
   ];
   services.gnome.gnome-keyring.enable = true;
   security.polkit.enable = true;
-  security.pam.services.swaylock = {};
+  security.pam.services.swaylock = { };
   services.displayManager.gdm.enable = true;
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1"; # Fix for some things waylandy

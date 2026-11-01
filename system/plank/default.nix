@@ -30,6 +30,22 @@
     # Uncomment to pin kernel if wifi breaks after nixpkgs update
     # kernelPackages = pkgs.linuxPackages_6_12;
 
+    kernelPackages = pkgs.linuxPackages.extend (_final: prev: {
+      yt6801 = prev.yt6801.overrideAttrs (old: {
+        # Include module signing flags and let NixOS generate module indexes.
+        makeFlags = prev.kernelModuleMakeFlags ++ (old.makeFlags or [ ]);
+      });
+      tuxedo-drivers = prev.tuxedo-drivers.overrideAttrs (old: {
+        # Let recursive make inherit flags; expanding MAKEFLAGS in the shell
+        # breaks the kernel module signing command's quoting.
+        postPatch = (old.postPatch or "") + ''
+          substituteInPlace Makefile \
+            --replace-fail 'make -C' '$(MAKE) -C' \
+            --replace-fail ' $(MAKEFLAGS)' ""
+        '';
+      });
+    });
+
     # Motorcomm YT6801 LAN drivers
     extraModulePackages = with config.boot.kernelPackages; [ yt6801 ];
     kernelParams = [

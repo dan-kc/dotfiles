@@ -1,23 +1,11 @@
 ---
 name: test-driven-development
-description: Drives development with tests using the red-green-refactor loop. Use when implementing any logic, fixing any bug, or changing any behavior. Use when you need to prove that code works, when a bug report arrives, or when you're about to modify existing functionality.
+description: Use when implementing any logic, fixing any bug, or changing any behavior, you need to prove that code works, when a bug report arrives, or when you're about to modify existing functionality.
 ---
-
-Read [the Pi runtime contract](../../references/pi-runtime.md) once per session before using this skill.
 
 # Test-Driven Development
 
-## Overview
-
-Write a failing test before writing the code that makes it pass. For bug fixes, reproduce the bug with a test before attempting a fix. Tests are proof — "seems right" is not done. A codebase with good tests is an AI agent's superpower; a codebase without tests is a liability.
-
-## When to Use
-
-- Implementing any new logic or behavior
-- Fixing any bug (the Prove-It Pattern)
-- Modifying existing functionality
-- Adding edge case handling
-- Any change that could break existing behavior
+Write a failing test before writing the code that makes it pass. For bug fixes, reproduce the bug with a test before attempting a fix. Tests are proof — "seems right" is not done.
 
 **When NOT to use:** Pure configuration changes, documentation updates, or static content changes that have no behavioral impact.
 
@@ -166,11 +154,11 @@ Invest testing effort according to the pyramid — most tests should be small an
 
 Beyond the pyramid levels, classify tests by what resources they consume:
 
-| Size | Constraints | Speed | Example |
-| --- | --- | --- | --- |
-| **Small** | Single process, no I/O, no network, no database | Milliseconds | Pure function tests, data transforms |
-| **Medium** | Multi-process OK, localhost only, no external services | Seconds | API tests with test DB, component tests |
-| **Large** | Multi-machine OK, external services allowed | Minutes | E2E tests, performance benchmarks, staging integration |
+| Size       | Constraints                                            | Speed        | Example                                                |
+| ---------- | ------------------------------------------------------ | ------------ | ------------------------------------------------------ |
+| **Small**  | Single process, no I/O, no network, no database        | Milliseconds | Pure function tests, data transforms                   |
+| **Medium** | Multi-process OK, localhost only, no external services | Seconds      | API tests with test DB, component tests                |
+| **Large**  | Multi-machine OK, external services allowed            | Minutes      | E2E tests, performance benchmarks, staging integration |
 
 Small tests should make up the vast majority of your suite. They're fast, reliable, and easy to debug when they fail.
 
@@ -303,14 +291,14 @@ describe('TaskService', () => {
 
 ## Test Anti-Patterns to Avoid
 
-| Anti-Pattern | Problem | Fix |
-| --- | --- | --- |
-| Testing implementation details | Tests break when refactoring even if behavior is unchanged | Test inputs and outputs, not internal structure |
-| Flaky tests (timing, order-dependent) | Erode trust in the test suite | Use deterministic assertions, isolate test state |
-| Testing framework code | Wastes time testing third-party behavior | Only test YOUR code |
-| Snapshot abuse | Large snapshots nobody reviews, break on any change | Use snapshots sparingly and review every change |
-| No test isolation | Tests pass individually but fail together | Each test sets up and tears down its own state |
-| Mocking everything | Tests pass but production breaks | Prefer real implementations > fakes > stubs > mocks. Mock only at boundaries where real deps are slow or non-deterministic |
+| Anti-Pattern                          | Problem                                                    | Fix                                                                                                                        |
+| ------------------------------------- | ---------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| Testing implementation details        | Tests break when refactoring even if behavior is unchanged | Test inputs and outputs, not internal structure                                                                            |
+| Flaky tests (timing, order-dependent) | Erode trust in the test suite                              | Use deterministic assertions, isolate test state                                                                           |
+| Testing framework code                | Wastes time testing third-party behavior                   | Only test YOUR code                                                                                                        |
+| Snapshot abuse                        | Large snapshots nobody reviews, break on any change        | Use snapshots sparingly and review every change                                                                            |
+| No test isolation                     | Tests pass individually but fail together                  | Each test sets up and tears down its own state                                                                             |
+| Mocking everything                    | Tests pass but production breaks                           | Prefer real implementations > fakes > stubs > mocks. Mock only at boundaries where real deps are slow or non-deterministic |
 
 ## When to Use Subagents for Testing
 
@@ -334,14 +322,14 @@ For JavaScript/TypeScript testing patterns illustrating these principles — Jes
 
 ## Common Rationalizations
 
-| Rationalization | Reality |
-| --- | --- |
-| "I'll write tests after the code works" | You won't. And tests written after the fact test implementation, not behavior. |
-| "This is too simple to test" | Simple code gets complicated. The test documents the expected behavior. |
-| "Tests slow me down" | Tests slow you down now. They speed you up every time you change the code later. |
-| "I tested it manually" | Manual testing doesn't persist. Tomorrow's change might break it with no way to know. |
-| "The code is self-explanatory" | Tests ARE the specification. They document what the code should do, not what it does. |
-| "It's just a prototype" | Prototypes become production code. Tests from day one prevent the "test debt" crisis. |
+| Rationalization                                    | Reality                                                                                                                                                  |
+| -------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| "I'll write tests after the code works"            | You won't. And tests written after the fact test implementation, not behavior.                                                                           |
+| "This is too simple to test"                       | Simple code gets complicated. The test documents the expected behavior.                                                                                  |
+| "Tests slow me down"                               | Tests slow you down now. They speed you up every time you change the code later.                                                                         |
+| "I tested it manually"                             | Manual testing doesn't persist. Tomorrow's change might break it with no way to know.                                                                    |
+| "The code is self-explanatory"                     | Tests ARE the specification. They document what the code should do, not what it does.                                                                    |
+| "It's just a prototype"                            | Prototypes become production code. Tests from day one prevent the "test debt" crisis.                                                                    |
 | "Let me run the tests again just to be extra sure" | After a clean test run, repeating the same command adds nothing unless the code has changed since. Run again after subsequent edits, not as reassurance. |
 
 ## Red Flags

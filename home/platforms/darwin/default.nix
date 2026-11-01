@@ -19,7 +19,4 @@
       });
     })
   ];
-
-  # Allow home-manager to manage home-manager.
-  programs.home-manager.enable = true;
 }

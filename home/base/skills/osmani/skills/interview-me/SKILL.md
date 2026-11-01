@@ -1,6 +1,6 @@
 ---
 name: interview-me
-description: Extracts what the user actually wants instead of what they think they should want. Achieves this through one-question-at-a-time interview until ~95% confidence about the underlying intent. Use when an ask is underspecified ("build me X" without "for whom" or "why now"), when the user explicitly invokes ("interview me", "grill me", "are we sure?", "stress-test my thinking"), or when you catch yourself silently filling in ambiguous requirements before any plan, spec, or code exists.
+description: Use when the user explicitly invokes ("interview me", "grill me", "are we sure?", "stress-test my thinking").
 ---
 
 # Interview Me
@@ -196,16 +196,16 @@ The confirmed statement of intent is the input to downstream work:
 
 ## Common Rationalizations
 
-| Rationalization | Reality |
-| --- | --- |
-| "The ask is clear enough" | If you can't write the user's desired outcome in one sentence right now, the ask isn't clear. Run Step 1 before deciding. |
-| "Asking too many questions wastes their time" | Time wasted by 4–6 targeted questions is small. Time wasted by building the wrong thing is enormous, and the user is the one bearing that cost. |
-| "I'll figure it out as I build" | Switching costs after code exists are 10x what they are now. Discovery during implementation is rework. |
-| "They delegated, so I can invent the product" | Resolve delegated implementation details within scope. Ask only when a material product decision remains unanswered. |
+| Rationalization                                   | Reality                                                                                                                                                                       |
+| ------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| "The ask is clear enough"                         | If you can't write the user's desired outcome in one sentence right now, the ask isn't clear. Run Step 1 before deciding.                                                     |
+| "Asking too many questions wastes their time"     | Time wasted by 4–6 targeted questions is small. Time wasted by building the wrong thing is enormous, and the user is the one bearing that cost.                               |
+| "I'll figure it out as I build"                   | Switching costs after code exists are 10x what they are now. Discovery during implementation is rework.                                                                       |
+| "They delegated, so I can invent the product"     | Resolve delegated implementation details within scope. Ask only when a material product decision remains unanswered.                                                          |
 | "I should give them several options to pick from" | Options work when the user knows what they want and is choosing between trade-offs. They don't know what they want yet. Listing options widens the search; asking narrows it. |
-| "If I attach my guess, I'm leading them" | Leading is the point. Reacting is faster than generating from scratch. The risk is sycophancy, not leading; mitigate by being visibly willing to be wrong. |
-| "We've talked enough, I get it" | Test it: can you predict their reaction to the next three questions? If not, you don't get it yet. |
-| "The user said yes, we're done" | If the yes followed a vague restate or an open-ended "sounds good," the yes is hollow. Restate concretely and re-confirm. |
+| "If I attach my guess, I'm leading them"          | Leading is the point. Reacting is faster than generating from scratch. The risk is sycophancy, not leading; mitigate by being visibly willing to be wrong.                    |
+| "We've talked enough, I get it"                   | Test it: can you predict their reaction to the next three questions? If not, you don't get it yet.                                                                            |
+| "The user said yes, we're done"                   | If the yes followed a vague restate or an open-ended "sounds good," the yes is hollow. Restate concretely and re-confirm.                                                     |
 
 ## Red Flags
 

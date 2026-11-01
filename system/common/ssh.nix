@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 
 {
   services = {
@@ -7,7 +7,7 @@
         PasswordAuthentication = false;
         PermitRootLogin = "no";
       };
-      enable = false;
+      enable = lib.mkDefault false;
     };
   };
 }
