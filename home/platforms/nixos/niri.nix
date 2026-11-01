@@ -311,6 +311,39 @@ let
       --filename="$HOME/Pictures/Screenshots/"
   '';
 
+  handy-toggle = pkgs.writeShellApplication {
+    name = "handy-toggle";
+    runtimeInputs = [ pkgs.systemd pkgs.libnotify pkgs.coreutils pkgs.util-linux ];
+    text = ''
+      state_dir="''${XDG_RUNTIME_DIR:?}/handy-notifications"
+      mkdir -p "$state_dir"
+      exec 9>"$state_dir/lock"
+      flock 9
+
+      invocation=$(systemctl --user show handy.service --property=InvocationID --value)
+      if ! systemctl --user is-active --quiet handy.service || [ -z "$invocation" ]; then
+        notify-send -a Handy -u critical "Handy is not running" "Run: systemctl --user restart handy"
+        exit 1
+      fi
+
+      previous=$(cat "$state_dir/recording" 2>/dev/null || true)
+      if ! systemctl --user kill --kill-whom=main --signal=SIGUSR2 handy.service; then
+        notify-send -a Handy -u critical "Could not toggle Handy" "Check: journalctl --user -u handy"
+        exit 1
+      fi
+
+      if [ "$previous" = "$invocation" ]; then
+        rm -f "$state_dir/recording"
+        notify-send -a Handy -h string:x-canonical-private-synchronous:handy-recording \
+          -t 3000 "Recording stopped" "Handy is processing your dictation."
+      else
+        printf '%s\n' "$invocation" > "$state_dir/recording"
+        notify-send -a Handy -h string:x-canonical-private-synchronous:handy-recording \
+          -t 0 "Recording" "Press Alt+Space again to finish."
+      fi
+    '';
+  };
+
   niri-scripts = pkgs.symlinkJoin {
     name = "niri-scripts";
     paths = [
@@ -325,6 +358,7 @@ let
       tv-notes
       copy-link
       file-picker
+      handy-toggle
     ];
   };
 in
@@ -348,13 +382,19 @@ in
         trap '${pkgs.coreutils}/bin/rm -f "$tmp"' EXIT
         ${pkgs.jq}/bin/jq '
           if (.settings | type) == "object" then
-            .settings.overlay_style = "minimal" |
+            .settings.overlay_style = "none" |
             .settings.overlay_position = "bottom"
           else error("Handy settings object is missing; refusing to overwrite") end
         ' "$settings" > "$tmp"
         ${pkgs.coreutils}/bin/mv "$tmp" "$settings"
       ''}";
       ExecStart = "${pkgs.handy}/bin/handy --start-hidden";
+      ExecStopPost = "${pkgs.writeShellScript "handy-clear-recording-notification" ''
+        ${pkgs.coreutils}/bin/rm -f "''${XDG_RUNTIME_DIR:?}/handy-notifications/recording"
+        ${pkgs.libnotify}/bin/notify-send -a Handy \
+          -h string:x-canonical-private-synchronous:handy-recording \
+          -t 3000 "Handy stopped" "Dictation is no longer active." || true
+      ''}";
       Environment = "PATH=${lib.makeBinPath [ pkgs.wtype pkgs.wl-clipboard ]}:/run/current-system/sw/bin";
       Restart = "on-failure";
       RestartSec = 3;
@@ -463,7 +503,7 @@ in
           // Basics
           Mod+Space repeat=false { spawn "launcher"; }
           // Signal the existing service; launching Handy can open its settings window.
-          Alt+Space repeat=false hotkey-overlay-title="Toggle Handy dictation" { spawn "${pkgs.systemd}/bin/systemctl" "--user" "kill" "--kill-whom=main" "--signal=SIGUSR2" "handy.service"; }
+          Alt+Space repeat=false hotkey-overlay-title="Toggle Handy dictation" { spawn "${handy-toggle}/bin/handy-toggle"; }
           Mod+Q { close-window; }
           Mod+O repeat=false { toggle-overview; }
           
