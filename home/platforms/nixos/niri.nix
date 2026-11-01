@@ -338,6 +338,22 @@ in
       After = [ "graphical-session.target" ];
     };
     Service = {
+      # Merge before Handy starts so its in-memory settings cannot overwrite us.
+      ExecStartPre = "${pkgs.writeShellScript "handy-recording-indicator" ''
+        set -eu
+        settings=${lib.escapeShellArg "${config.xdg.dataHome}/com.pais.handy/settings_store.json"}
+        # Let Handy create its full defaults during first-run onboarding.
+        [ -f "$settings" ] || exit 0
+        tmp=$(${pkgs.coreutils}/bin/mktemp "$settings.XXXXXX")
+        trap '${pkgs.coreutils}/bin/rm -f "$tmp"' EXIT
+        ${pkgs.jq}/bin/jq '
+          if (.settings | type) == "object" then
+            .settings.overlay_style = "minimal" |
+            .settings.overlay_position = "bottom"
+          else error("Handy settings object is missing; refusing to overwrite") end
+        ' "$settings" > "$tmp"
+        ${pkgs.coreutils}/bin/mv "$tmp" "$settings"
+      ''}";
       ExecStart = "${pkgs.handy}/bin/handy --start-hidden";
       Environment = "PATH=${lib.makeBinPath [ pkgs.wtype pkgs.wl-clipboard ]}:/run/current-system/sw/bin";
       Restart = "on-failure";
