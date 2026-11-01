@@ -1,5 +1,6 @@
 {
   inputs,
+  lib,
   pkgs,
   ...
 }:
@@ -14,13 +15,18 @@
     })
   ];
 
-  home.packages = with pkgs; [
-    (callPackage ../../pkgs/t3code-desktop { })
-    codex
-    flake-gen
-    lazydocker
-    imagemagick
-    sentry-cli
-    qpdf
-  ];
+  home.packages =
+    with pkgs;
+    lib.optionals stdenv.hostPlatform.isLinux [
+      (callPackage ../../pkgs/t3code-desktop { })
+      affine
+    ]
+    ++ [
+      codex
+      flake-gen
+      lazydocker
+      imagemagick
+      sentry-cli
+      qpdf
+    ];
 }

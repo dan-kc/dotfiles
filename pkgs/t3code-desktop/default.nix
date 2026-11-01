@@ -7,16 +7,16 @@
   makeWrapper,
 }:
 let
-  version = "0.1.2";
+  version = "0.1.6";
   darwinAppName = "T3 Code (Beta)";
   sources = {
     x86_64-linux = {
       url = "https://github.com/pingdotgg/t3code/releases/download/v${version}/T3-Code-${version}-x86_64.AppImage";
-      hash = "sha256-zwHi0Wfv+dAcTBAE0xssDaniUizJQmLkFkTRyxXf21w=";
+      hash = "sha256-CeJQcgjHeTCbOWvoRq6h2UUUS9eAYGiZwvSByW3fNNA=";
     };
     aarch64-darwin = {
       url = "https://github.com/pingdotgg/t3code/releases/download/v${version}/T3-Code-${version}-arm64.dmg";
-      hash = "sha256-e7QPln8iAHKFuMe8DIS9NmDuSk7ZatcfLoiHUOUnU5Y=";
+      hash = "sha256-2zWe3TLdPUfyKkiFWnQZQjNZge0HALrM7FYbd/yHAK4=";
     };
   };
   source = sources.${stdenv.hostPlatform.system} or (throw "t3code-desktop: unsupported system ${stdenv.hostPlatform.system}");
