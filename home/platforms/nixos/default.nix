@@ -39,6 +39,7 @@
     brightnessctl
     ddcutil
     gcc
+    handy
     lsof
     nautilus
     obsidian
