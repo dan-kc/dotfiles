@@ -55,7 +55,23 @@
     (vivaldi.override { proprietaryCodecs = true; })
     vlc
     wl-clipboard
+    wtype
   ];
+
+  systemd.user.services.handy = {
+    Unit = {
+      Description = "Handy speech-to-text";
+      PartOf = [ "graphical-session.target" ];
+      After = [ "graphical-session.target" ];
+    };
+    Service = {
+      ExecStart = "${pkgs.handy}/bin/handy --start-hidden";
+      Environment = "PATH=${lib.makeBinPath [ pkgs.wtype pkgs.wl-clipboard ]}:/run/current-system/sw/bin";
+      Restart = "on-failure";
+      RestartSec = 3;
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
+  };
 
   dconf.settings = {
     "org/gnome/desktop/interface" = {
