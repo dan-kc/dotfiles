@@ -22,6 +22,7 @@
   environment.systemPackages = with pkgs; [
     acpi
     powertop
+    (callPackage ../../pkgs/heptabase { })
   ];
   powerManagement.powertop.enable = true;
   networking.hostName = "plank";
