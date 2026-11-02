@@ -9,7 +9,6 @@ in
 {
   home.file = {
     # Self-contained skills; no shared references trees.
-    ".pi/agent/skills/pstack/skills/unslop".source = ../../base/skills/pstack/unslop;
     ".pi/agent/skills/osmani/skills/interview-me".source =
       ../../base/skills/osmani/skills/interview-me;
 

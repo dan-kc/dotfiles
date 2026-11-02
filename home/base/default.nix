@@ -23,6 +23,8 @@
     # Skills available to every agent (pi and codex both read ~/.agents/skills).
     # ".agents/skills/pair-programmer".source = ./skills/pair-programmer;
     ".agents/skills/bro".source = ./skills/pstack/bro;
+    ".agents/skills/unslop".source = ./skills/pstack/unslop;
+    ".claude/skills/unslop".source = ./skills/pstack/unslop;
 
     ".config/theme.yaml".text = ''
       base00: "${config.colorScheme.palette.base00}"

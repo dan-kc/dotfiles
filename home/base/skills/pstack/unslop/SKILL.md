@@ -1,6 +1,6 @@
 ---
 name: unslop
-description: Cut LLM tells from any prose. Must always apply.
+description: Use when writing or editing prose to remove AI writing patterns and keep language plain.
 ---
 
 # Unslop
