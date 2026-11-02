@@ -8,9 +8,7 @@
       value.source = ./skills/shared-ios-simulator;
     }) [
       ".agents/skills"
-      ".pi/agent/skills"
       ".claude/skills"
-      ".codex/skills"
     ]
   );
 }
