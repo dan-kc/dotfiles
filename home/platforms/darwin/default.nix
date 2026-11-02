@@ -3,6 +3,7 @@
 }:
 {
   imports = [
+    ./simulator.nix
     ./ssh-clipboard.nix
   ];
 
