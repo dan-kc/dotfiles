@@ -114,6 +114,7 @@
             ./home/platforms/darwin
 
             ./home/personal
+            ./home/agents/shared.nix
           ];
         };
         "daniel.cox" = mkMacHome {

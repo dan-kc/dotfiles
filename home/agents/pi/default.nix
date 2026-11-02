@@ -211,9 +211,6 @@ in
       ];
     };
 
-    context = ''
-      You are pi coding agent.
-    '';
   };
 
   nixpkgs.overlays = [
