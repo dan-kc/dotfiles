@@ -45,7 +45,7 @@
           (label :class "detail" :visible {tailscale.count == 0}
             :text {tailscale.status == "Connected" ? "No connected devices" : "No connected devices to show"}
             :xalign 0)
-          (for device in tailscale.devices
+          (for device in {tailscale.devices}
             (box :class "device" :orientation "v" :space-evenly false :spacing 4
               (label :class "device-name" :text {device.name} :xalign 0
                 :wrap true :limit-width 42)
