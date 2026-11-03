@@ -1,0 +1,57 @@
+(defpoll battery :interval "10s"
+  :initial '{"available":false,"percent":0,"status":"Checking battery"}'
+  "@statusData@ battery")
+(defpoll audio :interval "1s"
+  :initial '{"available":false,"percent":0,"muted":false}'
+  "@statusData@ volume")
+(defpoll tailscale :interval "5s"
+  :initial '{"status":"Checking Tailscale","devices":[],"count":0}'
+  "@statusData@ tailscale")
+
+(defwindow status
+  :monitor 0
+  :geometry (geometry :width "520px" :height "620px" :anchor "center")
+  :stacking "overlay"
+  :exclusive false
+  :focusable "ondemand"
+  :namespace "status"
+  (box :class "status-panel" :orientation "v" :space-evenly false :spacing 20
+    (box :space-evenly false
+      (label :class "title" :text "Status" :xalign 0 :hexpand true)
+      (button :class "close" :tooltip "Close status"
+        :onclick "@eww@ --config @configDir@ close status" "×"))
+    (box :class "card battery" :orientation "v" :space-evenly false :spacing 10
+      (box :space-evenly false
+        (label :class "caption" :text "BATTERY" :xalign 0 :hexpand true)
+        (label :class "percentage" :text {battery.available ? "${battery.percent}%" : "—"}))
+      (progress :class {battery.percent <= 20 ? "low" : "charged"}
+        :visible {battery.available} :value {battery.percent})
+      (label :class "detail" :text {battery.status} :xalign 0))
+    (box :class "card audio" :orientation "v" :space-evenly false :spacing 10
+      (box :space-evenly false
+        (label :class "caption" :text "AUDIO" :xalign 0 :hexpand true)
+        (label :class "detail"
+          :text {audio.available ? (audio.muted ? "Muted" : "${audio.percent}%") : "No output"}))
+      (scale :orientation "h" :min 0 :max 100 :round-digits 0
+        :value {audio.percent} :active {audio.available}
+        :tooltip "Output volume · 0–100%"
+        :onchange "@statusData@ set-volume {}"))
+    (box :class "card tailscale" :orientation "v" :space-evenly false :spacing 10
+      (box :space-evenly false
+        (label :class "caption" :text "TAILSCALE" :xalign 0 :hexpand true)
+        (label :class "detail" :text {tailscale.status}))
+      (scroll :height 140 :hscroll false :vscroll true
+        (box :orientation "v" :space-evenly false :spacing 14
+          (label :class "detail" :visible {tailscale.count == 0}
+            :text {tailscale.status == "Connected" ? "No connected devices" : "No connected devices to show"}
+            :xalign 0)
+          (for device in tailscale.devices
+            (box :class "device" :orientation "v" :space-evenly false :spacing 4
+              (label :class "device-name" :text {device.name} :xalign 0
+                :wrap true :limit-width 42)
+              (label :class "device-ips" :text {device.ips} :xalign 0
+                :wrap true :limit-width 42))))))
+    (button :class "logout" :halign "end" :tooltip "Log out of the Niri session"
+      :onclick "@eww@ --config @configDir@ close status; @niri@ msg action quit"
+      "Log out"))
+)

@@ -11,6 +11,7 @@
     ./niri.nix
     ./fuzzel.nix
     ./battery-watch.nix
+    ./eww.nix
     inputs.sops-nix.homeManagerModules.sops
   ];
 

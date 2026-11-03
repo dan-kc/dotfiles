@@ -35,16 +35,6 @@ let
     else
       throw ''Invalid niri terminal "${term}"; expected one of: ${builtins.concatStringsSep ", " (builtins.attrNames terminals)}'';
 
-  status-notify = pkgs.writeShellScriptBin "status-notify" ''
-    if ${pkgs.mako}/bin/makoctl list | grep -q 'App name: status-notify'; then
-      ${pkgs.mako}/bin/makoctl dismiss --all
-    else
-      battery=$(${pkgs.acpi}/bin/acpi -b | cut -d: -f2- | xargs)
-      date=$(date +"%Y-%m-%d %H:%M:%S")
-      ${pkgs.libnotify}/bin/notify-send -a status-notify -t 0 "Battery: $battery" "Date: $date"
-    fi
-  '';
-
   term-cwd = pkgs.writeShellScriptBin "term-cwd" ''
     pid=$(niri msg --json focused-window | ${pkgs.jq}/bin/jq '.pid')
     if [ -n "$pid" ] && [ "$pid" != "null" ]; then
@@ -357,7 +347,6 @@ let
   niri-scripts = pkgs.symlinkJoin {
     name = "niri-scripts";
     paths = [
-      status-notify
       term-cwd
       nvim-cwd
       nvim-clone
@@ -523,7 +512,7 @@ in
 
           Super+Alt+L { spawn "swaylock"; }
 
-          Mod+U { spawn "status-notify"; }
+          Mod+U repeat=false hotkey-overlay-title="Toggle status widgets" { spawn "status-toggle"; }
 
           Mod+H repeat=false hotkey-overlay-title="Search Vivaldi history" { spawn "vivaldi-history"; }
           Mod+Alt+B repeat=false hotkey-overlay-title="Switch Neovim window" { spawn "nvim-tabs"; }
