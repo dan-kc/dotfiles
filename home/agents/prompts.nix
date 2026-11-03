@@ -4,6 +4,8 @@ let
   common = ''
     Drive instructions to completion.
 
+    Keep READMEs succinct. Don't document every feature or repeat what's clear from the code.
+
     Always lean on your instinct, avoid asking the user questions unless:
     - The task may be harmful to the user
     - The feature will be difficult to test or verify
