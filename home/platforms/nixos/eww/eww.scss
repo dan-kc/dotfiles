@@ -19,6 +19,9 @@ window { background: transparent; color: $text; }
 .percentage { font-size: 24px; font-weight: bold; }
 .detail { color: $muted; font-size: 12px; }
 .device-name { font-weight: bold; }
+.device-status { font-size: 12px; }
+.device-status.online { color: $green; }
+.device-status.offline { color: $muted; }
 .device-ips { color: $muted; font-size: 12px; }
 .logout {
   color: $red;

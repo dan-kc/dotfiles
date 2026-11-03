@@ -62,28 +62,45 @@ class StatusWidgets(unittest.TestCase):
         wpctl.assert_not_called()
 
     @patch.object(status.subprocess, "run")
-    def test_tailscale_lists_self_and_online_peers_with_all_ips(self, run):
+    def test_tailscale_lists_self_and_all_peers_with_connection_status_and_ips(self, run):
         run.return_value.stdout = json.dumps({
             "BackendState": "Running",
             "Self": {"HostName": "plank", "TailscaleIPs": ["100.64.0.1", "fd7a:115c:a1e0::1"]},
             "Peer": {
                 "a": {"HostName": "zebra", "Online": True, "Active": False,
                       "TailscaleIPs": ["100.64.0.2", "fd7a:115c:a1e0::2"]},
-                "b": {"HostName": "offline", "Online": False, "TailscaleIPs": ["100.64.0.3"]},
+                "b": {"HostName": "phone", "OS": "iOS", "Online": False, "Active": True,
+                      "TailscaleIPs": ["100.64.0.3"]},
                 "c": {"DNSName": "box.example.ts.net.", "Online": True,
                       "TailscaleIPs": ["100.64.0.4"]},
             },
         })
         result = status.tailscale()
         self.assertEqual(result["status"], "Connected")
-        self.assertEqual(result["count"], 3)
+        self.assertEqual(result["count"], 4)
         self.assertEqual([d["name"] for d in result["devices"]],
-                         ["plank (this device)", "box.example.ts.net", "zebra"])
-        self.assertEqual(result["devices"][2]["ips"], "100.64.0.2\nfd7a:115c:a1e0::2")
+                         ["plank (this device)", "box", "phone", "zebra"])
+        self.assertEqual([d["online"] for d in result["devices"]], [True, True, False, True])
+        self.assertEqual(result["devices"][2]["ips"], "100.64.0.3")
+        self.assertEqual(result["devices"][3]["ips"], "100.64.0.2\nfd7a:115c:a1e0::2")
         run.assert_called_once_with(
             ["tailscale", "status", "--json"], check=True,
             capture_output=True, text=True, timeout=3,
         )
+
+    @patch.object(status.subprocess, "run")
+    def test_tailscale_phone_stays_visible_when_connection_changes(self, run):
+        phone = {"HostName": "localhost", "DNSName": "mobile.example.ts.net.",
+                 "OS": "iOS", "TailscaleIPs": ["100.64.0.5"]}
+        for online in [True, False, True]:
+            run.return_value.stdout = json.dumps({
+                "BackendState": "Running", "Peer": {"phone": {**phone, "Online": online}},
+            })
+            result = status.tailscale()
+            self.assertEqual(result["count"], 1)
+            self.assertEqual(result["devices"], [{
+                "name": "mobile", "ips": "100.64.0.5", "online": online,
+            }])
 
     @patch.object(status.subprocess, "run")
     def test_tailscale_connection_states_hide_stale_peers(self, run):

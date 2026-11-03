@@ -43,12 +43,14 @@
       (scroll :height 140 :hscroll false :vscroll true
         (box :orientation "v" :space-evenly false :spacing 14
           (label :class "detail" :visible {tailscale.count == 0}
-            :text {tailscale.status == "Connected" ? "No connected devices" : "No connected devices to show"}
+            :text {tailscale.status == "Connected" ? "No devices to show" : "Connect to Tailscale to see devices"}
             :xalign 0)
           (for device in {tailscale.devices}
             (box :class "device" :orientation "v" :space-evenly false :spacing 4
               (label :class "device-name" :text {device.name} :xalign 0
                 :wrap true :limit-width 42)
+              (label :class {device.online ? "device-status online" : "device-status offline"}
+                :text {device.online ? "● Connected" : "● Not connected"} :xalign 0)
               (label :class "device-ips" :text {device.ips} :xalign 0
                 :wrap true :limit-width 42))))))
     (button :class "logout" :halign "end" :tooltip "Log out of the Niri session"

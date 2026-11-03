@@ -79,17 +79,20 @@ def tailscale():
         return {**empty, "status": messages.get(state, "Not connected")}
 
     def device(peer, local=False):
-        name = peer.get("HostName") or peer.get("DNSName", "").rstrip(".") or "Unnamed device"
+        # Use the tailnet name: mobile devices may report "localhost" as HostName.
+        name = (peer.get("DNSName") or "").split(".")[0] or peer.get("HostName") or "Unnamed device"
         return {
             "name": name + (" (this device)" if local else ""),
             "ips": "\n".join(peer.get("TailscaleIPs") or []) or "No Tailscale IP",
+            "online": local or bool(peer.get("Online")),
         }
 
     devices = []
     if data.get("Self"):
         devices.append(device(data["Self"], local=True))
-    # Online means connected to the tailnet; Active only means recent traffic.
-    peers = [peer for peer in (data.get("Peer") or {}).values() if peer.get("Online")]
+    # Keep offline peers visible. Online describes control-plane connectivity;
+    # Active only means recent traffic and must not determine connection status.
+    peers = (data.get("Peer") or {}).values()
     devices.extend(sorted((device(peer) for peer in peers), key=lambda d: d["name"].casefold()))
     return {"status": "Connected", "devices": devices, "count": len(devices)}
 
