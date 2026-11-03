@@ -80,9 +80,9 @@ def tailscale():
 
     def device(peer, local=False):
         # Use the tailnet name: mobile devices may report "localhost" as HostName.
-        name = (peer.get("DNSName") or "").split(".")[0] or peer.get("HostName") or "Unnamed device"
+        name = (peer.get("DNSName") or "").rstrip(".") or peer.get("HostName") or "Unnamed device"
         return {
-            "name": name + (" (this device)" if local else ""),
+            "name": name,
             "ips": "\n".join(peer.get("TailscaleIPs") or []) or "No Tailscale IP",
             "online": local or bool(peer.get("Online")),
         }

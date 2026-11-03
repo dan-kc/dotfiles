@@ -65,7 +65,8 @@ class StatusWidgets(unittest.TestCase):
     def test_tailscale_lists_self_and_all_peers_with_connection_status_and_ips(self, run):
         run.return_value.stdout = json.dumps({
             "BackendState": "Running",
-            "Self": {"HostName": "plank", "TailscaleIPs": ["100.64.0.1", "fd7a:115c:a1e0::1"]},
+            "Self": {"HostName": "plank", "DNSName": "plank.example.ts.net.",
+                     "TailscaleIPs": ["100.64.0.1", "fd7a:115c:a1e0::1"]},
             "Peer": {
                 "a": {"HostName": "zebra", "Online": True, "Active": False,
                       "TailscaleIPs": ["100.64.0.2", "fd7a:115c:a1e0::2"]},
@@ -79,7 +80,7 @@ class StatusWidgets(unittest.TestCase):
         self.assertEqual(result["status"], "Connected")
         self.assertEqual(result["count"], 4)
         self.assertEqual([d["name"] for d in result["devices"]],
-                         ["plank (this device)", "box", "phone", "zebra"])
+                         ["plank.example.ts.net", "box.example.ts.net", "phone", "zebra"])
         self.assertEqual([d["online"] for d in result["devices"]], [True, True, False, True])
         self.assertEqual(result["devices"][2]["ips"], "100.64.0.3")
         self.assertEqual(result["devices"][3]["ips"], "100.64.0.2\nfd7a:115c:a1e0::2")
@@ -99,7 +100,7 @@ class StatusWidgets(unittest.TestCase):
             result = status.tailscale()
             self.assertEqual(result["count"], 1)
             self.assertEqual(result["devices"], [{
-                "name": "mobile", "ips": "100.64.0.5", "online": online,
+                "name": "mobile.example.ts.net", "ips": "100.64.0.5", "online": online,
             }])
 
     @patch.object(status.subprocess, "run")

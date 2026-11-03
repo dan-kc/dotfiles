@@ -21,7 +21,7 @@ window { background: transparent; color: $text; }
 .device-name { font-weight: bold; }
 .device-status { font-size: 12px; }
 .device-status.online { color: $green; }
-.device-status.offline { color: $muted; }
+.device-status.offline { color: $red; }
 .device-ips { color: $muted; font-size: 12px; }
 .logout {
   color: $red;
