@@ -6,7 +6,7 @@ for host in plank box; do
   nix eval ".#nixosConfigurations.$host.config.systemd.services.home-manager-daniel.serviceConfig.ExecStart" --raw
   printf '\n'
 done
-for profile in danielcox daniel.cox; do
+for profile in danielcox; do
   test "$(nix eval ".#homeConfigurations.\"$profile\".config.programs.home-manager.enable")" = true
   nix eval ".#homeConfigurations.\"$profile\".activationPackage.drvPath" --raw
   printf '\n'

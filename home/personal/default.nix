@@ -9,6 +9,9 @@
     ../agents/pi
   ];
 
+  nixpkgs.config.allowUnfreePackages = [ "claude-code" ];
+  programs.claude-code.enable = true;
+
   nixpkgs.overlays = [
     (_final: _prev: {
       flake-gen = inputs.flake-gen.packages."${pkgs.stdenv.hostPlatform.system}".default;

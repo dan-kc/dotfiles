@@ -117,15 +117,6 @@
             ./home/agents/shared.nix
           ];
         };
-        "daniel.cox" = mkMacHome {
-          username = "daniel.cox";
-          modules = [
-            ./home/base
-            ./home/platforms/darwin
-
-            ./home/work
-          ];
-        };
       };
     };
 }
