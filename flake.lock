@@ -325,6 +325,22 @@
         "type": "github"
       }
     },
+    "lgtm": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "narHash": "sha256-rysBrBjWLTLPifLNXPVnMeUKsXUZ95OA0ZnLtK62lQk=",
+        "path": "/Users/danielcox/projects/lgtm",
+        "type": "path"
+      },
+      "original": {
+        "path": "/Users/danielcox/projects/lgtm",
+        "type": "path"
+      }
+    },
     "luvit-meta": {
       "flake": false,
       "locked": {
@@ -557,6 +573,7 @@
         "flake-gen": "flake-gen",
         "home-manager": "home-manager",
         "jt": "jt",
+        "lgtm": "lgtm",
         "neovim": "neovim",
         "nix-colors": "nix-colors",
         "nixpkgs": "nixpkgs_4",

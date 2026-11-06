@@ -14,6 +14,11 @@
     flake-gen.url = "github:dan-kc/flake-gen";
     jt.url = "github:dan-kc/jt";
 
+    lgtm = {
+      url = "path:/Users/danielcox/projects/lgtm";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     tuxedo-nixos.url = "github:sund3RRR/tuxedo-nixos";
     xremap-flake.url = "github:xremap/nix-flake";
 

@@ -15,10 +15,13 @@ let
     - The trade offs
     - The explaination of the descsision and why these trade-off are good.
   '';
+
+  claude = ''
+
+    ## Delegation
+    - Prefer T3 `delegate_task` to Codex (ChatGPT), latest GPT Astra model.
+    - Never use computer use or browser control yourself. Delegate it to Codex GPT Astra.
+    - In T3, Codex's Chrome extension calls (`cua.createBrowserTab`, `cua.getBrowser`) always fail with "The browser access host is unavailable" (openai/codex#57641). Tell the delegate to skip them and drive Chrome natively: `cua.getApp("Google Chrome")`, `pressKey("super+t")`, `typeText(url)`, `pressKey("Return")`, `getAXState()`.
+  '';
 in
-{
-  # Each agent can extend the common text independently.
-  claude = common;
-  pi = common;
-  codex = common;
-}
+agent: if agent == "claude" then common + claude else common

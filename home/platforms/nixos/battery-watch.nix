@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   lib,
   ...
@@ -8,25 +9,19 @@ let
   # The watcher script below is generated from this list; editing the list
   # is the only change needed to add or remove a warning level.
   levels = [
-    30
-    31
-    32
-    33
-    34
-    35
-    36
-    37
-    38
     20
+    15
     10
     5
   ];
+
+  eww = "${pkgs.eww}/bin/eww --config ${lib.escapeShellArg "${config.xdg.configHome}/eww"}";
 
   sorted = builtins.sort (a: b: a > b) levels;
   levelsStr = lib.concatStringsSep " " (map toString sorted);
 
   battery-watch = pkgs.writeShellScriptBin "battery-watch" ''
-    # Low-battery watcher: pops one notification per level as the battery
+    # Low-battery watcher: pops one Eww alert per level as the battery
     # discharges down through each entry of LEVELS. State is a single
     # integer: the next level that will fire. A level re-arms only once
     # the battery has charged above it, so nothing re-fires mid-descent
@@ -82,6 +77,7 @@ let
       mv "$STATE.tmp" "$STATE"
     }
     init_state
+    shown=0
 
     while :; do
       sleep 60
@@ -95,6 +91,8 @@ let
         armed=$(cat "$STATE")
         want=$(arm_from_cap "$cap")
         [ "$cap" -gt "$armed" ] && [ "$want" != "$armed" ] && save "$want"
+        # Plugged in: dismiss any alert still on screen.
+        [ "$shown" -eq 1 ] && { ${eww} close battery-alert >/dev/null 2>&1; shown=0; }
         continue
       fi
 
@@ -102,8 +100,11 @@ let
       # Notify first, persist after: a crash here re-fires one level
       # (a rare duplicate) rather than going silently past it.
       if [ "$armed" -ne 0 ] && [ "$cap" -le "$armed" ]; then
-        ${pkgs.libnotify}/bin/notify-send -a battery-watch -u critical -t 0 \
-          "Battery low: $cap%" "Only $cap% left — plug in your charger"
+        # The alert tracks the live percentage itself; a level only
+        # brings it back if it was right-click dismissed.
+        ${eww} active-windows 2>/dev/null | ${pkgs.gnugrep}/bin/grep -q battery-alert \
+          || ${eww} open battery-alert
+        shown=1
         save "$(arm_next_below "$armed")"
       fi
     done

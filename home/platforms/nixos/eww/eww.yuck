@@ -59,3 +59,13 @@
       :onclick "@eww@ --config @configDir@ close status; @niri@ msg action quit"
       "Log out"))
 )
+
+(defwindow battery-alert
+  :monitor 0
+  :geometry (geometry :x "6px" :y "6px" :anchor "top left")
+  :stacking "overlay"
+  :exclusive false
+  :focusable false
+  :namespace "battery-alert"
+  (eventbox :onrightclick "@eww@ --config @configDir@ close battery-alert"
+    (label :class "alert" :text "${battery.percent}%")))

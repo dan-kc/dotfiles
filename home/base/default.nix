@@ -10,6 +10,7 @@
     ./fonts.nix
     ./ghostty.nix
     ./starship.nix
+    ./trash.nix
     ./yazi
     ./zsh
   ];

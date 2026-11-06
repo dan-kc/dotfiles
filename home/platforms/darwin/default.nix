@@ -3,6 +3,7 @@
 }:
 {
   imports = [
+    ./lgtm.nix
     ./simulator.nix
     ./ssh-clipboard.nix
   ];
