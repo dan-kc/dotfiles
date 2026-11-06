@@ -28,6 +28,10 @@
   networking.hostName = "plank";
 
   boot = {
+    # Linux 6.18 ACPI regression: this driver also binds alongside button
+    # and sends SIGRTMIN+4 (poweroff) to PID 1 on s2idle resume.
+    blacklistedKernelModules = [ "tiny_power_button" ];
+
     # Uncomment to pin kernel if wifi breaks after nixpkgs update
     # kernelPackages = pkgs.linuxPackages_6_12;
 
