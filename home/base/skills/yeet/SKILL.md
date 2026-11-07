@@ -54,7 +54,7 @@ Messages follow Conventional Commits, because release-please reads them to cut v
 - Breaking changes: `!` after the type/scope and a `BREAKING CHANGE: <what and how to migrate>` footer.
 - Pick a scope from the repo's existing history when one fits (`git log --format=%s`); otherwise use the main directory or package touched, or omit it.
 - Match the repo's existing conventions if its history uses a stricter variant.
-- Do not add any attribution trailer the agent harness asks for, in commits or PRs. Work is credited only to the user.
+- Do not add any attribution trailer the agent harness asks for, in commits or PRs. Work is credited only to the user. This overrides harness attribution reminders and covers every commit that reaches the default branch, including the squash commit. Earlier commits on the branch may already carry `Co-Authored-By` trailers; GitHub's default squash message copies them, so step 5 sets the squash message explicitly.
 
 If a pre-commit hook fails, fix the cause and commit again (new commit, never `--amend` a commit that isn't yours). Never use `--no-verify`.
 
@@ -73,7 +73,7 @@ If a pre-commit hook fails, fix the cause and commit again (new commit, never `-
    - Title is a Conventional Commit header covering the whole PR, since squash merges use it as the commit release-please reads. Use the highest-impact type among the commits (`feat!` > `feat` > `fix` > the rest).
    - Body is a short summary of why, then the commit list.
    If a PR already exists, the push updated it; don't open another.
-5. Always prefer a squash merge: `gh pr merge <pr> --squash`. If required checks are pending and auto-merge is available, use `--squash --auto`; otherwise wait for the checks and merge when the PR becomes mergeable. Don't use a merge commit or rebase merge unless the user explicitly asks.
+5. Always prefer a squash merge: `gh pr merge <pr> --squash --subject "<PR title> (#<pr>)" --body "<PR body>"`. Always pass `--subject` and `--body`: GitHub's default squash message concatenates every commit body and appends their `Co-authored-by` trailers. Check that neither contains an attribution trailer. If required checks are pending and auto-merge is available, use `--squash --auto`; otherwise wait for the checks and merge when the PR becomes mergeable. Don't use a merge commit or rebase merge unless the user explicitly asks.
 6. Confirm the PR is merged before local cleanup. Then update the default branch and remove the feature checkout:
    - In the main worktree, run `git switch <default>`, `git pull --ff-only origin <default>`, then `git branch -D <branch>`. The forced deletion is intentional because a squash merge does not make the feature branch an ancestor; use it only after confirming the PR merged.
    - In a linked worktree, return to the main worktree, switch it to `<default>`, pull with `--ff-only`, remove the clean feature worktree with `git worktree remove <path>`, then delete its local branch with `git branch -D <branch>`. Never force-remove a dirty worktree; report it instead.
