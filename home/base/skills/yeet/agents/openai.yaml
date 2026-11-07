@@ -1,0 +1,6 @@
+interface:
+  display_name: "Yeet"
+  short_description: "Commit and ship every working-tree change"
+  default_prompt: "Use $yeet to commit and ship every working-tree change."
+policy:
+  allow_implicit_invocation: false
