@@ -1,6 +1,6 @@
 ---
 name: yeet
-description: Commit every working-tree change as focused Conventional Commits on a new branch, then push and open a PR (or merge locally when there is no remote). Use only when the user explicitly invokes yeet.
+description: Commit every working-tree change as focused Conventional Commits on a new branch, then push, squash-merge a PR and clean up locally (or merge locally when there is no remote). Use only when the user explicitly invokes yeet.
 disable-model-invocation: true
 ---
 
@@ -60,7 +60,7 @@ If a pre-commit hook fails, fix the cause and commit again (new commit, never `-
 
 ## 5. Ship
 
-### With a remote: push and open a PR
+### With a remote: push, open and squash-merge a PR
 
 1. `git fetch origin` and `git rebase origin/<default>` so the PR starts current. Resolve conflicts as below.
 2. `git push -u origin HEAD`.
@@ -73,8 +73,11 @@ If a pre-commit hook fails, fix the cause and commit again (new commit, never `-
    - Title is a Conventional Commit header covering the whole PR, since squash merges use it as the commit release-please reads. Use the highest-impact type among the commits (`feat!` > `feat` > `fix` > the rest).
    - Body is a short summary of why, then the commit list.
    If a PR already exists, the push updated it; don't open another.
-5. Don't merge the PR; leave that to review and CI.
-6. Never force-push the default branch or a shared branch. On your own feature branch whose history you rewrote, use `--force-with-lease`.
+5. Always prefer a squash merge: `gh pr merge <pr> --squash`. If required checks are pending and auto-merge is available, use `--squash --auto`; otherwise wait for the checks and merge when the PR becomes mergeable. Don't use a merge commit or rebase merge unless the user explicitly asks.
+6. Confirm the PR is merged before local cleanup. Then update the default branch and remove the feature checkout:
+   - In the main worktree, run `git switch <default>`, `git pull --ff-only origin <default>`, then `git branch -D <branch>`. The forced deletion is intentional because a squash merge does not make the feature branch an ancestor; use it only after confirming the PR merged.
+   - In a linked worktree, return to the main worktree, switch it to `<default>`, pull with `--ff-only`, remove the clean feature worktree with `git worktree remove <path>`, then delete its local branch with `git branch -D <branch>`. Never force-remove a dirty worktree; report it instead.
+7. Never force-push the default branch or a shared branch. On your own feature branch whose history you rewrote, use `--force-with-lease`.
 
 If `gh` isn't installed or authenticated, push the branch and report the compare URL instead.
 
@@ -92,4 +95,4 @@ If the fast-forward fails, rebase the branch onto the default branch first, then
 
 ## 6. Report
 
-List each commit, the branch, the PR URL (or where it was merged), anything left uncommitted and why, and how any conflicts were resolved.
+List each commit, the branch, the PR URL and merge commit (or where it was merged locally), the local branch or worktree cleanup, anything left uncommitted and why, and how any conflicts were resolved.
