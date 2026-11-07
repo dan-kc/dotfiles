@@ -1,26 +1,44 @@
 { pkgs }:
 let
-  # Use pkgs.stdenv.isDarwin / isLinux here when platform-specific text is needed.
   common = ''
     Drive instructions to completion.
 
-    Keep READMEs succinct. Don't document every feature or repeat what's clear from the code.
+    Always lean on your instinct, avoid stopping to ask the user for input unless it is something potentially dangerous.
 
-    Always lean on your instinct, avoid asking the user questions unless:
-    - The task may be harmful to the user
-    - The feature will be difficult to test or verify
+    ## Code
 
-    After completing the solution, present the descisions made as a list.
-    - Descision (single line inc options)
-    - The trade offs
-    - The explaination of the descsision and why these trade-off are good.
+    ### Comments / documentation
+
+    Keep prose in the codebase succinct. Don't document what's clear from the code.
+
+    ### Semantic names
+
+    Rely on semantic variable names for meaning. For example:
+
+    ```rust
+      let in_bounds = 0 <= i && i < n;
+      if !in_bounds {
+        return
+      }
+
+    ### Output to user
+
+    After editing code, this is what should be presented to the user:
+
+    - A succinct paragraph (<= 6 sentences) explainting the change at a high level.
+    - A list of descisions made throughout the implementation containing:
+      - Descision (single line inc options)
+      - The options considered and their trade-offs.
+      - Why you chose what you chose
+
+      Be succinct and do not list descisions that are obvious. "No importand descisions to note." is a valid answer.
+
+    - Anything else (<= 2 sentences)
   '';
 
   claude = ''
-
     ## Delegation
-    - Prefer T3 `delegate_task` to Codex (ChatGPT), latest GPT Astra model.
-    - Never use computer use or browser control yourself. Delegate it to Codex GPT Astra.
+    - Never use `computer use` or browser extension control yourself. Delegate this responsibility to Codex GPT Astra using a t3code thread. 
     - In T3, Codex's Chrome extension calls (`cua.createBrowserTab`, `cua.getBrowser`) always fail with "The browser access host is unavailable" (openai/codex#57641). Tell the delegate to skip them and drive Chrome natively: `cua.getApp("Google Chrome")`, `pressKey("super+t")`, `typeText(url)`, `pressKey("Return")`, `getAXState()`.
   '';
 in
