@@ -109,17 +109,6 @@ in
       };
     };
 
-    ".pi/agent/agents/scout.md".source = ./agents/scout.md;
-    ".pi/agent/agents/planner.md".source = ./agents/planner.md;
-    ".pi/agent/agents/reviewer.md".source = ./agents/reviewer.md;
-    ".pi/agent/agents/harness-reviewer.md".source = ./agents/harness-reviewer.md;
-    ".pi/agent/agents/worker.md".source = ./agents/worker.md;
-    ".pi/agent/agents/comment-sicko.md".source = ./agents/comment-sicko.md;
-    ".pi/agent/agents/code-reviewer.md".source = ./agents/code-reviewer.md;
-    ".pi/agent/agents/security-auditor.md".source = ./agents/security-auditor.md;
-    ".pi/agent/agents/test-engineer.md".source = ./agents/test-engineer.md;
-    ".pi/agent/agents/web-performance-auditor.md".source = ./agents/web-performance-auditor.md;
-
     ".pi/agent/themes/nix-colors.json".text = builtins.toJSON {
       "$schema" =
         "https://raw.githubusercontent.com/earendil-works/pi/main/packages/coding-agent/src/modes/interactive/theme/theme-schema.json";
@@ -212,12 +201,4 @@ in
     };
 
   };
-
-  nixpkgs.overlays = [
-    (_final: prev: {
-      pi-coding-agent = prev.pi-coding-agent.overrideAttrs (old: {
-        postInstall = (old.postInstall or "") + (builtins.readFile ./pi-post-install.sh);
-      });
-    })
-  ];
 }
