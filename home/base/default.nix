@@ -26,6 +26,8 @@
     ".agents/skills/bro".source = ./skills/pstack/bro;
     ".agents/skills/unslop".source = ./skills/pstack/unslop;
     ".claude/skills/unslop".source = ./skills/pstack/unslop;
+    ".agents/skills/yeet".source = ./skills/yeet;
+    ".claude/skills/yeet".source = ./skills/yeet;
 
     ".config/theme.yaml".text = ''
       base00: "${config.colorScheme.palette.base00}"
