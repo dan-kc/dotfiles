@@ -21,7 +21,6 @@
       aws.disabled = true;
       gcloud.disabled = true;
       # git_status.disabled = true;
-      direnv.disabled = true;
 
       battery = {
         format = "[ $percentage $symbol]($style)";
