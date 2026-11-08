@@ -15,22 +15,24 @@ For “launch/show the simulator,” use `device_list` only if IDs are unknown, 
 
 This Mac has one simulator: iPhone 18 Pro `4469D43E-D1C0-4E0B-9CAC-8684C5522DAF`. Never create, clone or boot another device, for interactive work or tests; a second booted simulator costs ~1.3 GB on an 8 GB machine that is already swapping. Automated tests run on it through `sim-claim -- <command>`, which queues in the same line as agents, gives the command `SIM_CLAIM_UDID`, and releases on exit. Keep project build/test commands and bundle IDs in the project skill.
 
-- For requested app work, use the returned `agent-device` command and `open <bundle-id>` before interaction. Use it for launches, taps, text, screenshots and recordings; inspect with `device_screenshot`. Verify interaction only when it is part of the task.
+- For requested app work, take the simulator with `sim-claim --open <agent-device command> <bundle-id>` (see below), never a bare `open`, before interaction. Then use the returned `agent-device` command directly. Use it for launches, taps, text, screenshots and recordings; inspect with `device_screenshot`. Verify interaction only when it is part of the task.
 - Follow the active runtime’s ownership/retry rules. Never stop another session, delete locks, kill automation processes, or erase app data to bypass ownership. Release only your own session when supported.
 - A running simulator needs no cleanup. Only when the runtime permits recovery and the user explicitly approves stopping **all** T3 device sessions on this Mac, run `simulator-cleanup --confirmed`. Existing approval suffices. App data stays; other threads lose control. Reopen through device tools and verify interaction. Stop if recovery fails or the runtime forbids it.
 
-## Device busy: wait, don't stop
+## Taking the simulator: queue, don't stop
 
-Other worktrees' agents and test scripts share this simulator. A foreign claim (`DEVICE_IN_USE` … "owned by session X") means wait your turn; it is never a reason to end your work.
+Other worktrees' agents and test scripts share this simulator, first come, first served. `device_open` and previews never wait; only opening an app takes the simulator.
 
 1. Do any remaining work that doesn't need the device first.
-2. Wait with the bound command: `<agent-device command> open <bundle-id> --wait 540000`, giving the shell call a 600000 ms timeout. It blocks until the claim frees, then takes it. For a preview with no app, retry `device_open` every ~5 minutes instead.
-3. Repeat for up to 60 minutes total. Tell the user once that you're queued behind another session; don't ask whether to continue.
+2. Run `sim-claim --open <agent-device command> <bundle-id> [open args]`, giving the shell call a 600000 ms timeout. It joins the shared queue, waits for its turn, then runs the bound `open` and exits 0 holding the simulator.
+3. Exit 75 means still queued after 9 minutes. Re-run the identical command straight away to keep your place; a gap over 3 minutes sends you to the back. Repeat for up to 60 minutes. Tell the user once that you're queued; don't ask whether to continue.
 4. Only after 60 minutes, ask the owner to release (next section). If that also fails, report the owning session and stop.
+
+Once you hold it, reinstall your own build before interacting: `<agent-device command> install <bundle-id> <path-to-.app>` from this worktree's build output (path in the project skill). Another worktree of the same app may have installed its build while you waited. App data is shared between worktrees of the same app, so don't assume state you left earlier.
 
 A `sim-claim-<dir>-<pid>` owner is a test run, not a thread; it releases when the tests end. Only wait for it, never message or stop it. To run your own simulator tests, use the project's test command, which goes through `sim-claim`; never point xcodebuild at the simulator directly.
 
-Claims idle for 20 minutes expire automatically (`AGENT_DEVICE_SESSION_IDLE_TIMEOUT_MS`). If your own session answers `SESSION_NOT_FOUND` with `SESSION_IDLE_EXPIRED`, call `device_open` again, re-run `open <bundle-id>`, and continue; reopening may itself need to wait.
+Claims idle for 20 minutes expire automatically (`AGENT_DEVICE_SESSION_IDLE_TIMEOUT_MS`). If your own session answers `SESSION_NOT_FOUND` with `SESSION_IDLE_EXPIRED`, call `device_open` again, re-run `sim-claim --open …` with the new command, and continue; you rejoin at the back of the queue.
 
 Release as soon as the device step finishes, even mid-task: `device_close` with `shutdown:false`. Reopen later if needed. Holding the claim through long builds or reasoning blocks every other agent.
 

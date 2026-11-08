@@ -46,11 +46,6 @@
         in
         pkgs.mkShell {
           buildInputs = with pkgs; [
-            nixfmt
-            nil
-            lua-language-server
-            stylua
-            taplo
             sops
             age
             ssh-to-age
