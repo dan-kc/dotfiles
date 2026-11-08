@@ -1,0 +1,6 @@
+interface:
+  display_name: "Audit Tests"
+  short_description: "Report missing, removable and flaky tests"
+  default_prompt: "Use $audit-tests to audit this codebase's tests."
+policy:
+  allow_implicit_invocation: true

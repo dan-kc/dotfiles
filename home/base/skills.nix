@@ -1,6 +1,9 @@
 { lib, pkgs, ... }:
 let
-  skills = [ ./skills/yeet ];
+  skills = [
+    ./skills/audit-tests
+    ./skills/yeet
+  ];
 
   explicitOnly = "disable-model-invocation: true\n";
 
