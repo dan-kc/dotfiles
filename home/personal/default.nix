@@ -28,7 +28,6 @@
 
   nixpkgs.overlays = [
     (_final: _prev: {
-      flake-gen = inputs.flake-gen.packages."${pkgs.stdenv.hostPlatform.system}".default;
     })
   ];
 
@@ -39,7 +38,6 @@
     ]
     ++ [
       codex
-      flake-gen
       lazydocker
       imagemagick
       sentry-cli
