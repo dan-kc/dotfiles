@@ -1,6 +1,9 @@
 { pkgs, ... }:
 {
-  home.packages = [ (import ./simulator-cleanup.nix { inherit pkgs; }) ];
+  home.packages = [
+    (import ./simulator-cleanup.nix { inherit pkgs; })
+    (import ./sim-claim.nix { inherit pkgs; })
+  ];
 
   home.file = builtins.listToAttrs (
     map (directory: {
