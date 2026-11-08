@@ -72,14 +72,12 @@
   nixpkgs.overlays = [
     (final: prev: {
       neovim = inputs.neovim.packages."${pkgs.stdenv.hostPlatform.system}".default;
-      jt = inputs.jt.packages."${pkgs.stdenv.hostPlatform.system}".default;
     })
   ];
 
   home.packages = with pkgs; [
     fzf
     gh
-    jt
     neovim
     ripgrep
     lazygit
