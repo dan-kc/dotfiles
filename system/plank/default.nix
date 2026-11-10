@@ -40,15 +40,6 @@
         # Include module signing flags and let NixOS generate module indexes.
         makeFlags = prev.kernelModuleMakeFlags ++ (old.makeFlags or [ ]);
       });
-      tuxedo-drivers = prev.tuxedo-drivers.overrideAttrs (old: {
-        # Let recursive make inherit flags; expanding MAKEFLAGS in the shell
-        # breaks the kernel module signing command's quoting.
-        postPatch = (old.postPatch or "") + ''
-          substituteInPlace Makefile \
-            --replace-fail 'make -C' '$(MAKE) -C' \
-            --replace-fail ' $(MAKEFLAGS)' ""
-        '';
-      });
     });
 
     # Motorcomm YT6801 LAN drivers
