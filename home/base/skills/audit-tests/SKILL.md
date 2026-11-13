@@ -1,57 +1,49 @@
 ---
 name: audit-tests
-description: Audit tests and report missing behaviour tests, tests worth removing, and likely flakes. Use when asked to audit, review or assess test coverage or test quality.
+description: Audit test coverage and quality, reporting missing behaviour coverage, tests to strengthen or remove, and potential flakes. Use when asked to audit or assess tests, not as a general correctness review.
 argument-hint: "[path filter, optional]"
 ---
 
-Audit the tests (restricted to `$ARGUMENTS` if given) and report three lists. Read-only: don't edit files unless the user asks afterwards.
+Audit tests, restricted to `$ARGUMENTS` if given. Read-only: don't edit files or run tests unless the user asks afterwards. Follow any `REVIEW.md` in the repo.
 
 ## Criteria
 
-- Test user-facing behaviour, not internals.
-- Each test covers one behaviour.
-- Tests are deterministic.
+- Test behaviour at a supported boundary: API, CLI, library, or UI. Unit tests of public contracts are fine.
+- Assert observable outputs, errors, or effects, not private state or internal call order. Expected values come from the contract, not the implementation.
+- Each test covers one scenario. Multiple steps and assertions are fine when the scenario needs them.
+- Tests are deterministic, but don't fake away the behaviour under test.
 
-## 1. Missing tests
+## Review
 
-User behaviours with no test. For each:
+Read the supported entry points first, then the matching tests. Focus on reachable behaviour that matters; don't invent features or demand a test per branch. Check parameterised tests, helpers, and other test layers before calling something missing. Skip generated and vendored files.
 
-Behaviour: The user taps X then Y.
-Expectation: The user sees a modal.
-Proposed test:
+Challenge each candidate: could the behaviour break while this test stays green? Would a harmless refactor break it? What protection is lost by removing it? Zero findings is fine. Report any areas you couldn't review.
 
-```rust
-fn test_tap_x_then_y_shows_modal() {
-    // ...
-    user.tap_x().tap_y();
-    // ...
-    assert!(state.modal.open);
-}
-```
+## Report
 
-## 2. Tests to remove
+Four lists, ordered by impact. Write "None found." for an empty list. Write example tests in the project's language using real APIs.
 
-Existing tests that test internals, duplicate another test, or assert nothing meaningful. If a test bundles several behaviours, propose splitting it instead. For each:
+### 1. Missing tests
+
+Behaviour: the user does X then Y.
+Expectation: what they observe.
+Proposed test: the smallest test that would catch a regression.
+
+### 2. Tests to strengthen
 
 Test: `path/to/file:line`
+Problem: the weak assertion or coupling to internals.
+Fix: the replacement, keeping the protection it already gives.
 
-```rust
-fn test_new_user_errors_without_an_id() {
-    // ...
-    let user = User::new(None);
-    // ...
-    assert!(user.is_err());
-}
-```
+### 3. Tests to remove
 
-Why: Tests an internal constructor, not a user behaviour.
+Test: `path/to/file:line`
+Why: why no unique protection is lost. For duplicates, cite the test that remains.
 
-## 3. Potential flakes
+### 4. Potential flakes
 
-Tests whose outcome can vary between runs: fixed sleeps or timeouts, wall-clock or timezone reliance, unseeded randomness, unordered iteration, shared global or on-disk state, test-order dependence, real network or external services, unawaited async work, races. For each:
+Look for sleeps, timeouts, clocks, timezones, randomness, ordering, shared state, external services, and async races.
 
 Test: `path/to/file:line`
 Risk: what can vary and how it fails.
-Fix: the deterministic replacement (fake clock, seeded RNG, wait-for-condition, isolated fixture, etc.).
-
-Write examples in the project's language. Order each list by impact. Write "None found." for an empty list.
+Fix: a deterministic replacement (isolated fixture, controlled clock, wait-for-condition, etc.).
