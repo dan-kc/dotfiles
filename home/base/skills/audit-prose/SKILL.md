@@ -1,45 +1,39 @@
 ---
 name: audit-prose
-description: Audit repository comments and documentation for redundant prose and unnecessary length. Use when asked to review or assess whether comments and docs earn their place.
+description: Audit repository comments and documentation for redundant prose and unnecessary length while preserving useful contracts, rationale, and reader guidance. Use when asked whether comments and docs earn their place.
 argument-hint: "[path filter, optional]"
 ---
 
-Audit all comments and documentation in the repo, restricted to `$ARGUMENTS` if given. Read-only: don't edit files unless the user asks afterwards.
+Audit comments and documentation, restricted to `$ARGUMENTS` if given. Read-only: don't edit files unless the user asks afterwards. Follow any `REVIEW.md` in the repo.
 
 ## Criteria
 
-- Keep prose only when it conveys domain invariants or constraints that originate outside the code and cannot be derived from it. Examples include business rules, external protocol requirements, and operational constraints.
-- Remove prose that restates names, types, control flow, tests, configuration, or other facts available in the repo. This includes API inventories, directory walkthroughs, and setup commands already defined in scripts.
-- Explain the external reason for a constraint, not merely what the implementation does. A comment saying that a timeout is 30 seconds adds nothing; an upstream service requiring disconnection after 30 seconds explains the constraint.
-- Keep each necessary fact in one authoritative place. Remove duplicates or replace them with a reference where the reference is needed.
-- Use the fewest words that preserve the invariant, its conditions, and its consequences. Remove filler, generic advice, stale notes, and speculative explanations.
-- Un-commented code is fine. Do not recommend prose to meet a coverage target or explain code that can be read directly.
+- Inline comments should explain a non-obvious constraint, rationale, or hazard. Remove ones that restate names, types, or control flow. Uncommented code is fine.
+- Public docs should help readers use supported interfaces correctly. Being derivable from code doesn't make them redundant.
+- Setup docs should let readers complete a task without reverse-engineering the repo. Point to scripts; don't copy them into prose.
+- Design notes and review exceptions that record a decision and its rationale earn their place.
+- Keep one authoritative source per fact. A short pointer elsewhere is fine.
+- Prefer clear wording with nothing extra. Don't suggest rewording purely as taste.
 
 ## Review
 
-Inspect documentation files, docstrings, and inline and block comments across source, tests, scripts, and configuration. Skip vendored and generated files; inspect their maintained sources where applicable. Read the relevant code before deciding that prose is redundant. Report any areas you could not review.
+Inspect docs, docstrings, and comments across source, tests, scripts, and config. Skip vendored and generated files. Read the relevant code before judging a passage.
 
-For each passage, ask what externally imposed fact would be lost if it disappeared. If none would be lost, recommend removal. If only part earns its place, keep that part and shorten it. Verify claimed external constraints against available evidence; flag uncertainty rather than inventing a rationale.
+For each passage, ask what a reader would lose if it disappeared. Recommend removal only if nothing useful is lost. Leave compiler/linter directives, required notices, and tool instructions alone. Try to disprove each finding before reporting it; zero findings is fine. Report any areas you couldn't review.
 
-Treat executable examples and tool directives according to their function. Do not recommend deleting compiler or linter directives, required notices, or instructions that control tooling merely because they use comment or documentation syntax.
+## Report
 
-Report two lists, ordered by impact.
+Two lists, ordered by impact. Write "None found." for an empty list.
 
-## 1. Prose to remove
-
-For each:
+### 1. Prose to remove
 
 Location: `path/to/file:line`
-Text: the redundant passage, or a short excerpt identifying a larger section.
-Why: what makes it unnecessary. Cite the code or authoritative source that already conveys the fact, where applicable.
+Text: the passage, or an excerpt identifying it.
+Why: why nothing useful is lost. Cite where the fact already lives, if applicable.
 
-## 2. Prose to shorten
-
-For each:
+### 2. Prose to shorten
 
 Location: `path/to/file:line`
 Text: the current passage.
-Replacement: the shortest wording that preserves the external invariant.
+Replacement: the proposed wording.
 Why: what must remain and what can go.
-
-Write "None found." for an empty list. Do not manufacture findings or add comments to compensate for removals.
