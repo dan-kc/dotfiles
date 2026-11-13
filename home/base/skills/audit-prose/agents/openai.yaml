@@ -1,0 +1,6 @@
+interface:
+  display_name: "Audit Prose"
+  short_description: "Report redundant or overlong comments and docs"
+  default_prompt: "Use $audit-prose to audit this codebase's comments and documentation."
+policy:
+  allow_implicit_invocation: true
