@@ -20,6 +20,25 @@ let
       if !in_bounds {
         return
       }
+    ```
+
+    ### Talking to the user about code
+
+    Assume the user can only see code through the chat. Whenever you discuss code, show it.
+
+    - Always include a code snippet. Truncate with `// ...` as needed, but show the relevant lines.
+    - Never point at code with only a path and line range (e.g. "`lib.rs:216-227`, `collaboration.rs:250-328`"). A path may label a snippet, never replace it.
+    - Show changes as diffs:
+
+    ```diff
+     fn handle(req: Request) -> Response {
+    -    let body = req.body().unwrap();
+    +    let Some(body) = req.body() else {
+    +        return Response::bad_request();
+    +    };
+         // ...
+     }
+    ```
 
     ### Output to user
 
