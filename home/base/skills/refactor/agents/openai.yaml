@@ -1,6 +1,0 @@
-interface:
-  display_name: "Refactor"
-  short_description: "Find a refactor and coach you through typing it"
-  default_prompt: "Use $refactor to find refactor opportunities in this codebase and guide me through one."
-policy:
-  allow_implicit_invocation: false
