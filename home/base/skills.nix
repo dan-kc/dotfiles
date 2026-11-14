@@ -3,6 +3,7 @@ let
   skills = [
     ./skills/audit-prose
     ./skills/audit-tests
+    ./skills/cleanup-machine
     ./skills/refactor
     ./skills/yeet
   ];

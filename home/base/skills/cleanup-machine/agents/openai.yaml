@@ -1,0 +1,6 @@
+interface:
+  display_name: "Cleanup Machine"
+  short_description: "Free disk and memory on this Mac"
+  default_prompt: "Use $cleanup-machine to free disk and memory on this machine."
+policy:
+  allow_implicit_invocation: false
