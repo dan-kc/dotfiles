@@ -1,6 +1,6 @@
 ---
 name: yeet
-description: Commit every working-tree change as focused Conventional Commits on a new branch, then push, squash-merge a PR and clean up locally (or merge locally when there is no remote). Use only when the user explicitly invokes yeet.
+description: Commit every working-tree change as focused Conventional Commits on a new branch, then push, squash-merge a PR (or merge locally when there is no remote), then delete the branch and its worktree. Use only when the user explicitly invokes yeet.
 disable-model-invocation: true
 ---
 
@@ -74,24 +74,48 @@ If a pre-commit hook fails, fix the cause and commit again (new commit, never `-
    - Body is a short summary of why, then the commit list.
    If a PR already exists, the push updated it; don't open another.
 5. Always prefer a squash merge: `gh pr merge <pr> --squash --subject "<PR title> (#<pr>)" --body "<PR body>"`. Always pass `--subject` and `--body`: GitHub's default squash message concatenates every commit body and appends their `Co-authored-by` trailers. Check that neither contains an attribution trailer. If required checks are pending and auto-merge is available, use `--squash --auto`; otherwise wait for the checks and merge when the PR becomes mergeable. Don't use a merge commit or rebase merge unless the user explicitly asks.
-6. Confirm the PR is merged before local cleanup. Then update the default branch and remove the feature checkout:
-   - In the main worktree, run `git switch <default>`, `git pull --ff-only origin <default>`, then `git branch -D <branch>`. The forced deletion is intentional because a squash merge does not make the feature branch an ancestor; use it only after confirming the PR merged.
-   - In a linked worktree, return to the main worktree, switch it to `<default>`, pull with `--ff-only`, remove the clean feature worktree with `git worktree remove <path>`, then delete its local branch with `git branch -D <branch>`. Never force-remove a dirty worktree; report it instead.
+6. Confirm the PR is merged, then run [Cleanup](#cleanup).
 7. Never force-push the default branch or a shared branch. On your own feature branch whose history you rewrote, use `--force-with-lease`.
 
 If `gh` isn't installed or authenticated, push the branch and report the compare URL instead.
 
 ### Without a remote: merge locally
 
-If you created a branch in step 3, merge it back so the default branch has the work:
+Fast-forward the default branch to the feature branch from the main worktree (`<main>`, see [Cleanup](#cleanup); a linked worktree can't switch to a branch the main worktree has checked out):
 
 ```sh
-git switch <default>
-git merge --ff-only <branch>
-git branch -d <branch>
+git -C <main> switch <default>
+git -C <main> merge --ff-only <branch>
 ```
 
-If the fast-forward fails, rebase the branch onto the default branch first, then retry. If you started on a non-default branch, leave the commits there.
+If the fast-forward fails, rebase the branch onto the default branch first, then retry. Then run [Cleanup](#cleanup).
+
+If you started on a non-default branch in the main worktree and didn't create it in step 3, leave the commits there and skip cleanup.
+
+## Cleanup
+
+Once the work is on the default branch, remove the feature branch and whatever worktree it was checked out in. This is required, not optional. Find the paths first:
+
+```sh
+wt=$(git rev-parse --show-toplevel)
+main=$(dirname "$(git rev-parse --path-format=absolute --git-common-dir)")
+```
+
+- **Main worktree** (`$wt` = `$main`): `git switch <default>`, `git pull --ff-only origin <default>` (skip without a remote), `git branch -D <branch>`.
+- **Linked worktree** (`$wt` ≠ `$main`), including T3/Codex/Claude worktrees under `~/.t3/worktrees`, `~/.codex/worktrees` or `.claude/worktrees`:
+  ```sh
+  cd "$main"
+  git pull --ff-only origin <default>   # skip without a remote
+  git worktree remove "$wt"
+  git branch -D <branch>
+  git worktree prune
+  ```
+
+Delete it even though this session or its T3 thread is attached to that worktree, runs inside it, or the harness created it. The thread is done once its work is merged, and the user has authorised removing its worktree and branch. Don't skip, defer or ask; don't hand the worktree off. The shell losing its working directory afterwards is expected: `cd "$main"` and carry on.
+
+`branch -D` is intentional: a squash merge doesn't make the branch an ancestor. Use it only after confirming the merge.
+
+If `git worktree remove` refuses because of untracked or modified files, those are the files you deliberately left uncommitted. Remove with `--force` only when they are build output or scratch; if any is real work or a secret, leave the worktree and report it.
 
 ## 6. Report
 
