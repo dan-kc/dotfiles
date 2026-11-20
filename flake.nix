@@ -117,8 +117,11 @@
               ./home/agents
               ./home/agents/shared.nix
               ./home/base/terminal.nix
+              ./home/base/skills.nix
+              ./home/platforms/darwin/simulator.nix
               ./home/platforms/darwin/ssh-clipboard.nix
               {
+                simulator.device = "FC7BC9E5-A0E3-4362-8967-50DAE5EEB04A";
                 home.stateVersion = "26.05";
                 home.sessionPath = [ "$HOME/.local/bin" ];
                 home.file."Library/Application Support/lazygit/config.yml".source = ./home/base/lazygit.yml;

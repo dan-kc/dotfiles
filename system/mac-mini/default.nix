@@ -35,10 +35,6 @@
   home-manager.users.daniel.home.packages = [
     pkgs.nodejs
     (pkgs.callPackage ../../pkgs/agent-device { })
-    (import ../../home/platforms/darwin/sim-claim.nix {
-      inherit pkgs;
-      device = "FC7BC9E5-A0E3-4362-8967-50DAE5EEB04A";
-    })
   ];
 
   services.tailscale.enable = true;

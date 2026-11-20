@@ -38,5 +38,14 @@ in
       (install ".claude/skills" skill skill)
       (install ".agents/skills" skill (codexSkill skill))
     ]) skills
+    ++ [
+      {
+        # pi and codex both read ~/.agents/skills.
+        ".agents/skills/bro".source = ./skills/pstack/bro;
+        ".agents/skills/unslop".source = ./skills/pstack/unslop;
+        ".claude/skills/unslop".source = ./skills/pstack/unslop;
+        ".pi/agent/skills/bro".source = ./skills/pstack/bro;
+      }
+    ]
   );
 }
