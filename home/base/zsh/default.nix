@@ -11,6 +11,8 @@ let
   agent = cfg.command;
 in
 {
+  imports = [ ./ssh-terminal.nix ];
+
   options.local.agent = {
     command = lib.mkOption {
       type = lib.types.str;
@@ -43,14 +45,6 @@ in
     };
 
     initContent = lib.mkMerge [
-      (lib.mkOrder 500 (lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
-        # macOS may not know the SSH client's terminal (for example xterm-ghostty).
-        # Set a supported type before plugins and ZLE read terminal capabilities.
-        if [[ -n "$SSH_CONNECTION" && -n "$TERM" && "$TERM" != dumb ]] &&
-          ! /usr/bin/infocmp "$TERM" >/dev/null 2>&1; then
-          export TERM=xterm-256color
-        fi
-      ''))
       ''
         # Send the current command line to the coding agent as a prompt
         agent-prompt() {
