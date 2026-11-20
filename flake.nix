@@ -3,6 +3,8 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nix-darwin.url = "github:nix-darwin/nix-darwin/master";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     sops-nix.url = "github:Mic92/sops-nix";
@@ -31,6 +33,7 @@
   outputs =
     {
       nixpkgs,
+      nix-darwin,
       home-manager,
       self,
       ...
@@ -103,7 +106,41 @@
         };
       };
 
-      # Macs use standalone Home Manager; NixOS integrates it in system/common.
+      darwinConfigurations.mac-mini = nix-darwin.lib.darwinSystem {
+        modules = [
+          inputs.sops-nix.darwinModules.sops
+          ./system/mac-mini
+          home-manager.darwinModules.home-manager
+          {
+            home-manager.extraSpecialArgs = { inherit inputs; };
+            home-manager.users.daniel.imports = [
+              ./home/agents
+              ./home/agents/shared.nix
+              ./home/base/terminal.nix
+              ./home/base/skills.nix
+              ./home/platforms/darwin/simulator.nix
+              ./home/platforms/darwin/ssh-clipboard.nix
+              {
+                simulator.device = "FC7BC9E5-A0E3-4362-8967-50DAE5EEB04A";
+                home.stateVersion = "26.05";
+                home.sessionPath = [ "$HOME/.local/bin" ];
+                home.file."Library/Application Support/lazygit/config.yml".source = ./home/base/lazygit.yml;
+                programs.git.settings.url."git@github.com:".insteadOf = "https://github.com/";
+                programs.ssh = {
+                  enable = true;
+                  enableDefaultConfig = false;
+                  settings."github.com" = {
+                    IdentityFile = "~/.ssh/github_ed25519";
+                    IdentitiesOnly = true;
+                  };
+                };
+              }
+            ];
+          }
+        ];
+      };
+
+      # The MacBook uses standalone Home Manager.
       homeConfigurations = {
         danielcox = mkMacHome {
           username = "danielcox";

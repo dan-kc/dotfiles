@@ -38,18 +38,26 @@ if [[ -f "$t3_state/daemon.json" ]]; then
         version="$(sed -n 's/.*"version": *"\([^"]*\)".*/\1/p' "$t3_state/daemon.json" | head -1)"
     fi
 fi
-if [[ -z "$version" ]]; then
+if [[ -z "$version" && -d "$HOME/.t3/tools/agent-device" ]]; then
     version="$(find "$HOME/.t3/tools/agent-device" -mindepth 1 -maxdepth 1 -type d -exec basename {} \; 2>/dev/null | sort -V | tail -1)"
 fi
 cli="$HOME/.t3/tools/agent-device/$version/node_modules/agent-device/bin/agent-device.mjs"
 if [[ -z "$bound" && ( -z "$version" || ! -f "$cli" ) ]]; then
-    echo "sim-claim: agent-device not found under ~/.t3/tools; open T3 once to install it." >&2
-    exit 1
+    if ! command -v agent-device >/dev/null; then
+        echo "sim-claim: install agent-device on PATH or open T3 to install it." >&2
+        exit 1
+    fi
+    cli=""
+    state_dir="$t3_state"
 fi
 mkdir -p "$state_dir"
 
 ad() {
-    AGENT_DEVICE_STATE_DIR="$state_dir" AGENT_DEVICE_NO_UPDATE_NOTIFIER=1 node "$cli" "$@"
+    if [[ -n "$cli" ]]; then
+        AGENT_DEVICE_STATE_DIR="$state_dir" AGENT_DEVICE_NO_UPDATE_NOTIFIER=1 node "$cli" "$@"
+    else
+        AGENT_DEVICE_STATE_DIR="$state_dir" AGENT_DEVICE_NO_UPDATE_NOTIFIER=1 agent-device "$@"
+    fi
 }
 
 # Queue: one ticket file per waiter, ordered by the enqueue time it holds.
@@ -86,7 +94,7 @@ queue_order() {
 
 (
     while touch "$ticket" 2>/dev/null; do sleep 5; done
-) &
+) </dev/null >/dev/null 2>&1 &
 refresher=$!
 leave_queue() { kill "$refresher" 2>/dev/null || true; rm -f "$ticket"; }
 stop_refreshing() { kill "$refresher" 2>/dev/null || true; }
@@ -158,7 +166,11 @@ echo "sim-claim: holding $udid as $ticket_name" >&2
 
 # Any command counts as activity, so this keeps the idle expiry from releasing a long run.
 (
-    while sleep 300; do
+    trap 'if [[ -n "${timer:-}" ]]; then kill "$timer" 2>/dev/null || true; fi; exit 0' TERM
+    while true; do
+        sleep 300 >/dev/null 2>&1 &
+        timer=$!
+        wait "$timer"
         if ad appstate --session "$ticket_name" --json 2>&1 | grep -q SESSION_IDLE_EXPIRED; then
             echo "sim-claim: claim expired; another session may now use the simulator" >&2
             exit

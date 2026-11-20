@@ -25,7 +25,7 @@ Find anything else big with `du -sh ~/* ~/.[!.]* ~/Library/* | sort -h | tail`.
 
 ## Memory
 
-8 GB machine, so swap pressure matters. List top users with `top -l 1 -o mem -n 25 -stats pid,command,mem` and check `uptime`.
+Swap pressure matters (`sysctl hw.memsize vm.swapusage`). List top users with `top -l 1 -o mem -n 25 -stats pid,command,mem` and check `uptime`.
 
 - Safe to do: `killall Finder` if bloated.
 - Recommend, don't do while a thread is running: reboot after long uptime or heavy swap; `xcrun simctl shutdown all`; quitting Xcode (`DTServiceHub` leaks); stale dev servers or databases (`postgres`, `node`) with no recent connections.
