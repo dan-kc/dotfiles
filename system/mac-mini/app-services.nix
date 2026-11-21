@@ -23,7 +23,6 @@ let
           HOME = home;
           PATH = "${home}/.nix-profile/bin:/run/current-system/sw/bin:/usr/bin:/bin:/usr/sbin:/sbin";
         } // variables;
-        UserName = user;
         WorkingDirectory = home;
         RunAtLoad = true;
         KeepAlive = true;
@@ -32,18 +31,20 @@ let
         StandardErrorPath = log;
       };
     };
+  daemon = spec: lib.recursiveUpdate (service spec) { serviceConfig.UserName = user; };
 in
 {
-  launchd.daemons = lib.mapAttrs (_: service) {
-    "dev.keone.helm" = {
-      arguments = [ "${runHelm}" ];
-      variables = {
-        HELM_HOME = helm;
-        HELM_PROJECTS = projects;
-      };
-      log = "${helm}/logs/launchd.log";
+  # Helm's Claude children read their login from the Keychain, which only the GUI session can open.
+  launchd.user.agents."dev.keone.helm" = service {
+    arguments = [ "${runHelm}" ];
+    variables = {
+      HELM_HOME = helm;
+      HELM_PROJECTS = projects;
     };
+    log = "${helm}/logs/launchd.log";
+  };
 
+  launchd.daemons = lib.mapAttrs (_: daemon) {
     "dev.keone.mind-map-sync" = {
       arguments = [ "${mindMap}/board-sync" ];
       variables = {
