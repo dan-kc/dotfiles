@@ -118,6 +118,7 @@
               ./home/agents/shared.nix
               ./home/base/terminal.nix
               ./home/base/skills.nix
+              ./home/base/open-code-review
               ./home/platforms/darwin/simulator.nix
               ./home/platforms/darwin/ssh-clipboard.nix
               {

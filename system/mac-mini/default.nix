@@ -33,9 +33,9 @@
     "${pkgs.ghostty-bin.terminfo}/share/terminfo/78/xterm-ghostty";
 
   home-manager.users.daniel.home.packages = [
+    pkgs.ffmpeg
     pkgs.nodejs
     (pkgs.callPackage ../../pkgs/agent-device { })
-    (pkgs.callPackage ../../pkgs/open-code-review { })
   ];
 
   services.tailscale.enable = true;
