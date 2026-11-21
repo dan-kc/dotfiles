@@ -35,6 +35,7 @@
   home-manager.users.daniel.home.packages = [
     pkgs.nodejs
     (pkgs.callPackage ../../pkgs/agent-device { })
+    (pkgs.callPackage ../../pkgs/open-code-review { })
   ];
 
   services.tailscale.enable = true;
