@@ -119,6 +119,7 @@
               ./home/base/terminal.nix
               ./home/base/skills.nix
               ./home/base/open-code-review
+              ./home/base/antigravity-cli.nix
               ./home/platforms/darwin/simulator.nix
               ./home/platforms/darwin/ssh-clipboard.nix
               {
