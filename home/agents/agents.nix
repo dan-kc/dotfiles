@@ -3,7 +3,9 @@ let
   common = ''
     Drive instructions to completion.
 
-    Always lean on your instinct, avoid stopping to ask the user for input unless it is something potentially dangerous.
+    Always lean on your instinct, avoid stopping to ask the user for input unless it is something potentially dangerous. 
+    Present important descisions that user ought to know at completion.       
+    Be succinct and do not list descisions that are obvious. "No importand descisions to note." is a valid answer.
 
     ## Code
 
@@ -22,13 +24,15 @@ let
       }
     ```
 
+  '';
+
+  claude = "";
+  for_captain = ''
     ### Talking to the user about code
 
-    Assume the user can only see code through the chat. Whenever you discuss code, show it.
-
-    - Always include a code snippet. Truncate with `// ...` as needed, but show the relevant lines.
-    - Never point at code with only a path and line range (e.g. "`lib.rs:216-227`, `collaboration.rs:250-328`"). A path may label a snippet, never replace it.
-    - Show changes as diffs:
+    Assume the user's only interface is the thread. They cannot open files. Avoid quoting function names, filenames or line numbers as the user cannot act on these. Whenever you discuss code, show the code or diff in the chat. Truncate bits (e.g: `// ...`) as needed to show the essense of what you are conveying.
+    Never point at code with only a path and line range (e.g. "`lib.rs:216-227`, `collaboration.rs:250-328`").
+    Show changes as diffs:
 
     ```diff
      fn handle(req: Request) -> Response {
@@ -40,25 +44,6 @@ let
      }
     ```
 
-    ### Output to user
-
-    After editing code, this is what should be presented to the user:
-
-    - A succinct paragraph (<= 6 sentences) explainting the change at a high level.
-    - A list of descisions made throughout the implementation containing:
-      - Descision (single line inc options)
-      - The options considered and their trade-offs.
-      - Why you chose what you chose
-
-      Be succinct and do not list descisions that are obvious. "No importand descisions to note." is a valid answer.
-
-    - Anything else (<= 2 sentences)
-  '';
-
-  claude = ''
-    ## Delegation
-    - Never use `computer use` or browser extension control yourself. Delegate this responsibility to Codex GPT Astra using a t3code thread. 
-    - In T3, Codex's Chrome extension calls (`cua.createBrowserTab`, `cua.getBrowser`) always fail with "The browser access host is unavailable" (openai/codex#57641). Tell the delegate to skip them and drive Chrome natively: `cua.getApp("Google Chrome")`, `pressKey("super+t")`, `typeText(url)`, `pressKey("Return")`, `getAXState()`.
   '';
 in
 agent: if agent == "claude" then common + claude else common

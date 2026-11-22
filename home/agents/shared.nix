@@ -7,5 +7,6 @@ in
     ".claude/CLAUDE.md".source = instructions "claude";
     ".pi/agent/AGENTS.md".source = instructions "pi";
     ".codex/AGENTS.md".source = instructions "codex";
+    ".gemini/GEMINI.md".source = instructions "gemini";
   };
 }
