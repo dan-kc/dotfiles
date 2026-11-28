@@ -1,16 +1,19 @@
-# Shared drive: a 40 GB disk image served over WebDAV (nginx behind `tailscale serve`)
+# Shared drive: a 40 GiB disk image served over WebDAV (nginx behind `tailscale serve`)
 # and SMB (macOS File Sharing). Both protocols act as the hidden `drive` account.
 { config, lib, pkgs, ... }:
 let
   owner = config.system.primaryUser;
   account = "drive";
+  uid = 550;
   passwordFile = config.sops.secrets.drive_password.path;
   state = "/var/db/drive";
 
   size = "40g";
-  bundle = "/Users/Shared/Drive.sparsebundle";
-  # Root-owned, so only the mounted volume can provide the share directory.
-  mountPoint = "/Users/Shared/Drive";
+  # Root-owned parent, so nothing unprivileged can pre-create the image or mount point.
+  base = "/Library/Drive";
+  bundle = "${base}/Drive.sparsebundle";
+  provisioned = "${base}/.provisioned";
+  mountPoint = "${base}/Volume";
   share = "${mountPoint}/files";
   uploads = "${mountPoint}/.uploads";
 
@@ -24,34 +27,52 @@ let
 
   attachVolume = pkgs.writeShellScript "drive-volume" ''
     set -u
-    mounted() { [ "$(/usr/bin/stat -f %d ${mountPoint})" != "$(/usr/bin/stat -f %d /Users/Shared)" ]; }
+    mounted() { [ "$(/usr/bin/stat -f %d ${mountPoint})" != "$(/usr/bin/stat -f %d ${base})" ]; }
     attach() { /usr/bin/hdiutil attach -nobrowse -owners on -mountpoint ${mountPoint} ${bundle}; }
 
-    /bin/mkdir -p ${mountPoint}
-    /usr/sbin/chown root:wheel ${mountPoint}
-    /bin/chmod 755 ${mountPoint}
+    # Idempotent, so an interrupted first run or a recovered mount ends up complete.
+    reconcile() {
+      /usr/sbin/chown root:wheel ${mountPoint}
+      /bin/chmod 755 ${mountPoint}
+      if [ ! -d ${share} ]; then
+        /bin/mkdir -m 775 ${share}
+        /usr/sbin/chown ${account}:staff ${share}
+        /bin/chmod +a "user:${owner} allow list,add_file,search,delete,add_subdirectory,delete_child,readattr,writeattr,readextattr,writeextattr,readsecurity,file_inherit,directory_inherit" ${share}
+      fi
+      /usr/bin/install -d -o ${account} -g staff -m 700 ${uploads}
+      /usr/bin/mdutil -i off ${mountPoint} >/dev/null
+      /usr/sbin/sharing -l -f json | ${jq} -e 'has("Drive")' >/dev/null \
+        || /usr/sbin/sharing -a ${share} -n Drive -S Drive -s 001 -g 000
+    }
 
+    /usr/bin/install -d -o root -g wheel -m 755 ${base} ${mountPoint}
+
+    ready=0
     while true; do
       if ! mounted; then
-        if [ -e ${bundle} ]; then
+        ready=0
+        if [ -d ${bundle} ]; then
           attach || exit 1
+        elif [ -e ${provisioned} ]; then
+          echo "drive: ${bundle} is missing; refusing to replace it with an empty drive" >&2
+          /bin/sleep 300
+          continue
         else
           /usr/bin/hdiutil create -type SPARSEBUNDLE -size ${size} -fs APFS -volname Drive ${bundle} || exit 1
+          /usr/bin/touch ${provisioned}
           attach || exit 1
-          /usr/sbin/chown root:wheel ${mountPoint}
-          /bin/chmod 755 ${mountPoint}
-          /bin/mkdir -m 775 ${share}
-          /bin/mkdir -m 700 ${uploads}
-          /usr/sbin/chown ${account}:staff ${share} ${uploads}
-          /bin/chmod +a "user:${owner} allow list,add_file,search,delete,add_subdirectory,delete_child,readattr,writeattr,readextattr,writeextattr,readsecurity,file_inherit,directory_inherit" ${share}
-          /usr/bin/mdutil -i off ${mountPoint} >/dev/null
         fi
+      fi
+      if [ "$ready" = 0 ] && mounted; then
+        reconcile && ready=1
       fi
       /bin/sleep 30
     done
   '';
 
   nginxConf = pkgs.writeText "drive-nginx.conf" ''
+    # The master runs as root to read the secret; workers serve files as `drive`.
+    user ${account} staff;
     pid ${state}/nginx.pid;
     error_log ${state}/webdav.log warn;
     events {}
@@ -59,7 +80,7 @@ let
       include ${nginx}/conf/mime.types;
       default_type application/octet-stream;
       charset utf-8;
-      access_log ${state}/webdav.log;
+      access_log off;
       sendfile on;
 
       # Uploads are staged on the volume so they count against the quota and land by rename.
@@ -87,7 +108,11 @@ let
         auth_basic_user_file ${state}/htpasswd;
 
         location / {
-          proxy_pass http://unix:${state}/dav.sock;
+          # A COPY or MOVE onto the share root would replace the whole drive.
+          if ($dav_destination ~ "^https?://[^/]+/*$") {
+            return 403;
+          }
+          proxy_pass http://unix:${state}/tmp/dav.sock;
           proxy_http_version 1.1;
           proxy_set_header Host $http_host;
           proxy_set_header Destination $dav_destination;
@@ -97,8 +122,10 @@ let
       }
 
       server {
-        listen unix:${state}/dav.sock;
+        listen unix:${state}/tmp/dav.sock;
         root ${share};
+        absolute_redirect off;
+        disable_symlinks on;
 
         location / {
           if (!-d ${share}) {
@@ -113,6 +140,7 @@ let
           dav_ext_methods PROPFIND OPTIONS LOCK UNLOCK;
           dav_ext_lock zone=drive;
           dav_access user:rw group:rw all:r;
+          min_delete_depth 1;
           create_full_put_path on;
           autoindex on;
         }
@@ -123,11 +151,12 @@ let
   runWebdav = pkgs.writeShellScript "drive-webdav" ''
     set -eu
     [ -d ${share} ] || { echo "drive: ${share} missing, volume not mounted" >&2; exit 1; }
-    umask 077
-    /bin/mkdir -p ${state}/tmp
-    /bin/rm -f ${state}/dav.sock
+    /usr/bin/install -d -o root -g wheel -m 755 ${state}
+    /usr/bin/install -d -o ${account} -g staff -m 700 ${state}/tmp
+    /bin/rm -f ${state}/tmp/dav.sock
     hash=$(${pkgs.openssl}/bin/openssl passwd -apr1 -stdin < ${passwordFile})
-    printf '%s:%s\n' ${account} "$hash" > ${state}/htpasswd
+    ( umask 077; printf '%s:%s\n' ${account} "$hash" > ${state}/htpasswd )
+    /usr/sbin/chown ${account} ${state}/htpasswd
     exec ${nginx}/bin/nginx -p ${state} -e ${state}/webdav.log -c ${nginxConf} -g 'daemon off;'
   '';
 
@@ -143,7 +172,7 @@ let
     set -eu
     /sbin/pfctl -s rules 2>/dev/null | /usr/bin/grep -q 'anchor "com.apple/\*"' || /sbin/pfctl -q -f /etc/pf.conf
     /sbin/pfctl -q -a com.apple/drive-smb -f ${smbFirewall}
-    /sbin/pfctl -q -E
+    /sbin/pfctl -s info 2>/dev/null | /usr/bin/grep -q 'Status: Enabled' || /sbin/pfctl -q -E
   '';
 
   daemon = arguments: log: {
@@ -160,40 +189,37 @@ in
 {
   users.knownUsers = [ account ];
   users.users.${account} = {
-    uid = 550;
+    inherit uid;
     description = "Drive file share";
   };
   services.openssh.extraConfig = "DenyUsers ${account}";
 
-  sops.secrets.drive_password = {
-    sopsFile = ../../secrets/mac-mini.yaml;
-    owner = account;
-  };
+  sops.secrets.drive_password.sopsFile = ../../secrets/mac-mini.yaml;
 
   launchd.daemons."dev.keone.drive-volume" = daemon [ "${attachVolume}" ] "/var/log/drive-volume.log";
-  launchd.daemons."dev.keone.drive-webdav" = lib.recursiveUpdate (daemon [ "${runWebdav}" ] "/var/log/drive-webdav.log") {
-    serviceConfig.UserName = account;
-  };
+  launchd.daemons."dev.keone.drive-webdav" = daemon [ "${runWebdav}" ] "/var/log/drive-webdav.log";
+  # Re-applied every five minutes in case something reloads the pf ruleset.
   launchd.daemons."dev.keone.drive-firewall" = lib.recursiveUpdate (daemon [ "${loadFirewall}" ] "/var/log/drive-firewall.log") {
     serviceConfig.KeepAlive = false;
+    serviceConfig.StartInterval = 300;
   };
 
   # Runs after sops-nix installs secrets, which it appends with mkAfter.
   system.activationScripts.postActivation.text = lib.mkOrder 1600 ''
     echo "setting up drive..." >&2
-    /usr/bin/install -d -o ${account} -g staff -m 700 ${state}
-    /usr/bin/touch /var/log/drive-webdav.log
-    /usr/sbin/chown ${account} /var/log/drive-webdav.log
-
     ${tailscale} serve --bg --https=${toString httpsPort} http://127.0.0.1:${toString webdavPort} >/dev/null \
       || echo "warning: tailscale serve for the drive failed; rerun darwin-rebuild once Tailscale is up" >&2
 
     # macOS only stores the SMB-NT hash when the password is set.
     sum=$(/usr/bin/shasum -a 256 < ${passwordFile} | /usr/bin/cut -d' ' -f1)
-    if [ "$sum" != "$(/bin/cat ${state}.smb-password 2>/dev/null)" ]; then
+    if [ "$(/usr/bin/id -u ${account} 2>/dev/null)" != ${toString uid} ]; then
+      echo "warning: ${account} is not uid ${toString uid}; leaving its password alone" >&2
+    elif [ "$sum" != "$(/bin/cat /var/db/drive-password.sha256 2>/dev/null)" ]; then
       if /usr/bin/pwpolicy -u ${account} -sethashtypes SMB-NT on >/dev/null \
         && /usr/bin/dscl . -passwd /Users/${account} "$(/bin/cat ${passwordFile})"; then
-        ( umask 077; echo "$sum" > ${state}.smb-password )
+        ( umask 077; echo "$sum" > /var/db/drive-password.sha256 )
+        # nginx builds its password file at startup.
+        /bin/launchctl kickstart -k system/org.nixos.dev.keone.drive-webdav 2>/dev/null || true
       else
         echo "warning: could not set the SMB password for ${account}" >&2
       fi
@@ -208,12 +234,5 @@ in
     /usr/sbin/sharing -l -f json \
       | ${jq} -r 'to_entries[] | select(.value.path == "${config.users.users.${owner}.home}/Public" and .value.smb_shared == 1) | .key' \
       | while IFS= read -r name; do /usr/sbin/sharing -e "$name" -s 000; done
-
-    for _ in $(/usr/bin/seq 60); do [ -d ${share} ] && break; /bin/sleep 1; done
-    if [ ! -d ${share} ]; then
-      echo "warning: ${share} is not mounted yet; rerun darwin-rebuild to create the SMB share" >&2
-    elif ! /usr/sbin/sharing -l -f json | ${jq} -e 'has("Drive")' >/dev/null; then
-      /usr/sbin/sharing -a ${share} -n Drive -S Drive -s 001 -g 000
-    fi
   '';
 }
