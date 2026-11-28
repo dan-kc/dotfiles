@@ -1,6 +1,9 @@
 { pkgs, ... }:
 {
-  imports = [ ./app-services.nix ];
+  imports = [
+    ./app-services.nix
+    ./drive.nix
+  ];
 
   nixpkgs.hostPlatform = "aarch64-darwin";
   system.stateVersion = 6;
